@@ -39,7 +39,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public boolean checkUserPassword(String login, String password) throws ServiceException {
+	public void checkUserPassword(String login, String password) throws ServiceException {
 		
 		if(!Validator.validateStrings(login, password)){
 			throw new ServiceAuthException("Corrupted login or password!");
@@ -56,12 +56,8 @@ public class UserServiceImpl implements IUserService {
 			}
 			
 		} catch (DAOException e) {
-			
-			throw new ServiceException("Error in source!", e);
-			
+			throw new ServiceException("Error in source!", e);	
 		}
-		
-		return true;
 	}
 		
 

@@ -36,7 +36,7 @@ public class Controller extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String commandName = request.getParameter(COMMAND);
-		Command command  = CommandHelper.getInstance().getCommand(commandName);
+		Command command  = CommandHelper.getInstance().getCommand(commandName.toUpperCase());
 		command.execute(request, response);
 	}
 
