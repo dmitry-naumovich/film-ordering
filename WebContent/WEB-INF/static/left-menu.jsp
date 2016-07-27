@@ -7,7 +7,7 @@
         
         <ul id='left-menu' class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="0" data-offset-bottom="240">
           <li><a href="index.jsp" class="active"> Главная </a></li>
-          <li><a href="/WEB-INF/jsp/movies.jsp" >Фильмы</a></li>
+          <li><a href="jsp/movies.jsp" >Фильмы</a></li>
           <li><a href="/WEB-INF/jsp/profile.jsp" >Профиль</a></li>
           <li><a href="/WEB-INF/jsp/about-us.jsp" >О нас</a></li>
           <li><a href="/WEB-INF/jsp/news.jsp" >Новости</a></li>

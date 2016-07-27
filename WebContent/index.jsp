@@ -8,7 +8,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Заказ фильмов</title>
   <link rel="icon"  type="image/x-icon" href="img/tab-logo.png">
-  
   <link rel="stylesheet" href="css/bootstrap.min.css" >
   <link rel="stylesheet" href="css/styles.css">
   <script type="text/javascript">
@@ -140,19 +139,8 @@
    </div>
 
       </div>
-
-      <div class="col-md-2"> 
-      <div id="right-sidebar">
-
-        <figure><img src="img/right-01.jpg" alt="Sidebar Picture" class="img-thumbnail img-responsive" width="210" height="140" /> <figcaption>Новость 1</figcaption> </figure>
-        <figure><img src="img/right-01.jpg" alt="Sidebar Picture" class="img-thumbnail img-responsive" width="210" height="140" /> <figcaption>Новость 2</figcaption> </figure>
-        <figure><img src="img/right-01.jpg" alt="Sidebar Picture" class="img-thumbnail img-responsive" width="210" height="140" /> <figcaption>Новость 3</figcaption> </figure>
-        <figure><img src="img/right-01.jpg" alt="Sidebar Picture" class="img-thumbnail img-responsive" width="210" height="140" /> <figcaption>Новость 4</figcaption> </figure>
-      <div class="well">
-        <p>Тут тоже будет находиться некоторая информация</p>
-      </div>
-      </div>
-    </div>
+		<jsp:include page="/WEB-INF/static/right-sidebar.jsp"></jsp:include>
+      
      </div>
 
   </div>  
