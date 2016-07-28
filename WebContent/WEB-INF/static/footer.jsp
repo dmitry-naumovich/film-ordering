@@ -10,25 +10,25 @@
       <div class="col-md-2 col-md-offset-3">
         <ul>
           <li><a href="index.jsp">Главная</a></li>
-          <li><a href="pages/movies.html">Фильмы</a></li>
-          <li><a href="pages/reviews.html">Рецензии</a></li>
-          <li><a href="pages/widen-search.html">Расширенный поиск</a></li>
+          <li><a href="jsp/movies.jsp">Фильмы</a></li>
+          <li><a href="jsp/reviews.jsp">Рецензии</a></li>
+          <li><a href="jsp/widen-search.jsp">Расширенный поиск</a></li>
         </ul>
       </div>
       <div class="col-md-2">
         <ul>
-          <li><a href="pages/logination.html">Вход</a></li>
-          <li><a href="pages/register.html">Регистрация</a></li>
-          <li><a href="pages/profile.html">Профиль</a></li>
-          <li><a href="pages/orders.html">Заказы</a></li>
+          <li><a href="jsp/logination.jsp">Вход</a></li>
+          <li><a href="jsp/register.jsp">Регистрация</a></li>
+          <li><a href="jsp/profile.jsp">Профиль</a></li>
+          <li><a href="jsp/orders.jsp">Заказы</a></li>
         </ul>
       </div>
       <div class="col-md-2">
         <ul>
-          <li><a href="pages/news.html">Новости</a></li>
-          <li><a href="pages/feedback.html">Обратная связь</a></li>
-          <li><a href="pages/about-us.html">О нас</a></li>
-          <li><a href="pages/help.html">Помощь</a></li>
+          <li><a href="jsp/news.jsp">Новости</a></li>
+          <li><a href="jsp/feedback.jsp">Обратная связь</a></li>
+          <li><a href="jsp/about-us.jsp">О нас</a></li>
+          <li><a href="jsp/help.jsp">Помощь</a></li>
         </ul>
       </div>
     </div>

@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
@@ -21,10 +24,28 @@
                       </div>
                   </div>
                 </form>
-              <form class="navbar-form navbar-right" action="Controller" method="get">
-                              <c:out value="${errorMessage}" />
+                <c:choose>
+              <c:when test="${sessionScope.authUser!=null}"> 
+              		<form class=" navbar-form nav navbar-right">
+              		
+					<div class="form-group dropdown">
+                                <a href="jsp/profile.jsp" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white">Профиль<span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                  <li><a href="jsp/profile.jsp" role="menuItem">Профиль</a></li>
+                                  <li><a href="jsp/profile.jsp" role="menuItem">Профиль</a></li>
+                                  <li><a href="jsp/profile.jsp" role="menuItem">Профиль</a></li>
+                                  <li><a href="jsp/profile.jsp" role="menuItem">Профиль</a></li>
+                                  <li class="divider"></li>
+                                  <li><a href="<c:url value="/Controller?command=logout" />" class="btn btn-primary" role="button">Выход</a></li>
+                                </ul>
+                              </div>
+              		</form>
+              </c:when>
+              <c:otherwise>
+              
+              		<form class="navbar-form navbar-nav nav navbar-right" action="Controller" method="post">
                               <div class="form-group">
-                              	<input type="hidden" name="command" value="logination" />
+                              	<input type="hidden" name="command" value="login" />
                               </div>
                               <div class="form-group">
                                 <input type="text" placeholder="Логин" class="form-control" name="login" required>
@@ -33,21 +54,35 @@
                                 <input type="password" placeholder="Пароль" class="form-control" name="password" required>
                               </div>
                               <button type="submit" class="btn btn-primary" name="Sign in">Вход</button>
-                              <a href="pages/register.html" class="btn btn-primary" role="button">Регистрация</a>
+                              <a href="jsp/register.jsp" class="btn btn-primary" role="button">Регистрация</a>
                               <span class="divider-vertical"> </span>
-                              <div class=" form-group dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white">Язык <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                  <li><a href="#" role="menuitem">English</a></li>
-                                  <li><a href="#" role="menuitem">Russian</a></li>
-                                  <li class="divider"></li>
-                                  <li class="disabled"><a href="#" role="menuitem">More info</a></li>
-                                </ul>
-                              </div>
+                              
+                              <div class="language">
+                              		<c:choose>
+										<c:when test="${language eq 'en'}">
+											 <a href="#" class="active">EN</a>
+											 <div class="divider"></div>
+											<a href = "<c:url value = "/Controller?command=change_language">
+												<c:param name = "language" value = "ru" ></c:param> </c:url>">RU</a>
+										</c:when>
+										<c:otherwise>
+											<a href = "<c:url value = "/Controller?command=change_language">
+												<c:param name = "language" value = "en" ></c:param> </c:url>">EN</a>
+											
+											<div class="divider"></div>
+											 <a href="#" class="active"></a>
+										</c:otherwise>
+									</c:choose>
+			             	   </div>
+			                
+			                
+
                                             
               </form>
               
+               </c:otherwise>
+              </c:choose>
           
-        </div><!--/.navbar-collapse -->
+        </div>
       </div>
   </nav>
