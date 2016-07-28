@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Заказ фильмов</title>
+  <c:set var="url">${pageContext.request.requestURL}</c:set>
+    <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
+    
   <link rel="icon"  type="image/x-icon" href="img/tab-logo.png">
   <link rel="stylesheet" href="css/bootstrap.min.css" >
   <link rel="stylesheet" href="css/styles.css">
@@ -32,9 +36,7 @@
 
 	<jsp:useBean id="errorMessage" class="java.lang.String" scope="request" />
 
-
   	<jsp:include page="/WEB-INF/static/header.jsp"></jsp:include>
-
 
   <div class="container-fluid"> 
     <div class="row content ">
@@ -56,8 +58,8 @@
               <img src="img/02-intouchables.jpg" alt="Intouchables" class="img-rounded" width="250" height="160" />
               <br><p>Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники человека, который менее всего подходит для этой работы, — молодого жителя предместья Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений. </p>
               <p> 
-                <a class="btn btn-info" href="pages/order.html" role="button">20.000 руб.</a>
-                <a class="btn btn-link" href="pages/movie.html" role="button">Узнать больше &raquo;</a> 
+                <a class="btn btn-info" href="jsp/order.jsp" role="button">20.000 руб.</a>
+                <a class="btn btn-link" href="jsp/movie.jsp" role="button">Узнать больше &raquo;</a> 
               </p>
             </div>
             <div class="col-md-4">
@@ -68,8 +70,8 @@
               <img src="img/02-intouchables.jpg" alt="Intouchables" class="img-rounded" width="250" height="160" />
               <br><p>Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники человека, который менее всего подходит для этой работы, — молодого жителя предместья Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений. </p>
               <p> 
-                <a class="btn btn-info" href="pages/order.html" role="button">20.000 руб.</a>
-                <a class="btn btn-link" href="pages/movie.html" role="button">Узнать больше &raquo;</a> 
+                <a class="btn btn-info" href="jsp/order.jsp" role="button">20.000 руб.</a>
+                <a class="btn btn-link" href="jsp/movie.jsp" role="button">Узнать больше &raquo;</a> 
               </p>
             </div>
             <div class="col-md-4">
@@ -80,8 +82,8 @@
               <img src="img/02-intouchables.jpg" alt="Intouchables" class="img-rounded" width="250" height="160" />
               <br><p>Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники человека, который менее всего подходит для этой работы, — молодого жителя предместья Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений. </p>
               <p> 
-                <a class="btn btn-info" href="pages/order.html"  role="button">20.000 руб.</a>
-                <a class="btn btn-link" href="pages/movie.html" role="button">Узнать больше &raquo;</a> 
+                <a class="btn btn-info" href="jsp/order.jsp"  role="button">20.000 руб.</a>
+                <a class="btn btn-link" href="jsp/movie.jsp" role="button">Узнать больше &raquo;</a> 
               </p>
             </div>
             <div class="col-md-4">
@@ -92,8 +94,8 @@
               <img src="img/02-intouchables.jpg" alt="Intouchables" class="img-rounded" width="250" height="160" />
               <br><p>Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники человека, который менее всего подходит для этой работы, — молодого жителя предместья Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений. </p>
               <p> 
-                <a class="btn btn-info" href="pages/order.html"  role="button">20.000 руб.</a>
-                <a class="btn btn-link" href="pages/movie.html" role="button">Узнать больше &raquo;</a> 
+                <a class="btn btn-info" href="jsp/order.jsp"  role="button">20.000 руб.</a>
+                <a class="btn btn-link" href="jsp/movie.jsp" role="button">Узнать больше &raquo;</a> 
               </p>
             </div>
             <div class="col-md-4">
@@ -104,8 +106,8 @@
               <img src="img/02-intouchables.jpg" alt="Intouchables" class="img-rounded" width="250" height="160" />
               <br><p>Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники человека, который менее всего подходит для этой работы, — молодого жителя предместья Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений. </p>
               <p> 
-                <a class="btn btn-info" href="pages/order.html"  role="button">20.000 руб.</a>
-                <a class="btn btn-link" href="pages/movie.html" role="button">Узнать больше &raquo;</a> 
+                <a class="btn btn-info" href="jsp/order.jsp"  role="button">20.000 руб.</a>
+                <a class="btn btn-link" href="jsp/movie.jsp" role="button">Узнать больше &raquo;</a> 
               </p>
             </div>
             <div class="col-md-4">
@@ -116,8 +118,8 @@
               <img src="img/02-intouchables.jpg" alt="Intouchables" class="img-rounded" width="250" height="160" />
               <br><p>Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники человека, который менее всего подходит для этой работы, — молодого жителя предместья Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений. </p>
               <p> 
-                <a class="btn btn-info" href="pages/order.html"  role="button">20.000 руб.</a>
-                <a class="btn btn-link" href="pages/movie.html" role="button">Узнать больше &raquo;</a> 
+                <a class="btn btn-info" href="jsp/order.jsp"  role="button">20.000 руб.</a>
+                <a class="btn btn-link" href="jsp/movie.jsp" role="button">Узнать больше &raquo;</a> 
               </p>
             </div>
             
