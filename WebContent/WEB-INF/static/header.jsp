@@ -2,6 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<c:set var = "language" value = "${not empty sessionScope.language ? sessionScope.language : 'ru' }" scope = "session"/>
+<fmt:setLocale value="${language}" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
@@ -28,17 +30,37 @@
               <c:when test="${sessionScope.authUser!=null}"> 
               		<form class=" navbar-form nav navbar-right">
               		
-					<div class="form-group dropdown">
-                                <a href="jsp/profile.jsp" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white">Профиль<span class="caret"></span></a>
+              		<div class="form-group">
+                              		<c:choose>
+										<c:when test="${language eq 'en'}">
+											 <a href="#" class="active">EN</a>
+											<a  href = "<c:url value = "/Controller?command=change_language">
+												<c:param name = "language" value = "ru" ></c:param> </c:url>">RU</a>
+										</c:when>
+										<c:otherwise>
+											<a href = "<c:url value = "/Controller?command=change_language">
+												<c:param name = "language" value = "en" ></c:param> </c:url>">EN</a>
+											
+											 <a href="#" class="active">RU</a>
+										</c:otherwise>
+									</c:choose>
+			          </div>
+			             	   
+						<div class="form-group dropdown">
+                                <a href="jsp/profile.jsp" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white">
+                                ${sessionScope.authUser }
+                                <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                   <li><a href="jsp/profile.jsp" role="menuItem">Профиль</a></li>
-                                  <li><a href="jsp/profile.jsp" role="menuItem">Профиль</a></li>
-                                  <li><a href="jsp/profile.jsp" role="menuItem">Профиль</a></li>
-                                  <li><a href="jsp/profile.jsp" role="menuItem">Профиль</a></li>
+                                  <li><a href="jsp/user-reviews.jsp" role="menuItem">Мои рецензии</a></li>
+                                  <li><a href="jsp/orders.jsp" role="menuItem">Мои заказы</a></li>
+                                  <li><a href="jsp/profile-settings.jsp" role="menuItem">Настройки</a></li>
                                   <li class="divider"></li>
                                   <li><a href="<c:url value="/Controller?command=logout" />" class="btn btn-primary" role="button">Выход</a></li>
                                 </ul>
-                              </div>
+                     	</div>
+                     	<span class="divider-vertical"> </span>
+                     	
               		</form>
               </c:when>
               <c:otherwise>
@@ -57,20 +79,18 @@
                               <a href="jsp/register.jsp" class="btn btn-primary" role="button">Регистрация</a>
                               <span class="divider-vertical"> </span>
                               
-                              <div class="language">
+                              <div class="form-group">
                               		<c:choose>
 										<c:when test="${language eq 'en'}">
 											 <a href="#" class="active">EN</a>
-											 <div class="divider"></div>
-											<a href = "<c:url value = "/Controller?command=change_language">
+											<a  href = "<c:url value = "/Controller?command=change_language">
 												<c:param name = "language" value = "ru" ></c:param> </c:url>">RU</a>
 										</c:when>
 										<c:otherwise>
 											<a href = "<c:url value = "/Controller?command=change_language">
 												<c:param name = "language" value = "en" ></c:param> </c:url>">EN</a>
 											
-											<div class="divider"></div>
-											 <a href="#" class="active"></a>
+											 <a href="#" class="active">RU</a>
 										</c:otherwise>
 									</c:choose>
 			             	   </div>
