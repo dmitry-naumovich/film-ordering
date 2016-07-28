@@ -15,7 +15,7 @@ import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceAuthException;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
-public class Logination implements Command {
+public class Login implements Command {
 
 	private static final String LOGIN = "login";
 	private static final String PASSWORD = "password";
@@ -52,12 +52,12 @@ public class Logination implements Command {
 			session.setAttribute(AUTHORIZED_USER, user.getLogin());
 			session.setAttribute(USER_ID, user.getId());
 			session.setAttribute(USER_TYPE, user.getType());
-			request.getRequestDispatcher("/WEB-INF/jsp/profile.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/profile.jsp").forward(request, response);
 		} catch (ServiceAuthException e) {
 			session.setAttribute(ERROR_MESSAGE, e.getMessage());
 			request.setAttribute(ERROR_MESSAGE, e.getMessage());
 			
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/logination.jsp").forward(request, response);
 			
 		}  catch (ServiceException e) {
 			request.getRequestDispatcher("error.jsp").forward(request, response);		

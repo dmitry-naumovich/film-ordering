@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import by.epam.naumovich.film_ordering.command.Command;
-import by.epam.naumovich.film_ordering.command.impl.Logination;
+import by.epam.naumovich.film_ordering.command.impl.Login;
+import by.epam.naumovich.film_ordering.command.impl.Logout;
 
 public class CommandHelper {
 
@@ -12,7 +13,8 @@ public class CommandHelper {
 	private Map<CommandName, Command> commands = new HashMap<>();
 	
 	public CommandHelper() {
-		commands.put(CommandName.LOGINATION, new Logination());
+		commands.put(CommandName.LOGIN, new Login());
+		commands.put(CommandName.LOGOUT, new Logout());
 	}
 	
 	public Command getCommand(String name) {
