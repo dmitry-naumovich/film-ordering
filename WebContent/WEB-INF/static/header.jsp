@@ -89,7 +89,7 @@
                               	<input type="hidden" name="command" value="login" />
                               </div>
                               <div class="form-group">
-                                <input type="text" placeholder="${login} }" class="form-control" name="login" required>
+                                <input type="text" placeholder="${login}" class="form-control" name="login" required>
                               </div>
                               <div class="form-group">
                                 <input type="password" placeholder="${password}" class="form-control" name="password" required>
@@ -98,7 +98,7 @@
                               <a href="jsp/register.jsp" class="btn btn-primary" role="button">${signUp}</a>
                               <span class="divider-vertical"> </span>
                               
-                              <div class="form-group">
+                              <div class="form-group" style="padding-right:10px">
                               		<c:choose>
 										<c:when test="${language eq 'en'}">
 											 <a href="#" class="active">${en_lang}</a>
@@ -113,7 +113,7 @@
 										</c:otherwise>
 									</c:choose>
 			          			</div>
-			                
+			                	
 			                
 
                                             

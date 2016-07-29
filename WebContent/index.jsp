@@ -2,12 +2,25 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+<c:set var = "language" value = "${not empty sessionScope.language ? sessionScope.language : 'en' }" scope = "session"/>
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="resources.local" var="loc" />
+<fmt:message bundle="${loc}" key="local.serviceName" var="serviceName" />
+<fmt:message bundle="${loc}" key="local.novelty" var="novelty" />
+<fmt:message bundle="${loc}" key="local.director" var="director" />
+<fmt:message bundle="${loc}" key="local.cast" var="cast" />
+<fmt:message bundle="${loc}" key="local.genre" var="genre" />
+<fmt:message bundle="${loc}" key="local.rublesShorten" var="rublesShorten" />
+<fmt:message bundle="${loc}" key="local.readMoreBtn" var="readMore" />
+<fmt:message bundle="${loc}" key="local.addInfo" var="addInfo" />
+   	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Заказ фильмов</title>
+  <title>${serviceName}</title>
   <c:set var="url">${pageContext.request.requestURL}</c:set>
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
     
@@ -26,8 +39,12 @@
   <script type="text/javascript" src="http://mybootstrap.ru/wp-content/themes/clear-theme/js/bootstrap-affix.js"></script>
 </head>
 
+
+
 <body data-spy="scroll" data-target="#myScrollspy" data-offset-top="15">
 
+	
+   	
   	<jsp:include page="/WEB-INF/static/header.jsp"></jsp:include>
 
   <div class="container-fluid"> 
@@ -39,79 +56,19 @@
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
-          <h2 class=" text-left" style="margin:0px; padding:0px;"> Новинки </h2>
+          <h2 class=" text-left" style="margin:0px; padding:0px;"> ${novelty} </h2>
           </div> 
           <div class="row panel-body">
             <div class="col-md-4">
               <h2 style="text-align:center"><mark>1+1</mark> (2011) </h2>
-              <p><b>Режиссер:</b> Оливье Накаш, Эрик Толедано </p>
-              <p><b>В ролях:</b> Омар Си, Франсуа Клозе </p>
-              <p><b>Жанр:</b> Драма, Комедия </p>
+              <p><b>${director}:</b> Оливье Накаш, Эрик Толедано </p>
+              <p><b>${cast}:</b> Омар Си, Франсуа Клозе </p>
+              <p><b>${genre}:</b> Драма, Комедия </p>
               <img src="img/02-intouchables.jpg" alt="Intouchables" class="img-rounded" width="250" height="160" />
               <br><p>Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники человека, который менее всего подходит для этой работы, — молодого жителя предместья Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений. </p>
               <p> 
-                <a class="btn btn-info" href="jsp/order.jsp" role="button">20.000 руб.</a>
-                <a class="btn btn-link" href="jsp/movie.jsp" role="button">Узнать больше &raquo;</a> 
-              </p>
-            </div>
-            <div class="col-md-4">
-              <h2 style="text-align:center"><mark>1+1</mark> (2011) </h2>
-              <p><b>Режиссер:</b> Оливье Накаш, Эрик Толедано </p>
-              <p><b>В ролях:</b> Омар Си, Франсуа Клозе </p>
-              <p><b>Жанр:</b> Драма, Комедия </p>
-              <img src="img/02-intouchables.jpg" alt="Intouchables" class="img-rounded" width="250" height="160" />
-              <br><p>Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники человека, который менее всего подходит для этой работы, — молодого жителя предместья Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений. </p>
-              <p> 
-                <a class="btn btn-info" href="jsp/order.jsp" role="button">20.000 руб.</a>
-                <a class="btn btn-link" href="jsp/movie.jsp" role="button">Узнать больше &raquo;</a> 
-              </p>
-            </div>
-            <div class="col-md-4">
-              <h2 style="text-align:center"><mark>1+1</mark> (2011) </h2>
-              <p><b>Режиссер:</b> Оливье Накаш, Эрик Толедано </p>
-              <p><b>В ролях:</b> Омар Си, Франсуа Клозе </p>
-              <p><b>Жанр:</b> Драма, Комедия </p>
-              <img src="img/02-intouchables.jpg" alt="Intouchables" class="img-rounded" width="250" height="160" />
-              <br><p>Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники человека, который менее всего подходит для этой работы, — молодого жителя предместья Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений. </p>
-              <p> 
-                <a class="btn btn-info" href="jsp/order.jsp"  role="button">20.000 руб.</a>
-                <a class="btn btn-link" href="jsp/movie.jsp" role="button">Узнать больше &raquo;</a> 
-              </p>
-            </div>
-            <div class="col-md-4">
-              <h2 style="text-align:center"><mark>1+1</mark> (2011) </h2>
-              <p><b>Режиссер:</b> Оливье Накаш, Эрик Толедано </p>
-              <p><b>В ролях:</b> Омар Си, Франсуа Клозе </p>
-              <p><b>Жанр:</b> Драма, Комедия </p>
-              <img src="img/02-intouchables.jpg" alt="Intouchables" class="img-rounded" width="250" height="160" />
-              <br><p>Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники человека, который менее всего подходит для этой работы, — молодого жителя предместья Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений. </p>
-              <p> 
-                <a class="btn btn-info" href="jsp/order.jsp"  role="button">20.000 руб.</a>
-                <a class="btn btn-link" href="jsp/movie.jsp" role="button">Узнать больше &raquo;</a> 
-              </p>
-            </div>
-            <div class="col-md-4">
-              <h2 style="text-align:center"><mark>1+1</mark> (2011) </h2>
-              <p><b>Режиссер:</b> Оливье Накаш, Эрик Толедано </p>
-              <p><b>В ролях:</b> Омар Си, Франсуа Клозе </p>
-              <p><b>Жанр:</b> Драма, Комедия </p>
-              <img src="img/02-intouchables.jpg" alt="Intouchables" class="img-rounded" width="250" height="160" />
-              <br><p>Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники человека, который менее всего подходит для этой работы, — молодого жителя предместья Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений. </p>
-              <p> 
-                <a class="btn btn-info" href="jsp/order.jsp"  role="button">20.000 руб.</a>
-                <a class="btn btn-link" href="jsp/movie.jsp" role="button">Узнать больше &raquo;</a> 
-              </p>
-            </div>
-            <div class="col-md-4">
-              <h2 style="text-align:center"><mark>1+1</mark> (2011) </h2>
-              <p><b>Режиссер:</b> Оливье Накаш, Эрик Толедано </p>
-              <p><b>В ролях:</b> Омар Си, Франсуа Клозе </p>
-              <p><b>Жанр:</b> Драма, Комедия </p>
-              <img src="img/02-intouchables.jpg" alt="Intouchables" class="img-rounded" width="250" height="160" />
-              <br><p>Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники человека, который менее всего подходит для этой работы, — молодого жителя предместья Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений. </p>
-              <p> 
-                <a class="btn btn-info" href="jsp/order.jsp"  role="button">20.000 руб.</a>
-                <a class="btn btn-link" href="jsp/movie.jsp" role="button">Узнать больше &raquo;</a> 
+                <a class="btn btn-info" href="jsp/order.jsp" role="button">20.000 ${rublesShorten}</a>
+                <a class="btn btn-link" href="jsp/movie.jsp" role="button"> ${readMore} &raquo;</a> 
               </p>
             </div>
             
@@ -119,7 +76,7 @@
           </div>
 <div class="panel panel-primary">
 <div class=" panel-heading" >
-          <h2 class=" text-left" style="margin:0px; padding:0px;"> Дополнительная информация: </h2>
+          <h2 class=" text-left" style="margin:0px; padding:0px;"> ${addInfo}: </h2>
           </div> 
   <div class="row panel-body ">
     <div class="col-12">
