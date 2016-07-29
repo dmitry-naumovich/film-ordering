@@ -21,20 +21,12 @@
   $(this).addClass('active');
 });
   </script>
-
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="http://mybootstrap.ru/wp-content/themes/clear-theme/js/bootstrap-affix.js"></script>
 </head>
-<body data-spy="scroll" data-target="#myScrollspy" data-offset-top="15">
-	<fmt:setLocale value="${sessionScope.locale}" /><!-- locale = ru -->
-   	<fmt:setBundle basename="resources.locale" var="loc" /><!-- locale_ru  -->
-   
-   	<fmt:message bundle="${loc}" key="locale.change_language.ru" var="ru" />
-   	<fmt:message bundle="${loc}" key="locale.index.login" var="login" />
 
-	<jsp:useBean id="errorMessage" class="java.lang.String" scope="request" />
+<body data-spy="scroll" data-target="#myScrollspy" data-offset-top="15">
 
   	<jsp:include page="/WEB-INF/static/header.jsp"></jsp:include>
 

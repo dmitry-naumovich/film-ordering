@@ -2,9 +2,27 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<c:set var = "language" value = "${not empty sessionScope.language ? sessionScope.language : 'ru' }" scope = "session"/>
-<fmt:setLocale value="${language}" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+	<c:set var = "language" value = "${not empty sessionScope.language ? sessionScope.language : 'en' }" scope = "session"/>
+	<fmt:setLocale value="${language}" />
+   	<fmt:setBundle basename="resources.local" var="loc" />
+   	<fmt:message bundle="${loc}" key="local.serviceName" var="serviceName" />
+   	<fmt:message bundle="${loc}" key="local.search" var="search" />
+   	<fmt:message bundle="${loc}" key="local.ruLanguage" var="ru_lang" />
+   	<fmt:message bundle="${loc}" key="local.enLanguage" var="en_lang" />
+   	<fmt:message bundle="${loc}" key="local.login" var="login" />
+   	<fmt:message bundle="${loc}" key="local.password" var="password" />
+   	<fmt:message bundle="${loc}" key="local.signIn" var="signIn" />
+   	<fmt:message bundle="${loc}" key="local.signUp" var="signUp" />
+   	<fmt:message bundle="${loc}" key="local.profile" var="profile" />
+   	<fmt:message bundle="${loc}" key="local.myReviews" var="myReviews" />
+   	<fmt:message bundle="${loc}" key="local.myOrders" var="myOrders" />
+   	<fmt:message bundle="${loc}" key="local.settings" var="settings" />
+
+	<jsp:useBean id="errorMessage" class="java.lang.String" scope="request" />
+
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="nav navbar-header">
@@ -14,13 +32,13 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Заказ фильмов</a>
+            <a class="navbar-brand" href="#">${serviceName}</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
                 
                 <form class="navbar-form navbar-left " role="search">
                   <div class="input-group">
-                      <input type="text" class="form-control" placeholder="Поиск" name="srch-term" id="srch-term" required>
+                      <input type="text" class="form-control" placeholder="${search}" name="srch-term" id="srch-term" required>
                       <div class="input-group-btn">
                         <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                       </div>
@@ -33,15 +51,15 @@
               		<div class="form-group">
                               		<c:choose>
 										<c:when test="${language eq 'en'}">
-											 <a href="#" class="active">EN</a>
-											<a  href = "<c:url value = "/Controller?command=change_language">
-												<c:param name = "language" value = "ru" ></c:param> </c:url>">RU</a>
+											 <a href="#" class="active">${en_lang}</a>
+											<a  href = "<c:url value="/Controller?command=change_language">
+												<c:param name="language" value="ru" ></c:param> </c:url>">${ru_lang}</a>
 										</c:when>
 										<c:otherwise>
-											<a href = "<c:url value = "/Controller?command=change_language">
-												<c:param name = "language" value = "en" ></c:param> </c:url>">EN</a>
+											<a href = "<c:url value="/Controller?command=change_language">
+												<c:param name="language" value="en" ></c:param> </c:url>">${en_lang}</a>
 											
-											 <a href="#" class="active">RU</a>
+											 <a href="#" class="active">${ru_lang}</a>
 										</c:otherwise>
 									</c:choose>
 			          </div>
@@ -51,8 +69,8 @@
                                 ${sessionScope.authUser }
                                 <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                  <li><a href="jsp/profile.jsp" role="menuItem">Профиль</a></li>
-                                  <li><a href="jsp/user-reviews.jsp" role="menuItem">Мои рецензии</a></li>
+                                  <li><a href="/Controller?command=open_profile" role="menuItem">Профиль</a></li>
+                                  <li><a href="/Controller/command=open_reviews" role="menuItem">Мои рецензии</a></li>
                                   <li><a href="jsp/orders.jsp" role="menuItem">Мои заказы</a></li>
                                   <li><a href="jsp/profile-settings.jsp" role="menuItem">Настройки</a></li>
                                   <li class="divider"></li>
