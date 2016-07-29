@@ -12,10 +12,11 @@
    	<fmt:message bundle="${loc}" key="local.ruLanguage" var="ru_lang" />
    	<fmt:message bundle="${loc}" key="local.enLanguage" var="en_lang" />
    	<fmt:message bundle="${loc}" key="local.login" var="login" />
+   	<fmt:message bundle="${loc}" key="local.logout" var="logout" />
    	<fmt:message bundle="${loc}" key="local.password" var="password" />
    	<fmt:message bundle="${loc}" key="local.signIn" var="signIn" />
    	<fmt:message bundle="${loc}" key="local.signUp" var="signUp" />
-   	<fmt:message bundle="${loc}" key="local.profile" var="profile" />
+   	<fmt:message bundle="${loc}" key="local.profilePage" var="profile" />
    	<fmt:message bundle="${loc}" key="local.myReviews" var="myReviews" />
    	<fmt:message bundle="${loc}" key="local.myOrders" var="myOrders" />
    	<fmt:message bundle="${loc}" key="local.settings" var="settings" />
@@ -69,12 +70,12 @@
                                 ${sessionScope.authUser }
                                 <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                  <li><a href="/Controller?command=open_profile" role="menuItem">Профиль</a></li>
-                                  <li><a href="/Controller/command=open_reviews" role="menuItem">Мои рецензии</a></li>
-                                  <li><a href="jsp/orders.jsp" role="menuItem">Мои заказы</a></li>
-                                  <li><a href="jsp/profile-settings.jsp" role="menuItem">Настройки</a></li>
+                                  <li><a href="/Controller?command=open_profile" role="menuItem">${profile}</a></li>
+                                  <li><a href="/Controller/command=open_reviews" role="menuItem">${myReviews}</a></li>
+                                  <li><a href="/Controller/command=open_orders" role="menuItem">${myOrders}</a></li>
+                                  <li><a href="/Controller/command=open_settings" role="menuItem">${mySettings}</a></li>
                                   <li class="divider"></li>
-                                  <li><a href="<c:url value="/Controller?command=logout" />" class="btn btn-primary" role="button">Выход</a></li>
+                                  <li><a href="<c:url value="/Controller?command=logout" />" class="btn btn-primary" role="button">${logout}</a></li>
                                 </ul>
                      	</div>
                      	<span class="divider-vertical"> </span>
@@ -88,30 +89,30 @@
                               	<input type="hidden" name="command" value="login" />
                               </div>
                               <div class="form-group">
-                                <input type="text" placeholder="Логин" class="form-control" name="login" required>
+                                <input type="text" placeholder="${login} }" class="form-control" name="login" required>
                               </div>
                               <div class="form-group">
-                                <input type="password" placeholder="Пароль" class="form-control" name="password" required>
+                                <input type="password" placeholder="${password}" class="form-control" name="password" required>
                               </div>
-                              <button type="submit" class="btn btn-primary" name="Sign in">Вход</button>
-                              <a href="jsp/register.jsp" class="btn btn-primary" role="button">Регистрация</a>
+                              <button type="submit" class="btn btn-primary" name="Sign in">${signIn}</button>
+                              <a href="jsp/register.jsp" class="btn btn-primary" role="button">${signUp}</a>
                               <span class="divider-vertical"> </span>
                               
                               <div class="form-group">
                               		<c:choose>
 										<c:when test="${language eq 'en'}">
-											 <a href="#" class="active">EN</a>
-											<a  href = "<c:url value = "/Controller?command=change_language">
-												<c:param name = "language" value = "ru" ></c:param> </c:url>">RU</a>
+											 <a href="#" class="active">${en_lang}</a>
+											<a  href = "<c:url value="/Controller?command=change_language">
+												<c:param name="language" value="ru" ></c:param> </c:url>">${ru_lang}</a>
 										</c:when>
 										<c:otherwise>
-											<a href = "<c:url value = "/Controller?command=change_language">
-												<c:param name = "language" value = "en" ></c:param> </c:url>">EN</a>
+											<a href = "<c:url value="/Controller?command=change_language">
+												<c:param name="language" value="en" ></c:param> </c:url>">${en_lang}</a>
 											
-											 <a href="#" class="active">RU</a>
+											 <a href="#" class="active">${ru_lang}</a>
 										</c:otherwise>
 									</c:choose>
-			             	   </div>
+			          			</div>
 			                
 			                
 
