@@ -16,7 +16,10 @@ public class ChangeLanguage implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String language = request.getParameter(LANGUAGE);
 		request.getSession().setAttribute(LANGUAGE, language);
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		//request.getRequestDispatcher("index.jsp").forward(request, response);
+//		String redirect = response.encodeRedirectURL(request.getContextPath());
+//			response.sendRedirect(redirect);
+		response.sendRedirect(request.getRequestURL().toString());
 	}
 
 }
