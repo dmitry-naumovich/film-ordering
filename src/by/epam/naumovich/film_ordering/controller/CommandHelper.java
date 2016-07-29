@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import by.epam.naumovich.film_ordering.command.Command;
+import by.epam.naumovich.film_ordering.command.impl.ChangeLanguage;
 import by.epam.naumovich.film_ordering.command.impl.Login;
 import by.epam.naumovich.film_ordering.command.impl.Logout;
 
@@ -15,6 +16,7 @@ public class CommandHelper {
 	public CommandHelper() {
 		commands.put(CommandName.LOGIN, new Login());
 		commands.put(CommandName.LOGOUT, new Logout());
+		commands.put(CommandName.CHANGE_LANGUAGE, new ChangeLanguage());
 	}
 	
 	public Command getCommand(String name) {
