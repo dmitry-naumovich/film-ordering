@@ -1,14 +1,36 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+<c:set var = "language" value = "${not empty sessionScope.language ? sessionScope.language : 'en' }" scope = "session"/>
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="resources.local" var="loc" />
+<fmt:message bundle="${loc}" key="local.page.feedback.pageTitle" var="pageTitle" />
+<fmt:message bundle="${loc}" key="local.page.feedback.writeToUs" var="writeToUs" />
+<fmt:message bundle="${loc}" key="local.page.feedback.name" var="name" />
+<fmt:message bundle="${loc}" key="local.page.feedback.surname" var="surname" />
+<fmt:message bundle="${loc}" key="local.page.feedback.company" var="company" />
+<fmt:message bundle="${loc}" key="local.page.feedback.phoneNumber" var="phoneNumber" />
+<fmt:message bundle="${loc}" key="local.page.feedback.emailAdress" var="emailAdress" />
+<fmt:message bundle="${loc}" key="local.page.feedback.yourWebSite" var="yourWebSite" />
+<fmt:message bundle="${loc}" key="local.page.feedback.startWithHttp" var="startWithHttp" />
+<fmt:message bundle="${loc}" key="local.page.feedback.whenToContact" var="whenToContact" />
+<fmt:message bundle="${loc}" key="local.page.feedback.morning" var="morning" />
+<fmt:message bundle="${loc}" key="local.page.feedback.day" var="day" />
+<fmt:message bundle="${loc}" key="local.page.feedback.evening" var="evening" />
+<fmt:message bundle="${loc}" key="local.page.feedback.night" var="night" />
+<fmt:message bundle="${loc}" key="local.page.feedback.receiveNewsletter" var="receiveNewsletter" />
+<fmt:message bundle="${loc}" key="local.page.feedback.ofCourse" var="ofCourse" />
+<fmt:message bundle="${loc}" key="local.page.feedback.sendBtn" var="sendBtn" />
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ru">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Заказ фильмов</title>
+  <title>${pageTitle}</title>
   <c:set var="url">${pageContext.request.requestURL}</c:set>
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
   <link rel="icon"  type="image/x-icon" href="img/tab-logo.png">
@@ -41,7 +63,7 @@
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
-          <h2 class=" text-left" style="margin:0px; padding:0px;">Напишите нам</h2>
+          <h2 class=" text-left" style="margin:0px; padding:0px;">${writeToUs}</h2>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
@@ -50,7 +72,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="first">Имя</label>
+          <label for="first">${name}</label>
           <input type="text" class="form-control" placeholder="" id="first" required>
         </div>
       </div>
@@ -58,7 +80,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="last">Фамилия</label>
+          <label for="last">${surname}</label>
           <input type="text" class="form-control" placeholder="" id="last" required>
         </div>
       </div>
@@ -69,7 +91,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="company">Компания</label>
+          <label for="company">${company}</label>
           <input type="text" class="form-control" placeholder="" id="company">
         </div>
 
@@ -80,7 +102,7 @@
       <div class="col-md-6">
 
         <div class="form-group">
-          <label for="phone">Номер телефона</label>
+          <label for="phone">${phoneNumber}</label>
           <input type="tel" class="form-control" id="phone">
         </div>
       </div>
@@ -93,7 +115,7 @@
       <div class="col-md-6">
 
         <div class="form-group">
-          <label for="email">E-mail адрес</label>
+          <label for="email">${emailAdress}</label>
           <input type="email" class="form-control" id="email">
         </div>
       </div>
@@ -101,7 +123,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="url">Ваш вебсайт <small>Пожалуйста, укажите http://</small></label>
+          <label for="url">${yourWebSite}<small>${startWithHttp}</small></label>
           <input type="url" class="form-control" id="url" placeholder="url">
         </div>
 
@@ -110,38 +132,38 @@
     </div>
     <!--  row   -->
 
-    <label>Когда нам связаться с Вами?</label>
+    <label>${whenToContact}</label>
     <div class="radio">
       <label>
-        <input type="radio" name="contact-preference" value="am" checked>Утро
+        <input type="radio" name="contact-preference" value="am">${morning}
       </label>
     </div>
     <div class="radio">
       <label>
-        <input type="radio" name="contact-preference" value="pm" >День
+        <input type="radio" name="contact-preference" value="pm" checked >${day}
       </label>
     </div>
     <div class="radio">
       <label>
-        <input type="radio" name="contact-preference" value="pm" >Вечер
+        <input type="radio" name="contact-preference" value="pm" >${evening}
       </label>
     </div>
     <div class="radio">
       <label>
-        <input type="radio" name="contact-preference" value="pm" >Ночь
+        <input type="radio" name="contact-preference" value="pm" >${night}
       </label>
     </div>
 
-    <label for="newsletter">Хотели ли бы вы получать нашу рассылку?</label>
+    <label for="newsletter">${receiveNewsletter}</label>
     <div class="checkbox">
 
       <label>
-        <input type="checkbox" value="Sure!" id="newsletter"> Конечно!
+        <input type="checkbox" value="Sure!" id="newsletter"> ${ofCourse}
       </label>
     </div>
 
 
-    <button type="submit" class="btn btn-primary">Отправить</button>
+    <button type="submit" class="btn btn-primary">${sendBtn}</button>
   </form>
 
 

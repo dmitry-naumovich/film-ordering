@@ -7,19 +7,23 @@
 	<c:set var = "language" value = "${not empty sessionScope.language ? sessionScope.language : 'en' }" scope = "session"/>
 	<fmt:setLocale value="${language}" />
    	<fmt:setBundle basename="resources.local" var="loc" />
-   	<fmt:message bundle="${loc}" key="local.serviceName" var="serviceName" />
-   	<fmt:message bundle="${loc}" key="local.search" var="search" />
-   	<fmt:message bundle="${loc}" key="local.ruLanguage" var="ru_lang" />
-   	<fmt:message bundle="${loc}" key="local.enLanguage" var="en_lang" />
-   	<fmt:message bundle="${loc}" key="local.login" var="login" />
-   	<fmt:message bundle="${loc}" key="local.logout" var="logout" />
-   	<fmt:message bundle="${loc}" key="local.password" var="password" />
-   	<fmt:message bundle="${loc}" key="local.signIn" var="signIn" />
-   	<fmt:message bundle="${loc}" key="local.signUp" var="signUp" />
-   	<fmt:message bundle="${loc}" key="local.profilePage" var="profile" />
-   	<fmt:message bundle="${loc}" key="local.myReviews" var="myReviews" />
-   	<fmt:message bundle="${loc}" key="local.myOrders" var="myOrders" />
-   	<fmt:message bundle="${loc}" key="local.settings" var="settings" />
+   	<fmt:message bundle="${loc}" key="local.common.header.serviceName" var="serviceName" />
+   	<fmt:message bundle="${loc}" key="local.common.header.search" var="search" />
+   	<fmt:message bundle="${loc}" key="local.common.header.ruLanguage" var="ru_lang" />
+   	<fmt:message bundle="${loc}" key="local.common.header.enLanguage" var="en_lang" />
+   	<fmt:message bundle="${loc}" key="local.common.header.login" var="login" />
+   	<fmt:message bundle="${loc}" key="local.common.header.logout" var="logout" />
+   	<fmt:message bundle="${loc}" key="local.common.header.password" var="password" />
+   	<fmt:message bundle="${loc}" key="local.common.header.signIn" var="signIn" />
+   	<fmt:message bundle="${loc}" key="local.common.header.signUp" var="signUp" />
+   	<fmt:message bundle="${loc}" key="local.common.header.profilePage" var="profile" />
+   	<fmt:message bundle="${loc}" key="local.common.header.myReviews" var="myReviews" />
+   	<fmt:message bundle="${loc}" key="local.common.header.myOrders" var="myOrders" />
+   	<fmt:message bundle="${loc}" key="local.common.header.settings" var="settings" />
+   	<fmt:message bundle="${loc}" key="local.common.header.addAMovie" var="addAMovie" />
+   	<fmt:message bundle="${loc}" key="local.common.header.newReviews" var="newReviews" />
+   	<fmt:message bundle="${loc}" key="local.common.header.userOrders" var="userOrders" />
+   	<fmt:message bundle="${loc}" key="local.common.header.usersList" var="usersList" />
 
 	<jsp:useBean id="errorMessage" class="java.lang.String" scope="request" />
 
@@ -69,14 +73,30 @@
                                 <a href="jsp/profile.jsp" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white">
                                 ${sessionScope.authUser }
                                 <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                  <li><a href="/Controller?command=open_profile" role="menuItem">${profile}</a></li>
-                                  <li><a href="/Controller/command=open_reviews" role="menuItem">${myReviews}</a></li>
-                                  <li><a href="/Controller/command=open_orders" role="menuItem">${myOrders}</a></li>
-                                  <li><a href="/Controller/command=open_settings" role="menuItem">${mySettings}</a></li>
-                                  <li class="divider"></li>
-                                  <li><a href="<c:url value="/Controller?command=logout" />" class="btn btn-primary" role="button">${logout}</a></li>
-                                </ul>
+                                <c:choose>
+	                                <c:when test="${sessionScope.isAdmin}">
+	                                	<ul class="dropdown-menu" role="menu">
+                                		  <li><a href="/Controller?command=open_profile" role="menuItem">${profile}</a></li>
+		                                  <li><a href="jsp/movie-adding.jsp" role="menuItem">${addAMovie}</a></li>
+		                                  <li><a href="/Controller/command=open_reviews" role="menuItem">${newReviews}</a></li>
+		                                  <li><a href="/Controller/command=open_orders" role="menuItem">${userOrders}</a></li>
+		                                  <li><a href="/Controller/command=open_user_list" role="menuItem">${usersList}</a></li>
+		                                  <li><a href="/Controller/command=open_settings" role="menuItem">${settings}</a></li>
+		                                  <li class="divider"></li>
+		                                  <li><a href="<c:url value="/Controller?command=logout" />" class="btn btn-primary" role="button">${logout}</a></li>
+			                            </ul>
+	                                </c:when>
+                                	<c:otherwise> 
+		                                <ul class="dropdown-menu" role="menu">
+		                                  <li><a href="/Controller?command=open_profile" role="menuItem">${profile}</a></li>
+		                                  <li><a href="/Controller/command=open_reviews" role="menuItem">${myReviews}</a></li>
+		                                  <li><a href="/Controller/command=open_orders" role="menuItem">${myOrders}</a></li>
+		                                  <li><a href="/Controller/command=open_settings" role="menuItem">${settings}</a></li>
+		                                  <li class="divider"></li>
+		                                  <li><a href="<c:url value="/Controller?command=logout" />" class="btn btn-primary" role="button">${logout}</a></li>
+		                                </ul>
+                                	</c:otherwise>
+                                </c:choose>
                      	</div>
                      	<span class="divider-vertical"> </span>
                      	

@@ -1,14 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+<c:set var = "language" value = "${not empty sessionScope.language ? sessionScope.language : 'en' }" scope = "session"/>
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="resources.local" var="loc" />
+<fmt:message bundle="${loc}" key="local.page.help.pageTitle" var="pageTitle" />
+<fmt:message bundle="${loc}" key="local.page.help.header" var="header" />
+<fmt:message bundle="${loc}" key="local.page.help.firstQuestion" var="firstQuestion" />
+<fmt:message bundle="${loc}" key="local.page.help.secondQuestion" var="secondQuestion" />
+<fmt:message bundle="${loc}" key="local.page.help.firstBtn" var="firstBtn" />
+<fmt:message bundle="${loc}" key="local.page.help.secondBtn" var="secondBtn" />
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ru">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Заказ фильмов</title>
+  <title>${pageTitle}</title>
   <c:set var="url">${pageContext.request.requestURL}</c:set>
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
   <link rel="icon"  type="image/x-icon" href="img/tab-logo.png">
@@ -40,12 +51,12 @@
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
-          <h2 class=" text-left" style="margin:0px; padding:0px;"> Помощь </h2>
+          <h2 class=" text-left" style="margin:0px; padding:0px;"> ${header} </h2>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
-              <p>  Возникли вопросы? Задайте их <a href="jsp/feedback.jsp" class="btn btn-primary" role="button">тут</a> </p>
-              <p>  Хотите узнать больше? Читайте <a href="jsp/about-us.jsp" class="btn btn-primary" role="button">тут</a> </p>
+              <p>  ${firstQuestion} <a href="jsp/feedback.jsp" class="btn btn-primary" role="button">${firstBtn}</a> </p>
+              <p>  ${secondQuestion} <a href="jsp/about-us.jsp" class="btn btn-primary" role="button">${secondBtn}</a> </p>
 
           </div>
           </div>

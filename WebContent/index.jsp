@@ -6,21 +6,21 @@
 <c:set var = "language" value = "${not empty sessionScope.language ? sessionScope.language : 'en' }" scope = "session"/>
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resources.local" var="loc" />
-<fmt:message bundle="${loc}" key="local.serviceName" var="serviceName" />
-<fmt:message bundle="${loc}" key="local.novelty" var="novelty" />
-<fmt:message bundle="${loc}" key="local.director" var="director" />
-<fmt:message bundle="${loc}" key="local.cast" var="cast" />
-<fmt:message bundle="${loc}" key="local.genre" var="genre" />
-<fmt:message bundle="${loc}" key="local.rublesShorten" var="rublesShorten" />
-<fmt:message bundle="${loc}" key="local.readMoreBtn" var="readMore" />
-<fmt:message bundle="${loc}" key="local.addInfo" var="addInfo" />
+<fmt:message bundle="${loc}" key="local.page.index.pageTitle" var="pageTitle" />
+<fmt:message bundle="${loc}" key="local.page.index.novelty" var="novelty" />
+<fmt:message bundle="${loc}" key="local.page.index.director" var="director" />
+<fmt:message bundle="${loc}" key="local.page.index.cast" var="cast" />
+<fmt:message bundle="${loc}" key="local.page.index.genre" var="genre" />
+<fmt:message bundle="${loc}" key="local.page.index.rublesShorten" var="rublesShorten" />
+<fmt:message bundle="${loc}" key="local.page.index.readMoreBtn" var="readMore" />
+<fmt:message bundle="${loc}" key="local.page.index.addInfo" var="addInfo" />
    	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${serviceName}</title>
+  <title>${pageTitle}</title>
   <c:set var="url">${pageContext.request.requestURL}</c:set>
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
     

@@ -7,12 +7,12 @@
 	<c:set var = "language" value = "${not empty sessionScope.language ? sessionScope.language : 'en' }" scope = "session"/>
 	<fmt:setLocale value="${language}" />
    	<fmt:setBundle basename="resources.local" var="loc" />
-   	<fmt:message bundle="${loc}" key="local.mainPage" var="mainPage" />
-   	<fmt:message bundle="${loc}" key="local.moviesPage" var="moviesPage" />
-   	<fmt:message bundle="${loc}" key="local.profilePage" var="profilePage" />
-   	<fmt:message bundle="${loc}" key="local.aboutUsPage" var="aboutUsPage" />
-   	<fmt:message bundle="${loc}" key="local.newsPage" var="newsPage" />
-   	<fmt:message bundle="${loc}" key="local.widenSearchPage" var="widenSearchPage" />
+   	<fmt:message bundle="${loc}" key="local.common.leftMenu.mainPage" var="mainPage" />
+   	<fmt:message bundle="${loc}" key="local.common.leftMenu.moviesPage" var="moviesPage" />
+   	<fmt:message bundle="${loc}" key="local.common.leftMenu.profilePage" var="profilePage" />
+   	<fmt:message bundle="${loc}" key="local.common.leftMenu.aboutUsPage" var="aboutUsPage" />
+   	<fmt:message bundle="${loc}" key="local.common.leftMenu.newsPage" var="newsPage" />
+   	<fmt:message bundle="${loc}" key="local.common.leftMenu.widenSearchPage" var="widenSearchPage" />
    	
 <div class="col-md-2"> 
       <div class="left-sidebar" id="myScrollspy">
