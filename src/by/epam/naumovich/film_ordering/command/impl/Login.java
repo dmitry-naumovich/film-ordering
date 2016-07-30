@@ -21,7 +21,7 @@ public class Login implements Command {
 	private static final String PASSWORD = "password";
 	private static final String AUTHORIZED_USER = "authUser";
 	private static final String USER_ID = "userId";
-	private static final String USER_TYPE = "userType";
+	private static final String IS_ADMIN = "isAdmin";
 	private static final String ERROR_MESSAGE = "errorMessage";
 	
 	@Override
@@ -51,7 +51,7 @@ public class Login implements Command {
 			request.setAttribute("user", user);
 			session.setAttribute(AUTHORIZED_USER, user.getLogin());
 			session.setAttribute(USER_ID, user.getId());
-			session.setAttribute(USER_TYPE, user.getType());
+			session.setAttribute(IS_ADMIN, 'a' == user.getType());
 			request.getRequestDispatcher("jsp/profile.jsp").forward(request, response);
 		} catch (ServiceAuthException e) {
 			session.setAttribute(ERROR_MESSAGE, e.getMessage());
