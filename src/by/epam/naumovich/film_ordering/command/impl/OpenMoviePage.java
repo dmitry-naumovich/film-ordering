@@ -8,15 +8,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import by.epam.naumovich.film_ordering.command.Command;
 
-public class ChangeLanguage implements Command {
+public class OpenMoviePage implements Command {
 
-	private final static String LANGUAGE = "language";
+	private static final String MOVIE_ID = "movieID";
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		String language = request.getParameter(LANGUAGE);
-		request.getSession().setAttribute(LANGUAGE, language);
-		request.getRequestDispatcher("/index.jsp").forward(request, response);
+		int movieID = Integer.parseInt(request.getParameter(MOVIE_ID));
+		//get openmovie service
+		// get movie by ID
+
 	}
 
 }
