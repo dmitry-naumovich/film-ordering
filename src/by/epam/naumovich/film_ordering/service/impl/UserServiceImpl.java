@@ -30,9 +30,7 @@ public class UserServiceImpl implements IUserService {
 			}
 			
 		} catch (DAOException e) {
-			
-			throw new ServiceException("Error in source!", e);
-			
+			throw new ServiceException("Error in data source!", e);
 		}
 		
 		return user;

@@ -26,4 +26,8 @@ public final class Validator {
 		
 		return true;
 	}
+	
+	public static boolean validateObject(Object obj) {
+		return obj == null ? false : true;
+	}
 }

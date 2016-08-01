@@ -1,5 +1,6 @@
 package by.epam.naumovich.film_ordering.service;
 
+import by.epam.naumovich.film_ordering.service.impl.FilmServiceImpl;
 import by.epam.naumovich.film_ordering.service.impl.UserServiceImpl;
 
 public class ServiceFactory {
@@ -12,6 +13,10 @@ public class ServiceFactory {
 	
 	public IUserService getUserService() {
 		return new UserServiceImpl();
+	}
+	
+	public IFilmService getFilmService() {
+		return new FilmServiceImpl();
 	}
 
 }
