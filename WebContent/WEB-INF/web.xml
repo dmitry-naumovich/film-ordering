@@ -19,4 +19,14 @@
     <servlet-name>Controller</servlet-name>
     <url-pattern>/Controller</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>IndexPageServlet</display-name>
+    <servlet-name>IndexPageServlet</servlet-name>
+    <servlet-class>by.epam.naumovich.film_ordering.controller.IndexPageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>IndexPageServlet</servlet-name>
+    <url-pattern>/IndexPageServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
