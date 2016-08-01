@@ -5,8 +5,11 @@ import java.util.Map;
 
 import by.epam.naumovich.film_ordering.command.Command;
 import by.epam.naumovich.film_ordering.command.impl.ChangeLanguage;
+import by.epam.naumovich.film_ordering.command.impl.GetNovelty;
 import by.epam.naumovich.film_ordering.command.impl.Login;
 import by.epam.naumovich.film_ordering.command.impl.Logout;
+import by.epam.naumovich.film_ordering.command.impl.OpenMoviePage;
+import by.epam.naumovich.film_ordering.command.impl.OpenOrderPage;
 
 public class CommandHelper {
 
@@ -17,6 +20,9 @@ public class CommandHelper {
 		commands.put(CommandName.LOGIN, new Login());
 		commands.put(CommandName.LOGOUT, new Logout());
 		commands.put(CommandName.CHANGE_LANGUAGE, new ChangeLanguage());
+		commands.put(CommandName.GET_NOVELTY, new GetNovelty());
+		commands.put(CommandName.OPEN_MOVIE_PAGE, new OpenMoviePage());
+		commands.put(CommandName.OPEN_ORDER_PAGE, new OpenOrderPage());
 	}
 	
 	public Command getCommand(String name) {
