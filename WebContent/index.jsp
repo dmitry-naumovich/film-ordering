@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<c:set var = "language" value = "${not empty sessionScope.language ? sessionScope.language : 'en' }" scope = "session"/>
+<c:set var="language" value="${not empty sessionScope.language ? sessionScope.language : 'en' }" scope="session"/>
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resources.local" var="loc" />
 <fmt:message bundle="${loc}" key="local.page.index.pageTitle" var="pageTitle" />
@@ -39,11 +39,7 @@
   <script type="text/javascript" src="http://mybootstrap.ru/wp-content/themes/clear-theme/js/bootstrap-affix.js"></script>
 </head>
 
-
-
 <body data-spy="scroll" data-target="#myScrollspy" data-offset-top="15">
-
-	
    	
   	<jsp:include page="/WEB-INF/static/header.jsp"></jsp:include>
 
@@ -52,25 +48,27 @@
     
      <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 
-
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
           <h2 class=" text-left" style="margin:0px; padding:0px;"> ${novelty} </h2>
           </div> 
           <div class="row panel-body">
-            <div class="col-md-4">
-              <h2 style="text-align:center"><mark>1+1</mark> (2011) </h2>
-              <p><b>${director}:</b> Оливье Накаш, Эрик Толедано </p>
-              <p><b>${cast}:</b> Омар Си, Франсуа Клозе </p>
-              <p><b>${genre}:</b> Драма, Комедия </p>
-              <img src="img/02-intouchables.jpg" alt="Intouchables" class="img-rounded" width="250" height="160" />
-              <br><p>Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники человека, который менее всего подходит для этой работы, — молодого жителя предместья Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений. </p>
-              <p> 
-                <a class="btn btn-info" href="jsp/order.jsp" role="button">20.000 ${rublesShorten}</a>
-                <a class="btn btn-link" href="jsp/movie.jsp" role="button"> ${readMore} &raquo;</a> 
-              </p>
-            </div>
+			<jsp:include page="/IndexPageServlet" />
+				<c:forEach items="${requestScope.noveltyList}" var="film">
+		            <div class="col-md-4" style="height:600px;">
+		              <h2 style="text-align:center"><mark>${film.name}</mark> ${film.year} </h2>
+		              <p><b>${director}:</b> ${film.director} </p>
+		              <p><b>${cast}:</b> ${film.actors} </p>
+		              <p><b>${genre}:</b> ${film.genre} </p>
+		              <img src="img/film/${film.id}/01.jpg" alt="${film.name}" class="img-rounded" width="inherit" height="160" />
+		              <br><p>${film.description} </p>
+		              <p> 
+		                <a class="btn btn-info" href="/Controller?command=open_order_page&movieID=${film.id}" role="button">${film.price} ${rublesShorten}</a>
+		                <a class="btn btn-link" href="/Controller?command=open_movie_page&movieID=${film.id}" role="button"> ${readMore} &raquo;</a> 
+		              </p>
+		            </div>
+           		</c:forEach>
             
           </div>
           </div>
