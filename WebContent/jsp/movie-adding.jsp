@@ -1,14 +1,42 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+<c:set var = "language" value = "${not empty sessionScope.language ? sessionScope.language : 'en' }" scope = "session"/>
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="resources.local" var="loc" />
+<fmt:message bundle="${loc}" key="local.page.addFilm.pageTitle" var="pageTitle" />
+<fmt:message bundle="${loc}" key="local.page.addFilm.newFilm" var="newFilm" />
+<fmt:message bundle="${loc}" key="local.page.addFilm.folder" var="folder" />
+<fmt:message bundle="${loc}" key="local.page.addFilm.name" var="name" />
+<fmt:message bundle="${loc}" key="local.page.addFilm.addFilmBtn" var="addFilmBtn" />
+<fmt:message bundle="${loc}" key="local.page.addFilm.enterName" var="enterName" />
+<fmt:message bundle="${loc}" key="local.page.addFilm.enterYear" var="enterYear" />
+<fmt:message bundle="${loc}" key="local.page.addFilm.enterGenre" var="enterGenre" />
+<fmt:message bundle="${loc}" key="local.page.addFilm.enterCountry" var="enterCountry" />
+<fmt:message bundle="${loc}" key="local.page.addFilm.enterDirector" var="enterDirector" />
+<fmt:message bundle="${loc}" key="local.page.addFilm.enterCast" var="enterCast" />
+<fmt:message bundle="${loc}" key="local.page.addFilm.enterLength" var="enterLength" />
+<fmt:message bundle="${loc}" key="local.page.addFilm.enterPrice" var="enterPrice" />
+<fmt:message bundle="${loc}" key="local.page.addFilm.enterComposer" var="enterComposer" />
+<fmt:message bundle="${loc}" key="local.page.movie.director" var="director" />
+<fmt:message bundle="${loc}" key="local.page.movie.cast" var="cast" />
+<fmt:message bundle="${loc}" key="local.page.movie.genre" var="genre" />
+<fmt:message bundle="${loc}" key="local.page.movie.year" var="year" />
+<fmt:message bundle="${loc}" key="local.page.movie.country" var="country" />
+<fmt:message bundle="${loc}" key="local.page.movie.composer" var="composer" />
+<fmt:message bundle="${loc}" key="local.page.movie.lengthmin" var="lengthmin" />
+<fmt:message bundle="${loc}" key="local.page.movie.description" var="description" />
+<fmt:message bundle="${loc}" key="local.page.movie.price" var="price" />
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ru">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Заказ фильмов</title>
+  <title>${pageTitle}</title>
   <c:set var="url">${pageContext.request.requestURL}</c:set>
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
   <link rel="icon"  type="image/x-icon" href="img/tab-logo.png">
@@ -41,7 +69,7 @@
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
-          <h2 class=" text-left" style="margin:0px; padding:0px;"> Новый фильм</h2>
+          <h2 class=" text-left" style="margin:0px; padding:0px;">${newFilm}</h2>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
@@ -49,64 +77,76 @@
 
 <form class="form-horizontal" method="post" name="register">
     <div class="form-group">
-      <label class="col-sm-2 control-label">Название*:</label>
+      <label class="col-sm-2 control-label">${name}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="nameInput" type="text" placeholder="Введите название" required>
+        <input class="form-control" id="nameInput" type="text" placeholder="${enterName}" required>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Год*:</label>
+      <label class="col-sm-2 control-label">${year}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="yearInput" type="text" placeholder="Введите год" required>
+        <input class="form-control" id="yearInput" type="text" placeholder="${enterYear}" required>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Режиссер*:</label>
+      <label class="col-sm-2 control-label">${director}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="directorInput" type="text" placeholder="Введите режиссера (-ов)" required>
+        <input class="form-control" id="directorInput" type="text" placeholder="${enterDirector}" required>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Страны*:</label>
+      <label class="col-sm-2 control-label">${cast}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="countriesInput" type="text" placeholder="Введите страну (-ы)" required>
+        <input class="form-control" id="yearInput" type="text" placeholder="${enterCast}" required>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Жанр(ы)*:</label>
+      <label class="col-sm-2 control-label">${country}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="genresInput" type="text" placeholder="Введите жанр(ы)" required>
+        <input class="form-control" id="countriesInput" type="text" placeholder="${enterCountry}" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">${composer}:</label>
+      <div class="col-sm-10">
+        <input class="form-control" id="composerInput" type="text" placeholder="${enterComposer}" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">${genre}*:</label>
+      <div class="col-sm-10">
+        <input class="form-control" id="genresInput" type="text" placeholder="${enterGenre}" required>
       </div>
     </div>
      <div class="form-group">
-      <label class="col-sm-2 control-label">Длительность*:</label>
+      <label class="col-sm-2 control-label">${lengthmin}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="lengthInput" type="text" placeholder="Введите длительность" required>
+        <input class="form-control" id="lengthInput" type="text" placeholder="${enterLength}" required>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Стоимость*:</label>
+      <label class="col-sm-2 control-label">${price}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="costInput" type="text" placeholder="Введите стоимость" required>
+        <input class="form-control" id="costInput" type="text" placeholder="${enterPrice}" required>
       </div>
     </div>
 
      <div class="form-group">
-      <label class="col-sm-2 control-label">Обложка: </label>
+      <label class="col-sm-2 control-label">${folder}: </label>
       <div class="col-sm-10">
             <input type="file" name="avatar">
       </div>
     </div>    
 
     <div class="form-group">
-      <label class="col-sm-2 control-label" for="comment">Описание фильма:</label>
+      <label class="col-sm-2 control-label" for="comment">${description}:</label>
       <div class="col-sm-10">
         <textarea class="form-control" rows="5" id="comment"></textarea>
       </div>
     </div>
     <div class="form-group">
       <div class="col-sm-2 col-md-offset-2">
-      <button type="submit" class="btn btn-primary">Добавить фильм</button>
+      <button type="submit" class="btn btn-primary">${addFilmBtn}</button>
       </div>
 
     </div>    

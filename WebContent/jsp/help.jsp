@@ -7,7 +7,7 @@
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resources.local" var="loc" />
 <fmt:message bundle="${loc}" key="local.page.help.pageTitle" var="pageTitle" />
-<fmt:message bundle="${loc}" key="local.page.help.header" var="header" />
+<fmt:message bundle="${loc}" key="local.page.help.header" var="helpHeader" />
 <fmt:message bundle="${loc}" key="local.page.help.firstQuestion" var="firstQuestion" />
 <fmt:message bundle="${loc}" key="local.page.help.secondQuestion" var="secondQuestion" />
 <fmt:message bundle="${loc}" key="local.page.help.firstBtn" var="firstBtn" />
@@ -51,7 +51,7 @@
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
-          <h2 class=" text-left" style="margin:0px; padding:0px;"> ${header} </h2>
+          <h2 class=" text-left" style="margin:0px; padding:0px;"> ${helpHeader} </h2>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
