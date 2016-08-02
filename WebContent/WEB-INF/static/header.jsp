@@ -7,23 +7,23 @@
 	<c:set var = "language" value = "${not empty sessionScope.language ? sessionScope.language : 'en' }" scope = "session"/>
 	<fmt:setLocale value="${language}" />
    	<fmt:setBundle basename="resources.local" var="loc" />
-   	<fmt:message bundle="${loc}" key="local.common.header.serviceName" var="serviceName" />
-   	<fmt:message bundle="${loc}" key="local.common.header.search" var="search" />
-   	<fmt:message bundle="${loc}" key="local.common.header.ruLanguage" var="ru_lang" />
-   	<fmt:message bundle="${loc}" key="local.common.header.enLanguage" var="en_lang" />
-   	<fmt:message bundle="${loc}" key="local.common.header.login" var="login" />
-   	<fmt:message bundle="${loc}" key="local.common.header.logout" var="logout" />
-   	<fmt:message bundle="${loc}" key="local.common.header.password" var="password" />
-   	<fmt:message bundle="${loc}" key="local.common.header.signIn" var="signIn" />
-   	<fmt:message bundle="${loc}" key="local.common.header.signUp" var="signUp" />
-   	<fmt:message bundle="${loc}" key="local.common.header.profilePage" var="profile" />
-   	<fmt:message bundle="${loc}" key="local.common.header.myReviews" var="myReviews" />
-   	<fmt:message bundle="${loc}" key="local.common.header.myOrders" var="myOrders" />
-   	<fmt:message bundle="${loc}" key="local.common.header.settings" var="settings" />
-   	<fmt:message bundle="${loc}" key="local.common.header.addAFilm" var="addAFilm" />
-   	<fmt:message bundle="${loc}" key="local.common.header.newReviews" var="newReviews" />
-   	<fmt:message bundle="${loc}" key="local.common.header.userOrders" var="userOrders" />
-   	<fmt:message bundle="${loc}" key="local.common.header.usersList" var="usersList" />
+   	<fmt:message bundle="${loc}" key="local.header.serviceName" var="serviceName" />
+   	<fmt:message bundle="${loc}" key="local.header.search" var="search" />
+   	<fmt:message bundle="${loc}" key="local.header.ruLanguage" var="ru_lang" />
+   	<fmt:message bundle="${loc}" key="local.header.enLanguage" var="en_lang" />
+   	<fmt:message bundle="${loc}" key="local.header.login" var="login" />
+   	<fmt:message bundle="${loc}" key="local.header.logout" var="logout" />
+   	<fmt:message bundle="${loc}" key="local.header.password" var="password" />
+   	<fmt:message bundle="${loc}" key="local.header.signIn" var="signIn" />
+   	<fmt:message bundle="${loc}" key="local.header.signUp" var="signUp" />
+   	<fmt:message bundle="${loc}" key="local.header.profilePage" var="profile" />
+   	<fmt:message bundle="${loc}" key="local.header.myReviews" var="myReviews" />
+   	<fmt:message bundle="${loc}" key="local.header.myOrders" var="myOrders" />
+   	<fmt:message bundle="${loc}" key="local.header.settings" var="settings" />
+   	<fmt:message bundle="${loc}" key="local.header.addAFilm" var="addAFilm" />
+   	<fmt:message bundle="${loc}" key="local.header.newReviews" var="newReviews" />
+   	<fmt:message bundle="${loc}" key="local.header.userOrders" var="userOrders" />
+   	<fmt:message bundle="${loc}" key="local.header.usersList" var="usersList" />
 
 	<jsp:useBean id="errorMessage" class="java.lang.String" scope="request" />
 

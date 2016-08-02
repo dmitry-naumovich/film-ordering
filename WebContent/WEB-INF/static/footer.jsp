@@ -6,20 +6,20 @@
 <c:set var = "language" value = "${not empty sessionScope.language ? sessionScope.language : 'en' }" scope = "session"/>
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resources.local" var="loc" />
-<fmt:message bundle="${loc}" key="local.common.footer.siteMap.header" var="siteMapHeader" />
-<fmt:message bundle="${loc}" key="local.common.footer.siteMap.main" var="main" />
-<fmt:message bundle="${loc}" key="local.common.footer.siteMap.films" var="films" />
-<fmt:message bundle="${loc}" key="local.common.footer.siteMap.reviews" var="reviews" />
-<fmt:message bundle="${loc}" key="local.common.footer.siteMap.widenSearch" var="widenSearch" />
-<fmt:message bundle="${loc}" key="local.common.footer.siteMap.signIn" var="signIn" />
-<fmt:message bundle="${loc}" key="local.common.footer.siteMap.signUp" var="signUp" />
-<fmt:message bundle="${loc}" key="local.common.footer.siteMap.profile" var="profile" />
-<fmt:message bundle="${loc}" key="local.common.footer.siteMap.orders" var="orders" />
-<fmt:message bundle="${loc}" key="local.common.footer.siteMap.news" var="news" />
-<fmt:message bundle="${loc}" key="local.common.footer.siteMap.feedback" var="feedback" />
-<fmt:message bundle="${loc}" key="local.common.footer.siteMap.aboutUs" var="aboutUs" />
-<fmt:message bundle="${loc}" key="local.common.footer.siteMap.help" var="help" />   	
-<fmt:message bundle="${loc}" key="local.common.footer.info" var="footerInfo" />   	
+<fmt:message bundle="${loc}" key="local.footer.siteMap.header" var="siteMapHeader" />
+<fmt:message bundle="${loc}" key="local.footer.siteMap.main" var="main" />
+<fmt:message bundle="${loc}" key="local.footer.siteMap.films" var="films" />
+<fmt:message bundle="${loc}" key="local.footer.siteMap.reviews" var="reviews" />
+<fmt:message bundle="${loc}" key="local.footer.siteMap.widenSearch" var="widenSearch" />
+<fmt:message bundle="${loc}" key="local.footer.siteMap.signIn" var="signIn" />
+<fmt:message bundle="${loc}" key="local.footer.siteMap.signUp" var="signUp" />
+<fmt:message bundle="${loc}" key="local.footer.siteMap.profile" var="profile" />
+<fmt:message bundle="${loc}" key="local.footer.siteMap.orders" var="orders" />
+<fmt:message bundle="${loc}" key="local.footer.siteMap.news" var="news" />
+<fmt:message bundle="${loc}" key="local.footer.siteMap.feedback" var="feedback" />
+<fmt:message bundle="${loc}" key="local.footer.siteMap.aboutUs" var="aboutUs" />
+<fmt:message bundle="${loc}" key="local.footer.siteMap.help" var="help" />   	
+<fmt:message bundle="${loc}" key="local.footer.info" var="footerInfo" />   	
    	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <footer class="container-fluid text-center"> 

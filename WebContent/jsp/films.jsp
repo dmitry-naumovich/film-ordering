@@ -6,15 +6,25 @@
 <c:set var="language" value="${not empty sessionScope.language ? sessionScope.language : 'en' }" scope="session"/>
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resources.local" var="loc" />
-<fmt:message bundle="${loc}" key="local.page.index.pageTitle" var="pageTitle" />
+<fmt:message bundle="${loc}" key="local.films.pageTitle" var="pageTitle" />
+<fmt:message bundle="${loc}" key="local.films.mainHeader" var="mainHeader" />
+<fmt:message bundle="${loc}" key="local.films.openFilmPage" var="openFilmPage" />
+<fmt:message bundle="${loc}" key="local.film.director" var="director" />
+<fmt:message bundle="${loc}" key="local.film.cast" var="cast" />
+<fmt:message bundle="${loc}" key="local.film.year" var="year" />
+<fmt:message bundle="${loc}" key="local.film.country" var="country" />
+<fmt:message bundle="${loc}" key="local.film.filmRating" var="filmRating" />
+<fmt:message bundle="${loc}" key="local.film.description" var="description" />
+<fmt:message bundle="${loc}" key="local.film.price" var="price" />
+<fmt:message bundle="${loc}" key="local.film.buyWithOneClickBtn" var="buyWithOneClickBtn" />
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="ru">
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Заказ фильмов</title>
+  <title>${pageTitle}</title>
   <c:set var="url">${pageContext.request.requestURL}</c:set>
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
   <link rel="icon"  type="image/x-icon" href="img/tab-logo.png">
@@ -48,15 +58,16 @@
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
-          <h2 class=" text-left" style="margin:0px; padding:0px;"> Фильмотека сервиса</h2>
+          <h2 class=" text-left" style="margin:0px; padding:0px;">${mainHeader}</h2>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
                 
+                <c:forEach items="${requestScope.films}" var="film">
                 
                     <div class="panel panel-default">
                         <div class=" panel-heading" >
-                          <h4 class=" text-left" style="margin-bottom:0px; padding-bottom:0px;"> Фильм №1</h4>
+                          <h4 class=" text-left" style="margin-bottom:0px; padding-bottom:0px;">${film.name}</h4>
                         </div> 
                     <div class="row panel-body">
                         <div class="col-md-12">
@@ -71,43 +82,43 @@
                     <thead>
                         
                       <tr>
-                      <td><a href="jsp/order.jsp" class="btn btn-primary" role="button">Купить в один клик</a> </td>
-                      <td> <a href="jsp/film.jsp" class="btn btn-success" role="button">Перейти на страницу фильма</a></td>
+                      <td><a href="jsp/order.jsp" class="btn btn-primary" role="button">${buyWithOneClickBtn}</a> </td>
+                      <td> <a href="jsp/film.jsp" class="btn btn-success" role="button">${openFilmPage}</a></td>
                         
                       </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Оригинальное название</td>
-                        <td>Intouchables</td>
+                      <tr>
+                        <td>${year}</td>
+                        <td>${film.year}</td>
                       </tr>
                       <tr>
-                        <td>Год</td>
-                        <td>2011</td>
+                        <td>${country}</td>
+                        <td>${film.country}</td>
                       </tr>
                       <tr>
-                        <td>Страна</td>
-                        <td>Франция</td>
+                        <td>${director}</td>
+                        <td>${film.director}</td>
                       </tr>
                       <tr>
-                        <td>Режиссер</td>
-                        <td>Оливье Накаш, Эрик Толедано</td>
+                        <td>${cast}</td>
+                        <td>${film.actors}</td>
                       </tr>
                       <tr>
-                        <td>В ролях</td>
-                        <td>Омар Си, Франсуа Клозе, Анн Ле Ни, Одри Флеро, Жозефин де Мо и другие</td>
+                        <td>${genre}</td>
+                        <td>${film.genre}</td>
                       </tr>
                       <tr>
-                        <td>Композитор</td>
-                        <td>Людовико Эйнауди</td>
+                        <td>${filmRating}</td>
+                        <td>${film.rating}</td>
                       </tr>
                       <tr>
-                        <td>Жанр</td>
-                        <td>Драма, комедия, биография</td>
+                        <td>${description}</td>
+                        <td>${film.description}</td>
                       </tr>
                       <tr>
-                        <td>Рейтинг фильма</td>
-                        <td>8,6</td>
+                        <td>${price}</td>
+                        <td>${film.price}</td>
                       </tr>
                     </tbody>
                 </table>
@@ -117,7 +128,7 @@
                         </div>
                         </div>
                         </div>
-
+				</c:forEach>
                  </div>
           </div>
 
