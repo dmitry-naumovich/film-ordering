@@ -20,7 +20,7 @@ public class OpenFilmList implements Command {
 	private static final String FILMS = "films";
 	private static final String PREV_QUERY = "prev_query";
 	
-	private static final String MOVIES_JSP_PAGE = "jsp/movies.jsp";
+	private static final String FILMS_JSP_PAGE = "jsp/films.jsp";
 	private static final String ERROR_PAGE = "error.jsp";
 	
 
@@ -36,12 +36,12 @@ public class OpenFilmList implements Command {
 			List<Film> films = filmService.getAllFilms();
 			request.setAttribute(FILMS, films);
 			
-			String url = response.encodeRedirectURL(MOVIES_JSP_PAGE);
+			String url = response.encodeRedirectURL(FILMS_JSP_PAGE);
 			request.getRequestDispatcher(url).forward(request, response);
 			
 			
 		} catch(GetReviewsServiceException e) {
-			request.getRequestDispatcher(MOVIES_JSP_PAGE).forward(request, response);
+			request.getRequestDispatcher(FILMS_JSP_PAGE).forward(request, response);
 		}
 		
 		catch (ServiceException e) {

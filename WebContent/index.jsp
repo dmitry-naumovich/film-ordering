@@ -64,8 +64,8 @@
 		              <img src="img/film/${film.id}/01.jpg" alt="${film.name}" class="img-rounded" width="inherit" height="160" />
 		              <br><p>${film.description} </p>
 		              <p> 
-		                <a class="btn btn-info" href="<c:url value="/Controller?command=open_order_page&movieID=${film.id}"/>" role="button">${film.price} ${rublesShorten}</a>
-		                <a class="btn btn-link" href="<c:url value="/Controller?command=open_film_page&movieID=${film.id}"/>" role="button"> ${readMore} &raquo;</a> 
+		                <a class="btn btn-info" href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" role="button">${film.price} ${rublesShorten}</a>
+		                <a class="btn btn-link" href="<c:url value="/Controller?command=open_film_page&filmID=${film.id}"/>" role="button"> ${readMore} &raquo;</a> 
 		              </p>
 		            </div>
            		</c:forEach>

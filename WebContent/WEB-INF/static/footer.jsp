@@ -8,7 +8,7 @@
 <fmt:setBundle basename="resources.local" var="loc" />
 <fmt:message bundle="${loc}" key="local.common.footer.siteMap.header" var="siteMapHeader" />
 <fmt:message bundle="${loc}" key="local.common.footer.siteMap.main" var="main" />
-<fmt:message bundle="${loc}" key="local.common.footer.siteMap.movies" var="movies" />
+<fmt:message bundle="${loc}" key="local.common.footer.siteMap.films" var="films" />
 <fmt:message bundle="${loc}" key="local.common.footer.siteMap.reviews" var="reviews" />
 <fmt:message bundle="${loc}" key="local.common.footer.siteMap.widenSearch" var="widenSearch" />
 <fmt:message bundle="${loc}" key="local.common.footer.siteMap.signIn" var="signIn" />
@@ -31,7 +31,7 @@
       <div class="col-md-2 col-md-offset-3">
         <ul>
           <li><a href="index.jsp">${main}</a></li>
-          <li><a href="<c:url value="/Controller?command=open_film_list"/>" >${movies}</a></li>
+          <li><a href="<c:url value="/Controller?command=open_film_list"/>" >${films}</a></li>
           <li><a href="jsp/reviews.jsp">${reviews}</a></li>
           <li><a href="jsp/widen-search.jsp">${widenSearch}</a></li>
         </ul>

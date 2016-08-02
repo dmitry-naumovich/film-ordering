@@ -72,7 +72,7 @@
                         
                       <tr>
                       <td><a href="jsp/order.jsp" class="btn btn-primary" role="button">Купить в один клик</a> </td>
-                      <td> <a href="jsp/movie.jsp" class="btn btn-success" role="button">Перейти на страницу фильма</a></td>
+                      <td> <a href="jsp/film.jsp" class="btn btn-success" role="button">Перейти на страницу фильма</a></td>
                         
                       </tr>
                     </thead>

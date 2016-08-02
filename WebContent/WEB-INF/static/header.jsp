@@ -20,7 +20,7 @@
    	<fmt:message bundle="${loc}" key="local.common.header.myReviews" var="myReviews" />
    	<fmt:message bundle="${loc}" key="local.common.header.myOrders" var="myOrders" />
    	<fmt:message bundle="${loc}" key="local.common.header.settings" var="settings" />
-   	<fmt:message bundle="${loc}" key="local.common.header.addAMovie" var="addAMovie" />
+   	<fmt:message bundle="${loc}" key="local.common.header.addAFilm" var="addAFilm" />
    	<fmt:message bundle="${loc}" key="local.common.header.newReviews" var="newReviews" />
    	<fmt:message bundle="${loc}" key="local.common.header.userOrders" var="userOrders" />
    	<fmt:message bundle="${loc}" key="local.common.header.usersList" var="usersList" />
@@ -77,7 +77,7 @@
 	                                <c:when test="${sessionScope.isAdmin}">
 	                                	<ul class="dropdown-menu" role="menu">
                                 		  <li><a href="<c:url value="/Controller?command=open_profile&userID=${sessionScope.userID}"/>" role="menuItem">${profile}</a></li>
-		                                  <li><a href="jsp/movie-adding.jsp" role="menuItem">${addAMovie}</a></li>
+		                                  <li><a href="jsp/film-adding.jsp" role="menuItem">${addAFilm}</a></li>
 		                                  <li><a href="<c:url value="/Controller/command=open_reviews"/>" role="menuItem">${newReviews}</a></li>
 		                                  <li><a href="<c:url value="/Controller/command=open_orders"/>" role="menuItem">${userOrders}</a></li>
 		                                  <li><a href="<c:url value="/Controller/command=open_user_list"/>" role="menuItem">${usersList}</a></li>

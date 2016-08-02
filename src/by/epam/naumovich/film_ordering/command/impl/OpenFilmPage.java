@@ -19,18 +19,18 @@ import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
 public class OpenFilmPage implements Command {
 
-	private static final String MOVIE_ID = "movieID";
+	private static final String FILM_ID = "filmID";
 	private static final String FILM = "film";
 	private static final String REVIEWS = "reviews";
 	private static final String PREV_QUERY = "prev_query";
 	
-	private static final String MOVIE_JSP_PAGE = "jsp/movie.jsp";
+	private static final String FILM_JSP_PAGE = "jsp/film.jsp";
 	private static final String ERROR_PAGE = "error.jsp";
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
-		int movieID = Integer.parseInt(request.getParameter(MOVIE_ID));
+		int movieID = Integer.parseInt(request.getParameter(FILM_ID));
 		IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 		IReviewService reviewService = ServiceFactory.getInstance().getReviewService();
 		
@@ -45,12 +45,12 @@ public class OpenFilmPage implements Command {
 			List<Review> reviews = reviewService.getReviewsByFilmId(movieID);
 			request.setAttribute(REVIEWS, reviews);
 			
-			String url = response.encodeRedirectURL(MOVIE_JSP_PAGE);
+			String url = response.encodeRedirectURL(FILM_JSP_PAGE);
 			request.getRequestDispatcher(url).forward(request, response);
 			
 			
 		} catch(GetReviewsServiceException e) {
-			request.getRequestDispatcher(MOVIE_JSP_PAGE).forward(request, response);
+			request.getRequestDispatcher(FILM_JSP_PAGE).forward(request, response);
 		}
 		
 		catch (ServiceException e) {

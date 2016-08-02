@@ -51,19 +51,19 @@
     <div class="form-group">
       <label class="col-sm-2 control-label">Название фильма:</label>
       <div class="col-sm-10">
-        <input class="form-control" name="movie-name" type="text" placeholder="Введите название" required>
+        <input class="form-control" name="film-name" type="text" placeholder="Введите название" required>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-2 control-label">Год фильма:</label>
       <div class="col-sm-10">
-        <input class="form-control" name="movie-year" type="text" placeholder="Введите год" required>
+        <input class="form-control" name="film-year" type="text" placeholder="Введите год" required>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-2 control-label">Жанр фильма:</label>
       <div class="col-sm-10">
-        <input class="form-control" name="movie-genre" type="text" placeholder="Введите жанр" required>
+        <input class="form-control" name="film-genre" type="text" placeholder="Введите жанр" required>
       </div>
     </div>
     
