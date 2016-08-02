@@ -10,9 +10,9 @@ public final class QueryUtil {
 	}
 	
 	public static String createHttpQueryString(HttpServletRequest request){
+		
 		Enumeration<String> params = request.getParameterNames();
 		String query = "";
-		
 		
 		String key;
 		String value;

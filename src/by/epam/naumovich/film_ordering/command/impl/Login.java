@@ -20,7 +20,7 @@ public class Login implements Command {
 	private static final String LOGIN = "login";
 	private static final String PASSWORD = "password";
 	private static final String AUTHORIZED_USER = "authUser";
-	private static final String USER_ID = "userId";
+	private static final String USER_ID = "userID";
 	private static final String IS_ADMIN = "isAdmin";
 	private static final String ERROR_MESSAGE = "errorMessage";
 	
