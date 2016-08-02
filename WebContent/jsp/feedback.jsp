@@ -6,23 +6,23 @@
 <c:set var = "language" value = "${not empty sessionScope.language ? sessionScope.language : 'en' }" scope = "session"/>
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resources.local" var="loc" />
-<fmt:message bundle="${loc}" key="local.page.feedback.pageTitle" var="pageTitle" />
-<fmt:message bundle="${loc}" key="local.page.feedback.writeToUs" var="writeToUs" />
-<fmt:message bundle="${loc}" key="local.page.feedback.name" var="name" />
-<fmt:message bundle="${loc}" key="local.page.feedback.surname" var="surname" />
-<fmt:message bundle="${loc}" key="local.page.feedback.company" var="company" />
-<fmt:message bundle="${loc}" key="local.page.feedback.phoneNumber" var="phoneNumber" />
-<fmt:message bundle="${loc}" key="local.page.feedback.emailAdress" var="emailAdress" />
-<fmt:message bundle="${loc}" key="local.page.feedback.yourWebSite" var="yourWebSite" />
-<fmt:message bundle="${loc}" key="local.page.feedback.startWithHttp" var="startWithHttp" />
-<fmt:message bundle="${loc}" key="local.page.feedback.whenToContact" var="whenToContact" />
-<fmt:message bundle="${loc}" key="local.page.feedback.morning" var="morning" />
-<fmt:message bundle="${loc}" key="local.page.feedback.day" var="day" />
-<fmt:message bundle="${loc}" key="local.page.feedback.evening" var="evening" />
-<fmt:message bundle="${loc}" key="local.page.feedback.night" var="night" />
-<fmt:message bundle="${loc}" key="local.page.feedback.receiveNewsletter" var="receiveNewsletter" />
-<fmt:message bundle="${loc}" key="local.page.feedback.ofCourse" var="ofCourse" />
-<fmt:message bundle="${loc}" key="local.page.feedback.sendBtn" var="sendBtn" />
+<fmt:message bundle="${loc}" key="local.feedback.pageTitle" var="pageTitle" />
+<fmt:message bundle="${loc}" key="local.feedback.writeToUs" var="writeToUs" />
+<fmt:message bundle="${loc}" key="local.feedback.name" var="name" />
+<fmt:message bundle="${loc}" key="local.feedback.surname" var="surname" />
+<fmt:message bundle="${loc}" key="local.feedback.company" var="company" />
+<fmt:message bundle="${loc}" key="local.feedback.phoneNumber" var="phoneNumber" />
+<fmt:message bundle="${loc}" key="local.feedback.emailAdress" var="emailAdress" />
+<fmt:message bundle="${loc}" key="local.feedback.yourWebSite" var="yourWebSite" />
+<fmt:message bundle="${loc}" key="local.feedback.startWithHttp" var="startWithHttp" />
+<fmt:message bundle="${loc}" key="local.feedback.whenToContact" var="whenToContact" />
+<fmt:message bundle="${loc}" key="local.feedback.morning" var="morning" />
+<fmt:message bundle="${loc}" key="local.feedback.day" var="day" />
+<fmt:message bundle="${loc}" key="local.feedback.evening" var="evening" />
+<fmt:message bundle="${loc}" key="local.feedback.night" var="night" />
+<fmt:message bundle="${loc}" key="local.feedback.receiveNewsletter" var="receiveNewsletter" />
+<fmt:message bundle="${loc}" key="local.feedback.ofCourse" var="ofCourse" />
+<fmt:message bundle="${loc}" key="local.feedback.sendBtn" var="sendBtn" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ru">

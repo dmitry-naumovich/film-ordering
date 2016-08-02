@@ -6,8 +6,8 @@
 <c:set var = "language" value = "${not empty sessionScope.language ? sessionScope.language : 'en' }" scope = "session"/>
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resources.local" var="loc" />
-<fmt:message bundle="${loc}" key="local.page.aboutUs.pageTitle" var="pageTitle" />
-<fmt:message bundle="${loc}" key="local.page.aboutUs.header" var="helpHeader" />
+<fmt:message bundle="${loc}" key="local.aboutUs.pageTitle" var="pageTitle" />
+<fmt:message bundle="${loc}" key="local.aboutUs.header" var="helpHeader" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ru">

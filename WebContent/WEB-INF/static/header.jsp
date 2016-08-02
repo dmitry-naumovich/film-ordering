@@ -76,24 +76,24 @@
                                 <c:choose>
 	                                <c:when test="${sessionScope.isAdmin}">
 	                                	<ul class="dropdown-menu" role="menu">
-                                		  <li><a href="/Controller?command=open_profile" role="menuItem">${profile}</a></li>
+                                		  <li><a href="<c:url value="/Controller?command=open_profile&userID=${sessionScope.userID}"/>" role="menuItem">${profile}</a></li>
 		                                  <li><a href="jsp/movie-adding.jsp" role="menuItem">${addAMovie}</a></li>
-		                                  <li><a href="/Controller/command=open_reviews" role="menuItem">${newReviews}</a></li>
-		                                  <li><a href="/Controller/command=open_orders" role="menuItem">${userOrders}</a></li>
-		                                  <li><a href="/Controller/command=open_user_list" role="menuItem">${usersList}</a></li>
-		                                  <li><a href="/Controller/command=open_settings" role="menuItem">${settings}</a></li>
+		                                  <li><a href="<c:url value="/Controller/command=open_reviews"/>" role="menuItem">${newReviews}</a></li>
+		                                  <li><a href="<c:url value="/Controller/command=open_orders"/>" role="menuItem">${userOrders}</a></li>
+		                                  <li><a href="<c:url value="/Controller/command=open_user_list"/>" role="menuItem">${usersList}</a></li>
+		                                  <li><a href="<c:url value="/Controller/command=open_settings&userID=${sessionScope.userID}"/>" role="menuItem">${settings}</a></li>
 		                                  <li class="divider"></li>
 		                                  <li><a href="<c:url value="/Controller?command=logout" />" class="btn btn-primary" role="button">${logout}</a></li>
 			                            </ul>
 	                                </c:when>
                                 	<c:otherwise> 
 		                                <ul class="dropdown-menu" role="menu">
-		                                  <li><a href="/Controller?command=open_profile" role="menuItem">${profile}</a></li>
-		                                  <li><a href="/Controller/command=open_reviews" role="menuItem">${myReviews}</a></li>
-		                                  <li><a href="/Controller/command=open_orders" role="menuItem">${myOrders}</a></li>
-		                                  <li><a href="/Controller/command=open_settings" role="menuItem">${settings}</a></li>
+		                                  <li><a href="<c:url value="/Controller?command=open_profile&userID=${sessionScope.userID}"/>" role="menuItem">${profile}</a></li>
+		                                  <li><a href="<c:url value="/Controller?command=open_reviews&userID=${sessionScope.userID}"/>" role="menuItem">${myReviews}</a></li>
+		                                  <li><a href="<c:url value="/Controller?command=open_orders&userID=${sessionScope.userID}"/>" role="menuItem">${myOrders}</a></li>
+		                                  <li><a href="<c:url value="/Controller?command=open_settings&userID=${sessionScope.userID}"/>" role="menuItem">${settings}</a></li>
 		                                  <li class="divider"></li>
-		                                  <li><a href="<c:url value="/Controller?command=logout" />" class="btn btn-primary" role="button">${logout}</a></li>
+		                                  <li><a href="<c:url value="/Controller?command=logout" />" role="menuItem">${logout}</a></li>
 		                                </ul>
                                 	</c:otherwise>
                                 </c:choose>

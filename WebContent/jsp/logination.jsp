@@ -6,12 +6,12 @@
 <c:set var = "language" value = "${not empty sessionScope.language ? sessionScope.language : 'en' }" scope = "session"/>
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resources.local" var="loc" />
-<fmt:message bundle="${loc}" key="local.page.signin.pageTitle" var="pageTitle" />
-<fmt:message bundle="${loc}" key="local.page.signin.signIn" var="signIn" />
-<fmt:message bundle="${loc}" key="local.page.signin.login" var="login" />
-<fmt:message bundle="${loc}" key="local.page.signin.password" var="password" />
-<fmt:message bundle="${loc}" key="local.page.signin.enterLogin" var="enterLogin" />
-<fmt:message bundle="${loc}" key="local.page.signin.enterPswd" var="enterPswd" />
+<fmt:message bundle="${loc}" key="local.signin.pageTitle" var="pageTitle" />
+<fmt:message bundle="${loc}" key="local.signin.signIn" var="signIn" />
+<fmt:message bundle="${loc}" key="local.signin.login" var="login" />
+<fmt:message bundle="${loc}" key="local.signin.password" var="password" />
+<fmt:message bundle="${loc}" key="local.signin.enterLogin" var="enterLogin" />
+<fmt:message bundle="${loc}" key="local.signin.enterPswd" var="enterPswd" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ru">

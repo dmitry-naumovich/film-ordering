@@ -6,12 +6,12 @@
 <c:set var = "language" value = "${not empty sessionScope.language ? sessionScope.language : 'en' }" scope = "session"/>
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resources.local" var="loc" />
-<fmt:message bundle="${loc}" key="local.page.help.pageTitle" var="pageTitle" />
-<fmt:message bundle="${loc}" key="local.page.help.header" var="helpHeader" />
-<fmt:message bundle="${loc}" key="local.page.help.firstQuestion" var="firstQuestion" />
-<fmt:message bundle="${loc}" key="local.page.help.secondQuestion" var="secondQuestion" />
-<fmt:message bundle="${loc}" key="local.page.help.firstBtn" var="firstBtn" />
-<fmt:message bundle="${loc}" key="local.page.help.secondBtn" var="secondBtn" />
+<fmt:message bundle="${loc}" key="local.help.pageTitle" var="pageTitle" />
+<fmt:message bundle="${loc}" key="local.help.header" var="helpHeader" />
+<fmt:message bundle="${loc}" key="local.help.firstQuestion" var="firstQuestion" />
+<fmt:message bundle="${loc}" key="local.help.secondQuestion" var="secondQuestion" />
+<fmt:message bundle="${loc}" key="local.help.firstBtn" var="firstBtn" />
+<fmt:message bundle="${loc}" key="local.help.secondBtn" var="secondBtn" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ru">

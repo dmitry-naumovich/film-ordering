@@ -6,29 +6,29 @@
 <c:set var = "language" value = "${not empty sessionScope.language ? sessionScope.language : 'en' }" scope = "session"/>
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resources.local" var="loc" />
-<fmt:message bundle="${loc}" key="local.page.addFilm.pageTitle" var="pageTitle" />
-<fmt:message bundle="${loc}" key="local.page.addFilm.newFilm" var="newFilm" />
-<fmt:message bundle="${loc}" key="local.page.addFilm.folder" var="folder" />
-<fmt:message bundle="${loc}" key="local.page.addFilm.name" var="name" />
-<fmt:message bundle="${loc}" key="local.page.addFilm.addFilmBtn" var="addFilmBtn" />
-<fmt:message bundle="${loc}" key="local.page.addFilm.enterName" var="enterName" />
-<fmt:message bundle="${loc}" key="local.page.addFilm.enterYear" var="enterYear" />
-<fmt:message bundle="${loc}" key="local.page.addFilm.enterGenre" var="enterGenre" />
-<fmt:message bundle="${loc}" key="local.page.addFilm.enterCountry" var="enterCountry" />
-<fmt:message bundle="${loc}" key="local.page.addFilm.enterDirector" var="enterDirector" />
-<fmt:message bundle="${loc}" key="local.page.addFilm.enterCast" var="enterCast" />
-<fmt:message bundle="${loc}" key="local.page.addFilm.enterLength" var="enterLength" />
-<fmt:message bundle="${loc}" key="local.page.addFilm.enterPrice" var="enterPrice" />
-<fmt:message bundle="${loc}" key="local.page.addFilm.enterComposer" var="enterComposer" />
-<fmt:message bundle="${loc}" key="local.page.movie.director" var="director" />
-<fmt:message bundle="${loc}" key="local.page.movie.cast" var="cast" />
-<fmt:message bundle="${loc}" key="local.page.movie.genre" var="genre" />
-<fmt:message bundle="${loc}" key="local.page.movie.year" var="year" />
-<fmt:message bundle="${loc}" key="local.page.movie.country" var="country" />
-<fmt:message bundle="${loc}" key="local.page.movie.composer" var="composer" />
-<fmt:message bundle="${loc}" key="local.page.movie.lengthmin" var="lengthmin" />
-<fmt:message bundle="${loc}" key="local.page.movie.description" var="description" />
-<fmt:message bundle="${loc}" key="local.page.movie.price" var="price" />
+<fmt:message bundle="${loc}" key="local.addFilm.pageTitle" var="pageTitle" />
+<fmt:message bundle="${loc}" key="local.addFilm.newFilm" var="newFilm" />
+<fmt:message bundle="${loc}" key="local.addFilm.folder" var="folder" />
+<fmt:message bundle="${loc}" key="local.addFilm.name" var="name" />
+<fmt:message bundle="${loc}" key="local.addFilm.addFilmBtn" var="addFilmBtn" />
+<fmt:message bundle="${loc}" key="local.addFilm.enterName" var="enterName" />
+<fmt:message bundle="${loc}" key="local.addFilm.enterYear" var="enterYear" />
+<fmt:message bundle="${loc}" key="local.addFilm.enterGenre" var="enterGenre" />
+<fmt:message bundle="${loc}" key="local.addFilm.enterCountry" var="enterCountry" />
+<fmt:message bundle="${loc}" key="local.addFilm.enterDirector" var="enterDirector" />
+<fmt:message bundle="${loc}" key="local.addFilm.enterCast" var="enterCast" />
+<fmt:message bundle="${loc}" key="local.addFilm.enterLength" var="enterLength" />
+<fmt:message bundle="${loc}" key="local.addFilm.enterPrice" var="enterPrice" />
+<fmt:message bundle="${loc}" key="local.addFilm.enterComposer" var="enterComposer" />
+<fmt:message bundle="${loc}" key="local.film.director" var="director" />
+<fmt:message bundle="${loc}" key="local.film.cast" var="cast" />
+<fmt:message bundle="${loc}" key="local.film.genre" var="genre" />
+<fmt:message bundle="${loc}" key="local.film.year" var="year" />
+<fmt:message bundle="${loc}" key="local.film.country" var="country" />
+<fmt:message bundle="${loc}" key="local.film.composer" var="composer" />
+<fmt:message bundle="${loc}" key="local.film.lengthmin" var="lengthmin" />
+<fmt:message bundle="${loc}" key="local.film.description" var="description" />
+<fmt:message bundle="${loc}" key="local.film.price" var="price" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ru">
@@ -75,7 +75,11 @@
             <div class="col-md-12">
 
 
-<form class="form-horizontal" method="post" name="register">
+<form class="form-horizontal" name="newFilm" action="Controller" method="post">
+    <div class="form-group">
+		 <input type="hidden" name="command" value="add_new_film" />
+	</div>
+    
     <div class="form-group">
       <label class="col-sm-2 control-label">${name}*:</label>
       <div class="col-sm-10">

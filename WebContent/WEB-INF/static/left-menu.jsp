@@ -19,9 +19,9 @@
         <ul id='left-menu' class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="0" data-offset-bottom="240">
           
           <li><a href="index.jsp"> ${mainPage} </a></li>
-          <li><a href="jsp/movies.jsp"> ${moviesPage} </a></li>
+          <li><a href="<c:url value="/Controller?command=open_film_list"/>" > ${moviesPage} </a></li>
           <c:choose>
-          	<c:when test="${sessionScope.authUser != null}"><li><a href="jsp/profile.jsp"> ${profilePage} </a></li> </c:when>
+          	<c:when test="${sessionScope.authUser != null}"><li><a href="<c:url value="/Controller?command=open_profile&userID=${sessionScope.userId}"/>"> ${profilePage} </a></li> </c:when>
           	<c:otherwise><li><a href="jsp/logination.jsp" >${profilePage} </a></li>  </c:otherwise>
           </c:choose>
           <li><a href="jsp/about-us.jsp"> ${aboutUsPage} </a></li>

@@ -31,7 +31,7 @@
       <div class="col-md-2 col-md-offset-3">
         <ul>
           <li><a href="index.jsp">${main}</a></li>
-          <li><a href="jsp/movies.jsp">${movies}</a></li>
+          <li><a href="<c:url value="/Controller?command=open_film_list"/>" >${movies}</a></li>
           <li><a href="jsp/reviews.jsp">${reviews}</a></li>
           <li><a href="jsp/widen-search.jsp">${widenSearch}</a></li>
         </ul>

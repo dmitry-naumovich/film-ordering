@@ -1,7 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+<c:set var="language" value="${not empty sessionScope.language ? sessionScope.language : 'en' }" scope="session"/>
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="resources.local" var="loc" />
+<fmt:message bundle="${loc}" key="local.page.index.pageTitle" var="pageTitle" />
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ru">
 <head>
@@ -112,139 +118,7 @@
                         </div>
                         </div>
 
-                         <div class="panel panel-default">
-                        <div class=" panel-heading" >
-                          <h4 class=" text-left" style="margin-bottom:0px; padding-bottom:0px;"> Фильм №2</h4>
-                        </div> 
-                    <div class="row panel-body">
-                        <div class="col-md-12">
-                          <div class="col-md-4">
-                            
-                              <figure>
-                                <img src="img/poster-01.jpg" alt="Intouchables" class="img-thumbnail img-responsive" width="210" height="140" style="margin-top: 30px;"/> 
-                              </figure>
-                          </div>
-                          <div class="col-md-8">
-                              <table class="table table-striped">
-                    <thead>
-                        
-                      <tr>
-                      <td><a href="jsp/order.jsp" class="btn btn-primary" role="button">Купить в один клик</a> </td>
-                      <td> <a href="jsp/movie.jsp" class="btn btn-success" role="button">Перейти на страницу фильма</a></td>
-                        
-                      </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Оригинальное название</td>
-                        <td>Intouchables</td>
-                      </tr>
-                      <tr>
-                        <td>Год</td>
-                        <td>2011</td>
-                      </tr>
-                      <tr>
-                        <td>Страна</td>
-                        <td>Франция</td>
-                      </tr>
-                      <tr>
-                        <td>Режиссер</td>
-                        <td>Оливье Накаш, Эрик Толедано</td>
-                      </tr>
-                      <tr>
-                        <td>В ролях</td>
-                        <td>Омар Си, Франсуа Клозе, Анн Ле Ни, Одри Флеро, Жозефин де Мо и другие</td>
-                      </tr>
-                      <tr>
-                        <td>Композитор</td>
-                        <td>Людовико Эйнауди</td>
-                      </tr>
-                      <tr>
-                        <td>Жанр</td>
-                        <td>Драма, комедия, биография</td>
-                      </tr>
-                      <tr>
-                        <td>Рейтинг фильма</td>
-                        <td>8,6</td>
-                      </tr>
-                    </tbody>
-                </table>
-
-                          </div>
-                          
-                        </div>
-                        </div>
-                        </div>
-
-                         <div class="panel panel-default">
-                        <div class=" panel-heading" >
-                          <h4 class=" text-left" style="margin-bottom:0px; padding-bottom:0px;"> Фильм №3</h4>
-                        </div> 
-                    <div class="row panel-body">
-                        <div class="col-md-12">
-                          <div class="col-md-4">
-                            
-                              <figure>
-                                <img src="img/poster-01.jpg" alt="Intouchables" class="img-thumbnail img-responsive" width="210" height="140" style="margin-top: 30px;"/> 
-                              </figure>
-                          </div>
-                          <div class="col-md-8">
-                              <table class="table table-striped">
-                    <thead>
-                        
-                      <tr>
-                      <td><a href="jsp/order.jsp" class="btn btn-primary" role="button">Купить в один клик</a> </td>
-                      <td> <a href="jsp/movie.jsp" class="btn btn-success" role="button">Перейти на страницу фильма</a></td>
-                        
-                      </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Оригинальное название</td>
-                        <td>Intouchables</td>
-                      </tr>
-                      <tr>
-                        <td>Год</td>
-                        <td>2011</td>
-                      </tr>
-                      <tr>
-                        <td>Страна</td>
-                        <td>Франция</td>
-                      </tr>
-                      <tr>
-                        <td>Режиссер</td>
-                        <td>Оливье Накаш, Эрик Толедано</td>
-                      </tr>
-                      <tr>
-                        <td>В ролях</td>
-                        <td>Омар Си, Франсуа Клозе, Анн Ле Ни, Одри Флеро, Жозефин де Мо и другие</td>
-                      </tr>
-                      <tr>
-                        <td>Композитор</td>
-                        <td>Людовико Эйнауди</td>
-                      </tr>
-                      <tr>
-                        <td>Жанр</td>
-                        <td>Драма, комедия, биография</td>
-                      </tr>
-                      <tr>
-                        <td>Рейтинг фильма</td>
-                        <td>8,6</td>
-                      </tr>
-                    </tbody>
-                </table>
-
-                          </div>
-                          
-                        </div>
-                        </div>
-                        </div>
-
-                
-
-
-
-          </div>
+                 </div>
           </div>
 
       </div>
