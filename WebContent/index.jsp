@@ -6,14 +6,14 @@
 <c:set var="language" value="${not empty sessionScope.language ? sessionScope.language : 'en' }" scope="session"/>
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resources.local" var="loc" />
-<fmt:message bundle="${loc}" key="local.page.index.pageTitle" var="pageTitle" />
-<fmt:message bundle="${loc}" key="local.page.index.novelty" var="novelty" />
-<fmt:message bundle="${loc}" key="local.page.index.director" var="director" />
-<fmt:message bundle="${loc}" key="local.page.index.cast" var="cast" />
-<fmt:message bundle="${loc}" key="local.page.index.genre" var="genre" />
-<fmt:message bundle="${loc}" key="local.page.index.rublesShorten" var="rublesShorten" />
-<fmt:message bundle="${loc}" key="local.page.index.readMoreBtn" var="readMore" />
-<fmt:message bundle="${loc}" key="local.page.index.addInfo" var="addInfo" />
+<fmt:message bundle="${loc}" key="local.index.pageTitle" var="pageTitle" />
+<fmt:message bundle="${loc}" key="local.index.novelty" var="novelty" />
+<fmt:message bundle="${loc}" key="local.index.director" var="director" />
+<fmt:message bundle="${loc}" key="local.index.cast" var="cast" />
+<fmt:message bundle="${loc}" key="local.index.genre" var="genre" />
+<fmt:message bundle="${loc}" key="local.index.rublesShorten" var="rublesShorten" />
+<fmt:message bundle="${loc}" key="local.index.readMoreBtn" var="readMore" />
+<fmt:message bundle="${loc}" key="local.index.addInfo" var="addInfo" />
    	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -57,15 +57,15 @@
 			<jsp:include page="/IndexPageServlet" />
 				<c:forEach items="${requestScope.noveltyList}" var="film">
 		            <div class="col-md-4" style="height:600px;">
-		              <h2 style="text-align:center"><mark>${film.name}</mark> ${film.year} </h2>
+		              <h2 style="text-align:center"><mark>${film.name}</mark> (${film.year}) </h2>
 		              <p><b>${director}:</b> ${film.director} </p>
 		              <p><b>${cast}:</b> ${film.actors} </p>
 		              <p><b>${genre}:</b> ${film.genre} </p>
 		              <img src="img/film/${film.id}/01.jpg" alt="${film.name}" class="img-rounded" width="inherit" height="160" />
 		              <br><p>${film.description} </p>
 		              <p> 
-		                <a class="btn btn-info" href="/Controller?command=open_order_page&movieID=${film.id}" role="button">${film.price} ${rublesShorten}</a>
-		                <a class="btn btn-link" href="/Controller?command=open_movie_page&movieID=${film.id}" role="button"> ${readMore} &raquo;</a> 
+		                <a class="btn btn-info" href="<c:url value="/Controller?command=open_order_page&movieID=${film.id}"/>" role="button">${film.price} ${rublesShorten}</a>
+		                <a class="btn btn-link" href="<c:url value="/Controller?command=open_film_page&movieID=${film.id}"/>" role="button"> ${readMore} &raquo;</a> 
 		              </p>
 		            </div>
            		</c:forEach>
