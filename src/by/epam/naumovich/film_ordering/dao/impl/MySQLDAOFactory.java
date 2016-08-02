@@ -2,6 +2,9 @@ package by.epam.naumovich.film_ordering.dao.impl;
 
 import by.epam.naumovich.film_ordering.dao.DAOFactory;
 import by.epam.naumovich.film_ordering.dao.IFilmDAO;
+import by.epam.naumovich.film_ordering.dao.INewsDAO;
+import by.epam.naumovich.film_ordering.dao.IOrderDAO;
+import by.epam.naumovich.film_ordering.dao.IReviewDAO;
 import by.epam.naumovich.film_ordering.dao.IUserDAO;
 
 public class MySQLDAOFactory extends DAOFactory {
@@ -24,7 +27,7 @@ public class MySQLDAOFactory extends DAOFactory {
 		return MySQLFilmDAO.getInstance();
 	}
 
-	/*@Override
+	@Override
 	public IOrderDAO getOrderDAO() {
 		return MySQLOrderDAO.getInstance();
 	}
@@ -37,6 +40,6 @@ public class MySQLDAOFactory extends DAOFactory {
 	@Override
 	public INewsDAO getNewsDAO() {
 		return MySQLNewsDAO.getInstance();
-	}*/
+	}
 
 }

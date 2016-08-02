@@ -10,6 +10,8 @@ public interface IFilmDAO {
 	void addNewFilm(Film film) throws DAOException;
 	void deleteFilm(Film film) throws DAOException;
 	
+	Film getFilmByID(int id) throws DAOException;
+	
 	List<Film> getTwelveLastAddedFilms() throws DAOException;
 	List<Film> getAllFilms() throws DAOException;
 	

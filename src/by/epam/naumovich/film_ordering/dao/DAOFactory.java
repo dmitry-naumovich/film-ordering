@@ -7,9 +7,9 @@ public abstract class DAOFactory {
 
 	public abstract IUserDAO getUserDAO();
 	public abstract IFilmDAO getFilmDAO();
-	//public abstract IOrderDAO getOrderDAO();
-	//public abstract IReviewDAO getReviewDAO();
-	//public abstract INewsDAO getNewsDAO();
+	public abstract IOrderDAO getOrderDAO();
+	public abstract IReviewDAO getReviewDAO();
+	public abstract INewsDAO getNewsDAO();
 	
 	private enum DBType {
 		MYSQL

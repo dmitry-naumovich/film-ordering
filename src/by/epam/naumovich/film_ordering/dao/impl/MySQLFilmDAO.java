@@ -19,8 +19,11 @@ public class MySQLFilmDAO implements IFilmDAO {
 	
 	public static final String INSERT_NEW_FILM = "INSERT INTO Films (f_name, f_year, f_direct, f_country, f_genre, f_actors, f_composer, f_description, f_length, f_rating, f_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	public static final String DELETE_FILM = "DELETE FROM Films WHERE f_id = ?";
+	
+	public static final String SELECT_FILM_BY_ID = "SELECT * FROM Films WHERE f_id = ?";
+	
 	public static final String SELECT_TWELVE_LAST_ADDED_FILMS = "SELECT * FROM Films ORDER BY f_id DESC LIMIT 12";
-	public static final String SELECT_ALL_FILMS = "SELECT * FROM Films";
+	public static final String SELECT_ALL_FILMS = "SELECT * FROM Films ORDER BY f_rating DESC";
 	
 	public static final String SELECT_FILMS_BY_NAME = "SELECT * FROM Films WHERE f_name = ?";
 	public static final String SELECT_FILMS_BY_YEAR = "SELECT * FROM Films WHERE f_year = ?";
@@ -469,5 +472,44 @@ public class MySQLFilmDAO implements IFilmDAO {
 			pool.closeConnection(con, st, rs);
 		}
 		return filmList;
+	}
+
+	@Override
+	public Film getFilmByID(int id) throws DAOException {
+		Film film = new Film();
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(SELECT_FILM_BY_ID);
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			
+			if (rs.next()) {
+				film.setId(rs.getInt(1));
+				film.setName(rs.getString(2));
+				film.setYear(rs.getInt(3));
+				film.setDirector(rs.getString(4));
+				film.setCountry(rs.getString(5));
+				film.setGenre(rs.getString(6));
+				film.setActors(rs.getString(7));
+				film.setComposer(rs.getString(8));
+				film.setDescription(rs.getString(9));
+				film.setLength(rs.getInt(10));
+				film.setRating(rs.getFloat(11));
+				film.setPrice(rs.getFloat(12));
+			}
+			
+		} catch (SQLException e) {
+			throw new DAOException("Failure during SQL Select Request execution", e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException("Failure during taking connection from ConnectionPool", e);
+		} finally {
+			pool.closeConnection(con, st, rs);
+		}
+		return film;
 	}
 }

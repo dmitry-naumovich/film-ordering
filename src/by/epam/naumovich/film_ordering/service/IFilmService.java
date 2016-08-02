@@ -11,6 +11,6 @@ public interface IFilmService {
 	
 	List<Film> getTwelveLastAddedFilms() throws ServiceException;
 	List<Film> getAllFilms() throws ServiceException;
-	
+	Film getFilmByID(int id) throws ServiceException;
 	
 }

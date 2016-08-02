@@ -11,6 +11,8 @@ import by.epam.naumovich.film_ordering.service.util.Validator;
 
 public class UserServiceImpl implements IUserService {
 
+	private static final String MYSQL = "mysql";
+	
 	@Override
 	public User getUserByLogin(String login) throws ServiceException {
 		
@@ -20,7 +22,7 @@ public class UserServiceImpl implements IUserService {
 		
 		User user = null;
 		try {
-			DAOFactory daoFactory = DAOFactory.getDAOFactory("mysql");
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			IUserDAO dao = daoFactory.getUserDAO();
 			
 			user = dao.getUserByLogin(login);
@@ -44,7 +46,7 @@ public class UserServiceImpl implements IUserService {
 		}
 		
 		try {
-			DAOFactory daoFactory = DAOFactory.getDAOFactory("mysql");
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			IUserDAO dao = daoFactory.getUserDAO();
 			
 			String realPassw = dao.getPasswordByLogin(login);
