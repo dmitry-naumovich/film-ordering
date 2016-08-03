@@ -57,7 +57,7 @@
 			<jsp:include page="/IndexPageServlet" />
 				<c:forEach items="${requestScope.noveltyList}" var="film">
 		            <div class="col-md-4" style="height:600px;">
-		              <h2 style="text-align:center"><mark>${film.name}</mark> (${film.year}) </h2>
+		              <h2 style="text-align:center">${film.name} (${film.year}) </h2>
 		              <p><b>${director}:</b> ${film.director} </p>
 		              <p><b>${cast}:</b> ${film.actors} </p>
 		              <p><b>${genre}:</b> ${film.genre} </p>
