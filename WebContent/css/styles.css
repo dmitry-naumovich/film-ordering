@@ -84,7 +84,7 @@ section a {
 	font: 20px/30px, serif;
 	color:white;
 }
-section a:visited
+/* section a:visited
 {
 	text-decoration:none;
 	color:white;
@@ -102,7 +102,7 @@ section a:active
 	color:white;
 	outline-style:none;
 	border-style:none;
-}
+} */
 
 @media screen and (max-width: 1100px) { /*instead of screen here was -> (min-width: 768px) */
     .navbar-collapse.collapse {
@@ -119,12 +119,12 @@ section a:active
     }
 }
 @media screen and (max-width: 1100px) {
-    .main  {
+    /* .main  {
         margin-left: 200px;
     }
     .left-sidebar {
       width: 100%;
-    }
+    } */
     #right-sidebar {
       display: none;
     }
