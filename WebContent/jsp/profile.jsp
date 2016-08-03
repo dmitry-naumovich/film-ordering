@@ -1,13 +1,36 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+<c:set var="language" value="${not empty sessionScope.language ? sessionScope.language : 'en' }" scope="session"/>
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="resources.local" var="loc" />
+<fmt:message bundle="${loc}" key="local.common.serviceName" var="serviceName" />
+<fmt:message bundle="${loc}" key="local.profile.pageTitle" var="pageTitle" />
+<fmt:message bundle="${loc}" key="local.profile.pageHeader" var="pageHeader" />
+<fmt:message bundle="${loc}" key="local.profile.myReviews" var="myReviews" />
+<fmt:message bundle="${loc}" key="local.profile.myOrders" var="myOrders" />
+<fmt:message bundle="${loc}" key="local.profile.userReviews" var="userReviews" />
+<fmt:message bundle="${loc}" key="local.profile.userOrders" var="userOrders" />
+<fmt:message bundle="${loc}" key="local.profile.editProfile" var="editProfile" />
+<fmt:message bundle="${loc}" key="local.profile.name" var="name" />
+<fmt:message bundle="${loc}" key="local.profile.surname" var="surname" />
+<fmt:message bundle="${loc}" key="local.profile.login" var="login" />
+<fmt:message bundle="${loc}" key="local.profile.regDateTime" var="regDateTime" />
+<fmt:message bundle="${loc}" key="local.profile.sex" var="sex" />
+<fmt:message bundle="${loc}" key="local.profile.phoneNum" var="phoneNum" />
+<fmt:message bundle="${loc}" key="local.profile.birthDate" var="birthDate" />
+<fmt:message bundle="${loc}" key="local.profile.email" var="email" />
+<fmt:message bundle="${loc}" key="local.profile.aboutMe" var="aboutMe" />
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="ru">
+<html lang="${language}">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Заказ фильмов</title>
+  <title>${serviceName} - ${pageTitle}</title>
   <c:set var="url">${pageContext.request.requestURL}</c:set>
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
   <link rel="icon"  type="image/x-icon" href="img/tab-logo.png">
@@ -39,7 +62,7 @@
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
-          <h2 class=" text-left" style="margin:0px; padding:0px;"> Мой профиль</h2>
+          <h2 class=" text-left" style="margin:0px; padding:0px;">${pageHeader}</h2>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
@@ -51,9 +74,25 @@
                           <figure><img src="img/avatars-01-01.jpg" alt="Intouchables" class="img-thumbnail img-responsive" width="210" height="140" /> </figure>
                         </th>
                         <th>
-                          <a href="jsp/orders.jsp" class="btn btn-primary" role="button">Мои заказы</a> 
-                          <a href="jsp/user-reviews.jsp" class="btn btn-warning" role="button">Мои рецензии</a>
-                          <a href="jsp/profile-settings.jsp" class="btn btn-danger" role="button">Изменить профиль</a>
+                        	<c:choose>
+	  							<c:when test="${sessionScope.authUser != null}">
+		                           <c:choose>
+			                           	<c:when test="${sessionScope.isAdmin}"> <!-- and user.userId != seesionScope.userID  -->
+				                          <a href="jsp/orders.jsp" class="btn btn-primary" role="button">${userOrders}</a> 
+				                          <a href="jsp/reviews.jsp" class="btn btn-warning" role="button">${userReviews}</a>
+				                        </c:when>
+				                        <c:otherwise> 
+				                        	<a href="jsp/orders.jsp" class="btn btn-primary" role="button">${myOrders}</a> 
+				                            <a href="jsp/reviews.jsp" class="btn btn-warning" role="button">${myReviews}</a>
+				                            <a href="jsp/profile-settings.jsp" class="btn btn-danger" role="button">${editProfile}</a>
+				                        </c:otherwise>
+			                       </c:choose>
+			                     </c:when>
+			                     <c:otherwise> 
+			                     	<a href="jsp/reviews.jsp" class="btn btn-warning" role="button">${userReviews}</a>
+			                     </c:otherwise>
+		                     </c:choose>
+	                        
                         </th>
                       </tr>
                       <tr>
@@ -62,39 +101,39 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>Имя</td>
+                        <td>${name}</td>
                         <td>Дмитрий</td>
                       </tr>
                       <tr>
-                        <td>Фамилия</td>
+                        <td>${surname}</td>
                         <td>Иванов</td>
                       </tr>
                       <tr>
-                        <td>Логин</td>
+                        <td>${login}</td>
                         <td>loggy</td>
                       </tr>
                       <tr>
-                        <td>Дата и время регистрации</td>
+                        <td>${regDateTime}</td>
                         <td>02.07.2016 20:02</td>
                       </tr>
                       <tr>
-                        <td>Пол</td>
+                        <td>${sex}</td>
                         <td>Мужской</td>
                       </tr>
                       <tr>
-                        <td>Дата рождения</td>
+                        <td>${birthDate}</td>
                         <td>28.11.1994</td>
                       </tr>
                       <tr>
-                        <td>Номер телефона</td>
+                        <td>${phoneNum}</td>
                         <td>+375447081144</td>
                       </tr>
                       <tr>
-                        <td>E-mail адрес</td>
+                        <td>${email}</td>
                         <td>example@gmail.com</td>
                       </tr>
                       <tr>
-                        <td>О себе</td>
+                        <td>${aboutMe}</td>
                         <td><p>
                               Я студент факультета межкорреляционных взаимопояснений кафедры славянской этимологической философии Беларусского Нигилистического Университета имени Франциска Сигизмундовича
 
