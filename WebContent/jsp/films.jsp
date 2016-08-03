@@ -11,6 +11,7 @@
 <fmt:message bundle="${loc}" key="local.films.openFilmPage" var="openFilmPage" />
 <fmt:message bundle="${loc}" key="local.film.director" var="director" />
 <fmt:message bundle="${loc}" key="local.film.cast" var="cast" />
+<fmt:message bundle="${loc}" key="local.film.genre" var="genre" />
 <fmt:message bundle="${loc}" key="local.film.year" var="year" />
 <fmt:message bundle="${loc}" key="local.film.country" var="country" />
 <fmt:message bundle="${loc}" key="local.film.filmRating" var="filmRating" />
@@ -74,7 +75,7 @@
                           <div class="col-md-4">
                             
                               <figure>
-                                <img src="img/poster-01.jpg" alt="Intouchables" class="img-thumbnail img-responsive" width="210" height="140" style="margin-top: 30px;"/> 
+                                <img src="img/film/${film.id}/folder.jpg" alt="$ {film.name}"class="img-thumbnail img-responsive center-block"  style="margin-top: 30px;"/> 
                               </figure>
                           </div>
                           <div class="col-md-8">
@@ -82,42 +83,57 @@
                     <thead>
                         
                       <tr>
-                      <td><a href="jsp/order.jsp" class="btn btn-primary" role="button">${buyWithOneClickBtn}</a> </td>
-                      <td> <a href="jsp/film.jsp" class="btn btn-success" role="button">${openFilmPage}</a></td>
+                      <td><a href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" class="btn btn-primary" role="button">${buyWithOneClickBtn}</a> </td>
+                      <td> <a href="<c:url value="/Controller?command=open_film_page&filmID=${film.id}"/>" class="btn btn-success" role="button">${openFilmPage}</a></td>
                         
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td>${year}</td>
+                        <td><b>${year}</b></td>
                         <td>${film.year}</td>
                       </tr>
+                      <c:if test="${film.country != null}">
+	                      <tr>
+	                        <td><b>${country}</b></td>
+	                        <td>${film.country}</td>
+	                      </tr>
+                      </c:if>
+                      <c:if test="${film.director != null}">
+	                      <tr>
+	                        <td><b>${director}</b></td>
+	                        <td>${film.director}</td>
+	                      </tr>
+                      </c:if>
+                      <c:if test="${film.actors != null}">
+	                      <tr>
+	                        <td><b>${cast}</b></td>
+	                        <td>${film.actors}</td>
+	                      </tr>
+                      </c:if>
                       <tr>
-                        <td>${country}</td>
-                        <td>${film.country}</td>
-                      </tr>
-                      <tr>
-                        <td>${director}</td>
-                        <td>${film.director}</td>
-                      </tr>
-                      <tr>
-                        <td>${cast}</td>
-                        <td>${film.actors}</td>
-                      </tr>
-                      <tr>
-                        <td>${genre}</td>
+                        <td><b>${genre}</b></td>
                         <td>${film.genre}</td>
                       </tr>
                       <tr>
-                        <td>${filmRating}</td>
-                        <td>${film.rating}</td>
+                        <td><b>${filmRating}</b></td>
+                        <c:choose> 
+                      		<c:when test="${film.rating eq 0}">
+                      			<td>—</td>
+                      		</c:when>
+                      		<c:otherwise>
+                        		<td>${film.rating}</td>
+                        	</c:otherwise>
+                        </c:choose>
                       </tr>
+                      <c:if test="${film.description != null}">
+	                      <tr>
+	                        <td><b>${description}</b></td>
+	                        <td>${film.description}</td>
+	                      </tr>
+	                  </c:if>
                       <tr>
-                        <td>${description}</td>
-                        <td>${film.description}</td>
-                      </tr>
-                      <tr>
-                        <td>${price}</td>
+                        <td><b>${price}</b></td>
                         <td>${film.price}</td>
                       </tr>
                     </tbody>

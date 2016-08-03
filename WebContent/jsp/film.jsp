@@ -62,110 +62,126 @@
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
-          <h2 class=" text-left" style="margin:0px; padding:0px;">${film.name}</h2>
+          	<h2 class=" text-left" style="margin:0px; padding:0px;">${film.name}</h2>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
-                <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>
-                          <figure>
-                          	<img src="img/film/${film.id}/folder.jpg" alt="${film.name}" class="img-thumbnail img-responsive" width="210" height="140" />
-                          </figure>
-                        </th>
-                        <th>
-                          
-                        </th>
-                        
-                      </tr>
-                      <tr>
-                        <th>
-                          <a href="pages/order.html" class="btn btn-primary" role="button">${buyWithOneClickBtn}</a>
-                        </th>
-                        <td> <a href="pages/new-review.html" class="btn btn-warning" role="button">${writeReviewBtn}</a></td>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    
-                    <c:if test="${sessionScope.language != 'en'}">
-	                    <tr>
-	                        <td>${originName}</td>
-	                        <td>${film.name}</td>
-	                    </tr>
-                      
-                    </c:if>
-                    
-                      <tr>
-                        <td>${year}</td>
-                        <td>${film.year}</td>
-                      </tr>
-                    <c:if test="${film.country != null}">
-                      <tr>
-                        <td>${country}</td>
-                        <td>${film.country}</td>
-                      </tr>
-                    </c:if>
-                      <tr>
-                        <td>${director}</td>
-                        <td>${film.director}</td>
-                      </tr>
-                      <c:if test="${film.actors != null}">
+            	<div class="col-md-4">
+	                  <figure>
+	                    <img src="img/film/${film.id}/folder.jpg" alt="$ {film.name}" class="img-thumbnail img-responsive center-block" width="210" height="140" style="margin-top: 30px;"/> 
+	                  </figure>
+	                  <br>
+	                  <a href="jsp/order.jsp" class="btn btn-primary center-block" role="button">${buyWithOneClickBtn}</a>
+	                  <br>
+	                  <a href="jsp/new-review.jsp" class="btn btn-warning center-block" role="button">${writeReviewBtn}</a>
+                </div>
+                <div class="col-md-8">
+	                <table class="table table-striped">
+	                    <thead>
+	                      
 	                      <tr>
-	                        <td>${cast}</td>
-	                        <td>${film.actors}</td>
+	                        <th>
+	                          <p>    </p>
+	                        </th>
+	                        <th>
+	                          <p>     </p>
+	                        </th>
+	                        
 	                      </tr>
-                      </c:if>
-                      <c:if test="${film.composer != null}">
+	                    </thead>
+	                    <tbody>
+	                    
+	                    <c:if test="${sessionScope.language != 'en'}">
+		                    <tr>
+		                        <td><b>${originName}</b></td>
+		                        <td>${film.name}</td>
+		                    </tr>
+	                      
+	                    </c:if>
+	                    
 	                      <tr>
-	                        <td>${composer}</td>
-	                        <td>${film.composer}</td>
+	                        <td><b>${year}</b></td>
+	                        <td>${film.year}</td>
 	                      </tr>
-                       </c:if>
-                       
-                       <c:if test="${film.genre != null}">
+	                      
+	                    <c:if test="${film.country != null}">
 	                      <tr>
-	                        <td>${genre}</td>
-	                        <td>${film.genre}</td>
+	                        <td><b>${country}</b></td>
+	                        <td>${film.country}</td>
 	                      </tr>
-                      </c:if>
-                      <tr>
-                        <td>${lengthmin}</td>
-                        <td>${film.length}</td>
-                      </tr>
-                      <tr>
-                        <td>${filmRating}</td>
-                        <td>${film.rating}</td>
-                      </tr>
-                      <tr>
-                        <td>${price}</td>
-                        <td>${film.price} ${rublesShorten}</td>
-                      </tr>
-                      <c:if test="${film.description != null}">
+	                    </c:if>
 	                      <tr>
-	                        <td>${description}</td>
-	                        <td>${film.description}</td>
+	                        <td><b>${director}</b></td>
+	                        <td>${film.director}</td>
 	                      </tr>
-                      </c:if>
-                    </tbody>
-                </table>
-
-                
-			<c:forEach items="${requestScope.reviews}" var="review">
-                    <div class="panel panel-default">
-                        <div class=" panel-heading" >
-                          <h4 class=" text-left" style="margin-bottom:0px; padding-bottom:0px;"> ${reviewBy} username</h4>
-                        </div> 
-	                    <div class="row panel-body">
-	                        <div class="col-md-12">
-	                          <p> <br>
-	                              ${review.text}
-	                          </p>
-	                        </div>
-	                    </div>
-                     </div>
-			</c:forEach>
-                         
+	                      <c:if test="${film.actors != null}">
+		                      <tr>
+		                        <td><b>${cast}</b></td>
+		                        <td>${film.actors}</td>
+		                      </tr>
+	                      </c:if>
+	                      <c:if test="${film.composer != null}">
+		                      <tr>
+		                        <td><b>${composer}</b></td>
+		                        <td>${film.composer}</td>
+		                      </tr>
+	                       </c:if>
+	                       
+	                       <c:if test="${film.genre != null}">
+		                      <tr>
+		                        <td><b>${genre}</b></td>
+		                        <td>${film.genre}</td>
+		                      </tr>
+	                      </c:if>
+	                      <tr>
+	                        <td><b>${lengthmin}</b></td>
+	                        <td>${film.length}</td>
+	                      </tr>
+	                      <tr>
+	                        <td><b>${filmRating}</b></td>
+	                        <c:choose> 
+	                      		<c:when test="${film.rating eq 0}">
+	                      			<td>—</td>
+	                      		</c:when>
+	                      		<c:otherwise>
+	                        		<td>${film.rating}</td>
+	                        	</c:otherwise>
+	                        </c:choose>
+                     	  </tr>
+	                      <tr>
+	                        <td><b>${price}</b></td>
+	                        <td>${film.price} ${rublesShorten}</td>
+	                      </tr>
+	                      <c:if test="${film.description != null}">
+		                      <tr>
+		                        <td><b>${description}</b></td>
+		                        <td>${film.description}</td>
+		                      </tr>
+	                      </c:if>
+	                    </tbody>
+	                </table>
+				</div>
+				</div>
+				<div class="col-md-12">
+                <div class="panel-group">
+						<c:forEach items="${requestScope.reviews}" var="review" varStatus="status">
+							<c:set var="authorLogin" value="${requestScope.logins[status.index]}" />
+			                    <div class="panel panel-default">
+			                        <div class="panel-heading" >
+			                          <h4 class=" text-left" style="margin-bottom:0px; padding-bottom:0px;"> 
+			                          	${reviewBy} <a href="<c:url value="/Controller?command=open_profile&userLogin=${authorLogin }" />" > ${authorLogin} </a>
+			                          </h4>
+			                        </div> 
+				                    <div class="row panel-body">
+				                        <div class="col-md-12">
+				                          <p> <br>
+				                              ${review.text} 
+				                          </p>
+				                        </div>
+				                    </div>
+			                     </div>
+						</c:forEach>
+                     </div>    
           </div>
           </div>
 
