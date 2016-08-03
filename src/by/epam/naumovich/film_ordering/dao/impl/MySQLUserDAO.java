@@ -22,6 +22,7 @@ public class MySQLUserDAO implements IUserDAO {
 	public static final String DELETE_USER = "DELETE FROM Users WHERE u.id = ?";
 	public static final String SELECT_ALL_USERS = "SELECT * FROM Users";
 	public static final String SELECT_USER_BY_LOGIN = "SELECT * FROM Users WHERE u_login = ?";
+	public static final String SELECT_USER_BY_ID = "SELECT * FROM Users WHERE u_id = ?";
 	public static final String SELECT_USERS_IN_BAN = "SELECT Users.* FROM Users JOIN Bans ON users.u_id = bans.b_user WHERE CURDATE() < DATE_ADD(b_start, INTERVAL b_length DAY)";
 	public static final String SELECT_USER_IN_BAN_NOW_BY_ID = "SELECT * FROM Bans WHERE bans.b_user = ? AND CURDATE() < DATE_ADD(b_start, INTERVAL b_length DAY)";
 	public static final String SELECT_PASSWORD_BY_LOGIN = "SELECT u_passw FROM Users WHERE u_login = ?";
@@ -284,6 +285,47 @@ public class MySQLUserDAO implements IUserDAO {
 			pool.closeConnection(con, st, rs);
 		}
 		return null;
+	}
+
+	@Override
+	public User getUserByID(int id) throws DAOException {
+		User user = null;
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(SELECT_USER_BY_ID);
+			
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			if (rs.next()) {
+				user = new User();
+				user.setId(rs.getInt(1));
+				user.setLogin(rs.getString(2));
+				user.setName(rs.getString(3));
+				user.setSurname(rs.getString(4));
+				user.setPassword(rs.getString(5));
+				user.setSex(rs.getString(6).charAt(0));
+				user.setType(rs.getString(7).charAt(0));
+				user.setRegDate(rs.getDate(8));
+				user.setBirthDate(rs.getDate(9));
+				user.setPhone(rs.getString(10));
+				user.setEmail(rs.getString(11));
+				user.setAbout(rs.getString(12));
+			}
+			
+		} catch (SQLException e) {
+			throw new DAOException("Failure during SQL Select Request execution", e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException("Failure during taking connection from ConnectionPool", e);
+		} finally {
+			pool.closeConnection(con, st, rs);
+		}
+		return user;
 	}
 	
 	

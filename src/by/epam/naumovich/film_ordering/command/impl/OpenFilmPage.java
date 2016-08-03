@@ -1,6 +1,7 @@
 package by.epam.naumovich.film_ordering.command.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import by.epam.naumovich.film_ordering.command.Command;
 import by.epam.naumovich.film_ordering.command.util.QueryUtil;
 import by.epam.naumovich.film_ordering.service.IFilmService;
 import by.epam.naumovich.film_ordering.service.IReviewService;
+import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.GetReviewsServiceException;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
@@ -22,9 +24,11 @@ public class OpenFilmPage implements Command {
 	private static final String FILM_ID = "filmID";
 	private static final String FILM = "film";
 	private static final String REVIEWS = "reviews";
+	private static final String LOGINS = "logins";
 	private static final String PREV_QUERY = "prev_query";
 	
 	private static final String FILM_JSP_PAGE = "jsp/film.jsp";
+	
 	private static final String ERROR_PAGE = "error.jsp";
 	
 	@Override
@@ -33,6 +37,7 @@ public class OpenFilmPage implements Command {
 		int movieID = Integer.parseInt(request.getParameter(FILM_ID));
 		IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 		IReviewService reviewService = ServiceFactory.getInstance().getReviewService();
+		IUserService userService = ServiceFactory.getInstance().getUserService();
 		
 		String query = QueryUtil.createHttpQueryString(request);
 		request.getSession(true).setAttribute(PREV_QUERY, query);
@@ -45,8 +50,18 @@ public class OpenFilmPage implements Command {
 			List<Review> reviews = reviewService.getReviewsByFilmId(movieID);
 			request.setAttribute(REVIEWS, reviews);
 			
+			List<String> reviewLogins = new ArrayList<String>();
+			for (Review r : reviews) {
+				reviewLogins.add(userService.getLoginByID(r.getAuthor()));
+			}
+			
+			request.setAttribute(LOGINS, reviewLogins);
+			
 			String url = response.encodeRedirectURL(FILM_JSP_PAGE);
+			//String url = request.getContextPath() + "/jsp/film.jsp";
+			//response.sendRedirect(url);
 			request.getRequestDispatcher(url).forward(request, response);
+			
 			
 			
 		} catch(GetReviewsServiceException e) {

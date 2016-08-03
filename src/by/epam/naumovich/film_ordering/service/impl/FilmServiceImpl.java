@@ -14,7 +14,7 @@ import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 public class FilmServiceImpl implements IFilmService {
 
 	private static final String MYSQL = "mysql";
-	private static final String DASH = "\u2014";
+	//private static final String DASH = "\u2014";
 	
 	@Override
 	public void addNewFilm(Film film) {
@@ -81,7 +81,7 @@ public class FilmServiceImpl implements IFilmService {
 		return film;
 	}
 	
-	private void checkFilmForNullFields(Film film) {
+	/*private void checkFilmForNullFields(Film film) {
 		if (film.getCountry() == null) {
 			film.setCountry(DASH);
 		}
@@ -103,6 +103,6 @@ public class FilmServiceImpl implements IFilmService {
 		for (Film f : list) {
 			checkFilmForNullFields(f);
 		}
-	}
+	}*/
 
 }

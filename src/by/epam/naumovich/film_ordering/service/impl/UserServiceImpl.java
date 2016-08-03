@@ -59,6 +59,27 @@ public class UserServiceImpl implements IUserService {
 			throw new ServiceException("Error in source!", e);	
 		}
 	}
+
+	@Override
+	public String getLoginByID(int id) throws ServiceException {
+		
+		if(!Validator.validateObject(id)){
+			throw new ServiceException("Corrupted user ID");
+		}
+		
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IUserDAO dao = daoFactory.getUserDAO();
+			
+			User user = dao.getUserByID(id);
+			if (user == null) {
+				throw new ServiceException("No user found by this ID");
+			}
+			return user.getLogin();
+		} catch (DAOException e) {
+			throw new ServiceException("Error in source!", e);	
+		}
+	}
 		
 
 }

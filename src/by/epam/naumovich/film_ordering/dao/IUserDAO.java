@@ -18,5 +18,6 @@ public interface IUserDAO {
 	boolean userIsInBan(int id) throws DAOException;
 	void updateUser(int id, User updatedUser) throws DAOException;
 	String getPasswordByLogin(String login) throws DAOException;
+	User getUserByID(int id) throws DAOException;
 	
 }

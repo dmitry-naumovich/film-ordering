@@ -7,5 +7,5 @@ public interface IUserService {
 	
 	User getUserByLogin(String login) throws ServiceException;
 	void checkUserPassword(String login, String password) throws ServiceException;
-	
+	String getLoginByID(int id) throws ServiceException;
 }
