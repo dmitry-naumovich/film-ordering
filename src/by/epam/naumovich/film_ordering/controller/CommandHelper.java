@@ -4,13 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import by.epam.naumovich.film_ordering.command.Command;
-import by.epam.naumovich.film_ordering.command.impl.ChangeLanguage;
-import by.epam.naumovich.film_ordering.command.impl.GetNovelty;
-import by.epam.naumovich.film_ordering.command.impl.Login;
-import by.epam.naumovich.film_ordering.command.impl.Logout;
-import by.epam.naumovich.film_ordering.command.impl.OpenFilmList;
-import by.epam.naumovich.film_ordering.command.impl.OpenFilmPage;
-import by.epam.naumovich.film_ordering.command.impl.OpenOrderPage;
+import by.epam.naumovich.film_ordering.command.impl.*;
 
 public class CommandHelper {
 
@@ -24,6 +18,7 @@ public class CommandHelper {
 		commands.put(CommandName.GET_NOVELTY, new GetNovelty());
 		commands.put(CommandName.OPEN_FILM_PAGE, new OpenFilmPage());
 		commands.put(CommandName.OPEN_FILM_LIST, new OpenFilmList());
+		commands.put(CommandName.OPEN_NEWS_LIST, new OpenNewsList());
 		commands.put(CommandName.OPEN_ORDER_PAGE, new OpenOrderPage());
 	}
 	
