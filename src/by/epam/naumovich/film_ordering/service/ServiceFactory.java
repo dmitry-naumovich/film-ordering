@@ -1,6 +1,7 @@
 package by.epam.naumovich.film_ordering.service;
 
 import by.epam.naumovich.film_ordering.service.impl.FilmServiceImpl;
+import by.epam.naumovich.film_ordering.service.impl.NewsServiceImpl;
 import by.epam.naumovich.film_ordering.service.impl.ReviewServiceImpl;
 import by.epam.naumovich.film_ordering.service.impl.UserServiceImpl;
 
@@ -24,11 +25,11 @@ public class ServiceFactory {
 		return new ReviewServiceImpl();
 	}
 	
-	/*public INewsService getNewsService() {
+	public INewsService getNewsService() {
 		return new NewsServiceImpl();
 	}
 	
-	public IOrderService getOrderService() {
+	/*public IOrderService getOrderService() {
 		return new OrderServiceImpl();
 	}*/
 	

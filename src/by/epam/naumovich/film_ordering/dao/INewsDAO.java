@@ -11,6 +11,6 @@ public interface INewsDAO {
 	void deleteNews(News news) throws DAOException;
 	List<News> getAllNews() throws DAOException;
 	List<News> getNewsByYear(int year) throws DAOException;
-	List<News> getNewsByMonth(int month) throws DAOException;
+	List<News> getNewsByMonthAndYear(int month, int year) throws DAOException;
 
 }
