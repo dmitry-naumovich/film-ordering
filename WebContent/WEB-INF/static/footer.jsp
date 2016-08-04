@@ -41,13 +41,13 @@
           <c:choose>
           	<c:when test="${sessionScope.authUser != null}">
           		<li><a href="jsp/profile.jsp"> ${signIn} </a></li> 
-          		<li><a href="jsp/register.jsp">${signUp}</a></li>
+          		<li><a href="jsp/sign-up.jsp">${signUp}</a></li>
           		<li><a href="jsp/profile.jsp">${profile}</a></li>
           		<li><a href="jsp/orders.jsp">${orders}</a></li>
           	</c:when>
           	<c:otherwise>
           		<li><a href="jsp/logination.jsp" >${signIn} </a></li>
-          		<li><a href="jsp/register.jsp">${signUp}</a></li> 
+          		<li><a href="jsp/sign-up.jsp">${signUp}</a></li> 
           		<li><a href="jsp/logination.jsp">${profile}</a></li>
           		<li><a href="jsp/logination.jsp">${orders}</a></li> 
           	</c:otherwise>

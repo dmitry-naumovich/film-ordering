@@ -115,7 +115,7 @@
                                 <input type="password" placeholder="${password}" class="form-control" name="password" required>
                               </div>
                               <button type="submit" class="btn btn-primary" name="Sign in">${signIn}</button>
-                              <a href="jsp/register.jsp" class="btn btn-primary" role="button">${signUp}</a>
+                              <a href="jsp/sign-up.jsp" class="btn btn-primary" role="button">${signUp}</a>
                               <span class="divider-vertical"> </span>
                               
                               <div class="form-group" style="padding-right:10px">
