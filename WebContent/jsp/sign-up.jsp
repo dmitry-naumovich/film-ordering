@@ -7,22 +7,32 @@
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resources.local" var="loc" />
 <fmt:message bundle="${loc}" key="local.common.serviceName" var="serviceName" />
-<fmt:message bundle="${loc}" key="local.settings.pageTitle" var="pageTitle" />
-<fmt:message bundle="${loc}" key="local.settings.pageHeader" var="pageHeader" />
-<fmt:message bundle="${loc}" key="local.settings.changePass" var="changePass" />
+<fmt:message bundle="${loc}" key="local.signUp.pageTitle" var="pageTitle" />
+<fmt:message bundle="${loc}" key="local.signUp.pageHeader" var="pageHeader" />
+<fmt:message bundle="${loc}" key="local.signUp.enterName" var="enterName" />
+<fmt:message bundle="${loc}" key="local.signUp.enterSurname" var="enterSurname" />
+<fmt:message bundle="${loc}" key="local.signUp.enterLogin" var="enterLogin" />
+<fmt:message bundle="${loc}" key="local.signUp.chooseBDate" var="chooseBDate" />
+<fmt:message bundle="${loc}" key="local.signUp.enterPhone" var="enterPhone" />
+<fmt:message bundle="${loc}" key="local.signUp.enterEmail" var="enterEmail" />
+<fmt:message bundle="${loc}" key="local.signUp.male" var="male" />
+<fmt:message bundle="${loc}" key="local.signUp.female" var="female" />
+<fmt:message bundle="${loc}" key="local.signUp.unknown" var="unknown" />
+<fmt:message bundle="${loc}" key="local.signUp.signUpBtn" var="signUpBtn" />
+<fmt:message bundle="${loc}" key="local.signUp.alreadySigned" var="alreadySigned" />
+<fmt:message bundle="${loc}" key="local.signUp.signInBtn" var="signInBtn" />
+
+<fmt:message bundle="${loc}" key="local.profile.name" var="name" />
+<fmt:message bundle="${loc}" key="local.profile.surname" var="surname" />
+<fmt:message bundle="${loc}" key="local.profile.login" var="login" />
+<fmt:message bundle="${loc}" key="local.profile.regDateTime" var="regDateTime" />
+<fmt:message bundle="${loc}" key="local.profile.sex" var="sex" />
+<fmt:message bundle="${loc}" key="local.profile.phoneNum" var="phoneNum" />
+<fmt:message bundle="${loc}" key="local.profile.email" var="email" />
 <fmt:message bundle="${loc}" key="local.settings.repeatPass" var="repeatPass" />
 <fmt:message bundle="${loc}" key="local.settings.enterPass" var="enterPass" />
 <fmt:message bundle="${loc}" key="local.settings.avatar" var="avatar" />
 <fmt:message bundle="${loc}" key="local.settings.tellAbout" var="tellAbout" />
-<fmt:message bundle="${loc}" key="local.settings.changeSettingsBtn" var="changeSettingsBtn" />
-
-<fmt:message bundle="${loc}" key="local.profile.name" var="name" />
-<fmt:message bundle="${loc}" key="local.profile.surname" var="surname" />
-<fmt:message bundle="${loc}" key="local.profile.sex" var="sex" />
-<fmt:message bundle="${loc}" key="local.profile.phoneNum" var="phoneNum" />
-<fmt:message bundle="${loc}" key="local.profile.birthDate" var="birthDate" />
-<fmt:message bundle="${loc}" key="local.profile.email" var="email" />
-<fmt:message bundle="${loc}" key="local.profile.aboutMe" var="aboutMe" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="${language}">
@@ -54,15 +64,16 @@
 
   <jsp:include page="/WEB-INF/static/header.jsp"></jsp:include>
 
+
   <div class="container-fluid"> 
     <div class="row content ">
-    
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
+
 
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
-          <h2 class=" text-left" style="margin:0px; padding:0px;"> ${pageHeader}</h2>
+          <h2 class=" text-left" style="margin:0px; padding:0px;">${pageHeader}</h2>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
@@ -70,45 +81,59 @@
 
 <form class="form-horizontal" method="post" name="register">
     <div class="form-group">
-      <label class="col-sm-2 control-label">${name}:</label>
+      <label class="col-sm-2 control-label">${name}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="focusedInput" type="text" value="Дмитрий" required> 
+        <input class="form-control" id="focusedInput" type="text" placeholder="${enterName}" required>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${surname}:</label>
+      <label class="col-sm-2 control-label">${surname}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="disabledInput" type="text" value="Иванов" required>
+        <input class="form-control" id="disabledInput" type="text" placeholder="${enterSurname}" required>
       </div>
     </div>
     <div class="form-group">
-      <label for="pwd" class="col-sm-2 control-label">${changePass}:</label>
+      <label class="col-sm-2 control-label">${login}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="pwd" type="password" value="${enterPass}" required>
+        <input class="form-control" id="login-input" type="text" placeholder="${enterLogin}" required>
       </div>
     </div>
     <div class="form-group">
-      <label for="pwd-again" class="col-sm-2 control-label">${repeatPass}:</label>
+      <label for="pwd" class="col-sm-2 control-label">${enterPass}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="pwd-again" type="password" value="${enterPass}" required>
+        <input class="form-control" id="pwd" type="password" placeholder="${enterPass}" required>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${birthDate}:</label>
+      <label for="pwd-again" class="col-sm-2 control-label">${repeatPass}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="bDateInput" type="date" value="1994-11-28">
+        <input class="form-control" id="pwd-again" type="password" placeholder="${enterPass}" required>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${email}: </label>
+      <label class="col-sm-2 control-label">${chooseBDate}:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="emailInput" type="email" name="useremail" value="example@gmail.com" required>
+        <input class="form-control" id="bDateInput" type="date">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">${email}*: </label>
+      <div class="col-sm-10">
+        <input class="form-control" id="emailInput" type="email" name="useremail" placeholder="${enterEmail}" required>
       </div> 
     </div>
      <div class="form-group">
       <label class="col-sm-2 control-label">${phoneNum}: </label>
       <div class="col-sm-10">
-        <input class="form-control" id="phoneInput" type="text" name="userphone" value="+375447081144">
+        <input class="form-control" id="phoneInput" type="text" name="userphone" placeholder="${enterPhone}">
+      </div>
+    </div>
+     <div class="form-group">
+      <label class="col-sm-2 control-label">${sex}*: </label>
+      <div class="col-sm-10">
+      <label class="radio-inline"><input type="radio" name="optradio">${male}</label>
+      <label class="radio-inline"><input type="radio" name="optradio">${female}</label>
+      <label class="radio-inline"><input type="radio" name="optradio">${unknown}</label>
       </div>
     </div>
 
@@ -127,8 +152,11 @@
     </div>
     <div class="form-group">
       <div class="col-sm-2 col-md-offset-2">
-      <button type="submit" class="btn btn-primary">${changeSettingsBtn}</button>
+      <button type="submit" class="btn btn-primary">${signUpBtn}</button>
       </div>
+
+      <label class="col-sm-4 col-md-offset-3 control-label" for="comment">${alreadySigned}</label>
+      <a href="jsp/logination.jsp" class="btn btn-primary" role="button">${signInBtn}</a>
 
     </div>    
     
@@ -140,12 +168,14 @@
       </div>
       </div>
 
+
       <jsp:include page="/WEB-INF/static/right-sidebar.jsp"></jsp:include>
       
      </div>
 
   </div>  
   
+
   <jsp:include page="/WEB-INF/static/footer.jsp"></jsp:include>
   
 </body>

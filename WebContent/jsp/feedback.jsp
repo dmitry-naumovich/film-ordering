@@ -123,8 +123,8 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="url">${yourWebSite}<small>${startWithHttp}</small></label>
-          <input type="url" class="form-control" id="url" placeholder="url">
+          <label for="url">${yourWebSite}<small> (${startWithHttp})</small></label>
+          <input type="url" class="form-control" id="url">
         </div>
 
       </div>

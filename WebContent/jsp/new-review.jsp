@@ -85,7 +85,7 @@
     <div class="col-sm-10"> <textarea class="form-control" rows="5" id="comment" required></textarea></div>
   </div>
   
-  <a href="jsp/success-review.jsp" class="btn btn-primary" role="button">${sendBtn}</a>
+  <a href="jsp/success-page.jsp" class="btn btn-primary" role="button">${sendBtn}</a>
 </form>
 
           </div>

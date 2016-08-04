@@ -86,7 +86,7 @@
                         <th>
                           <a href="#" onclick="history.back();" class="btn btn-danger" role="button">${cancelBtn}</a>
                         </th>
-                        <td> <a href="jsp/success-purchase.jsp" class="btn btn-primary" role="button">${buyBtn}</a></td>
+                        <td> <a href="jsp/success-page.jsp" class="btn btn-primary" role="button">${buyBtn}</a></td>
                       </tr>
                     </tbody>
                 </table>

@@ -1,14 +1,29 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+<c:set var="language" value="${not empty sessionScope.language ? sessionScope.language : 'en' }" scope="session"/>
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="resources.local" var="loc" />
+<fmt:message bundle="${loc}" key="local.common.serviceName" var="serviceName" />
+<fmt:message bundle="${loc}" key="local.widenSearch.pageTitle" var="pageTitle" />
+<fmt:message bundle="${loc}" key="local.widenSearch.pageHeader" var="pageHeader" />
+<fmt:message bundle="${loc}" key="local.widenSearch.filmName" var="filmName" />
+<fmt:message bundle="${loc}" key="local.widenSearch.filmYear" var="filmYear" />
+<fmt:message bundle="${loc}" key="local.widenSearch.filmGenre" var="filmGenre" />
+<fmt:message bundle="${loc}" key="local.widenSearch.searchBtn" var="searchBtn" />
+<fmt:message bundle="${loc}" key="local.addFilm.enterName" var="enterName" />
+<fmt:message bundle="${loc}" key="local.addFilm.enterYear" var="enterYear" />
+<fmt:message bundle="${loc}" key="local.addFilm.enterGenre" var="enterGenre" />
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="${language}">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Заказ фильмов</title>
+  <title>${serviceName} - ${pageTitle}</title>
   <c:set var="url">${pageContext.request.requestURL}</c:set>
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
   <link rel="icon"  type="image/x-icon" href="img/tab-logo.png">
@@ -41,7 +56,7 @@
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
-          <h2 class=" text-left" style="margin:0px; padding:0px;"> Расширенный поиск</h2>
+          <h2 class=" text-left" style="margin:0px; padding:0px;">${pageHeader}</h2>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
@@ -49,28 +64,27 @@
 
 <form class="form-horizontal" method="post" name="register">
     <div class="form-group">
-      <label class="col-sm-2 control-label">Название фильма:</label>
+      <label class="col-sm-2 control-label">${filmName}:</label>
       <div class="col-sm-10">
-        <input class="form-control" name="film-name" type="text" placeholder="Введите название" required>
+        <input class="form-control" name="film-name" type="text" placeholder="${enterName}" required>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Год фильма:</label>
+      <label class="col-sm-2 control-label">${filmYear}:</label>
       <div class="col-sm-10">
-        <input class="form-control" name="film-year" type="text" placeholder="Введите год" required>
+        <input class="form-control" name="film-year" type="text" placeholder="${enterYear}" required>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Жанр фильма:</label>
+      <label class="col-sm-2 control-label">${filmGenre}:</label>
       <div class="col-sm-10">
-        <input class="form-control" name="film-genre" type="text" placeholder="Введите жанр" required>
+        <input class="form-control" name="film-genre" type="text" placeholder="${enterGenre}" required>
       </div>
     </div>
     
     <div class="form-group">
       <div class="col-sm-2 col-md-offset-2">
-      <a href="jsp/search-results.jsp" class="btn btn-primary" role="button">Искать</a>
-      <!-- <button type="submit" class="btn btn-primary">Искать</button> -->
+      <a href="jsp/search-results.jsp" class="btn btn-primary" role="button">${searchBtn}</a>
     </div>
 
     </div>    

@@ -1,14 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+<c:set var="language" value="${not empty sessionScope.language ? sessionScope.language : 'en' }" scope="session"/>
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="resources.local" var="loc" />
+<fmt:message bundle="${loc}" key="local.common.serviceName" var="serviceName" />
+<fmt:message bundle="${loc}" key="local.reviews.pageTitle" var="pageTitle" />
+<fmt:message bundle="${loc}" key="local.reviews.pageHeader" var="pageHeader" />
+<fmt:message bundle="${loc}" key="local.reviews.author" var="author" />
+<fmt:message bundle="${loc}" key="local.reviews.type" var="type" />
+<fmt:message bundle="${loc}" key="local.reviews.mark" var="mark" />
+<fmt:message bundle="${loc}" key="local.reviews.date" var="date" />
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="${language}">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Заказ фильмов</title>
+  <title>${serviceName} - ${pageTitle}</title>
   <c:set var="url">${pageContext.request.requestURL}</c:set>
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
   <link rel="icon"  type="image/x-icon" href="img/tab-logo.png">
@@ -42,27 +54,45 @@
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
-          <h2 class=" text-left" style="margin:0px; padding:0px;"> Отзывы пользователя loggy</h2>
+          <h2 class=" text-left" style="margin:0px; padding:0px;"> ${pageHeader} </h2>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">           
-                    <div class="panel panel-default">
-                        <div class=" panel-heading" >
-                          <h4 class=" text-left" style="margin-bottom:0px; padding-bottom:0px;"> 1 + 1 </h4>
+                    <div class="panel panel-default container-fluid">
+                        <div class="row panel-heading" >
+                        	<div class="col-md-6">
+                        		<h4 class=" text-left" style="margin:0px; padding:0px;"> Фильм </h4>
+                        	</div>
+                        	<div class="col-md-6">
+                        		<h4 class=" text-right" style="margin:0px; padding:0px;"> ${author}: </h4>
+                        	</div>
                         </div> 
-                    <div class="row panel-body">
-                        <div class="col-md-12">
-                          <p> <br>
-                              Id probo mutat est. Qui ut prompta philosophia. Sea eu tritani sapientem suscipiantur, ad recteque ocurreret reformidans nam. Putant diceret his ne, nam quidam option id, primis numquam no cum.
-
-                              Ne volumus qualisque eloquentiam sit, eius patrioque at usu. Sit odio clita inciderint ea, per ignota menandri inciderint et. No eum nisl mutat corpora. Vel assum percipitur ne, modus dolorem signiferumque per ne.
-
-                               reformidans definitionem no, cu sale percipit maluisset mea. Accusam gloriatur eu sea. Omittam honestatis his ei. Ad melius aliquid sit. Sumo graeci erroribus et mea, fierent liberavisse mediocritatem no mei, illud facilis epicurei cum id. Ei adipisci eleifend similique mel, eos no putent deterruisset.
-
-                              Eos nemore corrumpit aliquando ea, congue discere ut sed. Quo ei stet admodum dissentias, nec ex omnesque argumentum, et sea novum exerci. Eu nemore commune imperdiet pro. Id per aliquip fabellas, error fastidii has ex.
-                          </p>
+                    	<div class="row panel-body">
+	                        <div class="col-md-12">
+	                          <p> <br>
+	                              Id probo mutat est. Qui ut prompta philosophia. Sea eu tritani sapientem suscipiantur, ad recteque ocurreret reformidans nam. Putant diceret his ne, nam quidam option id, primis numquam no cum.
+	
+	                              Ne volumus qualisque eloquentiam sit, eius patrioque at usu. Sit odio clita inciderint ea, per ignota menandri inciderint et. No eum nisl mutat corpora. Vel assum percipitur ne, modus dolorem signiferumque per ne.
+	
+	                               reformidans definitionem no, cu sale percipit maluisset mea. Accusam gloriatur eu sea. Omittam honestatis his ei. Ad melius aliquid sit. Sumo graeci erroribus et mea, fierent liberavisse mediocritatem no mei, illud facilis epicurei cum id. Ei adipisci eleifend similique mel, eos no putent deterruisset.
+	
+	                              Eos nemore corrumpit aliquando ea, congue discere ut sed. Quo ei stet admodum dissentias, nec ex omnesque argumentum, et sea novum exerci. Eu nemore commune imperdiet pro. Id per aliquip fabellas, error fastidii has ex.
+	                          </p>
+	                        </div>
                         </div>
+                        <div class="row panel-footer" >
+                        
+                        	<div class="col-md-4">
+                        		<h5 class="text-left">${type}: positive</h5>
+                        	</div>
+                        	<div class="col-md-4">
+                        		<h5 class="text-center">${mark}: 4/5</h5>
+                        	</div>
+                        	<div class="col-md-4">
+                        		<h5 class="text-right">${date}: 14.06.16</h5>
+                        	</div>
                         </div>
+                        
                         </div>
 
                          <div class="panel panel-default">
@@ -98,19 +128,6 @@
                         </div>
                         </div>
 
-                        <div class="panel panel-default">
-                        <div class=" panel-heading" >
-                          <h4 class=" text-left" style="margin-bottom:0px; padding-bottom:0px;"> Отзыв пользователя thothotho</h4>
-                        </div> 
-                    <div class="row panel-body">
-                        <div class="col-md-12">
-                          <p> <br>
-                              Ничего так фильмец
-
-                          </p>
-                        </div>
-                        </div>
-                        </div>
           </div>
           </div>
 

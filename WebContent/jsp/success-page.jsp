@@ -32,15 +32,16 @@
 
   <jsp:include page="/WEB-INF/static/header.jsp"></jsp:include>
 
-
   <div class="container-fluid"> 
     <div class="row content ">
     
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 
-
       <div class="col-md-8 main content ">
               <div class="alert alert-success">
+              <strong>Поздравялем!</strong> Вы приобрели фильм 1+1.
+                </div>
+                <div class="alert alert-success">
               <strong>Рецензия на фильм film успешно написана и отправлена!</strong> Ждите проверки модератором. 
                 </div>
       </div>
@@ -48,7 +49,6 @@
 
       <jsp:include page="/WEB-INF/static/right-sidebar.jsp"></jsp:include>
       
-    </div>
      </div>
 
   </div>  
