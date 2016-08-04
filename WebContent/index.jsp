@@ -6,6 +6,7 @@
 <c:set var="language" value="${not empty sessionScope.language ? sessionScope.language : 'en' }" scope="session"/>
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resources.local" var="loc" />
+<fmt:message bundle="${loc}" key="local.common.serviceName" var="serviceName" />
 <fmt:message bundle="${loc}" key="local.index.pageTitle" var="pageTitle" />
 <fmt:message bundle="${loc}" key="local.index.novelty" var="novelty" />
 <fmt:message bundle="${loc}" key="local.index.director" var="director" />
@@ -20,7 +21,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${pageTitle}</title>
+  <title>${serviceName} - ${pageTitle}</title>
   <c:set var="url">${pageContext.request.requestURL}</c:set>
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
     
