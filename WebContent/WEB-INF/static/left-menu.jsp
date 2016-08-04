@@ -25,7 +25,7 @@
           	<c:otherwise><li><a href="jsp/logination.jsp" >${profilePage} </a></li>  </c:otherwise>
           </c:choose>
           <li><a href="jsp/about-us.jsp"> ${aboutUsPage} </a></li>
-          <li><a href="jsp/news.jsp"> ${newsPage} </a></li>
+          <li><a href="<c:url value="/Controller?command=open_news_list"/>" > ${newsPage} </a></li>
           <li><a href="jsp/widen-search.jsp"> ${widenSearchPage} </a></li>
         </ul>
       </div>

@@ -56,7 +56,7 @@
       </div>
       <div class="col-md-2">
         <ul>
-          <li><a href="jsp/news.jsp">${news}</a></li>
+          <li><a href="<c:url value="/Controller?command=open_news_list"/>" > ${newsPage} </a></li>
           <li><a href="jsp/feedback.jsp">${feedback}</a></li>
           <li><a href="jsp/about-us.jsp">${aboutUs}</a></li>
           <li><a href="jsp/help.jsp">${help}</a></li>

@@ -53,27 +53,26 @@
           <div class="row panel-body">
             <div class="col-md-12">
                 
-                
+                <c:forEach var="news" items="${requestScope.news}">
                     <div class="panel panel-default">
                         <div class=" panel-heading" >
                           
-                          <h4 class=" text-right" style="margin-bottom:0px; padding-bottom:0px;"> 09.07.2016 - 14:51 </h4>
+                          <h4 class=" text-right" style="margin-bottom:0px; padding-bottom:0px;"> ${news.date} </h4>
                         </div> 
-                    <div class="row panel-body">
-                        <div class="col-md-12">
+                    <div class=" panel-body">
+                    	<div class="row">
+                    		<p class="text-justify" style="margin:10px;"><u>${news.title}</u></p>
+                    	 </div>
+                    
+                        <div class="row col-md-12">
                           <div class="col-md-4">
                             
                               <figure>
-                                <img src="img/news-01-01.jpg" alt="Img failed" class="img-thumbnail img-responsive" width="210" height="140" style="margin-top: 30px; margin-right: 0px"/> 
+                                <img src="img/news/${news.id}/01.jpg" alt="Img failed" class="img-thumbnail img-responsive" width="210" height="140" style="margin-top: 30px; margin-right: 0px"/> 
                               </figure>
                           </div>
                           <div class="col-md-8">
-                              <br> <br> <p style="text-align:justify; margin-left: -10px;"> Eos nemore corrumpit aliquando ea, congue discere ut sed. Quo ei stet admodum dissentias, nec ex omnesque argumentum, et sea novum exerci. Eu nemore commune imperdiet pro. Id per aliquip fabellas, error fastidii has ex.
-
-                                Quo malis omittam cu, est vocent scaevola mnesarchum ei. Malis nonumy temporibus at pro, te essent molestie assueverit vel. Maiorum consetetur vel ex, mea mucius viderer te. Ad brute principes scriptorem mei, vis ne ridens neglegentur. Ut iuvaret scriptorem cum, id eos agam ocurreret. Per in quem dicat diceret, natum melius consectetuer ne eam. Cu nonumes adipisci neglegentur vel.
-
-                 
-                  </p>
+                              <br> <br> <p style="text-align:justify; margin-left: -10px;"> ${news.text} </p>
 
                           </div>
                           
@@ -81,6 +80,7 @@
                         </div>
                         </div>
 
+				</c:forEach>
 
                 
 

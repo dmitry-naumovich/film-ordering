@@ -68,7 +68,7 @@
             <div class="col-md-12">
             	<div class="col-md-4">
 	                  <figure>
-	                    <img src="img/film/${film.id}/folder.jpg" alt="$ {film.name}" class="img-thumbnail img-responsive center-block" width="210" height="140" style="margin-top: 30px;"/> 
+	                    <img src="img/films/${film.id}/folder.jpg" alt="$ {film.name}" class="img-thumbnail img-responsive center-block" width="210" height="140" style="margin-top: 30px;"/> 
 	                  </figure>
 	                  <br>
 	                  <a href="jsp/order.jsp" class="btn btn-primary center-block" role="button">${buyWithOneClickBtn}</a>

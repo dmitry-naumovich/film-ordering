@@ -62,7 +62,7 @@
 		              <p><b>${director}:</b> ${film.director} </p>
 		              <p><b>${cast}:</b> ${film.actors} </p>
 		              <p><b>${genre}:</b> ${film.genre} </p>
-		              <img src="img/film/${film.id}/01.jpg" alt="${film.name}" class="img-rounded" width="inherit" height="160" />
+		              <img src="img/films/${film.id}/01.jpg" alt="${film.name}" class="img-rounded" width="inherit" height="160" />
 		              <br><p>${film.description} </p>
 		              <p> 
 		                <a class="btn btn-info" href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" role="button">${film.price} ${rublesShorten}</a>
