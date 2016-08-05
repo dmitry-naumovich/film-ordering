@@ -11,5 +11,5 @@ public interface INewsService {
 	void deleteNews(News news) throws ServiceException;
 	List<News> getAllNews() throws ServiceException;
 	List<News> getNewsByYear(int year) throws ServiceException;
-	List<News> getNewsByMonth(int month) throws ServiceException;
+	List<News> getNewsByMonth(int month, int year) throws ServiceException;
 }

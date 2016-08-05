@@ -49,14 +49,40 @@ public class NewsServiceImpl implements INewsService {
 
 	@Override
 	public List<News> getNewsByYear(int year) throws ServiceException {
-		// TODO Auto-generated method stub
-		return null;
+		List<News> list = new ArrayList<News>();
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			INewsDAO newsDAO = daoFactory.getNewsDAO();
+			list = newsDAO.getNewsByYear(year);
+			
+			if (list.isEmpty()) {
+				throw new GetNewsServiceException("No news in the database");
+			}
+			
+		} catch (DAOException e) {
+			throw new ServiceException("Error in data source!");
+		}
+		
+		return list;
 	}
 
 	@Override
-	public List<News> getNewsByMonth(int month) throws ServiceException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<News> getNewsByMonth(int month, int year) throws ServiceException {
+		List<News> list = new ArrayList<News>();
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			INewsDAO newsDAO = daoFactory.getNewsDAO();
+			list = newsDAO.getNewsByMonthAndYear(month, year);
+			
+			if (list.isEmpty()) {
+				throw new GetNewsServiceException("No news in the database");
+			}
+			
+		} catch (DAOException e) {
+			throw new ServiceException("Error in data source!");
+		}
+		
+		return list;
 	}
 
 }
