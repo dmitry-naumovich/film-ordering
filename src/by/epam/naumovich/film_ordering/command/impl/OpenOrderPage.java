@@ -10,11 +10,9 @@ import by.epam.naumovich.film_ordering.command.Command;
 
 public class OpenOrderPage implements Command {
 
-	private static final String MOVIE_ID = "movieID";
-	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		int movieID = Integer.parseInt(request.getParameter(MOVIE_ID));
+		int filmID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));
 		
 	}
 

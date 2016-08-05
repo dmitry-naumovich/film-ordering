@@ -16,36 +16,29 @@ import by.epam.naumovich.film_ordering.service.exception.GetReviewsServiceExcept
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
 public class OpenFilmList implements Command {
-	
-	private static final String FILMS = "films";
-	private static final String PREV_QUERY = "prev_query";
-	
-	private static final String FILMS_JSP_PAGE = "jsp/films.jsp";
-	private static final String ERROR_PAGE = "error.jsp";
-	
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 		
 		String query = QueryUtil.createHttpQueryString(request);
-		request.getSession(true).setAttribute(PREV_QUERY, query);
+		request.getSession(true).setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
 		try {
 			List<Film> films = filmService.getAllFilms();
-			request.setAttribute(FILMS, films);
+			request.setAttribute(RequestAndSessionAttributes.FILMS, films);
 			
-			String url = response.encodeRedirectURL(FILMS_JSP_PAGE);
+			String url = response.encodeRedirectURL(JavaServerPageNames.FILMS_JSP_PAGE);
 			request.getRequestDispatcher(url).forward(request, response);
 			
 			
 		} catch(GetReviewsServiceException e) {
-			request.getRequestDispatcher(FILMS_JSP_PAGE).forward(request, response);
+			request.getRequestDispatcher(JavaServerPageNames.FILMS_JSP_PAGE).forward(request, response);
 		}
 		
 		catch (ServiceException e) {
-			request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
+			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 		}
 	}
 

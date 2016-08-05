@@ -17,22 +17,15 @@ import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
 public class Login implements Command {
 
-	private static final String LOGIN = "login";
-	private static final String PASSWORD = "password";
-	private static final String AUTHORIZED_USER = "authUser";
-	private static final String USER_ID = "userID";
-	private static final String IS_ADMIN = "isAdmin";
-	private static final String ERROR_MESSAGE = "errorMessage";
-	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		String login = request.getParameter(LOGIN);
-		String password = request.getParameter(PASSWORD);
+		String login = request.getParameter(RequestAndSessionAttributes.LOGIN);
+		String password = request.getParameter(RequestAndSessionAttributes.PASSWORD);
 		
 		IUserService userService = ServiceFactory.getInstance().getUserService();
 
 		String query = QueryUtil.createHttpQueryString(request);
-		request.getSession(true).setAttribute("prev_query", query);
+		request.getSession(true).setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
 		HttpSession session = request.getSession();
@@ -48,19 +41,19 @@ public class Login implements Command {
 		try {
 			User user = userService.getUserByLogin(login);
 			userService.checkUserPassword(login, password);
-			request.setAttribute("user", user);
-			session.setAttribute(AUTHORIZED_USER, user.getLogin());
-			session.setAttribute(USER_ID, user.getId());
-			session.setAttribute(IS_ADMIN, 'a' == user.getType());
-			request.getRequestDispatcher("jsp/profile.jsp").forward(request, response);
+			request.setAttribute(RequestAndSessionAttributes.USER, user);
+			session.setAttribute(RequestAndSessionAttributes.AUTHORIZED_USER, user.getLogin());
+			session.setAttribute(RequestAndSessionAttributes.USER_ID, user.getId());
+			session.setAttribute(RequestAndSessionAttributes.IS_ADMIN, 'a' == user.getType());
+			request.getRequestDispatcher(JavaServerPageNames.PROFILE_PAGE).forward(request, response);
 		} catch (ServiceAuthException e) {
-			session.setAttribute(ERROR_MESSAGE, e.getMessage());
-			request.setAttribute(ERROR_MESSAGE, e.getMessage());
+			session.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 			
-			request.getRequestDispatcher("jsp/logination.jsp").forward(request, response);
+			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
 			
 		}  catch (ServiceException e) {
-			request.getRequestDispatcher("error.jsp").forward(request, response);		
+			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);		
 		}
 
 	}

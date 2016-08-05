@@ -18,35 +18,29 @@ import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
 public class OpenNewsList implements Command {
 
-	private static final String NEWS = "news";
-	private static final String PREV_QUERY = "prev_query";
-	
-	private static final String NEWS_JSP_PAGE = "jsp/news.jsp";
-	private static final String ERROR_PAGE = "error.jsp";
-	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		INewsService newsService = ServiceFactory.getInstance().getNewsService();
 		
 		String query = QueryUtil.createHttpQueryString(request);
-		request.getSession(true).setAttribute(PREV_QUERY, query);
+		request.getSession(true).setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
 		try {
 			List<News> news = newsService.getAllNews();
 			Collections.reverse(news); // reverse for showing most recent news first
-			request.setAttribute(NEWS, news);
+			request.setAttribute(RequestAndSessionAttributes.NEWS, news);
 			
-			String url = response.encodeRedirectURL(NEWS_JSP_PAGE);
+			String url = response.encodeRedirectURL(JavaServerPageNames.NEWS_JSP_PAGE);
 			request.getRequestDispatcher(url).forward(request, response);
 			
 			
 		} catch(GetNewsServiceException e) {
-			request.getRequestDispatcher(NEWS_JSP_PAGE).forward(request, response);
+			request.getRequestDispatcher(JavaServerPageNames.NEWS_JSP_PAGE).forward(request, response);
 		}
 		
 		catch (ServiceException e) {
-			request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
+			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 		}
 	}
 

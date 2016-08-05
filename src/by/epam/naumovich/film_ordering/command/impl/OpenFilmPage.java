@@ -21,43 +21,34 @@ import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
 public class OpenFilmPage implements Command {
 
-	private static final String FILM_ID = "filmID";
-	private static final String FILM = "film";
-	private static final String REVIEWS = "reviews";
-	private static final String LOGINS = "logins";
-	private static final String PREV_QUERY = "prev_query";
-	
-	private static final String FILM_JSP_PAGE = "jsp/film.jsp";
-	
-	private static final String ERROR_PAGE = "error.jsp";
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
-		int movieID = Integer.parseInt(request.getParameter(FILM_ID));
+		int movieID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));
 		IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 		IReviewService reviewService = ServiceFactory.getInstance().getReviewService();
 		IUserService userService = ServiceFactory.getInstance().getUserService();
 		
 		String query = QueryUtil.createHttpQueryString(request);
-		request.getSession(true).setAttribute(PREV_QUERY, query);
+		request.getSession(true).setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
 		try {
 			Film film = filmService.getFilmByID(movieID);
-			request.setAttribute(FILM, film);
+			request.setAttribute(RequestAndSessionAttributes.FILM, film);
 			
 			List<Review> reviews = reviewService.getReviewsByFilmId(movieID);
-			request.setAttribute(REVIEWS, reviews);
+			request.setAttribute(RequestAndSessionAttributes.REVIEWS, reviews);
 			
 			List<String> reviewLogins = new ArrayList<String>();
 			for (Review r : reviews) {
 				reviewLogins.add(userService.getLoginByID(r.getAuthor()));
 			}
 			
-			request.setAttribute(LOGINS, reviewLogins);
+			request.setAttribute(RequestAndSessionAttributes.LOGINS, reviewLogins);
 			
-			String url = response.encodeRedirectURL(FILM_JSP_PAGE);
+			String url = response.encodeRedirectURL(JavaServerPageNames.FILM_JSP_PAGE);
 			//String url = request.getContextPath() + "/jsp/film.jsp";
 			//response.sendRedirect(url);
 			request.getRequestDispatcher(url).forward(request, response);
@@ -65,11 +56,11 @@ public class OpenFilmPage implements Command {
 			
 			
 		} catch(GetReviewsServiceException e) {
-			request.getRequestDispatcher(FILM_JSP_PAGE).forward(request, response);
+			request.getRequestDispatcher(JavaServerPageNames.FILM_JSP_PAGE).forward(request, response);
 		}
 		
 		catch (ServiceException e) {
-			request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
+			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 		}
 
 	}

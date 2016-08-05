@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import by.epam.naumovich.film_ordering.command.Command;
 
 public class Logout implements Command {
-
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
@@ -19,8 +19,8 @@ public class Logout implements Command {
 		if (session != null) {
 			session.invalidate();
 		}
-		request.getRequestDispatcher("index.jsp").forward(request, response);
-		response.encodeRedirectURL("index.jsp");
+		request.getRequestDispatcher(JavaServerPageNames.INDEX_PAGE).forward(request, response);
+		response.encodeRedirectURL(JavaServerPageNames.INDEX_PAGE);
 	}
 
 }

@@ -15,19 +15,19 @@ import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
 public class GetNovelty implements Command {
-
+		
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
 		IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 		String query = QueryUtil.createHttpQueryString(request);
-		request.getSession(true).setAttribute("prev_query", query);
+		request.getSession(true).setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		
 		try {
 			List<Film> filmList = filmService.getTwelveLastAddedFilms();
-			request.setAttribute("noveltyList", filmList);
+			request.setAttribute(RequestAndSessionAttributes.NOVELTY_LIST, filmList);
 		} catch (ServiceException e) {
-			request.getRequestDispatcher("error.jsp").forward(request, response);		
+			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);		
 		}
 	}
 
