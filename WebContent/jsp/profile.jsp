@@ -19,10 +19,15 @@
 <fmt:message bundle="${loc}" key="local.profile.login" var="login" />
 <fmt:message bundle="${loc}" key="local.profile.regDateTime" var="regDateTime" />
 <fmt:message bundle="${loc}" key="local.profile.sex" var="sex" />
+<fmt:message bundle="${loc}" key="local.signUp.male" var="male" />
+<fmt:message bundle="${loc}" key="local.signUp.female" var="female" />
+<fmt:message bundle="${loc}" key="local.signUp.unknown" var="unknown" />
 <fmt:message bundle="${loc}" key="local.profile.phoneNum" var="phoneNum" />
 <fmt:message bundle="${loc}" key="local.profile.birthDate" var="birthDate" />
 <fmt:message bundle="${loc}" key="local.profile.email" var="email" />
 <fmt:message bundle="${loc}" key="local.profile.aboutMe" var="aboutMe" />
+
+<c:set var="user" value="${requestScope.user}" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="${language}">
@@ -30,7 +35,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${serviceName} - ${pageTitle}</title>
+  <title>${pageTitle}: ${user.login}</title>
   <c:set var="url">${pageContext.request.requestURL}</c:set>
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
   <link rel="icon"  type="image/x-icon" href="img/tab-logo.png">
@@ -62,7 +67,7 @@
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
-          <h2 class=" text-left" style="margin:0px; padding:0px;">${pageHeader}</h2>
+          <h2 class=" text-left" style="margin:0px; padding:0px;">${pageHeader} ${user.login} </h2>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
@@ -102,41 +107,51 @@
                     <tbody>
                     <tr>
                         <td>${name}</td>
-                        <td>Дмитрий</td>
+                        <td>${user.name}</td>
                       </tr>
                       <tr>
                         <td>${surname}</td>
-                        <td>Иванов</td>
+                        <td>${user.surname }</td>
                       </tr>
                       <tr>
                         <td>${login}</td>
-                        <td>loggy</td>
+                        <td>${user.login}</td>
                       </tr>
                       <tr>
                         <td>${regDateTime}</td>
-                        <td>02.07.2016 20:02</td>
+                        <td>${user.regDate}</td>
                       </tr>
                       <tr>
                         <td>${sex}</td>
-                        <td>Мужской</td>
+                        <c:choose>
+                        	<c:when test="${user.sex eq 'm'.charAt(0)}">
+                        		<td>${male}</td>
+                        	</c:when>
+                        	<c:when test="${user.sex eq 'f'.charAt(0)}">
+                        		<td>${female}</td>
+                        	</c:when>
+                        	<c:otherwise> 
+                        		<td>${unknown}</td>
+                        	</c:otherwise>
+                         </c:choose>
+                        
                       </tr>
                       <tr>
                         <td>${birthDate}</td>
-                        <td>28.11.1994</td>
+                        <td>${user.birthDate }</td>
                       </tr>
                       <tr>
                         <td>${phoneNum}</td>
-                        <td>+375447081144</td>
+                        <td>${user.phone}</td>
                       </tr>
                       <tr>
                         <td>${email}</td>
-                        <td>example@gmail.com</td>
+                        <td>${user.email}</td>
                       </tr>
                       <tr>
                         <td>${aboutMe}</td>
                         <td><p>
-                              Я студент факультета межкорреляционных взаимопояснений кафедры славянской этимологической философии Беларусского Нигилистического Университета имени Франциска Сигизмундовича
-
+                              ${user.about}
                           </p></td>
                       </tr>
                     </tbody>

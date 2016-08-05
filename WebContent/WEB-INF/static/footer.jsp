@@ -42,7 +42,7 @@
           	<c:when test="${sessionScope.authUser != null}">
           		<li><a href="jsp/profile.jsp"> ${signIn} </a></li> 
           		<li><a href="jsp/sign-up.jsp">${signUp}</a></li>
-          		<li><a href="jsp/profile.jsp">${profile}</a></li>
+          		<li><a href="<c:url value="/Controller?command=open_profile&userID=${sessionScope.userID}"/>" >${profile}</a></li>
           		<li><a href="jsp/orders.jsp">${orders}</a></li>
           	</c:when>
           	<c:otherwise>
