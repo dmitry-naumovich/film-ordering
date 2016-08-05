@@ -24,7 +24,6 @@ public class OpenFilmPage implements Command {
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		
 		int movieID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));
 		IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 		IReviewService reviewService = ServiceFactory.getInstance().getReviewService();

@@ -45,7 +45,7 @@ public class Login implements Command {
 			session.setAttribute(RequestAndSessionAttributes.AUTHORIZED_USER, user.getLogin());
 			session.setAttribute(RequestAndSessionAttributes.USER_ID, user.getId());
 			session.setAttribute(RequestAndSessionAttributes.IS_ADMIN, 'a' == user.getType());
-			request.getRequestDispatcher(JavaServerPageNames.PROFILE_PAGE).forward(request, response);
+			request.getRequestDispatcher(JavaServerPageNames.INDEX_PAGE).forward(request, response);
 		} catch (ServiceAuthException e) {
 			session.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());

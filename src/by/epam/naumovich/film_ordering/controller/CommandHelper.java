@@ -20,6 +20,7 @@ public class CommandHelper {
 		commands.put(CommandName.OPEN_FILM_LIST, new OpenFilmList());
 		commands.put(CommandName.OPEN_NEWS_LIST, new OpenNewsList());
 		commands.put(CommandName.OPEN_ORDER_PAGE, new OpenOrderPage());
+		commands.put(CommandName.OPEN_PROFILE, new OpenProfile());
 	}
 	
 	public Command getCommand(String name) {
