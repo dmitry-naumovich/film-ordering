@@ -57,7 +57,11 @@
           <h2 class=" text-left" style="margin:0px; padding:0px;"> ${pageHeader} </h2>
           </div> 
           <div class="row panel-body">
-            <div class="col-md-12">           
+            <div class="col-md-12">  
+            
+            	<c:forEach var="review" items="${requestScope.reviews}">
+            
+                     
                     <div class="panel panel-default container-fluid">
                         <div class="row panel-heading" >
                         	<div class="col-md-6">
@@ -70,63 +74,28 @@
                     	<div class="row panel-body">
 	                        <div class="col-md-12">
 	                          <p> <br>
-	                              Id probo mutat est. Qui ut prompta philosophia. Sea eu tritani sapientem suscipiantur, ad recteque ocurreret reformidans nam. Putant diceret his ne, nam quidam option id, primis numquam no cum.
-	
-	                              Ne volumus qualisque eloquentiam sit, eius patrioque at usu. Sit odio clita inciderint ea, per ignota menandri inciderint et. No eum nisl mutat corpora. Vel assum percipitur ne, modus dolorem signiferumque per ne.
-	
-	                               reformidans definitionem no, cu sale percipit maluisset mea. Accusam gloriatur eu sea. Omittam honestatis his ei. Ad melius aliquid sit. Sumo graeci erroribus et mea, fierent liberavisse mediocritatem no mei, illud facilis epicurei cum id. Ei adipisci eleifend similique mel, eos no putent deterruisset.
-	
-	                              Eos nemore corrumpit aliquando ea, congue discere ut sed. Quo ei stet admodum dissentias, nec ex omnesque argumentum, et sea novum exerci. Eu nemore commune imperdiet pro. Id per aliquip fabellas, error fastidii has ex.
+	                              ${review.text}
 	                          </p>
 	                        </div>
                         </div>
                         <div class="row panel-footer" >
                         
                         	<div class="col-md-4">
-                        		<h5 class="text-left">${type}: positive</h5>
+                        		<h5 class="text-left">${type}: ${review.type}</h5>
                         	</div>
                         	<div class="col-md-4">
-                        		<h5 class="text-center">${mark}: 4/5</h5>
+                        		<h5 class="text-center">${mark}: ${review.mark}/5</h5>
                         	</div>
                         	<div class="col-md-4">
-                        		<h5 class="text-right">${date}: 14.06.16</h5>
+                        		<h5 class="text-right">${date}: ${review.date }</h5>
                         	</div>
                         </div>
                         
                         </div>
+                        
+                  </c:forEach>
 
-                         <div class="panel panel-default">
-                        <div class=" panel-heading" >
-                          <h4 class=" text-left" style="margin-bottom:0px; padding-bottom:0px;"> Бойцовский клуб</h4>
-                        </div> 
-                    <div class="row panel-body">
-                        <div class="col-md-12">
-                          <p> <br>
-                              Id probo mutat est. Qui ut prompta philosophia. Sea eu tritani sapientem suscipiantur, ad recteque ocurreret reformidans nam. Putant diceret his ne, nam quidam option id, primis numquam no cum.
-
-                              Ne volumus qualisque eloquentiam sit, eius patrioque at usu. Sit odio clita inciderint ea, per ignota menandri inciderint et. No eum nisl mutat corpora. Vel assum percipitur ne, modus dolorem signiferumque per ne.
-
-                               reformidans definitionem no, cu sale percipit maluisset mea. Accusam gloriatur eu sea. Omittam honestatis his ei. Ad melius aliquid sit. Sumo graeci erroribus et mea, fierent liberavisse mediocritatem no mei, illud facilis epicurei cum id. Ei adipisci eleifend similique mel, eos no putent deterruisset.
-
-                              Eos nemore corrumpit aliquando ea, congue discere ut sed. Quo ei stet admodum dissentias, nec ex omnesque argumentum, et sea novum exerci. Eu nemore commune imperdiet pro. Id per aliquip fabellas, error fastidii has ex.
-                          </p>
-                        </div>
-                        </div>
-                        </div>
-
-                         <div class="panel panel-default">
-                        <div class=" panel-heading" >
-                          <h4 class=" text-left" style="margin-bottom:0px; padding-bottom:0px;"> Босиком по мостовой </h4>
-                        </div> 
-                    <div class="row panel-body">
-                        <div class="col-md-12">
-                          <p> <br>
-                              То, что я сопереживал не каждому герою по отдельности а симбиозу двух героев. Маленькая деталь, которая произвела на меня большое впечатление — выбор актера. В реальной жизни Дрисс был арабским парнем. Араб или человек негроидной расы — в жизни это не сыграло ни какой роли, но в фильме… богатый и бедный, образованный и не умеющий читать, инвалидная коляска и здоровый сильный амбал, «это на интеллектуальном и эмоциональном уровне, мне это важнее физической близости» и «вот увидишь, я с ней обязательно пересплю» и, наконец — белый и черный. Дальше можно продолжать — свет и мрак, инь и янь, добро и зло, мгновение и вечность ну и всякие другие пафосные полярности. Но именно такой ход мыслей позволил мне воспринимать этих двух как что-то одно целое. 
-
-                          </p>
-                        </div>
-                        </div>
-                        </div>
+                        
 
           </div>
           </div>

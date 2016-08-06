@@ -20,6 +20,10 @@
 <fmt:message bundle="${loc}" key="local.footer.siteMap.aboutUs" var="aboutUs" />
 <fmt:message bundle="${loc}" key="local.footer.siteMap.help" var="help" />   	
 <fmt:message bundle="${loc}" key="local.footer.info" var="footerInfo" />   	
+<fmt:message bundle="${loc}" key="local.header.settings" var="settings" />
+<fmt:message bundle="${loc}" key="local.header.myReviews" var="myReviews" />
+<fmt:message bundle="${loc}" key="local.header.myOrders" var="myOrders" />
+<fmt:message bundle="${loc}" key="local.header.usersList" var="userList" />
    	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <footer class="container-fluid text-center"> 
@@ -31,32 +35,42 @@
       <div class="col-md-2 col-md-offset-3">
         <ul>
           <li><a href="index.jsp">${main}</a></li>
+          <li><a href="<c:url value="/Controller?command=open_news_list"/>" > ${news} </a></li>
           <li><a href="<c:url value="/Controller?command=open_film_list"/>" >${films}</a></li>
-          <li><a href="jsp/reviews.jsp">${reviews}</a></li>
           <li><a href="jsp/widen-search.jsp">${widenSearch}</a></li>
         </ul>
       </div>
       <div class="col-md-2">
         <ul>
-          <c:choose>
-          	<c:when test="${sessionScope.authUser != null}">
-          		<li><a href="jsp/profile.jsp"> ${signIn} </a></li> 
-          		<li><a href="jsp/sign-up.jsp">${signUp}</a></li>
-          		<li><a href="<c:url value="/Controller?command=open_profile&userID=${sessionScope.userID}"/>" >${profile}</a></li>
-          		<li><a href="jsp/orders.jsp">${orders}</a></li>
+        <c:choose> 
+          	<c:when test=${sessionScope.authUser != null}">
+          		<c:choose> 
+          			<c:when test="${sessionScope.isAdmin}">
+          				 <li><a href="<c:url value="/Controller?command=open_profile&userID=${sessionScope.userID}"/>" >${profile}</a></li>
+          				 <li><a href="<c:url value="/Controller?command=open_all_reviews"/>">${reviews}</a></li>
+          				 <li><a href="<c:url value="/Controller?command=open_all_orders"/>">${orders}</a></li>
+          				 <li><a href="<c:url value="/Controller/command=open_user_list"/>">${userList}</a></li>
+          			</c:when>
+          			<c:otherwise> 
+          				 <li><a href="<c:url value="/Controller?command=open_profile&userID=${sessionScope.userID}"/>" >${profile}</a></li>
+          				 <li><a href="<c:url value="/Controller?command=open_reviews&userID=${sessionScope.userID}"/>">${myReviews}</a></li>
+          				 <li><a href="<c:url value="/Controller?command=open_orders&userID=${sessionScope.userID}"/>">${myOrders}</a></li>
+          				 <li><a href="<c:url value="/Controller/command=open_settings&userID=${sessionScope.userID}"/>">${settings}</a></li>
+          			</c:otherwise>
+          		</c:choose> 
           	</c:when>
-          	<c:otherwise>
-          		<li><a href="jsp/logination.jsp" >${signIn} </a></li>
-          		<li><a href="jsp/sign-up.jsp">${signUp}</a></li> 
+          	<c:otherwise> 
           		<li><a href="jsp/logination.jsp">${profile}</a></li>
-          		<li><a href="jsp/logination.jsp">${orders}</a></li> 
+          		<li><a href="jsp/logination.jsp" >${myReviews} </a></li>
+          		<li><a href="jsp/logination.jsp">${myOrders}</a></li>
+          		<li><a href="jsp/logination.jsp">${settings}</a></li>
           	</c:otherwise>
           </c:choose>
         </ul>
       </div>
       <div class="col-md-2">
         <ul>
-          <li><a href="<c:url value="/Controller?command=open_news_list"/>" > ${newsPage} </a></li>
+          <li><a href="jsp/sign-up.jsp">${signUp}</a></li> 
           <li><a href="jsp/feedback.jsp">${feedback}</a></li>
           <li><a href="jsp/about-us.jsp">${aboutUs}</a></li>
           <li><a href="jsp/help.jsp">${help}</a></li>
