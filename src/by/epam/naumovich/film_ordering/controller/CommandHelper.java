@@ -21,6 +21,8 @@ public class CommandHelper {
 		commands.put(CommandName.OPEN_NEWS_LIST, new OpenNewsList());
 		commands.put(CommandName.OPEN_ORDER_PAGE, new OpenOrderPage());
 		commands.put(CommandName.OPEN_PROFILE, new OpenProfile());
+		commands.put(CommandName.OPEN_ALL_REVIEWS, new OpenAllReviews());
+		commands.put(CommandName.OPEN_ALL_ORDERS, new OpenAllOrders());
 	}
 	
 	public Command getCommand(String name) {
