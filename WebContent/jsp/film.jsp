@@ -31,7 +31,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${pageTitle} - ${film.name} /> (${film.year })</title>
+  <title>${pageTitle} - ${film.name} (${film.year })</title>
   <c:set var="url">${pageContext.request.requestURL}</c:set>
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
   <link rel="icon"  type="image/x-icon" href="img/tab-logo.png">
@@ -138,26 +138,26 @@
 	                        <td>${film.length}</td>
 	                      </tr>
 	                      <tr>
-	                        <td><b>${filmRating}</b></td>
-	                        <c:choose> 
-	                      		<c:when test="${film.rating eq 0}">
-	                      			<td>—</td>
-	                      		</c:when>
-	                      		<c:otherwise>
-	                        		<td>${film.rating}</td>
-	                        	</c:otherwise>
-	                        </c:choose>
-                     	  </tr>
-	                      <tr>
-	                        <td><b>${price}</b></td>
-	                        <td>${film.price} ${rublesShorten}</td>
-	                      </tr>
-	                      <c:if test="${film.description != null}">
+                        	<td><b>${filmRating}</b></td>
+                        		<c:choose> 
+		                      		<c:when test="${film.rating eq 0}">
+		                      			<td>—</td>
+		                      		</c:when>
+		                      		<c:otherwise>
+		                        		<td>${film.rating}</td>
+		                        	</c:otherwise>
+                        		</c:choose>	
+                      		</tr>
+                      		<c:if test="${film.description != null}">
 		                      <tr>
 		                        <td><b>${description}</b></td>
 		                        <td>${film.description}</td>
 		                      </tr>
-	                      </c:if>
+		                  </c:if>
+	                      <tr>
+	                        <td><b>${price}</b></td>
+	                        <td>${film.price}</td>
+	                      </tr>
 	                    </tbody>
 	                </table>
 				</div>
@@ -169,7 +169,7 @@
 			                    <div class="panel panel-default">
 			                        <div class="panel-heading" >
 			                          <h4 class=" text-left" style="margin-bottom:0px; padding-bottom:0px;"> 
-			                          	${reviewBy} <a href="<c:url value="/Controller?command=open_profile&userLogin=${authorLogin }" />" > ${authorLogin} </a>
+			                          	${reviewBy} <a href="<c:url value="/Controller?command=open_profile&userID=${review.author}" />" > ${authorLogin} </a>
 			                          </h4>
 			                        </div> 
 				                    <div class="row panel-body">

@@ -13,6 +13,7 @@
 <fmt:message bundle="${loc}" key="local.profile.myOrders" var="myOrders" />
 <fmt:message bundle="${loc}" key="local.profile.userReviews" var="userReviews" />
 <fmt:message bundle="${loc}" key="local.profile.userOrders" var="userOrders" />
+<fmt:message bundle="${loc}" key="local.profile.banUser" var="banUser" />
 <fmt:message bundle="${loc}" key="local.profile.editProfile" var="editProfile" />
 <fmt:message bundle="${loc}" key="local.profile.name" var="name" />
 <fmt:message bundle="${loc}" key="local.profile.surname" var="surname" />
@@ -76,15 +77,19 @@
                     <thead>
                       <tr>
                         <th>
-                          <figure><img src="img/avatars-01-01.jpg" alt="Intouchables" class="img-thumbnail img-responsive" width="210" height="140" /> </figure>
+                          <figure><img src="img/avatars/avatars${user.id}.gif" alt="${user.login} avatar" class="img-thumbnail img-responsive" width="150" height="150" /> </figure>
                         </th>
                         <th>
                         	<c:choose>
 	  							<c:when test="${sessionScope.authUser != null}">
 		                           <c:choose>
-			                           	<c:when test="${sessionScope.isAdmin}"> <!-- and user.userId != seesionScope.userID  -->
+			                           	<c:when test="${sessionScope.isAdmin && user.id != sessionScope.userID}">
 				                          <a href="jsp/orders.jsp" class="btn btn-primary" role="button">${userOrders}</a> 
 				                          <a href="jsp/reviews.jsp" class="btn btn-warning" role="button">${userReviews}</a>
+				                          <a href="jsp/ban.jsp" class="btn btn-danger" role="button">${banUser}</a>
+				                        </c:when>
+				                        <c:when test="${!sessionScope.isAdmin && user.id != sessionScope.userID}">
+				                        	<a href="jsp/reviews.jsp" class="btn btn-warning" role="button">${userReviews}</a>
 				                        </c:when>
 				                        <c:otherwise> 
 				                        	<a href="jsp/orders.jsp" class="btn btn-primary" role="button">${myOrders}</a> 

@@ -23,7 +23,7 @@
 <fmt:message bundle="${loc}" key="local.header.settings" var="settings" />
 <fmt:message bundle="${loc}" key="local.header.myReviews" var="myReviews" />
 <fmt:message bundle="${loc}" key="local.header.myOrders" var="myOrders" />
-<fmt:message bundle="${loc}" key="local.header.usersList" var="userList" />
+<fmt:message bundle="${loc}" key="local.footer.userList" var="userList" />
    	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <footer class="container-fluid text-center"> 
@@ -43,7 +43,7 @@
       <div class="col-md-2">
         <ul>
         <c:choose> 
-          	<c:when test=${sessionScope.authUser != null}">
+          	<c:when test="${sessionScope.authUser != null}">
           		<c:choose> 
           			<c:when test="${sessionScope.isAdmin}">
           				 <li><a href="<c:url value="/Controller?command=open_profile&userID=${sessionScope.userID}"/>" >${profile}</a></li>

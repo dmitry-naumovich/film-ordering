@@ -61,9 +61,20 @@
             
             	<c:forEach var="review" items="${requestScope.reviews}">
             
-                     
+                      <c:choose>
+                      		<c:when test="${review.type eq  'ps'}"> 
+                      			<c:set var="rColor" value="#ccffcc"/>
+                      		</c:when>
+                      		<c:when test="${review.type eq 'ng'}"> 
+                      			<c:set var="rColor" value="#ffcccc"/>
+                      		</c:when>
+                      		<c:otherwise>
+                      			<c:set var="rColor" value="#e6e6ff"/>
+                      		</c:otherwise>
+                      </c:choose>
+                        
                     <div class="panel panel-default container-fluid">
-                        <div class="row panel-heading" >
+                        <div class="row panel-heading" style="background-color:${rColor}">
                         	<div class="col-md-6">
                         		<h4 class=" text-left" style="margin:0px; padding:0px;"> Фильм </h4>
                         	</div>
@@ -78,15 +89,13 @@
 	                          </p>
 	                        </div>
                         </div>
-                        <div class="row panel-footer" >
                         
-                        	<div class="col-md-4">
-                        		<h5 class="text-left">${type}: ${review.type}</h5>
-                        	</div>
-                        	<div class="col-md-4">
+                        
+                        <div class="row panel-footer" style="background-color:${rColor}">
+                        	<div class="col-md-6">
                         		<h5 class="text-center">${mark}: ${review.mark}/5</h5>
                         	</div>
-                        	<div class="col-md-4">
+                        	<div class="col-md-6">
                         		<h5 class="text-right">${date}: ${review.date }</h5>
                         	</div>
                         </div>
