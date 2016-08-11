@@ -29,4 +29,14 @@
     <servlet-name>IndexPageServlet</servlet-name>
     <url-pattern>/IndexPageServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>NewsSidebarServlet</display-name>
+    <servlet-name>NewsSidebarServlet</servlet-name>
+    <servlet-class>by.epam.naumovich.film_ordering.controller.NewsSidebarServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewsSidebarServlet</servlet-name>
+    <url-pattern>/NewsSidebarServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

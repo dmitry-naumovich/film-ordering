@@ -16,6 +16,7 @@ public class CommandHelper {
 		commands.put(CommandName.LOGOUT, new Logout());
 		commands.put(CommandName.CHANGE_LANGUAGE, new ChangeLanguage());
 		commands.put(CommandName.GET_NOVELTY, new GetNovelty());
+		commands.put(CommandName.GET_SIDEBAR_NEWS, new GetSidebarNews());
 		commands.put(CommandName.OPEN_FILM_PAGE, new OpenFilmPage());
 		commands.put(CommandName.OPEN_FILM_LIST, new OpenFilmList());
 		commands.put(CommandName.OPEN_NEWS_LIST, new OpenNewsList());
@@ -24,6 +25,7 @@ public class CommandHelper {
 		commands.put(CommandName.OPEN_ALL_REVIEWS, new OpenAllReviews());
 		commands.put(CommandName.OPEN_USER_REVIEWS, new OpenUserReviews());
 		commands.put(CommandName.OPEN_ALL_ORDERS, new OpenAllOrders());
+		commands.put(CommandName.OPEN_SINGLE_NEWS, new OpenSingleNews());
 	}
 	
 	public Command getCommand(String name) {
