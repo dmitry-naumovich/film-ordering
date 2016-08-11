@@ -1,6 +1,7 @@
 package by.epam.naumovich.film_ordering.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -83,6 +84,44 @@ public class NewsServiceImpl implements INewsService {
 		}
 		
 		return list;
+	}
+
+	@Override
+	public List<News> getFourLastNews() throws ServiceException {
+		List<News> list = new ArrayList<News>();
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			INewsDAO newsDAO = daoFactory.getNewsDAO();
+			list = newsDAO.getAllNews();
+			
+			if (list.isEmpty()) {
+				throw new GetNewsServiceException("No news in the database");
+			}
+			
+			Collections.reverse(list);
+			
+		} catch (DAOException e) {
+			throw new ServiceException("Error in data source!");
+		}
+		
+		return list.subList(0, 4);
+	}
+
+	@Override
+	public News getNewsById(int id) throws ServiceException {
+		News news = null;
+		try {
+			INewsDAO newsDAO = DAOFactory.getDAOFactory(MYSQL).getNewsDAO();
+			news = newsDAO.getNewsById(id);
+			
+			if (news == null) {
+				throw new GetNewsServiceException("News was not found. Sorry!");
+			}
+		} catch (DAOException e) {
+			throw new ServiceException("Error in data source!");
+		}
+		
+		return news;
 	}
 
 }

@@ -22,6 +22,7 @@ public final class JavaServerPageNames {
 	public static final String PROFILE_PAGE = "jsp/profile.jsp";
 	public static final String REVIEWS_PAGE = "jsp/reviews.jsp";
 	public static final String SIGN_UP_PAGE = "jsp/sign-up.jsp";
+	public static final String SINGLE_NEWS_PAGE = "jsp/single-news.jsp";
 	public static final String SUCCESS_PAGE = "jsp/success-page.jsp";
 	public static final String WIDEN_SEARCH_PAGE = "jsp/widen-search.jsp";
 }

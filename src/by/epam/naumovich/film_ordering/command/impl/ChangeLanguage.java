@@ -19,13 +19,13 @@ public class ChangeLanguage implements Command {
 		String query = QueryUtil.createHttpQueryString(request);
 		request.getSession(true).setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		
-		if (query != null) {
+		/*if (query != null) {
 			response.sendRedirect(query);
 		} else {
 			request.getRequestDispatcher(JavaServerPageNames.INDEX_PAGE).forward(request, response);
-		}
+		}*/
 		
-		//request.getRequestDispatcher("/index.jsp").forward(request, response);
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 
 }

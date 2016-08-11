@@ -18,6 +18,7 @@ public class MySQLNewsDAO implements INewsDAO {
 	public static final String INSERT_NEW_NEWS = "INSERT INTO News (n_date, n_title, n_text) VALUES (?, ?, ?)";
 	public static final String DELETE_NEWS = "DELETE FROM News WHERE n_id = ?";
 	public static final String SELECT_ALL_NEWS = "SELECT * FROM News";
+	public static final String SELECT_NEWS_BY_ID = "SELECT * FROM News WHERE n_id = ?";
 	public static final String SELECT_NEWS_BY_YEAR = "SELECT * FROM News WHERE YEAR(n_date) = ?";
 	public static final String SELECT_NEWS_BY_MONTH_AND_YEAR = "SELECT * FROM News WHERE MONTH(n_date) = ? AND YEAR(n_date) = ?";
 	
@@ -46,7 +47,13 @@ public class MySQLNewsDAO implements INewsDAO {
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);
 		} finally {
-			pool.closeConnection(con, st);
+			try {
+				st.close();
+			} catch (SQLException e) {
+				throw new DAOException("Result Statement was not closed properly");
+			} finally {
+				pool.closeConnection(con);
+			}
 		}
 	}
 
@@ -67,7 +74,13 @@ public class MySQLNewsDAO implements INewsDAO {
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);
 		} finally {
-			pool.closeConnection(con, st);
+			try {
+				st.close();
+			} catch (SQLException e) {
+				throw new DAOException("Result Statement was not closed properly");
+			} finally {
+				pool.closeConnection(con);
+			}
 		}
 	}
 
@@ -192,6 +205,46 @@ public class MySQLNewsDAO implements INewsDAO {
 			
 		}
 		return newsList;
+	}
+
+	@Override
+	public News getNewsById(int id) throws DAOException {
+		News news = null;
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(SELECT_NEWS_BY_ID);
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			
+			while (rs.next()) {
+				news = new News();
+				news.setId(rs.getInt(1));
+				news.setDate(rs.getDate(2));
+				news.setTitle(rs.getString(3));
+				news.setText(rs.getString(4));
+			}
+			
+		} catch (SQLException e) {
+			throw new DAOException("Failure during SQL Select Request execution", e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException("Failure during taking connection from ConnectionPool", e);
+		} finally {
+			try {
+				rs.close();
+				st.close();
+			} catch (SQLException e) {
+				throw new DAOException("Result Set or Statement was not closed properly");
+			} finally {
+				pool.closeConnection(con);
+			}
+			
+		}
+		return news;
 	}
 
 }
