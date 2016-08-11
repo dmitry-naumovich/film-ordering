@@ -50,7 +50,7 @@ public class MySQLNewsDAO implements INewsDAO {
 			try {
 				st.close();
 			} catch (SQLException e) {
-				throw new DAOException("Result Statement was not closed properly");
+				throw new DAOException("Prepared Statement was not closed properly");
 			} finally {
 				pool.closeConnection(con);
 			}
@@ -77,7 +77,7 @@ public class MySQLNewsDAO implements INewsDAO {
 			try {
 				st.close();
 			} catch (SQLException e) {
-				throw new DAOException("Result Statement was not closed properly");
+				throw new DAOException("Prepared Statement was not closed properly");
 			} finally {
 				pool.closeConnection(con);
 			}

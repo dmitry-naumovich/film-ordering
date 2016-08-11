@@ -54,7 +54,13 @@ public class MySQLReviewDAO implements IReviewDAO {
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);
 		} finally {
-			pool.closeConnection(con, st);
+			try {
+				st.close();
+			} catch (SQLException e) {
+				throw new DAOException("Prepared Statement was not closed properly");
+			} finally {
+				pool.closeConnection(con);
+			}
 		}
 	}
 
@@ -80,7 +86,13 @@ public class MySQLReviewDAO implements IReviewDAO {
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);
 		} finally {
-			pool.closeConnection(con, st);
+			try {
+				st.close();
+			} catch (SQLException e) {
+				throw new DAOException("Prepared Statement was not closed properly");
+			} finally {
+				pool.closeConnection(con);
+			}
 		}
 	}
 	
@@ -114,7 +126,14 @@ public class MySQLReviewDAO implements IReviewDAO {
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);
 		} finally {
-			pool.closeConnection(con, st, rs);
+			try {
+				rs.close();
+				st.close();
+			} catch (SQLException e) {
+				throw new DAOException("Result Set or Statement was not closed properly");
+			} finally {
+				pool.closeConnection(con);
+			}
 		}
 		return reviewList;
 	}
@@ -150,7 +169,14 @@ public class MySQLReviewDAO implements IReviewDAO {
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);
 		} finally {
-			pool.closeConnection(con, st, rs);
+			try {
+				rs.close();
+				st.close();
+			} catch (SQLException e) {
+				throw new DAOException("Result Set or Statement was not closed properly");
+			} finally {
+				pool.closeConnection(con);
+			}
 		}
 		return reviewList;
 	}
@@ -186,7 +212,14 @@ public class MySQLReviewDAO implements IReviewDAO {
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);
 		} finally {
-			pool.closeConnection(con, st, rs);
+			try {
+				rs.close();
+				st.close();
+			} catch (SQLException e) {
+				throw new DAOException("Result Set or Statement was not closed properly");
+			} finally {
+				pool.closeConnection(con);
+			}
 		}
 		return reviewList;
 	}

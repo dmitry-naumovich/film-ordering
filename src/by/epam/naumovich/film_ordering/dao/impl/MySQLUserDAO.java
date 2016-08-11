@@ -58,7 +58,13 @@ public class MySQLUserDAO implements IUserDAO {
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);
 		} finally {
-			pool.closeConnection(con, st);
+			try {
+				st.close();
+			} catch (SQLException e) {
+				throw new DAOException("Prepared Statement was not closed properly");
+			} finally {
+				pool.closeConnection(con);
+			}
 		}
 		
 	}
@@ -88,7 +94,13 @@ public class MySQLUserDAO implements IUserDAO {
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);
 		} finally {
-			pool.closeConnection(con, st);
+			try {
+				st.close();
+			} catch (SQLException e) {
+				throw new DAOException("Prepared Statement was not closed properly");
+			} finally {
+				pool.closeConnection(con);
+			}
 		}
 		
 	}
@@ -110,7 +122,13 @@ public class MySQLUserDAO implements IUserDAO {
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);
 		} finally {
-			pool.closeConnection(con, st);
+			try {
+				st.close();
+			} catch (SQLException e) {
+				throw new DAOException("Prepared Statement was not closed properly");
+			} finally {
+				pool.closeConnection(con);
+			}
 		}
 	}
 	
@@ -149,7 +167,14 @@ public class MySQLUserDAO implements IUserDAO {
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);
 		} finally {
-			pool.closeConnection(con, st, rs);
+			try {
+				rs.close();
+				st.close();
+			} catch (SQLException e) {
+				throw new DAOException("Result Set or Statement was not closed properly");
+			} finally {
+				pool.closeConnection(con);
+			}
 		}
 		return list;
 	}
@@ -190,7 +215,14 @@ public class MySQLUserDAO implements IUserDAO {
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);
 		} finally {
-			pool.closeConnection(con, st, rs);
+			try {
+				rs.close();
+				st.close();
+			} catch (SQLException e) {
+				throw new DAOException("Result Set or Statement was not closed properly");
+			} finally {
+				pool.closeConnection(con);
+			}
 		}
 		return user;
 	}
@@ -230,7 +262,14 @@ public class MySQLUserDAO implements IUserDAO {
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);
 		} finally {
-			pool.closeConnection(con, st, rs);
+			try {
+				rs.close();
+				st.close();
+			} catch (SQLException e) {
+				throw new DAOException("Result Set or Statement was not closed properly");
+			} finally {
+				pool.closeConnection(con);
+			}
 		}
 		return list;
 	}
@@ -256,7 +295,14 @@ public class MySQLUserDAO implements IUserDAO {
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);
 		} finally {
-			pool.closeConnection(con, st, rs);
+			try {
+				rs.close();
+				st.close();
+			} catch (SQLException e) {
+				throw new DAOException("Result Set or Statement was not closed properly");
+			} finally {
+				pool.closeConnection(con);
+			}
 		}
 		return false;
 	}
@@ -282,7 +328,14 @@ public class MySQLUserDAO implements IUserDAO {
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);
 		} finally {
-			pool.closeConnection(con, st, rs);
+			try {
+				rs.close();
+				st.close();
+			} catch (SQLException e) {
+				throw new DAOException("Result Set or Statement was not closed properly");
+			} finally {
+				pool.closeConnection(con);
+			}
 		}
 		return null;
 	}
@@ -323,7 +376,14 @@ public class MySQLUserDAO implements IUserDAO {
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);
 		} finally {
-			pool.closeConnection(con, st, rs);
+			try {
+				rs.close();
+				st.close();
+			} catch (SQLException e) {
+				throw new DAOException("Result Set or Statement was not closed properly");
+			} finally {
+				pool.closeConnection(con);
+			}
 		}
 		return user;
 	}
