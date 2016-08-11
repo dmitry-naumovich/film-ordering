@@ -64,17 +64,14 @@
                     		<p class="text-justify" style="margin:10px;"><u>${news.title}</u></p>
                     	 </div>
                     
-                        <div class="row col-md-12">
-                          <div class="col-md-4">
-                            
-                              <figure>
-                                <img src="img/news/${news.id}/01.jpg" alt="Img failed" class="img-thumbnail img-responsive" width="210" height="140" style="margin-top: 30px; margin-right: 0px"/> 
-                              </figure>
-                          </div>
-                          <div class="col-md-8">
-                              <br> <br> <p style="text-align:justify; margin-left: -10px;"> ${news.text} </p>
+                        <div class="col-md-12">
+                          
+                           <figure>
+                             <img src="img/news/${news.id}/01.jpg" alt="Img failed" class="img-thumbnail img-responsive" width="210" height="140" style="float:left; margin:20px;"/> 
+                           </figure>
+                       		<br>
+                           <p style="text-align:justify;"> ${news.text} </p>
 
-                          </div>
                           
                         </div>
                         </div>

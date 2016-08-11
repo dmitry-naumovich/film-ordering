@@ -55,9 +55,9 @@
           
           </div> 
           <div class="row panel-body ">
-          	<img src="img/news/${news.id}/01.jpg" alt="News Img" class="img-thumbnail img-responsive pull-left" width="210" height="140" />
             <div class="col-md-12">
-                ${news.text}
+            <img src="img/news/${news.id}/01.jpg" alt="News Img" class="img-thumbnail img-responsive" style="float:left; margin:20px;" width="210" height="140" />
+            <br><p style="text-align:justify;"> ${news.text} </p>
           </div>
           </div>
 
