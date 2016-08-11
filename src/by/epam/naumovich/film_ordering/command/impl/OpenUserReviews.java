@@ -14,35 +14,32 @@ import by.epam.naumovich.film_ordering.command.Command;
 import by.epam.naumovich.film_ordering.command.util.QueryUtil;
 import by.epam.naumovich.film_ordering.service.IFilmService;
 import by.epam.naumovich.film_ordering.service.IReviewService;
-import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
-public class OpenAllReviews implements Command {
+public class OpenUserReviews implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		int userId = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.USER_ID));
+		
 		IReviewService reviewService = ServiceFactory.getInstance().getReviewService();
 		IFilmService filmService = ServiceFactory.getInstance().getFilmService();
-		IUserService userService = ServiceFactory.getInstance().getUserService();
 		
 		String query = QueryUtil.createHttpQueryString(request);
 		request.getSession(true).setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
 		try {
-			List<Review> reviews = reviewService.getAllReviews();
+			List<Review> reviews = reviewService.getReviewsByUserId(userId);
 			Collections.reverse(reviews);
 			
-			List<String> reviewLogins = new ArrayList<String>();
 			List<String> reviewFilmNames = new ArrayList<String>();
 			for (Review r : reviews) {
-				reviewLogins.add(userService.getLoginByID(r.getAuthor()));
 				reviewFilmNames.add(filmService.getFilmByID(r.getFilmId()).getName());
 			}
 			
 			request.setAttribute(RequestAndSessionAttributes.REVIEWS, reviews);
-			request.setAttribute(RequestAndSessionAttributes.LOGINS, reviewLogins);
 			request.setAttribute(RequestAndSessionAttributes.FILM_NAMES, reviewFilmNames);
 			
 			String url = response.encodeRedirectURL(JavaServerPageNames.REVIEWS_PAGE);
@@ -51,6 +48,8 @@ public class OpenAllReviews implements Command {
 		catch (ServiceException e) {
 			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 		}
+		
+		
 	}
 
 }

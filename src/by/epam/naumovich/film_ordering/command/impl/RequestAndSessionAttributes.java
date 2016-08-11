@@ -7,6 +7,7 @@ public final class RequestAndSessionAttributes {
 	public static final String AUTHORIZED_USER = "authUser";
 	public static final String ERROR_MESSAGE = "errorMessage";
 	public static final String FILM_ID = "filmID";
+	public static final String FILM_NAMES = "filmNames";
 	public static final String FILM = "film";
 	public static final String FILMS = "films";
 	public static final String IS_ADMIN = "isAdmin";
