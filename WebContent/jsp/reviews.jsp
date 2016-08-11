@@ -10,7 +10,6 @@
 <fmt:message bundle="${loc}" key="local.reviews.pageTitle" var="pageTitle" />
 <fmt:message bundle="${loc}" key="local.reviews.pageHeader" var="pageHeader" />
 <fmt:message bundle="${loc}" key="local.reviews.author" var="author" />
-<fmt:message bundle="${loc}" key="local.reviews.type" var="type" />
 <fmt:message bundle="${loc}" key="local.reviews.mark" var="mark" />
 <fmt:message bundle="${loc}" key="local.reviews.date" var="date" />
 
@@ -59,27 +58,36 @@
           <div class="row panel-body">
             <div class="col-md-12">  
             
-            	<c:forEach var="review" items="${requestScope.reviews}">
+            	<c:forEach var="review" items="${requestScope.reviews}" varStatus="status">
+            		<c:set var="authorLogin" value="${requestScope.logins[status.index]}" />
+            		<c:set var="filmName" value="${requestScope.filmNames[status.index]}" />
             
-                      <c:choose>
-                      		<c:when test="${review.type eq  'ps'}"> 
-                      			<c:set var="rColor" value="#ccffcc"/>
-                      		</c:when>
-                      		<c:when test="${review.type eq 'ng'}"> 
-                      			<c:set var="rColor" value="#ffcccc"/>
-                      		</c:when>
-                      		<c:otherwise>
-                      			<c:set var="rColor" value="#e6e6ff"/>
-                      		</c:otherwise>
-                      </c:choose>
+                    <c:choose>
+                  		<c:when test="${review.type eq  'ps'}"> 
+                   			<c:set var="rColor" value="#ccffcc"/>
+                   		</c:when>
+                   		<c:when test="${review.type eq 'ng'}"> 
+                   			<c:set var="rColor" value="#ffcccc"/>
+                   		</c:when>
+                   		<c:otherwise>
+                   			<c:set var="rColor" value="#e6e6ff"/>
+                   		</c:otherwise>
+                    </c:choose>
                         
                     <div class="panel panel-default container-fluid">
                         <div class="row panel-heading" style="background-color:${rColor}">
                         	<div class="col-md-6">
-                        		<h4 class=" text-left" style="margin:0px; padding:0px;"> Фильм </h4>
+                        		<h4 class=" text-left" style="margin-bottom:0px; padding-bottom:0px;"> 
+			                    	<a href="<c:url value="/Controller?command=open_film_page&filmID=${review.filmId}" />" >${filmName} </a>
+			                    </h4>
                         	</div>
                         	<div class="col-md-6">
-                        		<h4 class=" text-right" style="margin:0px; padding:0px;"> ${author}: </h4>
+                        		<c:if test="${sessionScope.isAdmin}">
+	                        		<h4 class=" text-right" style="margin-bottom:0px; padding-bottom:0px;">
+	                        			${author}:  
+				                    	<a href="<c:url value="/Controller?command=open_profile&userID=${review.author}" />" >${authorLogin} </a>
+				                    </h4>
+			                    </c:if>
                         	</div>
                         </div> 
                     	<div class="row panel-body">
@@ -93,10 +101,10 @@
                         
                         <div class="row panel-footer" style="background-color:${rColor}">
                         	<div class="col-md-6">
-                        		<h5 class="text-center">${mark}: ${review.mark}/5</h5>
+                        		<h5 class="text-left" style="margin-bottom:0px; padding-bottom:0px;">${mark}: ${review.mark}/5</h5>
                         	</div>
                         	<div class="col-md-6">
-                        		<h5 class="text-right">${date}: ${review.date }</h5>
+                        		<h5 class="text-right" style="margin-bottom:0px; padding-bottom:0px;">${date}: ${review.date }</h5>
                         	</div>
                         </div>
                         

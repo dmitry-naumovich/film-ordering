@@ -84,22 +84,25 @@
 	  							<c:when test="${sessionScope.authUser != null}">
 		                           <c:choose>
 			                           	<c:when test="${sessionScope.isAdmin && user.id != sessionScope.userID}">
-				                          <a href="jsp/orders.jsp" class="btn btn-primary" role="button">${userOrders}</a> 
-				                          <a href="jsp/reviews.jsp" class="btn btn-warning" role="button">${userReviews}</a>
-				                          <a href="jsp/ban.jsp" class="btn btn-danger" role="button">${banUser}</a>
+				                          	<a href="<c:url value="/Controller?command=open_orders&userID=${user.id}"/>" class="btn btn-primary" role="button">${userOrders}</a> 
+				                          	<a href="<c:url value="/Controller?command=open_user_reviews&userID=${user.id}"/>" class="btn btn-warning" role="button">${userReviews}</a>
+				                          	<a href="jsp/ban.jsp" class="btn btn-danger" role="button">${banUser}</a>
 				                        </c:when>
 				                        <c:when test="${!sessionScope.isAdmin && user.id != sessionScope.userID}">
-				                        	<a href="jsp/reviews.jsp" class="btn btn-warning" role="button">${userReviews}</a>
+				                        	<a href=""<c:url value="/Controller?command=open_user_reviews&userID=${user.id}"/>" class="btn btn-warning" role="button">${userReviews}</a>
 				                        </c:when>
-				                        <c:otherwise> 
-				                        	<a href="jsp/orders.jsp" class="btn btn-primary" role="button">${myOrders}</a> 
-				                            <a href="jsp/reviews.jsp" class="btn btn-warning" role="button">${myReviews}</a>
+				                        <c:when test="${sessionScope.isAdmin && user.id == sessionScope.userID}"> 
+				                        	<a href="jsp/profile-settings.jsp" class="btn btn-danger" role="button">${editProfile}</a>
+				                        </c:when>
+				                        <c:otherwise>
+				                        	<a href="<c:url value="/Controller?command=open_orders&userID=${sessionScope.userID}"/>" class="btn btn-primary" role="button">${myOrders}</a> 
+				                            <a href="<c:url value="/Controller?command=open_user_reviews&userID=${sessionScope.userID}"/>" class="btn btn-warning" role="button">${myReviews}</a>
 				                            <a href="jsp/profile-settings.jsp" class="btn btn-danger" role="button">${editProfile}</a>
 				                        </c:otherwise>
 			                       </c:choose>
 			                     </c:when>
 			                     <c:otherwise> 
-			                     	<a href="jsp/reviews.jsp" class="btn btn-warning" role="button">${userReviews}</a>
+			                     	<a href="<c:url value="/Controller?command=open_user_reviews&userID=${user.id}"/>" class="btn btn-warning" role="button">${userReviews}</a>
 			                     </c:otherwise>
 		                     </c:choose>
 	                        

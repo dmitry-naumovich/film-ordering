@@ -21,6 +21,8 @@
 <fmt:message bundle="${loc}" key="local.film.buyWithOneClickBtn" var="buyWithOneClickBtn" />
 <fmt:message bundle="${loc}" key="local.film.writeReviewBtn" var="writeReviewBtn" />
 <fmt:message bundle="${loc}" key="local.film.reviewBy" var="reviewBy" />
+<fmt:message bundle="${loc}" key="local.reviews.mark" var="mark" />
+<fmt:message bundle="${loc}" key="local.reviews.date" var="date" />
 <fmt:message bundle="${loc}" key="local.index.rublesShorten" var="rublesShorten" />
 
 <%-- <jsp:useBean id="film" class="by.epam.naumovich.film_ordering.bean.Film" scope="request"/> --%>
@@ -166,20 +168,47 @@
                 <div class="panel-group">
 						<c:forEach items="${requestScope.reviews}" var="review" varStatus="status">
 							<c:set var="authorLogin" value="${requestScope.logins[status.index]}" />
-			                    <div class="panel panel-default">
-			                        <div class="panel-heading" >
-			                          <h4 class=" text-left" style="margin-bottom:0px; padding-bottom:0px;"> 
-			                          	${reviewBy} <a href="<c:url value="/Controller?command=open_profile&userID=${review.author}" />" > ${authorLogin} </a>
-			                          </h4>
-			                        </div> 
-				                    <div class="row panel-body">
-				                        <div class="col-md-12">
-				                          <p> <br>
-				                              ${review.text} 
-				                          </p>
-				                        </div>
-				                    </div>
-			                     </div>
+			                     
+				            <c:choose>
+		                  		<c:when test="${review.type eq  'ps'}"> 
+		                   			<c:set var="rColor" value="#ccffcc"/>
+		                   		</c:when>
+		                   		<c:when test="${review.type eq 'ng'}"> 
+		                   			<c:set var="rColor" value="#ffcccc"/>
+		                   		</c:when>
+		                   		<c:otherwise>
+		                   			<c:set var="rColor" value="#e6e6ff"/>
+		                   		</c:otherwise>
+		                    </c:choose>
+			                        
+		                    <div class="panel panel-default container-fluid">
+		                        <div class="row panel-heading" style="background-color:${rColor}">
+		                        	<h4 class=" text-left" style="margin-bottom:0px; padding-bottom:0px;"> 
+					                	${reviewBy} 
+					                	<a href="<c:url value="/Controller?command=open_profile&userID=${review.author}" />" > ${authorLogin} </a>
+					                </h4>
+		                        </div> 
+		                    	<div class="row panel-body">
+			                        <div class="col-md-12">
+			                          <p> <br>
+			                              ${review.text}
+			                          </p>
+			                        </div>
+		                        </div>
+		                        
+		                        
+		                        <div class="row panel-footer" style="background-color:${rColor}">
+		                        	<div class="col-md-6">
+		                        		<h5 class="text-left" style="margin-bottom:0px; padding-bottom:0px;">${mark}: ${review.mark}/5</h5>
+		                        	</div>
+		                        	<div class="col-md-6">
+		                        		<h5 class="text-right" style="margin-bottom:0px; padding-bottom:0px;">${date}: ${review.date }</h5>
+		                        	</div>
+		                        </div>
+		                        
+		                        </div>
+			                     
+			                     
 						</c:forEach>
                      </div>    
           </div>
