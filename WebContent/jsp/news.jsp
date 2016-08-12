@@ -45,7 +45,7 @@
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 
 
-      <div class="col-md-8 main content ">
+      <div class="col-md-10 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
           <h2 class=" text-left" style="margin:0px; padding:0px;"> ${pageHeader} </h2>
@@ -54,14 +54,20 @@
             <div class="col-md-12">
                 
                 <c:forEach var="news" items="${requestScope.news}">
-                    <div class="panel panel-default">
-                        <div class=" panel-heading" >
-                          
-                          <h4 class=" text-right" style="margin-bottom:0px; padding-bottom:0px;"> ${news.date} </h4>
+                    <div class="panel panel-default container-fluid">
+                        <div class="row panel-heading" >
+                        	<div class="col-md-10">
+                        		<h4 class="text-left" style="margin-bottom:0px; padding-bottom:0px;">
+                        			<a href="<c:url value="/Controller?command=open_single_news&newsID=${news.id}"/>" > ${news.title} </a>
+                        		</h4>
+                        	</div>
+                        	<div class="col-md-2">
+                        		<h4 class="text-right" style="margin-bottom:0px; padding-bottom:0px;">${news.date} </h4>
+                        	</div>
                         </div> 
                     <div class=" panel-body">
                     	<div class="row">
-                    		<p class="text-justify" style="margin:10px;"><u>${news.title}</u></p>
+                    		<p class="text-justify" style="margin:10px;"></p>
                     	 </div>
                     
                         <div class="col-md-12">
@@ -87,11 +93,7 @@
           </div>
 
       </div>
-      </div>
-
-
-      <jsp:include page="/WEB-INF/static/right-sidebar.jsp"></jsp:include>
-      
+      </div>      
      </div>
   </div>  
   

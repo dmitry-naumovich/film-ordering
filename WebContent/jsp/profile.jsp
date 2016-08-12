@@ -68,7 +68,7 @@
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
-          <h2 class=" text-left" style="margin:0px; padding:0px;">${pageHeader} ${user.login} </h2>
+          <h3 class=" text-left" style="margin:0px; padding:0px;">${pageHeader}: ${user.login} </h3>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">

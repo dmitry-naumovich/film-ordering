@@ -7,10 +7,12 @@
       	<jsp:include page="/NewsSidebarServlet" />
       	<c:forEach items="${requestScope.sidebarNews}" var="news">
       		<figure>
+      		<a href="<c:url value="/Controller?command=open_single_news&newsID=${news.id}"/>" >
       			<img src="img/news/${news.id}/01.jpg" alt="Sidebar News Img" class="img-thumbnail img-responsive" width="180" height="140" /> 
       				<figcaption>
       					<a href="<c:url value="/Controller?command=open_single_news&newsID=${news.id}"/>" > ${news.title} </a>
       				</figcaption> 
+      				</a>
       		</figure>
         </c:forEach>
       </div>
