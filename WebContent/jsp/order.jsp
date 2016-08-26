@@ -72,7 +72,10 @@
                       </tr>
                     </thead>
                     <tbody>
-                    
+                      <tr>
+                        <td>${user????}</td>
+                        <td>${order.user???}</td>
+                      </tr>
                       <tr>
                         <td>${price}</td>
                         <td>${film.price} ${rublesShorten}</td>

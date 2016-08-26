@@ -61,10 +61,14 @@
           <div class="row panel-body">
             <div class="col-md-12">
                 
+                <c:forEach items="${requestScope.orders}" var="order">
+                
+                
+               
                 
                     <div class="panel panel-default">
                         <div class=" panel-heading" >
-                          <h4 class=" text-left" style="margin-bottom:0px; padding-bottom:0px;"> Фильм 1+1 </h4>
+                          <h4 class=" text-left" style="margin-bottom:0px; padding-bottom:0px;"> ${o } </h4>
                         </div> 
                     <div class="row panel-body">
                         <div class="col-md-12">
@@ -116,6 +120,7 @@
                         </div>
                         </div>
                         </div>
+                    </c:forEach>
 
           </div>
           </div>

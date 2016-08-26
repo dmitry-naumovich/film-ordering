@@ -75,17 +75,16 @@
                     <div class="row panel-body">
                         <div class="col-md-12">
                           <div class="col-md-4">
-                            
                               <figure>
                                 <img src="img/films/${film.id}/folder.jpg" alt="$ {film.name}"class="img-thumbnail img-responsive center-block"  style="margin-top: 30px;"/> 
                               </figure>
                           </div>
                           <div class="col-md-8">
                               <table class="table table-striped">
-                    <thead>
-                        
+                    			<thead>
+                    				<col width="50">
+  									<col width="80">
                       <tr>
-                      
                       <c:choose> 
 		              		<c:when test="${sessionScope.authUser != null}"> 
 		              			<c:choose> 
@@ -109,6 +108,7 @@
                       </tr>
                     </thead>
                     <tbody>
+                    	
                       <tr>
                         <td><b>${year}</b></td>
                         <td>${film.year}</td>
