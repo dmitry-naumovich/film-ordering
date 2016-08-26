@@ -15,6 +15,7 @@
 <fmt:message bundle="${loc}" key="local.index.rublesShorten" var="rublesShorten" />
 <fmt:message bundle="${loc}" key="local.index.readMoreBtn" var="readMore" />
 <fmt:message bundle="${loc}" key="local.index.addInfo" var="addInfo" />
+<fmt:message bundle="${loc}" key="local.index.editFilmBtn" var="editFilmBtn" />
    	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -57,7 +58,7 @@
           <div class="row panel-body">
 			<jsp:include page="/IndexPageServlet" />
 				<c:forEach items="${requestScope.noveltyList}" var="film">
-		            <div class="col-sm-6 col-md-4 col-xs-12 col-lg-4" style="height:600px;">
+		            <div class="col-sm-6 col-md-4 col-xs-12 col-lg-4" style="height:520px;">
 		              <h2 style="text-align:center">${film.name} (${film.year}) </h2>
 		              <p><b>${director}:</b> ${film.director} </p>
 		              <p><b>${cast}:</b> ${film.actors} </p>
@@ -65,8 +66,24 @@
 		              <img src="img/films/${film.id}/01.jpg" alt="${film.name}" class="img-rounded" style="width: 100%; height: auto;" />
 		              
 		              <br><p>${film.description} </p>
-		              <p> 
-		                <a class="btn btn-info" href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" role="button">${film.price} ${rublesShorten}</a>
+		              <p>
+		              	<c:choose> 
+		              		<c:when test="${sessionScope.authUser != null}"> 
+		              			<c:choose> 
+		              				<c:when test="${sessionScope.isAdmin}">
+		              					<a class="btn btn-info" href="<c:url value="/Controller?command=edit_film&filmID=${film.id}"/>" role="button">${editFilmBtn}</a>
+		              				</c:when>
+		              				<c:otherwise>
+		              					<a class="btn btn-info" href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" role="button">${film.price} ${rublesShorten}</a>
+		              				</c:otherwise>
+		              			</c:choose>
+		              			
+		              		</c:when>
+		              		<c:otherwise> 
+		              			<a class="btn btn-info" href="jsp/logination.jsp" role="button">${film.price} ${rublesShorten}</a>
+		              		</c:otherwise>
+		              	</c:choose> 
+		                
 		                <a class="btn btn-link" href="<c:url value="/Controller?command=open_film_page&filmID=${film.id}"/>" role="button"> ${readMore} &raquo;</a> 
 		              </p>
 		            </div>

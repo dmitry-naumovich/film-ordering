@@ -18,6 +18,8 @@
 <fmt:message bundle="${loc}" key="local.film.description" var="description" />
 <fmt:message bundle="${loc}" key="local.film.price" var="price" />
 <fmt:message bundle="${loc}" key="local.film.buyWithOneClickBtn" var="buyWithOneClickBtn" />
+<fmt:message bundle="${loc}" key="local.index.editFilmBtn" var="editFilmBtn" />
+<fmt:message bundle="${loc}" key="local.film.openFilmOrders" var="openFilmOrdersBtn" />
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -83,9 +85,27 @@
                     <thead>
                         
                       <tr>
-                      <td><a href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" class="btn btn-primary" role="button">${buyWithOneClickBtn}</a> </td>
-                      <td> <a href="<c:url value="/Controller?command=open_film_page&filmID=${film.id}"/>" class="btn btn-success" role="button">${openFilmPage}</a></td>
-                        
+                      
+                      <c:choose> 
+		              		<c:when test="${sessionScope.authUser != null}"> 
+		              			<c:choose> 
+		              				<c:when test="${sessionScope.isAdmin}">
+		              					<td><a class="btn btn-primary" href="<c:url value="/Controller?command=edit_film&filmID=${film.id}"/>" role="button">${editFilmBtn}</a></td>
+	                  					<td><a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${film.id}"/>" role="button">${openFilmPage}</a></td>
+		              				</c:when>
+		              				<c:otherwise>
+		              					<td><a class="btn btn-primary" href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" role="button">${buyWithOneClickBtn}</a></td>
+	                  					<td><a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${film.id}"/>" role="button">${openFilmPage}</a></td>
+		              				</c:otherwise>
+		              			</c:choose>
+		              			
+		              		</c:when>
+		              		<c:otherwise> 
+		              			<td><a href="jsp/logination.jsp" class="btn btn-primary center-block"  role="button">${buyWithOneClickBtn}</a></td>
+	                  			<td><a href="<c:url value="/Controller?command=open_film_page&filmID=${film.id}"/>" class="btn btn-success" role="button">${openFilmPage}</a></td>
+		              		</c:otherwise>
+		              	</c:choose> 
+                      
                       </tr>
                     </thead>
                     <tbody>

@@ -15,6 +15,8 @@
 <fmt:message bundle="${loc}" key="local.order.cancelBtn" var="cancelBtn" />
 <fmt:message bundle="${loc}" key="local.order.buyBtn" var="buyBtn" />
 
+<c:set var="film" value="${requestScope.film}"/>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="${language}">
 <head>
@@ -54,7 +56,7 @@
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
-          <h2 class=" text-left" style="margin:0px; padding:0px;"> ${pageHeader} 1+1</h2>
+          <h2 class=" text-left" style="margin:0px; padding:0px;"> ${pageHeader} ${film.name}</h2>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
@@ -63,7 +65,9 @@
                     <thead>
                       <tr>
                         <th>
-                          <figure><img src="img/02-intouchables.jpg" alt="Intouchables" class="img-thumbnail img-responsive" width="210" height="140" /> </figure>
+                          <figure>
+                          	<img src="img/films/${film.id}/folder.jpg" alt="$ {film.name}" class="img-thumbnail img-responsive" width="210" height="140" /> 
+                          </figure>
                         </th>
                       </tr>
                     </thead>
@@ -71,15 +75,15 @@
                     
                       <tr>
                         <td>${price}</td>
-                        <td>20,000 ${rublesShorten}</td>
+                        <td>${film.price} ${rublesShorten}</td>
                       </tr>
                       <tr>
                         <td>${discount}</td>
-                        <td>0%</td>
+                        <td>${requestScope.discountAmount}%</td>
                       </tr>
                       <tr>
                         <td>${orderSum}</td>
-                        <td>20,000 ${rublesShorten}</td>
+                        <td>${requestScope.orderSum} ${rublesShorten}</td>
                       </tr>
 
                       <tr>
