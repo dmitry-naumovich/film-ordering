@@ -25,5 +25,6 @@ public final class RequestAndSessionAttributes {
 	public static final String REVIEWS = "reviews";
 	public static final String SIDEBAR_NEWS = "sidebarNews";
 	public static final String USER_ID = "userID";
+	public static final String USER_LOGINS = "userLogins";
 	public static final String USER = "user";
 }
