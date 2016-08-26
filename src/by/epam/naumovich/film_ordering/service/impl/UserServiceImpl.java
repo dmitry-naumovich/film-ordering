@@ -7,11 +7,13 @@ import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.exception.ServiceAuthException;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
+import by.epam.naumovich.film_ordering.service.exception.ServiceSignUpException;
 import by.epam.naumovich.film_ordering.service.util.Validator;
 
 public class UserServiceImpl implements IUserService {
 
 	private static final String MYSQL = "mysql";
+	private static final String EMAIL_PATTERN = "^\\w(\\w\\.{4,})@(\\w+\\.)([a-zA-Z]{2,4})$";
 	
 	@Override
 	public User getUserByLogin(String login) throws ServiceException {
@@ -80,6 +82,48 @@ public class UserServiceImpl implements IUserService {
 			throw new ServiceException("Error in source!", e);	
 		}
 	}
-		
 
+	@Override
+	public void addUser(User user) throws ServiceException {
+		if (Validator.validateStrings(user.getLogin(), user.getName(), user.getSurname(), user.getPassword())) {
+			throw new ServiceSignUpException("At least one of the next fields is corrupted or empty: login, password, name, surname");
+		}
+		
+		if (Validator.validateObject(user.getRegDate())) {
+			throw new ServiceSignUpException("Corrupted or empty registration date!");
+		}
+		
+		if (!Validator.validateWithPattern(user.getEmail(), EMAIL_PATTERN)) {
+			throw new ServiceSignUpException("Corrupted email!");
+		}
+		
+		try {
+			IUserDAO userDAO = DAOFactory.getDAOFactory(MYSQL).getUserDAO();
+			// to do
+			
+			
+			
+		} catch (DAOException e) {
+			throw new ServiceException("Error in source!", e);
+		}
+		
+	}
+
+	@Override
+	public int getCurrentUserDiscountByID(int id) throws ServiceException {
+		if(!Validator.validateObject(id)){
+			throw new ServiceException("Corrupted user ID");
+		}
+		
+		try {
+			
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IUserDAO dao = daoFactory.getUserDAO();
+			int discount = dao.getCurrentUserDiscountByID(id);
+			return discount;
+			
+		} catch (DAOException e) {
+			throw new ServiceException("Error in source!", e);	
+		}	
+	}
 }

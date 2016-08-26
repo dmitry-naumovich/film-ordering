@@ -26,6 +26,7 @@ public class MySQLUserDAO implements IUserDAO {
 	public static final String SELECT_USERS_IN_BAN = "SELECT Users.* FROM Users JOIN Bans ON users.u_id = bans.b_user WHERE CURDATE() < DATE_ADD(b_start, INTERVAL b_length DAY)";
 	public static final String SELECT_USER_IN_BAN_NOW_BY_ID = "SELECT * FROM Bans WHERE bans.b_user = ? AND CURDATE() < DATE_ADD(b_start, INTERVAL b_length DAY)";
 	public static final String SELECT_PASSWORD_BY_LOGIN = "SELECT u_passw FROM Users WHERE u_login = ?";
+	public static final String SELECT_CURRENT_DISCOUNT_BY_USER_ID = "SELECT d_amount FROM Discounts WHERE d_user = ? AND CURDATE() < d_endate";
 	
 	public static MySQLUserDAO getInstance() {
 		return instance; 
@@ -386,6 +387,39 @@ public class MySQLUserDAO implements IUserDAO {
 			}
 		}
 		return user;
+	}
+
+	@Override
+	public int getCurrentUserDiscountByID(int id) throws DAOException {
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(SELECT_PASSWORD_BY_LOGIN);
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			throw new DAOException("Failure during SQL Select Request execution", e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException("Failure during taking connection from ConnectionPool", e);
+		} finally {
+			try {
+				rs.close();
+				st.close();
+			} catch (SQLException e) {
+				throw new DAOException("Result Set or Statement was not closed properly");
+			} finally {
+				pool.closeConnection(con);
+			}
+		}
+		return 0;
 	}
 	
 	

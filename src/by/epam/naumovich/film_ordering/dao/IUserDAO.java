@@ -20,4 +20,6 @@ public interface IUserDAO {
 	String getPasswordByLogin(String login) throws DAOException;
 	User getUserByID(int id) throws DAOException;
 	
+	int getCurrentUserDiscountByID(int id) throws DAOException;
+	
 }
