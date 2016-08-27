@@ -102,7 +102,7 @@
                       </tr>
                       <tr>
                         <td>${orderTime}</td>
-                        <td>12:55</td>
+                        <td>${order.time}</td>
                       </tr>
                       <tr>
                         <td>${filmName}</td>
@@ -110,11 +110,11 @@
                       </tr>
                       <tr>
                         <td>${filmPrice}</td>
-                        <td>- ${rublesShorten}</td>
+                        <td>${order.price} ${rublesShorten}</td>
                       </tr>
                       <tr>
                         <td>${discount}</td>
-                        <td>0%</td>
+                        <td>${order.discount}%</td>
                       </tr>
                       <tr>
                         <td>${orderSum}</td>

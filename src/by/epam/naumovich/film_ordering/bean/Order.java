@@ -1,6 +1,7 @@
 package by.epam.naumovich.film_ordering.bean;
 
 import java.sql.Date;
+import java.sql.Time;
 
 public class Order {
 
@@ -8,6 +9,9 @@ public class Order {
 	private int userId;
 	private int filmId;
 	private Date date;
+	private Time time;
+	private int price;
+	private int discount;
 	private float payment;
 	
 	public int getOrdNum() {
@@ -34,6 +38,24 @@ public class Order {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	public Time getTime() {
+		return time;
+	}
+	public void setTime(Time time) {
+		this.time = time;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public int getDiscount() {
+		return discount;
+	}
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
 	public float getPayment() {
 		return payment;
 	}
@@ -48,7 +70,10 @@ public class Order {
 	    hash = 13 * hash + this.userId;
 	    hash = 31 * hash + this.filmId;
 	    hash = 67 * hash + ((null != this.date) ? this.date.hashCode() : 0);
-	    hash = 47 * hash + (int)this.payment;
+	    hash = 47 * hash + ((null != this.time) ? this.time.hashCode() : 0);
+	    hash = 3 * hash + this.price;
+	    hash = 11 * hash + this.discount;
+	    hash = 19 * hash + (int)this.payment;
 	    return hash;
 	}
 	@Override
@@ -61,8 +86,13 @@ public class Order {
 		if (ordNum != order.ordNum) { return false; }
 		if (userId != order.userId) { return false; }
 		if (filmId != order.filmId) { return false; }
+		if (price != order.price) { return false; }
+		if (discount != order.discount) { return false; }
 		if (payment != order.payment) { return false; }
 		if ((null == date) ? (order.date != null) : !date.equals(order.date)) {
+			return false;
+		}
+		if ((null == time) ? (order.time != null) : !time.equals(order.time)) {
 			return false;
 		}
 		return true;
@@ -76,6 +106,9 @@ public class Order {
 	    result.append(", UserID: " + userId);
 	    result.append(", FilmID: " + filmId);
 	    result.append(", Date: " + date);
+	    result.append(", Time: " + time);
+	    result.append(", Price: " + price);
+	    result.append(", Discount: " + discount);
 	    result.append(", Payment: " + payment);
 	    result.append("}");
 

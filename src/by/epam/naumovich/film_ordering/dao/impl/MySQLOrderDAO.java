@@ -17,7 +17,7 @@ public class MySQLOrderDAO implements IOrderDAO {
 
 	private static final MySQLOrderDAO instance = new MySQLOrderDAO();
 	
-	public static final String INSERT_NEW_ORDER = "INSERT INTO Orders (o_user, o_film, o_date, o_paym) VALUES (?, ?, ?, ?)";
+	public static final String INSERT_NEW_ORDER = "INSERT INTO Orders (o_user, o_film, o_date, o_time, o_price, o_discount,_paym) VALUES (?, ?, ?, ?, ?, ?, ?)";
 	public static final String DELETE_ORDER = "DELETE FROM Orders WHERE o_num = ?";
 	public static final String SELECT_ALL_ORDERS = "SELECT * FROM Orders";
 	public static final String SELECT_ORDER_BY_USER_ID = "SELECT * FROM Orders WHERE o_user = ?";
@@ -48,7 +48,10 @@ public class MySQLOrderDAO implements IOrderDAO {
 				order.setUserId(rs.getInt(2));
 				order.setFilmId(rs.getInt(3));
 				order.setDate(rs.getDate(4));
-				order.setPayment(rs.getFloat(5));
+				order.setTime(rs.getTime(5));
+				order.setPrice(rs.getInt(6));
+				order.setDiscount(rs.getInt(7));
+				order.setPayment(rs.getFloat(8));
 	
 				orderList.add(order);
 			}
@@ -90,7 +93,10 @@ public class MySQLOrderDAO implements IOrderDAO {
 				order.setUserId(rs.getInt(2));
 				order.setFilmId(rs.getInt(3));
 				order.setDate(rs.getDate(4));
-				order.setPayment(rs.getFloat(5));
+				order.setTime(rs.getTime(5));
+				order.setPrice(rs.getInt(6));
+				order.setDiscount(rs.getInt(7));
+				order.setPayment(rs.getFloat(8));
 	
 				orderList.add(order);
 			}
@@ -131,7 +137,10 @@ public class MySQLOrderDAO implements IOrderDAO {
 				order.setUserId(rs.getInt(2));
 				order.setFilmId(rs.getInt(3));
 				order.setDate(rs.getDate(4));
-				order.setPayment(rs.getFloat(5));
+				order.setTime(rs.getTime(5));
+				order.setPrice(rs.getInt(6));
+				order.setDiscount(rs.getInt(7));
+				order.setPayment(rs.getFloat(8));
 				
 				orderList.add(order);
 			}
@@ -165,7 +174,10 @@ public class MySQLOrderDAO implements IOrderDAO {
 			st.setInt(1, order.getUserId());
 			st.setInt(2, order.getFilmId());
 			st.setDate(3, order.getDate());
-			st.setFloat(4, order.getPayment());
+			st.setTime(4, order.getTime());
+			st.setInt(5, order.getPrice());
+			st.setInt(6, order.getDiscount());
+			st.setFloat(7, order.getPayment());
 			st.executeUpdate();
 			
 		} catch (SQLException e) {
