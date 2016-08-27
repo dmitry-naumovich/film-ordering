@@ -18,12 +18,14 @@ import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
-public class OpenAllOrders implements Command {
-
-	private static final String VIEW_TYPE = "all";
+public class OpenUserOrders implements Command {
 	
+	private static final String VIEW_TYPE = "user";
+
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		int userID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.USER_ID));
+		
 		IOrderService orderService = ServiceFactory.getInstance().getOrderService();
 		IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 		IUserService userService = ServiceFactory.getInstance().getUserService();
@@ -33,29 +35,30 @@ public class OpenAllOrders implements Command {
 		System.out.println(query);
 		
 		try {
-			List<Order> orders = orderService.getAllOrders();
+			List<Order> orders = orderService.getOrdersByUserId(userID);
 			Collections.reverse(orders);
 			
 			List<String> filmNames = new ArrayList<String>();
-			List<String> userLogins = new ArrayList<String>();
 			for (Order o : orders) {
 				String filmName = filmService.getFilmByID(o.getFilmId()).getName();
 				filmNames.add(filmName);
-				
-				String userLogin = userService.getLoginByID(o.getUserId());
-				userLogins.add(userLogin);
 			}
+			String userLogin = userService.getLoginByID(userID);
 			
 			request.setAttribute(RequestAndSessionAttributes.ORDERS, orders);
 			request.setAttribute(RequestAndSessionAttributes.FILM_NAMES, filmNames);
-			request.setAttribute(RequestAndSessionAttributes.USER_LOGINS, userLogins);
+			request.setAttribute(RequestAndSessionAttributes.USER_LOGIN, userLogin);
+			request.setAttribute(RequestAndSessionAttributes.USER_ID, userID);
 			request.setAttribute(RequestAndSessionAttributes.ORDER_VIEW_TYPE, VIEW_TYPE);
 			
 			String url = response.encodeRedirectURL(JavaServerPageNames.ORDERS_PAGE);
 			request.getRequestDispatcher(url).forward(request, response);
 		}
 		catch (ServiceException e) {
+			System.out.println("NO ORDERS HERE GUYS 4");
 			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 		}
+
 	}
+
 }

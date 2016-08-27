@@ -33,8 +33,6 @@ public class OpenNewsList implements Command {
 			
 			String url = response.encodeRedirectURL(JavaServerPageNames.NEWS_JSP_PAGE);
 			request.getRequestDispatcher(url).forward(request, response);
-			
-			
 		} catch(GetNewsServiceException e) {
 			request.getRequestDispatcher(JavaServerPageNames.NEWS_JSP_PAGE).forward(request, response);
 		}

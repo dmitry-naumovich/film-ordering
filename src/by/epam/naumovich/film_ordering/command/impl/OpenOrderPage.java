@@ -28,14 +28,14 @@ public class OpenOrderPage implements Command {
 		
 		try {
 			Film film = filmService.getFilmByID(filmID);
-			int discount = userService.getCurrentUserDiscountByID((int)request.getSession().getAttribute(RequestAndSessionAttributes.USER_ID));
+			int userSessionId = (int)request.getSession().getAttribute(RequestAndSessionAttributes.USER_ID);
+			int discount = userService.getCurrentUserDiscountByID(userSessionId);
+			float orderSum = film.getPrice() * (1.0f - discount/100f);   
 			
 			request.setAttribute(RequestAndSessionAttributes.FILM, film);
 			request.setAttribute(RequestAndSessionAttributes.DISCOUNT_AMOUNT, discount);
-			
-			float orderSum = film.getPrice() * (1.0f - discount/100f);   
 			request.setAttribute(RequestAndSessionAttributes.ORDER_SUM, orderSum);
-			
+	
 			request.getRequestDispatcher(JavaServerPageNames.ORDER_PAGE).forward(request, response);
 			
 		} catch (ServiceException e) {
