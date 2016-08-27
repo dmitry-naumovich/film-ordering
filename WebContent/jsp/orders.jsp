@@ -55,27 +55,33 @@
 
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
-          <div class=" panel-heading" >
-          <h2 class=" text-left" style="margin:0px; padding:0px;">${userOrder}</h2>
+          <div class="panel-heading" >
+          	<h2 class="text-left" style="margin:0px; padding:0px;">${userOrder}</h2>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
                 
-                <c:forEach items="${requestScope.orders}" var="order">
-                
-                
-               
+                <c:forEach items="${requestScope.orders}" var="order" varStatus="status">
                 
                     <div class="panel panel-default">
-                        <div class=" panel-heading" >
-                          <h4 class=" text-left" style="margin-bottom:0px; padding-bottom:0px;"> ${o } </h4>
+                        <div class="row panel-heading" >
+                        	<div class="col-md-6">                         	
+                        		<h5 class="text-left" style="margin-bottom:0px; padding-bottom:0px;">
+                        			<a href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" >${requestScope.filmNames[status.index]} </a>
+                        		</h5>
+                        	</div>
+                        	<div class="col-md-6">
+                        		<h5 class="text-right" style="margin-bottom:0px; padding-bottom:0px;">  
+                        			<a href="<c:url value="/Controller?command=open_profile&userID=${order.userId}"/>" >${requestScope.userLogins[status.index]}</a>
+                        		</h5>
+                        	</div>
                         </div> 
                     <div class="row panel-body">
                         <div class="col-md-12">
                           <div class="col-md-4">
                             
                               <figure>
-                                <img src="img/poster-01.jpg" alt="Intouchables" class="img-thumbnail img-responsive" width="210" height="140" style="margin-top: 30px;"/> 
+                                <img src="img/films/${order.filmId}/folder.jpg" alt="${requestScope.filmNames[status.index]}" class="img-thumbnail img-responsive" width="210" height="140" style="margin-top: 30px;"/> 
                               </figure>
                           </div>
                           <div class="col-md-8">
@@ -83,14 +89,16 @@
                     <thead>
                         
                       <tr>
-                      <td> <a href="jsp/film.jsp" class="btn btn-success" role="button">${openFilmPage}</a></td>
+                      <td> 
+                      	<a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
+                      </td>
                         
                       </tr>
                     </thead>
                     <tbody>
                     <tr>
                         <td>${orderDate}</td>
-                        <td>09.07.2016</td>
+                        <td>${order.date}</td>
                       </tr>
                       <tr>
                         <td>${orderTime}</td>
@@ -98,11 +106,11 @@
                       </tr>
                       <tr>
                         <td>${filmName}</td>
-                        <td>1 + 1</td>
+                        <td>${requestScope.filmNames[status.index]}</td>
                       </tr>
                       <tr>
                         <td>${filmPrice}</td>
-                        <td>20,000 ${rublesShorten}</td>
+                        <td>- ${rublesShorten}</td>
                       </tr>
                       <tr>
                         <td>${discount}</td>
@@ -110,7 +118,7 @@
                       </tr>
                       <tr>
                         <td>${orderSum}</td>
-                        <td>20,000 ${rublesShorten}</td>
+                        <td>${order.payment} ${rublesShorten}</td>
                       </tr>
                     </tbody>
                 </table>

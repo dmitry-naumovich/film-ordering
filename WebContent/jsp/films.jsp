@@ -76,7 +76,7 @@
                         <div class="col-md-12">
                           <div class="col-md-4">
                               <figure>
-                                <img src="img/films/${film.id}/folder.jpg" alt="$ {film.name}"class="img-thumbnail img-responsive center-block"  style="margin-top: 30px;"/> 
+                                <img src="img/films/${film.id}/folder.jpg" alt="$ {film.name}" class="img-thumbnail img-responsive center-block"  style="margin-top: 30px;"/> 
                               </figure>
                           </div>
                           <div class="col-md-8">

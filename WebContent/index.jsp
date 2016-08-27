@@ -53,7 +53,7 @@
       <div class="col-md-8 main content " style="text-align:justify;">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
-          	<h2 class=" text-left" style="margin:0px; padding:0px;"> ${novelty} </h2>
+          	<h2 class=" text-left"> ${novelty} </h2>
           </div> 
           <div class="row panel-body">
 			<jsp:include page="/IndexPageServlet" />

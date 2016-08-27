@@ -48,7 +48,7 @@
       <div class="col-md-10 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
-          <h2 class=" text-left" style="margin:0px; padding:0px;"> ${pageHeader} </h2>
+          <h2 class=" text-left"> ${pageHeader} </h2>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
@@ -57,12 +57,12 @@
                     <div class="panel panel-default container-fluid">
                         <div class="row panel-heading" >
                         	<div class="col-md-10">
-                        		<h4 class="text-left" style="margin-bottom:0px; padding-bottom:0px;">
+                        		<h4 class="text-left">
                         			<a href="<c:url value="/Controller?command=open_single_news&newsID=${news.id}"/>" > ${news.title} </a>
                         		</h4>
                         	</div>
                         	<div class="col-md-2">
-                        		<h4 class="text-right" style="margin-bottom:0px; padding-bottom:0px;">${news.date} </h4>
+                        		<h4 class="text-right">${news.date} </h4>
                         	</div>
                         </div> 
                     <div class=" panel-body">

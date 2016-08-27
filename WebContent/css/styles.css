@@ -70,6 +70,13 @@ section a {
 	font: 20px/30px, serif;
 	color:white;
 }
+
+.panel-heading h2, .panel-heading h3, .panel-heading h4, .panel-heading h5, .panel-heaeding h6 {
+	margin: 0px; 
+	padding: 0px;
+}
+
+
 /* section a:visited
 {
 	text-decoration:none;
