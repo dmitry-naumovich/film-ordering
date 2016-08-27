@@ -61,7 +61,7 @@
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
-          <h2 class=" text-left" style="margin:0px; padding:0px;">${mainHeader}</h2>
+          <h2 class=" text-left">${mainHeader}</h2>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
@@ -70,7 +70,7 @@
                 
                     <div class="panel panel-default">
                         <div class=" panel-heading" >
-                          <h4 class=" text-left" style="margin-bottom:0px; padding-bottom:0px;">${film.name}</h4>
+                          <h4 class=" text-left">${film.name}</h4>
                         </div> 
                     <div class="row panel-body">
                         <div class="col-md-12">

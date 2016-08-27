@@ -71,11 +71,11 @@ section a {
 	color:white;
 }
 
-.panel-heading h2, .panel-heading h3, .panel-heading h4, .panel-heading h5, .panel-heaeding h6 {
+.panel-heading h2, .panel-heading h3, .panel-heading h4, .panel-heading h5, .panel-heading h6,
+.panel-footer h2, .panel-footer h3, .panel-footer h4, .panel-footer h5, .panel-footer h6 {
 	margin: 0px; 
 	padding: 0px;
 }
-
 
 /* section a:visited
 {

@@ -56,7 +56,7 @@
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class="panel-heading" >
-          	<h2 class="text-left" style="margin:0px; padding:0px;">${userOrder}</h2>
+          	<h2 class="text-left">${userOrder}</h2>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
@@ -66,12 +66,12 @@
                     <div class="panel panel-default">
                         <div class="row panel-heading" >
                         	<div class="col-md-6">                         	
-                        		<h5 class="text-left" style="margin-bottom:0px; padding-bottom:0px;">
+                        		<h5 class="text-left">
                         			<a href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" >${requestScope.filmNames[status.index]} </a>
                         		</h5>
                         	</div>
                         	<div class="col-md-6">
-                        		<h5 class="text-right" style="margin-bottom:0px; padding-bottom:0px;">  
+                        		<h5 class="text-right">  
                         			<a href="<c:url value="/Controller?command=open_profile&userID=${order.userId}"/>" >${requestScope.userLogins[status.index]}</a>
                         		</h5>
                         	</div>

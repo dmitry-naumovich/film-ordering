@@ -45,12 +45,12 @@
 
       <div class="col-md-8 main content ">
         <div class="panel panel-primary container-fluid">
-          <div class="panel-heading row" style="margin-bottom:0px; margin-top: 0px; padding-bottom: 0px; padding-top:0px">
+          <div class="panel-heading row" style=""margin-top: 0px;padding-top:0px">
           <div class="col-md-9" >
-          	<h4 class="text-left" style="margin-bottom:0px; padding-bottom:0px;"> ${news.title} </h4>
+          	<h4 class="text-left"> ${news.title} </h4>
           </div>
           <div class="col-md-3" >
-          	<h4 class="text-right" style="margin-bottom:0px; padding-bottom:0px;"> ${news.date} </h4>
+          	<h4 class="text-right"> ${news.date} </h4>
           </div>
           
           </div> 

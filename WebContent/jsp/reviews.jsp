@@ -53,7 +53,7 @@
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
-          <h2 class=" text-left" style="margin:0px; padding:0px;"> ${pageHeader} </h2>
+          <h2 class=" text-left"> ${pageHeader} </h2>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">  
@@ -77,13 +77,13 @@
                     <div class="panel panel-default container-fluid">
                         <div class="row panel-heading" style="background-color:${rColor}">
                         	<div class="col-md-6">
-                        		<h4 class=" text-left" style="margin-bottom:0px; padding-bottom:0px;"> 
+                        		<h4 class=" text-left"> 
 			                    	<a href="<c:url value="/Controller?command=open_film_page&filmID=${review.filmId}" />" >${filmName} </a>
 			                    </h4>
                         	</div>
                         	<div class="col-md-6">
                         		<c:if test="${sessionScope.isAdmin}">
-	                        		<h4 class=" text-right" style="margin-bottom:0px; padding-bottom:0px;">
+	                        		<h4 class=" text-right">
 	                        			${author}:  
 				                    	<a href="<c:url value="/Controller?command=open_profile&userID=${review.author}" />" >${authorLogin} </a>
 				                    </h4>
@@ -101,10 +101,10 @@
                         
                         <div class="row panel-footer" style="background-color:${rColor}">
                         	<div class="col-md-6">
-                        		<h5 class="text-left" style="margin-bottom:0px; padding-bottom:0px;">${mark}: ${review.mark}/5</h5>
+                        		<h5 class="text-left">${mark}: ${review.mark}/5</h5>
                         	</div>
                         	<div class="col-md-6">
-                        		<h5 class="text-right" style="margin-bottom:0px; padding-bottom:0px;">${date}: ${review.date }</h5>
+                        		<h5 class="text-right">${date}: ${review.date }</h5>
                         	</div>
                         </div>
                         
