@@ -82,6 +82,7 @@
                           <div class="col-md-8">
                               <table class="table table-striped">
                     			<thead>
+                    				<br>
                     				<col width="50">
   									<col width="80">
                       <tr>

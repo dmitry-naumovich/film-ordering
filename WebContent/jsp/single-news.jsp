@@ -50,7 +50,7 @@
           	<h4 class="text-left"> ${news.title} </h4>
           </div>
           <div class="col-md-3" >
-          	<h4 class="text-right"> ${news.date} </h4>
+          	<h4 class="text-right"> ${news.date} ${news.time}</h4>
           </div>
           
           </div> 

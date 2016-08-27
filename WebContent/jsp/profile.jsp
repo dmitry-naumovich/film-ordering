@@ -84,7 +84,7 @@
 	  							<c:when test="${sessionScope.authUser != null}">
 		                           <c:choose>
 			                           	<c:when test="${sessionScope.isAdmin && user.id != sessionScope.userID}">
-				                          	<a href="<c:url value="/Controller?command=open_orders&userID=${user.id}"/>" class="btn btn-primary" role="button">${userOrders}</a> 
+				                          	<a href="<c:url value="/Controller?command=open_user_orders&userID=${user.id}"/>" class="btn btn-primary" role="button">${userOrders}</a> 
 				                          	<a href="<c:url value="/Controller?command=open_user_reviews&userID=${user.id}"/>" class="btn btn-warning" role="button">${userReviews}</a>
 				                          	<a href="jsp/ban.jsp" class="btn btn-danger" role="button">${banUser}</a>
 				                        </c:when>
@@ -95,7 +95,7 @@
 				                        	<a href="jsp/profile-settings.jsp" class="btn btn-danger" role="button">${editProfile}</a>
 				                        </c:when>
 				                        <c:otherwise>
-				                        	<a href="<c:url value="/Controller?command=open_orders&userID=${sessionScope.userID}"/>" class="btn btn-primary" role="button">${myOrders}</a> 
+				                        	<a href="<c:url value="/Controller?command=open_user_orders&userID=${sessionScope.userID}"/>" class="btn btn-primary" role="button">${myOrders}</a> 
 				                            <a href="<c:url value="/Controller?command=open_user_reviews&userID=${sessionScope.userID}"/>" class="btn btn-warning" role="button">${myReviews}</a>
 				                            <a href="jsp/profile-settings.jsp" class="btn btn-danger" role="button">${editProfile}</a>
 				                        </c:otherwise>
@@ -127,7 +127,7 @@
                       </tr>
                       <tr>
                         <td>${regDateTime}</td>
-                        <td>${user.regDate}</td>
+                        <td>${user.regDate} ${user.regTime}</td>
                       </tr>
                       <tr>
                         <td>${sex}</td>

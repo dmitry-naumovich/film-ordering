@@ -104,7 +104,7 @@
                         		<h5 class="text-left">${mark}: ${review.mark}/5</h5>
                         	</div>
                         	<div class="col-md-6">
-                        		<h5 class="text-right">${date}: ${review.date }</h5>
+                        		<h5 class="text-right"> ${date}: ${review.date} ${review.time} </h5>
                         	</div>
                         </div>
                         

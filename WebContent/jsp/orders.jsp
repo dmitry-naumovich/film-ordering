@@ -9,6 +9,7 @@
 <fmt:message bundle="${loc}" key="local.common.serviceName" var="serviceName" />
 <fmt:message bundle="${loc}" key="local.common.rublesShorten" var="rublesShorten" />
 <fmt:message bundle="${loc}" key="local.films.openFilmPage" var="openFilmPage" />
+<fmt:message bundle="${loc}" key="local.profile.myOrders" var="myOrders" />
 <fmt:message bundle="${loc}" key="local.orders.pageTitle" var="pageTitle" />
 <fmt:message bundle="${loc}" key="local.orders.userOrder" var="userOrder" />
 <fmt:message bundle="${loc}" key="local.orders.orderDate" var="orderDate" />
@@ -17,6 +18,7 @@
 <fmt:message bundle="${loc}" key="local.orders.filmPrice" var="filmPrice" />
 <fmt:message bundle="${loc}" key="local.orders.discount" var="discount" />
 <fmt:message bundle="${loc}" key="local.orders.orderSum" var="orderSum" />
+<fmt:message bundle="${loc}" key="local.footer.siteMap.orders" var="orders" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="${language}">
@@ -56,32 +58,54 @@
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class="panel-heading" >
-          	<h2 class="text-left">${userOrder}</h2>
+          	<c:choose> 
+          		<c:when test="${sessionScope.isAdmin}">
+          			<c:choose>
+	          			<c:when test="${requestScope.orderViewType eq 'all'}"> 
+	          				<h4 class="text-left">${orders}</h4>
+	          				
+	          			</c:when>
+	          			<c:when test="${requestScope.orderViewType eq 'user'}"> 
+	          				
+	          				<h4 class="text-left"> ${userOrder}
+	          				 	<a href="<c:url value="/Controller?command=open_profile&userID=${requestScope.userID}"/>" >${requestScope.userLogin} </a>
+	          				</h4>
+	          			</c:when>
+          			</c:choose> 
+          			
+          		</c:when>
+          		<c:otherwise>
+          			<h4 class="text-left"> ${myOrders} </h4>
+          		</c:otherwise>
+          	</c:choose>
+          	
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
                 
                 <c:forEach items="${requestScope.orders}" var="order" varStatus="status">
                 
-                    <div class="panel panel-default">
+                    <div class="panel panel-default container-fluid">
                         <div class="row panel-heading" >
                         	<div class="col-md-6">                         	
                         		<h5 class="text-left">
                         			<a href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" >${requestScope.filmNames[status.index]} </a>
                         		</h5>
                         	</div>
+                        	<c:if test="${requestScope.orderViewType eq 'all'}">
                         	<div class="col-md-6">
                         		<h5 class="text-right">  
                         			<a href="<c:url value="/Controller?command=open_profile&userID=${order.userId}"/>" >${requestScope.userLogins[status.index]}</a>
                         		</h5>
                         	</div>
+                        	 </c:if>
                         </div> 
                     <div class="row panel-body">
                         <div class="col-md-12">
                           <div class="col-md-4">
                             
                               <figure>
-                                <img src="img/films/${order.filmId}/folder.jpg" alt="${requestScope.filmNames[status.index]}" class="img-thumbnail img-responsive" width="210" height="140" style="margin-top: 30px;"/> 
+                                <img src="img/films/${order.filmId}/folder.jpg" alt="Img not loaded" class="img-thumbnail img-responsive" width="210" height="140" style="margin-top: 30px;"/> 
                               </figure>
                           </div>
                           <div class="col-md-8">
