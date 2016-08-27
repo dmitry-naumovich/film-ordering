@@ -1,12 +1,14 @@
 package by.epam.naumovich.film_ordering.bean;
 
 import java.sql.Date;
+import java.sql.Time;
 
 public class Review {
 
 	private int author;
 	private int filmId;
 	private Date date;
+	private Time time;
 	private String type;
 	private int mark;
 	private String text;
@@ -28,6 +30,12 @@ public class Review {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public Time getTime() {
+		return time;
+	}
+	public void setTime(Time time) {
+		this.time = time;
 	}
 	public String getType() {
 		return type;
@@ -54,6 +62,7 @@ public class Review {
 	    hash = 11 * hash + this.filmId;
 	    hash = 19 * hash + this.mark;
 	    hash = 17 * hash + (this.date != null ? this.date.hashCode() : 0);
+	    hash = 3 * hash + (this.time != null ? this.time.hashCode() : 0);
 	    hash = 13 * hash + (this.type != null ? this.type.hashCode() : 0);
 	    hash = 31 * hash + (this.text != null ? this.text.hashCode() : 0);
 	    return hash;
@@ -70,6 +79,9 @@ public class Review {
 		if (mark != rev.mark) { return false; }
 		
 		if ((null == date) ? (rev.date != null) : !date.equals(rev.date)) {
+			return false;
+		}
+		if ((null == time) ? (rev.time != null) : !time.equals(rev.time)) {
 			return false;
 		}
 		if ((null == type) ? (rev.type != null) : !type.equals(rev.type)) {
@@ -89,6 +101,7 @@ public class Review {
 	    result.append(" Author: " + author);
 	    result.append(", FilmId: " + filmId);
 	    result.append(", Date: " + date);
+	    result.append(", Time: " + time);
 	    result.append(", Type: " + type);
 	    result.append(", Mark: " + mark);
 	    result.append(", Text: " + text);

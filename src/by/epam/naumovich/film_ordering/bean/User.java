@@ -1,6 +1,7 @@
 package by.epam.naumovich.film_ordering.bean;
 
 import java.sql.Date;
+import java.sql.Time;
 
 public class User {
 
@@ -12,6 +13,7 @@ public class User {
 	private char sex;
 	private char type;
 	private Date regDate;
+	private Time regTime;
 	private Date birthDate;
 	private String phone;
 	private String email;
@@ -71,6 +73,12 @@ public class User {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+	public Time getRegTime() {
+		return regTime;
+	}
+	public void setRegTime(Time regTime) {
+		this.regTime = regTime;
+	}
 	public Date getBirthDate() {
 		return birthDate;
 	}
@@ -111,6 +119,7 @@ public class User {
 	    hash = 31 * hash + (this.phone != null ? this.phone.hashCode() : 0);
 	    hash = 47 * hash + (this.email != null ? this.email.hashCode() : 0);
 	    hash = 7 * hash + (this.regDate != null ? this.regDate.hashCode() : 0);
+	    hash = 1 * hash + (this.regTime != null ? this.regTime.hashCode() : 0);
 	    hash = 3 * hash + (this.birthDate != null ? this.birthDate.hashCode() : 0);
 	    hash = 19 * hash + (this.about != null ? this.about.hashCode() : 0);
 	    return hash;
@@ -142,6 +151,9 @@ public class User {
 		if ((null == regDate) ? (user.regDate != null) : !regDate.equals(user.regDate)) {
 			return false;
 		}
+		if ((null == regTime) ? (user.regTime != null) : !regTime.equals(user.regTime)) {
+			return false;
+		}
 		if ((null == birthDate) ? (user.birthDate != null) : !birthDate.equals(user.birthDate)) {
 			return false;
 		}
@@ -169,7 +181,8 @@ public class User {
 	    result.append(", Password: " + password);
 	    result.append(", Sex: " + sex);
 	    result.append(", Type: " + type);
-	    result.append(", Regdate: " + regDate);
+	    result.append(", RegDate: " + regDate);
+	    result.append(", RegTime: " + regTime);
 	    if (birthDate != null) { result.append(", Birthdate: " + birthDate); }
 	    if (phone != null) { result.append(", Phone: " + phone); }
 	    result.append(", Email: " + email);

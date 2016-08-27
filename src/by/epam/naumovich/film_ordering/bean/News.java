@@ -1,11 +1,13 @@
 package by.epam.naumovich.film_ordering.bean;
 
 import java.sql.Date;
+import java.sql.Time;
 
 public class News {
 
 	private int id;
 	private Date date;
+	private Time time;
 	private String title;
 	private String text;
 	
@@ -20,6 +22,12 @@ public class News {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public Time getTime() {
+		return time;
+	}
+	public void setTime(Time time) {
+		this.time = time;
 	}
 	public String getTitle() {
 		return title;
@@ -39,6 +47,7 @@ public class News {
 		int hash = 11;
 	    hash = 7 * hash + this.id;
 	    hash = 47 * hash + ((null != date) ? date.hashCode() : 0);
+	    hash = 1 * hash + ((null != time) ? time.hashCode() : 0);
 	    hash = 17 * hash + ((null != title) ? title.hashCode() : 0);
 	    hash = 31 * hash + ((null != text) ? text.hashCode() : 0);
 	    return hash;
@@ -52,6 +61,9 @@ public class News {
 		News news = (News)obj;
 		if (id != news.id) { return false; }
 		if ((null == date) ? (news.date != null) : !date.equals(news.date)) {
+			return false;
+		}
+		if ((null == time) ? (news.time != null) : !time.equals(news.time)) {
 			return false;
 		}
 		if ((null == title) ? (news.title != null) : !title.equals(news.title)) {
@@ -69,6 +81,7 @@ public class News {
 	    result.append(this.getClass().getSimpleName() + " Object {");
 	    result.append(" ID: " + id);
 	    result.append(", Date: " + date);
+	    result.append(", Time: " + time);
 	    result.append(", Title: " + title);
 	    result.append(", Text: " + text);
 	    result.append("}");
