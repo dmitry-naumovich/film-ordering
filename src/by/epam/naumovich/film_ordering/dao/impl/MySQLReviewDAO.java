@@ -17,7 +17,7 @@ public class MySQLReviewDAO implements IReviewDAO {
 
 	private static final MySQLReviewDAO instance = new MySQLReviewDAO();
 	
-	public static final String INSERT_NEW_REVIEW = "INSERT INTO Reviews (r_author, r_film, r_date, r_type, r_mark, r_text) VALUES (?, ?, ?, ?, ?, ?)";
+	public static final String INSERT_NEW_REVIEW = "INSERT INTO Reviews (r_author, r_film, r_date, r_time, r_type, r_mark, r_text) VALUES (?, ?, ?, ?, ?, ?, ?)";
 	public static final String DELETE_REVIEW = "DELETE FROM Reviews WHERE Reviews.r_author = ? and Reviews.r_film = ?";
 	public static final String SELECT_ALL_REVIEWS = "SELECT * FROM Reviews";
 	public static final String SELECT_REVIEWS_BY_USER_ID = "SELECT * FROM Reviews WHERE Reviews.r_author = ?";
@@ -41,9 +41,10 @@ public class MySQLReviewDAO implements IReviewDAO {
 			st.setInt(1, review.getAuthor());
 			st.setInt(2, review.getFilmId());
 			st.setDate(3, review.getDate());
-			st.setString(4, review.getType());
-			st.setInt(5, review.getMark());
-			st.setString(6, review.getText());
+			st.setTime(4, review.getTime());
+			st.setString(5, review.getType());
+			st.setInt(6, review.getMark());
+			st.setString(7, review.getText());
 			st.executeUpdate();
 			
 			stForRatingUpdate = con.prepareStatement(UPDATE_FILM_RATING);
@@ -114,9 +115,10 @@ public class MySQLReviewDAO implements IReviewDAO {
 				review.setAuthor(rs.getInt(1));
 				review.setFilmId(rs.getInt(2));
 				review.setDate(rs.getDate(3));
-				review.setType(rs.getString(4));
-				review.setMark(rs.getInt(5));
-				review.setText(rs.getString(6));
+				review.setTime(rs.getTime(4));
+				review.setType(rs.getString(5));
+				review.setMark(rs.getInt(6));
+				review.setText(rs.getString(7));
 				
 				reviewList.add(review);
 			}
@@ -157,9 +159,10 @@ public class MySQLReviewDAO implements IReviewDAO {
 				review.setAuthor(rs.getInt(1));
 				review.setFilmId(rs.getInt(2));
 				review.setDate(rs.getDate(3));
-				review.setType(rs.getString(4));
-				review.setMark(rs.getInt(5));
-				review.setText(rs.getString(6));
+				review.setTime(rs.getTime(4));
+				review.setType(rs.getString(5));
+				review.setMark(rs.getInt(6));
+				review.setText(rs.getString(7));
 	
 				reviewList.add(review);
 			}
@@ -200,9 +203,10 @@ public class MySQLReviewDAO implements IReviewDAO {
 				review.setAuthor(rs.getInt(1));
 				review.setFilmId(rs.getInt(2));
 				review.setDate(rs.getDate(3));
-				review.setType(rs.getString(4));
-				review.setMark(rs.getInt(5));
-				review.setText(rs.getString(6));
+				review.setTime(rs.getTime(4));
+				review.setType(rs.getString(5));
+				review.setMark(rs.getInt(6));
+				review.setText(rs.getString(7));
 	
 				reviewList.add(review);
 			}

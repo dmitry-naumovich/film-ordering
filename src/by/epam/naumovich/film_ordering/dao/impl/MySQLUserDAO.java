@@ -17,16 +17,16 @@ public class MySQLUserDAO implements IUserDAO {
 
 	private static final MySQLUserDAO instance = new MySQLUserDAO();
 	
-	public static final String INSERT_NEW_USER = "INSERT INTO Users (u_login, u_name, u_surname, u_passw, u_sex, u, type, u_regdate, u_bdate, u_phone, u_email, u_about) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	public static final String INSERT_NEW_USER = "INSERT INTO Users (u_login, u_name, u_surname, u_passw, u_sex, u, type, u_regdate, u_regtime, u_bdate, u_phone, u_email, u_about) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	public static final String UPDATE_USER_BY_ID = "UPDATE Users SET u_name = ?, u_surname = ?, u_passw = ?, u_sex = ?, u_bdate = ?, u_phone = ?, u_email = ?, u_about = ? WHERE u_id = ?";	
 	public static final String DELETE_USER = "DELETE FROM Users WHERE u.id = ?";
 	public static final String SELECT_ALL_USERS = "SELECT * FROM Users";
 	public static final String SELECT_USER_BY_LOGIN = "SELECT * FROM Users WHERE u_login = ?";
 	public static final String SELECT_USER_BY_ID = "SELECT * FROM Users WHERE u_id = ?";
-	public static final String SELECT_USERS_IN_BAN = "SELECT Users.* FROM Users JOIN Bans ON users.u_id = bans.b_user WHERE CURDATE() < DATE_ADD(b_start, INTERVAL b_length DAY)";
-	public static final String SELECT_USER_IN_BAN_NOW_BY_ID = "SELECT * FROM Bans WHERE bans.b_user = ? AND CURDATE() < DATE_ADD(b_start, INTERVAL b_length DAY)";
+	public static final String SELECT_USERS_IN_BAN = "SELECT Users.* FROM Users JOIN Bans ON users.u_id = bans.b_user WHERE ((CURDATE() = b_stdate AND CURTIME() > b_sttime) OR (CURDATE() = DATE_ADD(b_stdate, INTERVAL b_length DAY) AND CURTIME() < b_sttime) OR (CURDATE() > b_stdate AND CURDATE() < DATE_ADD(b_stdate, INTERVAL b_length DAY))) ";
+	public static final String SELECT_USER_IN_BAN_NOW_BY_ID = "SELECT * FROM Bans WHERE bans.b_user = ? AND ((CURDATE() = b_stdate AND CURTIME() > b_sttime) OR (CURDATE() = DATE_ADD(b_stdate, INTERVAL b_length DAY) AND CURTIME() < b_sttime) OR (CURDATE() > b_stdate AND CURDATE() < DATE_ADD(b_stdate, INTERVAL b_length DAY)))";
 	public static final String SELECT_PASSWORD_BY_LOGIN = "SELECT u_passw FROM Users WHERE u_login = ?";
-	public static final String SELECT_CURRENT_DISCOUNT_BY_USER_ID = "SELECT d_amount FROM Discounts WHERE d_user = ? AND CURDATE() < d_endate";
+	public static final String SELECT_CURRENT_DISCOUNT_BY_USER_ID = "SELECT d_amount FROM Discounts WHERE d_user = ? AND ((CURDATE() = d_stdate AND CURTIME() > d_sttime) OR (CURDATE() = d_endate AND CURTIME() < d_entime) OR (CURDATE() > d_stdate AND CURDATE() < d_endate))";
 	
 	public static MySQLUserDAO getInstance() {
 		return instance; 
@@ -48,10 +48,11 @@ public class MySQLUserDAO implements IUserDAO {
 			st.setString(5, String.valueOf(user.getSex()));
 			st.setString(6, String.valueOf(user.getType()));
 			st.setDate(7, user.getRegDate());
-			st.setDate(8, user.getBirthDate());
-			st.setString(9, user.getPhone());
-			st.setString(10, user.getEmail());
-			st.setString(11, user.getAbout());
+			st.setTime(8, user.getRegTime());
+			st.setDate(9, user.getBirthDate());
+			st.setString(10, user.getPhone());
+			st.setString(11, user.getEmail());
+			st.setString(12, user.getAbout());
 			st.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -156,10 +157,11 @@ public class MySQLUserDAO implements IUserDAO {
 				user.setSex(rs.getString(6).charAt(0));
 				user.setType(rs.getString(7).charAt(0));
 				user.setRegDate(rs.getDate(8));
-				user.setBirthDate(rs.getDate(9));
-				user.setPhone(rs.getString(10));
-				user.setEmail(rs.getString(11));
-				user.setAbout(rs.getString(12));
+				user.setRegTime(rs.getTime(9));
+				user.setBirthDate(rs.getDate(10));
+				user.setPhone(rs.getString(11));
+				user.setEmail(rs.getString(12));
+				user.setAbout(rs.getString(13));
 				
 				list.add(user);
 			}
@@ -205,10 +207,11 @@ public class MySQLUserDAO implements IUserDAO {
 				user.setSex(rs.getString(6).charAt(0));
 				user.setType(rs.getString(7).charAt(0));
 				user.setRegDate(rs.getDate(8));
-				user.setBirthDate(rs.getDate(9));
-				user.setPhone(rs.getString(10));
-				user.setEmail(rs.getString(11));
-				user.setAbout(rs.getString(12));
+				user.setRegTime(rs.getTime(9));
+				user.setBirthDate(rs.getDate(10));
+				user.setPhone(rs.getString(11));
+				user.setEmail(rs.getString(12));
+				user.setAbout(rs.getString(13));
 			}
 			
 		} catch (SQLException e) {
@@ -251,10 +254,11 @@ public class MySQLUserDAO implements IUserDAO {
 				user.setSex(rs.getString(6).charAt(0));
 				user.setType(rs.getString(7).charAt(0));
 				user.setRegDate(rs.getDate(8));
-				user.setBirthDate(rs.getDate(9));
-				user.setPhone(rs.getString(10));
-				user.setEmail(rs.getString(11));
-				user.setAbout(rs.getString(12));
+				user.setRegTime(rs.getTime(9));
+				user.setBirthDate(rs.getDate(10));
+				user.setPhone(rs.getString(11));
+				user.setEmail(rs.getString(12));
+				user.setAbout(rs.getString(13));
 				
 				list.add(user);
 			}
@@ -366,10 +370,11 @@ public class MySQLUserDAO implements IUserDAO {
 				user.setSex(rs.getString(6).charAt(0));
 				user.setType(rs.getString(7).charAt(0));
 				user.setRegDate(rs.getDate(8));
-				user.setBirthDate(rs.getDate(9));
-				user.setPhone(rs.getString(10));
-				user.setEmail(rs.getString(11));
-				user.setAbout(rs.getString(12));
+				user.setRegTime(rs.getTime(9));
+				user.setBirthDate(rs.getDate(10));
+				user.setPhone(rs.getString(11));
+				user.setEmail(rs.getString(12));
+				user.setAbout(rs.getString(13));
 			}
 			
 		} catch (SQLException e) {
@@ -398,7 +403,7 @@ public class MySQLUserDAO implements IUserDAO {
 		try {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
-			st = con.prepareStatement(SELECT_PASSWORD_BY_LOGIN);
+			st = con.prepareStatement(SELECT_CURRENT_DISCOUNT_BY_USER_ID);
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {

@@ -23,7 +23,6 @@ public class MySQLOrderDAO implements IOrderDAO {
 	public static final String SELECT_ORDER_BY_USER_ID = "SELECT * FROM Orders WHERE o_user = ?";
 	public static final String SELECT_ORDER_BY_FILM_ID = "SELECT * FROM Orders WHERE o_film = ?";
 	
-	
 	public static MySQLOrderDAO getInstance() {
 		return instance;
 	}

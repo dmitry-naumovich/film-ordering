@@ -15,7 +15,7 @@ import by.epam.naumovich.task82.dao.pool.exception.ConnectionPoolException;
 
 public class MySQLNewsDAO implements INewsDAO {
 
-	public static final String INSERT_NEW_NEWS = "INSERT INTO News (n_date, n_title, n_text) VALUES (?, ?, ?)";
+	public static final String INSERT_NEW_NEWS = "INSERT INTO News (n_date, n_time, n_title, n_text) VALUES (?, ?, ?)";
 	public static final String DELETE_NEWS = "DELETE FROM News WHERE n_id = ?";
 	public static final String SELECT_ALL_NEWS = "SELECT * FROM News";
 	public static final String SELECT_NEWS_BY_ID = "SELECT * FROM News WHERE n_id = ?";
@@ -38,8 +38,9 @@ public class MySQLNewsDAO implements INewsDAO {
 			con = pool.getConnection();
 			st = con.prepareStatement(INSERT_NEW_NEWS);
 			st.setDate(1, news.getDate());
-			st.setString(2, news.getTitle());
-			st.setString(3, news.getText());
+			st.setTime(2, news.getTime());
+			st.setString(3, news.getTitle());
+			st.setString(4, news.getText());
 			st.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -101,8 +102,9 @@ public class MySQLNewsDAO implements INewsDAO {
 				News news = new News();
 				news.setId(rs.getInt(1));
 				news.setDate(rs.getDate(2));
-				news.setTitle(rs.getString(3));
-				news.setText(rs.getString(4));
+				news.setTime(rs.getTime(3));
+				news.setTitle(rs.getString(4));
+				news.setText(rs.getString(5));
 				newsList.add(news);
 			}
 			
@@ -142,8 +144,10 @@ public class MySQLNewsDAO implements INewsDAO {
 				News news = new News();
 				news.setId(rs.getInt(1));
 				news.setDate(rs.getDate(2));
-				news.setTitle(rs.getString(3));
-				news.setText(rs.getString(4));
+				news.setTime(rs.getTime(3));
+				news.setTitle(rs.getString(4));
+				news.setText(rs.getString(5));
+				
 				newsList.add(news);
 			}
 			
@@ -184,8 +188,10 @@ public class MySQLNewsDAO implements INewsDAO {
 				News news = new News();
 				news.setId(rs.getInt(1));
 				news.setDate(rs.getDate(2));
-				news.setTitle(rs.getString(3));
-				news.setText(rs.getString(4));
+				news.setTime(rs.getTime(3));
+				news.setTitle(rs.getString(4));
+				news.setText(rs.getString(5));
+				
 				newsList.add(news);
 			}
 			
@@ -225,8 +231,9 @@ public class MySQLNewsDAO implements INewsDAO {
 				news = new News();
 				news.setId(rs.getInt(1));
 				news.setDate(rs.getDate(2));
-				news.setTitle(rs.getString(3));
-				news.setText(rs.getString(4));
+				news.setTime(rs.getTime(3));
+				news.setTitle(rs.getString(4));
+				news.setText(rs.getString(5));
 			}
 			
 		} catch (SQLException e) {
