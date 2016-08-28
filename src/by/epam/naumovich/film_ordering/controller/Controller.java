@@ -13,6 +13,7 @@ import by.epam.naumovich.film_ordering.command.Command;
  * Servlet implementation class Controller
  */
 public class Controller extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
 	private static final String COMMAND = "command";
        
