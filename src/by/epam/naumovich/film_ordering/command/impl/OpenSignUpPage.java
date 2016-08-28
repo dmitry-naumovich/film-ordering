@@ -5,25 +5,27 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import by.epam.naumovich.film_ordering.command.Command;
 import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
+import by.epam.naumovich.film_ordering.command.util.QueryUtil;
 import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
 
-public class ChangeLanguage implements Command {
+public class OpenSignUpPage implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		String language = request.getParameter(RequestAndSessionAttributes.LANGUAGE);
-		request.getSession().setAttribute(RequestAndSessionAttributes.LANGUAGE, language);
+		HttpSession session = request.getSession(true);
+		String query = QueryUtil.createHttpQueryString(request);
+		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
+		System.out.println(query);
 		
-		String prev_query = (String) request.getSession(false).getAttribute(RequestAndSessionAttributes.PREV_QUERY);
-		
-		if (prev_query != null) {
-			response.sendRedirect(prev_query);
-		}
-		else {
+		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) != null) {
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, "Log out to be able to sign up!");
 			request.getRequestDispatcher(JavaServerPageNames.INDEX_PAGE).forward(request, response);
+		} else {
+			request.getRequestDispatcher(JavaServerPageNames.SIGN_UP_PAGE).forward(request, response);
 		}
 	}
 

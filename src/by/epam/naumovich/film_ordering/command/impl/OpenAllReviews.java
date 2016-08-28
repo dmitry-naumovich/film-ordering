@@ -11,11 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import by.epam.naumovich.film_ordering.bean.Review;
 import by.epam.naumovich.film_ordering.command.Command;
+import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
 import by.epam.naumovich.film_ordering.command.util.QueryUtil;
+import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
 import by.epam.naumovich.film_ordering.service.IFilmService;
 import by.epam.naumovich.film_ordering.service.IReviewService;
 import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
+import by.epam.naumovich.film_ordering.service.exception.GetReviewsServiceException;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
 public class OpenAllReviews implements Command {
@@ -47,7 +50,12 @@ public class OpenAllReviews implements Command {
 			
 			String url = response.encodeRedirectURL(JavaServerPageNames.REVIEWS_PAGE);
 			request.getRequestDispatcher(url).forward(request, response);
+		} catch (GetReviewsServiceException e) {
+			
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
+			request.getRequestDispatcher(JavaServerPageNames.REVIEWS_PAGE).forward(request, response);
 		}
+		
 		catch (ServiceException e) {
 			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 		}

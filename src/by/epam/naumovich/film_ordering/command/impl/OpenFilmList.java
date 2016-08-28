@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import by.epam.naumovich.film_ordering.bean.Film;
 import by.epam.naumovich.film_ordering.command.Command;
+import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
 import by.epam.naumovich.film_ordering.command.util.QueryUtil;
+import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
 import by.epam.naumovich.film_ordering.service.IFilmService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.GetReviewsServiceException;
@@ -34,6 +36,7 @@ public class OpenFilmList implements Command {
 			
 			
 		} catch(GetReviewsServiceException e) {
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 			request.getRequestDispatcher(JavaServerPageNames.FILMS_JSP_PAGE).forward(request, response);
 		}
 		

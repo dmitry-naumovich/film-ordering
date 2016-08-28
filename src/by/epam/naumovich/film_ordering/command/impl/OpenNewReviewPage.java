@@ -8,23 +8,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import by.epam.naumovich.film_ordering.command.Command;
 import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
+import by.epam.naumovich.film_ordering.command.util.QueryUtil;
 import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
 
-public class ChangeLanguage implements Command {
+public class OpenNewReviewPage implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		String language = request.getParameter(RequestAndSessionAttributes.LANGUAGE);
-		request.getSession().setAttribute(RequestAndSessionAttributes.LANGUAGE, language);
+		String query = QueryUtil.createHttpQueryString(request);
+		request.getSession(true).setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
+		System.out.println(query);
 		
-		String prev_query = (String) request.getSession(false).getAttribute(RequestAndSessionAttributes.PREV_QUERY);
-		
-		if (prev_query != null) {
-			response.sendRedirect(prev_query);
-		}
-		else {
-			request.getRequestDispatcher(JavaServerPageNames.INDEX_PAGE).forward(request, response);
-		}
+		request.getRequestDispatcher(JavaServerPageNames.NEW_REVIEW_PAGE).forward(request, response);
 	}
 
 }

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import by.epam.naumovich.film_ordering.bean.News;
 import by.epam.naumovich.film_ordering.command.Command;
+import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
+import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
 import by.epam.naumovich.film_ordering.service.INewsService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;

@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import by.epam.naumovich.film_ordering.bean.News;
 import by.epam.naumovich.film_ordering.command.Command;
+import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
 import by.epam.naumovich.film_ordering.command.util.QueryUtil;
+import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
 import by.epam.naumovich.film_ordering.service.INewsService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.GetNewsServiceException;
@@ -34,6 +36,7 @@ public class OpenNewsList implements Command {
 			String url = response.encodeRedirectURL(JavaServerPageNames.NEWS_JSP_PAGE);
 			request.getRequestDispatcher(url).forward(request, response);
 		} catch(GetNewsServiceException e) {
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 			request.getRequestDispatcher(JavaServerPageNames.NEWS_JSP_PAGE).forward(request, response);
 		}
 		
