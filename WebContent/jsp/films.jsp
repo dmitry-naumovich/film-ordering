@@ -57,7 +57,7 @@
     
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 
-
+	  <h4><c:out value="${errorMessage}" /></h4>
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
@@ -85,30 +85,20 @@
                     				<br>
                     				<col width="50">
   									<col width="80">
-                      <tr>
-                      <c:choose> 
-		              		<c:when test="${sessionScope.authUser != null}"> 
-		              			<c:choose> 
-		              				<c:when test="${sessionScope.isAdmin}">
-		              					<td><a class="btn btn-primary" href="<c:url value="/Controller?command=edit_film&filmID=${film.id}"/>" role="button">${editFilmBtn}</a></td>
-	                  					<td><a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${film.id}"/>" role="button">${openFilmPage}</a></td>
-		              				</c:when>
-		              				<c:otherwise>
-		              					<td><a class="btn btn-primary" href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" role="button">${buyWithOneClickBtn}</a></td>
-	                  					<td><a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${film.id}"/>" role="button">${openFilmPage}</a></td>
-		              				</c:otherwise>
-		              			</c:choose>
-		              			
-		              		</c:when>
-		              		<c:otherwise> 
-		              			<td><a href="jsp/logination.jsp" class="btn btn-primary center-block"  role="button">${buyWithOneClickBtn}</a></td>
-	                  			<td><a href="<c:url value="/Controller?command=open_film_page&filmID=${film.id}"/>" class="btn btn-success" role="button">${openFilmPage}</a></td>
-		              		</c:otherwise>
-		              	</c:choose> 
-                      
-                      </tr>
-                    </thead>
-                    <tbody>
+                      	<tr>
+	              			<c:choose> 
+	              				<c:when test="${sessionScope.isAdmin}">
+	              					<td><a class="btn btn-primary" href="<c:url value="/Controller?command=edit_film&filmID=${film.id}"/>" role="button">${editFilmBtn}</a></td>
+                  					<td><a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${film.id}"/>" role="button">${openFilmPage}</a></td>
+	              				</c:when>
+	              				<c:otherwise>
+	              					<td><a class="btn btn-primary" href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" role="button">${buyWithOneClickBtn}</a></td>
+                  					<td><a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${film.id}"/>" role="button">${openFilmPage}</a></td>
+	              				</c:otherwise>
+	              			</c:choose>
+	                      </tr>
+	                    </thead>
+	                    <tbody>
                     	
                       <tr>
                         <td><b>${year}</b></td>

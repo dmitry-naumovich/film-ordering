@@ -55,8 +55,8 @@
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
-              <p>  ${firstQuestion} <a href="jsp/feedback.jsp" class="btn btn-primary" role="button">${firstBtn}</a> </p>
-              <p>  ${secondQuestion} <a href="jsp/about-us.jsp" class="btn btn-primary" role="button">${secondBtn}</a> </p>
+              <p>  ${firstQuestion} <a href="<c:url value="/Controller?command=open_feedback_page"/>" class="btn btn-primary" role="button">${firstBtn}</a> </p>
+              <p>  ${secondQuestion} <a href="<c:url value="/Controller?command=open_about_us_page"/>" class="btn btn-primary" role="button">${secondBtn}</a> </p>
 
           </div>
           </div>

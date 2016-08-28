@@ -67,67 +67,73 @@
           <div class="row panel-body">
             <div class="col-md-12">
 
+<h4><c:out value="${errorMessage}" /></h4>
+<c:set var="user" value="${requestScope.user}"/>
 
-<form class="form-horizontal" method="post" name="register">
+<form class="form-horizontal" action="Controller" method="post">
+	<h4><c:out value="${errorMessage}" /></h4>
+  	<div class="form-group">
+    	<input type="hidden" name="command" value="change_settings" />
+  	</div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${name}:</label>
-      <div class="col-sm-10">
-        <input class="form-control" id="focusedInput" type="text" value="Дмитрий" required> 
+      <label class="col-sm-3 control-label">${name}:</label>
+      <div class="col-sm-9">
+        <input class="form-control" name="name" type="text" value="${user.name}" required> 
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${surname}:</label>
-      <div class="col-sm-10">
-        <input class="form-control" id="disabledInput" type="text" value="Иванов" required>
+      <label class="col-sm-3 control-label">${surname}:</label>
+      <div class="col-sm-9">
+        <input class="form-control" name="surname" type="text" value="${user.surname}" required>
       </div>
     </div>
     <div class="form-group">
-      <label for="pwd" class="col-sm-2 control-label">${changePass}:</label>
-      <div class="col-sm-10">
-        <input class="form-control" id="pwd" type="password" value="${enterPass}" required>
+      <label for="pwd" class="col-sm-3 control-label">${changePass}:</label>
+      <div class="col-sm-9">
+        <input class="form-control" name="password" type="password" value="${user.password}" required>
       </div>
     </div>
     <div class="form-group">
-      <label for="pwd-again" class="col-sm-2 control-label">${repeatPass}:</label>
-      <div class="col-sm-10">
-        <input class="form-control" id="pwd-again" type="password" value="${enterPass}" required>
+      <label for="pwd-again" class="col-sm-3 control-label">${repeatPass}:</label>
+      <div class="col-sm-9">
+        <input class="form-control" name="passwordRepeated" type="password" value="${user.password}" required>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${birthDate}:</label>
-      <div class="col-sm-10">
-        <input class="form-control" id="bDateInput" type="date" value="1994-11-28">
+      <label class="col-sm-3 control-label">${birthDate}:</label>
+      <div class="col-sm-9">
+        <input class="form-control" name="birthDate" type="date" value="${user.birthDate}">
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${email}: </label>
-      <div class="col-sm-10">
-        <input class="form-control" id="emailInput" type="email" name="useremail" value="example@gmail.com" required>
+      <label class="col-sm-3 control-label">${email}: </label>
+      <div class="col-sm-9">
+        <input class="form-control" name="email" type="email" value="${user.email}" required>
       </div> 
     </div>
      <div class="form-group">
-      <label class="col-sm-2 control-label">${phoneNum}: </label>
-      <div class="col-sm-10">
-        <input class="form-control" id="phoneInput" type="text" name="userphone" value="+375447081144">
+      <label class="col-sm-3 control-label">${phoneNum}: (+375)</label>
+      <div class="col-sm-9">
+        <input class="form-control" name="phone" type="text" value="${user.phone}">
       </div>
     </div>
 
      <div class="form-group">
-      <label class="col-sm-2 control-label">${avatar}: </label>
-      <div class="col-sm-10">
+      <label class="col-sm-3 control-label">${avatar}: </label>
+      <div class="col-sm-9">
             <input type="file" name="avatar">
       </div>
     </div>    
 
     <div class="form-group">
-      <label class="col-sm-2 control-label" for="comment">${tellAbout}:</label>
-      <div class="col-sm-10">
-        <textarea class="form-control" rows="5" id="comment"></textarea>
+      <label class="col-sm-3 control-label" for="comment">${tellAbout}:</label>
+      <div class="col-sm-9">
+        <textarea class="form-control" rows="5" name="about">${user.about}</textarea>
       </div>
     </div>
     <div class="form-group">
-      <div class="col-sm-2 col-md-offset-2">
-      <button type="submit" class="btn btn-primary">${changeSettingsBtn}</button>
+      <div class="col-sm-3 col-md-offset-2">
+      <button type="submit" class="btn btn-primary" name="Change settings">${changeSettingsBtn}</button>
       </div>
 
     </div>    

@@ -26,6 +26,13 @@
   <link rel="stylesheet" href="css/bootstrap.min.css" >
   <link rel="stylesheet" href="css/styles.css">
   <script type="text/javascript">
+  
+  window.setTimeout(function() {
+	    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+	        $(this).remove(); 
+	    });
+	}, 1000)
+  
     $('.nav li').click(function(e) {
   e.preventDefault();
   $('.nav li').removeClass('active');
@@ -56,9 +63,14 @@
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
-
+				<c:if test="${errorMessage != null}">
+					<div class="alert alert-danger fade in">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					  <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a> -->
+					 ${errorMessage} 
+					</div>
+				</c:if>
 				<form action="Controller" method="post">
-					<h4><c:out value="${errorMessage}" /></h4>
 				  <div class="form-group">
 				     <input type="hidden" name="command" value="login" />
 				  </div>

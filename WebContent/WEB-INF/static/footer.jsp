@@ -37,43 +37,33 @@
           <li><a href="index.jsp">${main}</a></li>
           <li><a href="<c:url value="/Controller?command=open_news_list"/>" > ${news} </a></li>
           <li><a href="<c:url value="/Controller?command=open_film_list"/>" >${films}</a></li>
-          <li><a href="jsp/widen-search.jsp">${widenSearch}</a></li>
+          <li><a href="<c:url value="/Controller?command=open_widen_search_page"/>"> ${widenSearch} </a></li>
         </ul>
       </div>
       <div class="col-md-2">
         <ul>
-        <c:choose> 
-          	<c:when test="${sessionScope.authUser != null}">
-          		<c:choose> 
-          			<c:when test="${sessionScope.isAdmin}">
-          				 <li><a href="<c:url value="/Controller?command=open_profile&userID=${sessionScope.userID}"/>" >${profile}</a></li>
-          				 <li><a href="<c:url value="/Controller?command=open_all_reviews"/>">${reviews}</a></li>
-          				 <li><a href="<c:url value="/Controller?command=open_all_orders"/>">${orders}</a></li>
-          				 <li><a href="<c:url value="/Controller/command=open_user_list"/>">${userList}</a></li>
-          			</c:when>
-          			<c:otherwise> 
-          				 <li><a href="<c:url value="/Controller?command=open_profile&userID=${sessionScope.userID}"/>" >${profile}</a></li>
-          				 <li><a href="<c:url value="/Controller?command=open_user_reviews&userID=${sessionScope.userID}"/>">${myReviews}</a></li>
-          				 <li><a href="<c:url value="/Controller?command=open_orders&userID=${sessionScope.userID}"/>">${myOrders}</a></li>
-          				 <li><a href="<c:url value="/Controller/command=open_settings&userID=${sessionScope.userID}"/>">${settings}</a></li>
-          			</c:otherwise>
-          		</c:choose> 
-          	</c:when>
-          	<c:otherwise> 
-          		<li><a href="jsp/logination.jsp">${profile}</a></li>
-          		<li><a href="jsp/logination.jsp" >${myReviews} </a></li>
-          		<li><a href="jsp/logination.jsp">${myOrders}</a></li>
-          		<li><a href="jsp/logination.jsp">${settings}</a></li>
-          	</c:otherwise>
-          </c:choose>
+      		<c:choose> 
+      			<c:when test="${sessionScope.isAdmin}">
+      				 <li><a href="<c:url value="/Controller?command=open_user_profile&userID=${sessionScope.userID}"/>" >${profile}</a></li>
+      				 <li><a href="<c:url value="/Controller?command=open_all_reviews"/>">${reviews}</a></li>
+      				 <li><a href="<c:url value="/Controller?command=open_all_orders"/>">${orders}</a></li>
+      				 <li><a href="<c:url value="/Controller?command=open_user_list"/>">${userList}</a></li>
+      			</c:when>
+      			<c:otherwise> 
+      				 <li><a href="<c:url value="/Controller?command=open_user_profile&userID=${sessionScope.userID}"/>" >${profile}</a></li>
+      				 <li><a href="<c:url value="/Controller?command=open_user_reviews&userID=${sessionScope.userID}"/>">${myReviews}</a></li>
+      				 <li><a href="<c:url value="/Controller?command=open_user_orders&userID=${sessionScope.userID}"/>">${myOrders}</a></li>
+      				 <li><a href="<c:url value="/Controller?command=open_user_settings&userID=${sessionScope.userID}"/>">${settings}</a></li>
+      			</c:otherwise>
+      		</c:choose> 
         </ul>
       </div>
       <div class="col-md-2">
         <ul>
-          <li><a href="jsp/sign-up.jsp">${signUp}</a></li> 
-          <li><a href="jsp/feedback.jsp">${feedback}</a></li>
-          <li><a href="jsp/about-us.jsp">${aboutUs}</a></li>
-          <li><a href="jsp/help.jsp">${help}</a></li>
+          <li><a href="<c:url value="/Controller?command=open_sign_up_page"/>">${signUp}</a></li> 
+          <li><a href="<c:url value="/Controller?command=open_feedback_page"/>">${feedback}</a></li>
+          <li><a href="<c:url value="/Controller?command=open_about_us_page"/>">${aboutUs}</a></li>
+          <li><a href="<c:url value="/Controller?command=open_help_page" />">${help}</a></li>
         </ul>
       </div>
     </div>

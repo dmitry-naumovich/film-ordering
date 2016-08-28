@@ -17,20 +17,12 @@
 <div class="col-md-2"> 
       <div class="left-sidebar" id="myScrollspy">
         <ul id='left-menu' class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="0" data-offset-bottom="240">
-          
           <li><a href="index.jsp"> ${mainPage} </a></li>
           <li><a href="<c:url value="/Controller?command=open_film_list"/>" > ${filmsPage} </a></li>
-          <c:choose>
-          	<c:when test="${sessionScope.authUser != null}">
-	          	<li>
-	          		<a href="<c:url value="/Controller?command=open_profile&userID=${sessionScope.userID}"/>"> ${profilePage} </a>
-	          	</li> 
-          	</c:when>
-          	<c:otherwise><li><a href="jsp/logination.jsp" >${profilePage} </a></li>  </c:otherwise>
-          </c:choose>
-          <li><a href="jsp/about-us.jsp"> ${aboutUsPage} </a></li>
-          <li><a href="<c:url value="/Controller?command=open_news_list"/>" > ${newsPage} </a></li>
-          <li><a href="jsp/widen-search.jsp"> ${widenSearchPage} </a></li>
+          <li><a href="<c:url value="/Controller?command=open_user_profile&userID=${sessionScope.userID}"/>"> ${profilePage} </a></li> 
+          <li><a href="<c:url value="/Controller?command=open_about_us_page"/>"> ${aboutUsPage} </a></li>
+          <li><a href="<c:url value="/Controller?command=open_news_list"/>"> ${newsPage} </a></li>
+          <li><a href="<c:url value="/Controller?command=open_widen_search_page"/>"> ${widenSearchPage} </a></li>
         </ul>
       </div>
-    </div>
+</div>

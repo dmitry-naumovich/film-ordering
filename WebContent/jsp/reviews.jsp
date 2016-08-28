@@ -48,7 +48,7 @@
     <div class="row content ">
       
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
-
+	  <h4><c:out value="${errorMessage}" /></h4>
 
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
@@ -85,7 +85,7 @@
                         		<c:if test="${sessionScope.isAdmin}">
 	                        		<h4 class=" text-right">
 	                        			${author}:  
-				                    	<a href="<c:url value="/Controller?command=open_profile&userID=${review.author}" />" >${authorLogin} </a>
+				                    	<a href="<c:url value="/Controller?command=open_user_profile&userID=${review.author}" />" >${authorLogin} </a>
 				                    </h4>
 			                    </c:if>
                         	</div>

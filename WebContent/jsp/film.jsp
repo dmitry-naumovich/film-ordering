@@ -63,6 +63,7 @@
       
 		<jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 
+	
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
@@ -70,34 +71,24 @@
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
+            	<h4><c:out value="${errorMessage}" /></h4>
             	<div class="col-md-4">
-	                  <figure>
-	                    <img src="img/films/${film.id}/folder.jpg" alt="$ {film.name}" class="img-thumbnail img-responsive center-block" width="210" height="140" style="margin-top: 30px;"/> 
-	                  </figure>
-	                  <br>
-	                  	<c:choose> 
-		              		<c:when test="${sessionScope.authUser != null}"> 
-		              			<c:choose> 
-		              				<c:when test="${sessionScope.isAdmin}">
-		              					<a class="btn btn-primary center-block" href="<c:url value="/Controller?command=edit_film&filmID=${film.id}"/>" role="button">${editFilmBtn}</a>
-		              					<br>
-	                  					<a class="btn btn-warning center-block" href="<c:url value="/Controller?command=open_film_orders&filmID=${film.id}"/>" role="button">${openFilmOrdersBtn}</a>
-		              				</c:when>
-		              				<c:otherwise>
-		              					<a class="btn btn-primary center-block" href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" role="button">${buyWithOneClickBtn}</a>
-		              					<br>
-	                  					<a class="btn btn-warning center-block" href="jsp/new-review.jsp" role="button">${writeReviewBtn}</a>
-		              				</c:otherwise>
-		              			</c:choose>
-		              			
-		              		</c:when>
-		              		<c:otherwise> 
-		              			<a href="jsp/logination.jsp" class="btn btn-primary center-block"  role="button">${buyWithOneClickBtn}</a>
-		              			<br>
-	                  			<a href="jsp/logination.jsp" class="btn btn-warning center-block" role="button">${writeReviewBtn}</a>
-		              		</c:otherwise>
-		              	</c:choose> 
-	                  
+                  <figure>
+                    <img src="img/films/${film.id}/folder.jpg" alt="$ {film.name}" class="img-thumbnail img-responsive center-block" width="210" height="140" style="margin-top: 30px;"/> 
+                  </figure>
+                  <br>
+          			<c:choose> 
+          				<c:when test="${sessionScope.isAdmin}">
+          					<a class="btn btn-primary center-block" href="<c:url value="/Controller?command=edit_film&filmID=${film.id}"/>" role="button">${editFilmBtn}</a>
+          					<br>
+             					<a class="btn btn-warning center-block" href="<c:url value="/Controller?command=open_film_orders&filmID=${film.id}"/>" role="button">${openFilmOrdersBtn}</a>
+          				</c:when>
+          				<c:otherwise>
+          					<a class="btn btn-primary center-block" href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" role="button">${buyWithOneClickBtn}</a>
+          					<br>
+             					<a class="btn btn-warning center-block" href="jsp/new-review.jsp" role="button">${writeReviewBtn}</a>
+          				</c:otherwise>
+          			</c:choose>
                 </div>
                 <div class="col-md-8">
 	                <table class="table table-striped">
@@ -210,7 +201,7 @@
 		                        <div class="row panel-heading" style="background-color:${rColor}">
 		                        	<h4 class=" text-left"> 
 					                	${reviewBy} 
-					                	<a href="<c:url value="/Controller?command=open_profile&userID=${review.author}" />" > ${authorLogin} </a>
+					                	<a href="<c:url value="/Controller?command=open_user_profile&userID=${review.author}" />" > ${authorLogin} </a>
 					                </h4>
 		                        </div> 
 		                    	<div class="row panel-body">

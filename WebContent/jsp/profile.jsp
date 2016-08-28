@@ -64,7 +64,8 @@
     <div class="row content ">
     
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
-
+	  <h4><c:out value="${errorMessage}" /></h4>
+	  
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
@@ -89,7 +90,7 @@
 				                          	<a href="jsp/ban.jsp" class="btn btn-danger" role="button">${banUser}</a>
 				                        </c:when>
 				                        <c:when test="${!sessionScope.isAdmin && user.id != sessionScope.userID}">
-				                        	<a href=""<c:url value="/Controller?command=open_user_reviews&userID=${user.id}"/>" class="btn btn-warning" role="button">${userReviews}</a>
+				                        	<a href="<c:url value="/Controller?command=open_user_reviews&userID=${user.id}"/>" class="btn btn-warning" role="button">${userReviews}</a>
 				                        </c:when>
 				                        <c:when test="${sessionScope.isAdmin && user.id == sessionScope.userID}"> 
 				                        	<a href="jsp/profile-settings.jsp" class="btn btn-danger" role="button">${editProfile}</a>
@@ -97,12 +98,12 @@
 				                        <c:otherwise>
 				                        	<a href="<c:url value="/Controller?command=open_user_orders&userID=${sessionScope.userID}"/>" class="btn btn-primary" role="button">${myOrders}</a> 
 				                            <a href="<c:url value="/Controller?command=open_user_reviews&userID=${sessionScope.userID}"/>" class="btn btn-warning" role="button">${myReviews}</a>
-				                            <a href="jsp/profile-settings.jsp" class="btn btn-danger" role="button">${editProfile}</a>
+				                            <a href="<c:url value="/Controller?command=open_user_settings&userID=${sessionScope.userID}"/>" class="btn btn-danger" role="button">${editProfile}</a>
 				                        </c:otherwise>
 			                       </c:choose>
 			                     </c:when>
 			                     <c:otherwise> 
-			                     	<a href="<c:url value="/Controller?command=open_user_reviews&userID=${user.id}"/>" class="btn btn-warning" role="button">${userReviews}</a>
+			                     	<a href="<c:url value="/Controller?command=open_user_reviews&userID=${user.id}" />" class="btn btn-warning" role="button">${userReviews}</a>
 			                     </c:otherwise>
 		                     </c:choose>
 	                        

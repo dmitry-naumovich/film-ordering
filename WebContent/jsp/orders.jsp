@@ -54,7 +54,8 @@
     <div class="row content ">
     
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
-
+	  <h4><c:out value="${errorMessage}" /></h4>
+	  
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class="panel-heading" >
@@ -68,7 +69,7 @@
 	          			<c:when test="${requestScope.orderViewType eq 'user'}"> 
 	          				
 	          				<h4 class="text-left"> ${userOrder}
-	          				 	<a href="<c:url value="/Controller?command=open_profile&userID=${requestScope.userID}"/>" >${requestScope.userLogin} </a>
+	          				 	<a href="<c:url value="/Controller?command=open_user_profile&userID=${requestScope.userID}"/>" >${requestScope.userLogin} </a>
 	          				</h4>
 	          			</c:when>
           			</c:choose> 

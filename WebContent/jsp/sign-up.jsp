@@ -156,7 +156,7 @@
       </div>
 
       <label class="col-sm-4 col-md-offset-3 control-label" for="comment">${alreadySigned}</label>
-      <a href="jsp/logination.jsp" class="btn btn-primary" role="button">${signInBtn}</a>
+      <a href="<c:url value="/Controller?command=open_logination_page" />" class="btn btn-primary" role="button">${signInBtn}</a>
 
     </div>    
     

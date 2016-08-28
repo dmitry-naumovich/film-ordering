@@ -25,7 +25,6 @@
 	
 	<jsp:useBean id="errorMessage" class="java.lang.String" scope="request" />
 
-
 <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="nav navbar-header">
@@ -54,7 +53,7 @@
               		<div class="form-group">
                               		<c:choose>
 										<c:when test="${language eq 'en'}">
-											 <a href="#" class="active">${en_lang}</a>
+											 <a href="#" class="disabled">${en_lang}</a>
 											<a  href = "<c:url value="/Controller?command=change_language">
 												<c:param name="language" value="ru" ></c:param> </c:url>">${ru_lang}</a>
 										</c:when>
@@ -62,7 +61,7 @@
 											<a href = "<c:url value="/Controller?command=change_language">
 												<c:param name="language" value="en" ></c:param> </c:url>">${en_lang}</a>
 											
-											 <a href="#" class="active">${ru_lang}</a>
+											 <a href="#" class="disabled">${ru_lang}</a>
 										</c:otherwise>
 									</c:choose>
 			          </div>
@@ -74,20 +73,20 @@
                                 <c:choose>
 	                                <c:when test="${sessionScope.isAdmin}">
 	                                	<ul class="dropdown-menu" role="menu">
-                                		  <li><a href="<c:url value="/Controller?command=open_profile&userID=${sessionScope.userID}"/>" role="menuItem">${profile}</a></li>
+                                		  <li><a href="<c:url value="/Controller?command=open_user_profile&userID=${sessionScope.userID}"/>" role="menuItem">${profile}</a></li>
 		                                  <li><a href="jsp/film-adding.jsp" role="menuItem">${addAFilm}</a></li>
 		                                  <li><a href="jsp/news-adding.jsp" role="menuItem">${addNews}</a></li>
-		                                  <li><a href="<c:url value="/Controller/command=open_settings&userID=${sessionScope.userID}"/>"  role="menuItem">${settings}</a></li>
+		                                  <li><a href="<c:url value="/Controller/command=open_user_settings&userID=${sessionScope.userID}"/>"  role="menuItem">${settings}</a></li>
 		                                  <li class="divider"></li>
 		                                  <li><a href="<c:url value="/Controller?command=logout" />" role="menuItem">${logout}</a></li>
 			                            </ul>
 	                                </c:when>
                                 	<c:otherwise> 
 		                                <ul class="dropdown-menu" role="menu">
-		                                  <li><a href="<c:url value="/Controller?command=open_profile&userID=${sessionScope.userID}"/>" role="menuItem">${profile}</a></li>
+		                                  <li><a href="<c:url value="/Controller?command=open_user_profile&userID=${sessionScope.userID}"/>" role="menuItem">${profile}</a></li>
 		                                  <li><a href="<c:url value="/Controller?command=open_user_reviews&userID=${sessionScope.userID}"/>" role="menuItem">${myReviews}</a></li>
 		                                  <li><a href="<c:url value="/Controller?command=open_user_orders&userID=${sessionScope.userID}"/>" role="menuItem">${myOrders}</a></li>
-		                                  <li><a href="<c:url value="/Controller?command=open_settings&userID=${sessionScope.userID}"/>" role="menuItem">${settings}</a></li>
+		                                  <li><a href="<c:url value="/Controller?command=open_user_settings&userID=${sessionScope.userID}"/>" role="menuItem">${settings}</a></li>
 		                                  <li class="divider"></li>
 		                                  <li><a href="<c:url value="/Controller?command=logout" />" role="menuItem">${logout}</a></li>
 		                                </ul>
@@ -111,7 +110,7 @@
                                 <input type="password" placeholder="${password}" class="form-control" name="password" required>
                               </div>
                               <button type="submit" class="btn btn-primary" name="Sign in">${signIn}</button>
-                              <a href="jsp/sign-up.jsp" class="btn btn-primary" role="button">${signUp}</a>
+                              <a href="<c:url value="/Controller?command=open_sign_up_page" />" class="btn btn-primary" role="button">${signUp}</a>
                               <span class="divider-vertical"> </span>
                               
                               <div class="form-group" style="padding-right:10px">
