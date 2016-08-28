@@ -57,7 +57,7 @@ public class NewsServiceImpl implements INewsService {
 			list = newsDAO.getNewsByYear(year);
 			
 			if (list.isEmpty()) {
-				throw new GetNewsServiceException("No news in the database");
+				throw new GetNewsServiceException("No news within " + year + " year found");
 			}
 			
 		} catch (DAOException e) {
@@ -76,7 +76,7 @@ public class NewsServiceImpl implements INewsService {
 			list = newsDAO.getNewsByMonthAndYear(month, year);
 			
 			if (list.isEmpty()) {
-				throw new GetNewsServiceException("No news in the database");
+				throw new GetNewsServiceException("No news within " + month + " month of " + year + " year found");
 			}
 			
 		} catch (DAOException e) {
@@ -115,7 +115,7 @@ public class NewsServiceImpl implements INewsService {
 			news = newsDAO.getNewsById(id);
 			
 			if (news == null) {
-				throw new GetNewsServiceException("News was not found. Sorry!");
+				throw new GetNewsServiceException("No news found. Sorry!");
 			}
 		} catch (DAOException e) {
 			throw new ServiceException("Error in data source!");

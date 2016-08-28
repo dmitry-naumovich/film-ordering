@@ -5,6 +5,7 @@ import by.epam.naumovich.film_ordering.dao.DAOFactory;
 import by.epam.naumovich.film_ordering.dao.IUserDAO;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.service.IUserService;
+import by.epam.naumovich.film_ordering.service.exception.GetUserServiceException;
 import by.epam.naumovich.film_ordering.service.exception.ServiceAuthException;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.ServiceSignUpException;
@@ -75,7 +76,7 @@ public class UserServiceImpl implements IUserService {
 			
 			User user = dao.getUserByID(id);
 			if (user == null) {
-				throw new ServiceException("No user found by this ID");
+				throw new GetUserServiceException("No user found by this ID");
 			}
 			return user.getLogin();
 		} catch (DAOException e) {
