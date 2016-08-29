@@ -37,6 +37,33 @@
   <link rel="stylesheet" href="css/bootstrap.min.css" >
   <link rel="stylesheet" href="css/styles.css">
   <script type="text/javascript">
+  
+  function validateForm(event)
+  {
+      event.preventDefault(); // this will prevent the submit event.
+      if(document.updSettingsForm.name.value=="")
+      {
+        alert("User name can not be left blank");
+        document.updSettingsForm.name.focus();
+        return false;
+      }
+      else if(document.updSettingsForm.surname.value=="")
+      {
+        alert("Password can not be left blank");
+        document.updSettingsForm.password.focus();
+        return false;
+      }
+      else if (document.updSettingsForm.passwordRepeated.value=="") {
+    	alert("Password repeated can not be left blank");
+    	document.updSettingsForm.passwordRepeated.focus();
+    	return false;
+      }
+      else {
+          document.updSettingsForm.submit();// fire submit event
+      }
+  }
+  
+  
     $('.nav li').click(function(e) {
   e.preventDefault();
   $('.nav li').removeClass('active');
@@ -70,21 +97,21 @@
 <h4><c:out value="${errorMessage}" /></h4>
 <c:set var="user" value="${requestScope.user}"/>
 
-<form class="form-horizontal" action="Controller" method="post">
+<form name="updSettingsForm" class="form-horizontal" action="Controller" method="post" onSubmit="return validateForm(event);">
 	<h4><c:out value="${errorMessage}" /></h4>
   	<div class="form-group">
-    	<input type="hidden" name="command" value="change_settings" />
+    	<input type="hidden" name="command" value="change_user_settings" />
   	</div>
     <div class="form-group">
       <label class="col-sm-3 control-label">${name}:</label>
       <div class="col-sm-9">
-        <input class="form-control" name="name" type="text" value="${user.name}" required> 
+        <input class="form-control" name="name" type="text" value="${user.name}" > 
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-3 control-label">${surname}:</label>
       <div class="col-sm-9">
-        <input class="form-control" name="surname" type="text" value="${user.surname}" required>
+        <input class="form-control" name="surname" type="text" value="${user.surname}">
       </div>
     </div>
     <div class="form-group">
