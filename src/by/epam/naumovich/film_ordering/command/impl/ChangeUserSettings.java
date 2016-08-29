@@ -1,12 +1,14 @@
 package by.epam.naumovich.film_ordering.command.impl;
 
 import java.io.IOException;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import by.epam.naumovich.film_ordering.bean.User;
 import by.epam.naumovich.film_ordering.command.Command;
 import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
 import by.epam.naumovich.film_ordering.command.util.QueryUtil;
@@ -35,6 +37,19 @@ public class ChangeUserSettings implements Command {
 			String phone = request.getParameter(RequestAndSessionAttributes.PHONE);
 			String about = request.getParameter(RequestAndSessionAttributes.ABOUT);
 			String avatar = request.getParameter(RequestAndSessionAttributes.AVATAR);
+			
+			if (!pwd.equals(pwdRepeat)) {
+				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, "Passwords do not match! Please, try again.");
+				request.getRequestDispatcher(JavaServerPageNames.PROFILE_SETTINGS_PAGE).forward(request, response);
+			}
+			User updUser = new User();
+			updUser.setName(name);
+			updUser.setSurname(surname);
+			updUser.setPassword(pwd);
+			updUser.setBirthDate(Date.valueOf(bDate));
+			updUser.setEmail(email);
+			updUser.setPhone(phone);
+			updUser.setAbout(about);
 			
 			System.out.println(name + surname + pwd + pwdRepeat + bDate + email + phone + about + avatar);	
 		}

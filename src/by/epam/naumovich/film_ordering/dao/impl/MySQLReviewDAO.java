@@ -18,11 +18,11 @@ public class MySQLReviewDAO implements IReviewDAO {
 	private static final MySQLReviewDAO instance = new MySQLReviewDAO();
 	
 	public static final String INSERT_NEW_REVIEW = "INSERT INTO Reviews (r_author, r_film, r_date, r_time, r_type, r_mark, r_text) VALUES (?, ?, ?, ?, ?, ?, ?)";
-	public static final String DELETE_REVIEW = "DELETE FROM Reviews WHERE Reviews.r_author = ? and Reviews.r_film = ?";
+	public static final String DELETE_REVIEW = "DELETE FROM Reviews WHERE r_author = ? and r_film = ?";
 	public static final String SELECT_ALL_REVIEWS = "SELECT * FROM Reviews";
-	public static final String SELECT_REVIEWS_BY_USER_ID = "SELECT * FROM Reviews WHERE Reviews.r_author = ?";
-	public static final String SELECT_REVIEWS_BY_FILM_ID = "SELECT * FROM Reviews WHERE Reviews.r_film = ?";
-	public static final String UPDATE_FILM_RATING = "UPDATE Films SET f_rating = (SELECT AVG(r_mark) FROM Reviews WHERE Films.f_id = Reviews.r_film) WHERE (SELECT COUNT(r_mark) FROM Reviews WHERE Films.f_id = Reviews.r_film) > 0;";
+	public static final String SELECT_REVIEWS_BY_USER_ID = "SELECT * FROM Reviews WHERE r_author = ?";
+	public static final String SELECT_REVIEWS_BY_FILM_ID = "SELECT * FROM Reviews WHERE r_film = ?";
+	public static final String UPDATE_FILM_RATING = "UPDATE Films SET f_rating = (SELECT AVG(r_mark) FROM Reviews WHERE r_film = ?) WHERE Films.f_id = ?";
 	
 	public static MySQLReviewDAO getInstance() {
 		return instance;
@@ -48,6 +48,8 @@ public class MySQLReviewDAO implements IReviewDAO {
 			st.executeUpdate();
 			
 			stForRatingUpdate = con.prepareStatement(UPDATE_FILM_RATING);
+			stForRatingUpdate.setInt(1, review.getFilmId());
+			stForRatingUpdate.setInt(2, review.getFilmId());
 			stForRatingUpdate.executeUpdate();
 			
 		} catch (SQLException e) {
