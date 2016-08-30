@@ -9,6 +9,7 @@ import by.epam.naumovich.film_ordering.service.exception.GetUserServiceException
 import by.epam.naumovich.film_ordering.service.exception.ServiceAuthException;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.ServiceSignUpException;
+import by.epam.naumovich.film_ordering.service.exception.WrongEmailFormException;
 import by.epam.naumovich.film_ordering.service.util.Validator;
 
 public class UserServiceImpl implements IUserService {
@@ -66,7 +67,7 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public String getLoginByID(int id) throws ServiceException {
 		
-		if(!Validator.validateObject(id)){
+		if(!Validator.validateInt(id)){
 			throw new ServiceException("Corrupted user ID");
 		}
 		
@@ -86,6 +87,9 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public void addUser(User user) throws ServiceException {
+		if (!Validator.validateObject(user)) {
+			throw new ServiceException("Corrupted input user object");
+		}
 		if (Validator.validateStrings(user.getLogin(), user.getName(), user.getSurname(), user.getPassword())) {
 			throw new ServiceSignUpException("At least one of the next fields is corrupted or empty: login, password, name, surname");
 		}
@@ -95,13 +99,12 @@ public class UserServiceImpl implements IUserService {
 		}
 		
 		if (!Validator.validateWithPattern(user.getEmail(), EMAIL_PATTERN)) {
-			throw new ServiceSignUpException("Corrupted email!");
+			throw new WrongEmailFormException("Entered email is not correct");
 		}
 		
 		try {
 			IUserDAO userDAO = DAOFactory.getDAOFactory(MYSQL).getUserDAO();
-			// to do
-			
+			userDAO.addUser(user);
 			
 			
 		} catch (DAOException e) {
@@ -126,5 +129,18 @@ public class UserServiceImpl implements IUserService {
 		} catch (DAOException e) {
 			throw new ServiceException("Error in source!", e);	
 		}	
+	}
+
+	@Override
+	public void updateUser(User user) throws ServiceException {
+		if (!Validator.validateObject(user)) {
+			throw new ServiceException("Corrupted input user object");
+		}
+		if (!Validator.validateWithPattern(user.getEmail(), EMAIL_PATTERN)) {
+			throw new WrongEmailFormException("Entered email is not correct");
+		}
+		
+		
+		
 	}
 }

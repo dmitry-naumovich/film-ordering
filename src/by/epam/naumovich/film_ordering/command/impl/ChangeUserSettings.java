@@ -13,6 +13,10 @@ import by.epam.naumovich.film_ordering.command.Command;
 import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
 import by.epam.naumovich.film_ordering.command.util.QueryUtil;
 import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
+import by.epam.naumovich.film_ordering.service.IUserService;
+import by.epam.naumovich.film_ordering.service.ServiceFactory;
+import by.epam.naumovich.film_ordering.service.exception.ServiceException;
+import by.epam.naumovich.film_ordering.service.exception.WrongEmailFormException;
 
 public class ChangeUserSettings implements Command {
 
@@ -51,7 +55,15 @@ public class ChangeUserSettings implements Command {
 			updUser.setPhone(phone);
 			updUser.setAbout(about);
 			
-			System.out.println(name + surname + pwd + pwdRepeat + bDate + email + phone + about + avatar);	
+			try {
+				IUserService userService = ServiceFactory.getInstance().getUserService();
+				userService.updateUser(updUser);
+				
+			} catch (WrongEmailFormException e) {
+				
+			} catch (ServiceException e) {
+				
+			}
 		}
 	}
 

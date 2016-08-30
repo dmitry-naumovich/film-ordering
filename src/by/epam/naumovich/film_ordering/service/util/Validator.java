@@ -30,4 +30,8 @@ public final class Validator {
 	public static boolean validateObject(Object obj) {
 		return obj == null ? false : true;
 	}
+	
+	public static boolean validateInt(int i) {
+		return i != 0;
+	}
 }
