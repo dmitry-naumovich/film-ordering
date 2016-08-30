@@ -36,19 +36,31 @@
   <link rel="icon"  type="image/x-icon" href="img/tab-logo.png">
   <link rel="stylesheet" href="css/bootstrap.min.css" >
   <link rel="stylesheet" href="css/styles.css">
+   <script src="js/bootstrap-datepicker.js"></script>
   <script type="text/javascript">
+  
+  $(document).ready(function () {
+      
+      $('.datepicker').datepicker({
+          format: "dd/mm/yyyy"
+      });  
+  
+  });
   
   function validateForm(event)
   {
-      event.preventDefault(); // this will prevent the submit event.
-      if(document.updSettingsForm.name.value=="")
-      {
+      event.preventDefault(); // this will prevent the submit event
+      if(document.updSettingsForm.name.value=="") {
         alert("User name can not be left blank");
         document.updSettingsForm.name.focus();
         return false;
       }
-      else if(document.updSettingsForm.surname.value=="")
-      {
+      else if(document.updSettingsForm.surname.value=="") {
+        alert("Surname can not be left blank");
+        document.updSettingsForm.surname.focus();
+        return false;
+      }
+      else if(document.updSettingsForm.password.value=="") {
         alert("Password can not be left blank");
         document.updSettingsForm.password.focus();
         return false;
@@ -58,11 +70,22 @@
     	document.updSettingsForm.passwordRepeated.focus();
     	return false;
       }
+      else if (document.updSettingsForm.password.value != document.updSettingsForm.passwordRepeated.value) {
+    	  alert("Passwords do not match! Try again.");
+    	  document.getElementById("pwd").value="";
+    	  document.getElementById("pwdRep").value="";
+    	  document.updSettingsForm.password.focus();
+    	  return false;
+      }
+      else if (document.updSettingsForm.email.value=="") {
+      	alert("Email can not be left blank");
+      	document.updSettingsForm.email.focus();
+      	return false;
+        }
       else {
-          document.updSettingsForm.submit();// fire submit event
+          document.updSettingsForm.submit(); // fire submit event
       }
   }
-  
   
     $('.nav li').click(function(e) {
   e.preventDefault();
@@ -70,7 +93,6 @@
   $(this).addClass('active');
 });
   </script>
-
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -117,25 +139,25 @@
     <div class="form-group">
       <label for="pwd" class="col-sm-3 control-label">${changePass}:</label>
       <div class="col-sm-9">
-        <input class="form-control" name="password" type="password" value="${user.password}" required>
+        <input class="form-control" name="password" type="password" id="pwd" value="${user.password}">
       </div>
     </div>
     <div class="form-group">
       <label for="pwd-again" class="col-sm-3 control-label">${repeatPass}:</label>
       <div class="col-sm-9">
-        <input class="form-control" name="passwordRepeated" type="password" value="${user.password}" required>
+        <input class="form-control" name="passwordRepeated" type="password" id="pwdRep" value="${user.password}">
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-3 control-label">${birthDate}:</label>
       <div class="col-sm-9">
-        <input class="form-control" name="birthDate" type="date" value="${user.birthDate}">
+        <input class="form-control datepicker" name="birthDate" type="date" value="${user.birthDate}">
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-3 control-label">${email}: </label>
       <div class="col-sm-9">
-        <input class="form-control" name="email" type="email" value="${user.email}" required>
+        <input class="form-control" name="email" type="email" value="${user.email}">
       </div> 
     </div>
      <div class="form-group">
