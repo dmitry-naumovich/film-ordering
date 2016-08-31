@@ -8,8 +8,9 @@ import by.epam.naumovich.film_ordering.dao.DAOFactory;
 import by.epam.naumovich.film_ordering.dao.IOrderDAO;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.service.IOrderService;
-import by.epam.naumovich.film_ordering.service.exception.GetOrdersServiceException;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
+import by.epam.naumovich.film_ordering.service.exception.order.GetOrdersServiceException;
+import by.epam.naumovich.film_ordering.service.util.ExceptionMessages;
 
 public class OrderServiceImpl implements IOrderService {
 
@@ -40,7 +41,7 @@ public class OrderServiceImpl implements IOrderService {
 			}
 			
 		} catch (DAOException e) {
-			throw new ServiceException("Error in data source!");
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
 		}
 		
 		return list;
@@ -59,7 +60,7 @@ public class OrderServiceImpl implements IOrderService {
 			}
 			
 		} catch (DAOException e) {
-			throw new ServiceException("Error in data source!");
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
 		}
 		
 		return list;
@@ -78,7 +79,7 @@ public class OrderServiceImpl implements IOrderService {
 			}
 			
 		} catch (DAOException e) {
-			throw new ServiceException("Error in data source!");
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
 		}
 		
 		return list;

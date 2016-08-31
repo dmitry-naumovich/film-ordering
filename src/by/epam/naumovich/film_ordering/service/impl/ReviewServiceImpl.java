@@ -8,8 +8,9 @@ import by.epam.naumovich.film_ordering.dao.DAOFactory;
 import by.epam.naumovich.film_ordering.dao.IReviewDAO;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.service.IReviewService;
-import by.epam.naumovich.film_ordering.service.exception.GetReviewsServiceException;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
+import by.epam.naumovich.film_ordering.service.exception.review.GetReviewsServiceException;
+import by.epam.naumovich.film_ordering.service.util.ExceptionMessages;
 
 public class ReviewServiceImpl implements IReviewService {
 
@@ -39,7 +40,7 @@ public class ReviewServiceImpl implements IReviewService {
 				throw new GetReviewsServiceException("No reviews in database");
 			}
 		} catch (DAOException e) {
-			throw new ServiceException("Error in data source!");
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
 		}
 		
 		return list;
@@ -57,7 +58,7 @@ public class ReviewServiceImpl implements IReviewService {
 				throw new GetReviewsServiceException("This user has not written any reviews yet");
 			}
 		} catch (DAOException e) {
-			throw new ServiceException("Error in data source!");
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
 		}
 		
 		return list;
@@ -75,7 +76,7 @@ public class ReviewServiceImpl implements IReviewService {
 				throw new GetReviewsServiceException("No reviews for this film");
 			}
 		} catch (DAOException e) {
-			throw new ServiceException("Error in data source!");
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
 		}
 		
 		return list;

@@ -8,8 +8,9 @@ import by.epam.naumovich.film_ordering.dao.DAOFactory;
 import by.epam.naumovich.film_ordering.dao.IFilmDAO;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.service.IFilmService;
-import by.epam.naumovich.film_ordering.service.exception.GetFilmsServiceException;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
+import by.epam.naumovich.film_ordering.service.exception.film.GetFilmsServiceException;
+import by.epam.naumovich.film_ordering.service.util.ExceptionMessages;
 
 public class FilmServiceImpl implements IFilmService {
 
@@ -35,7 +36,7 @@ public class FilmServiceImpl implements IFilmService {
 			
 			
 		} catch (DAOException e) {
-			throw new ServiceException("Error in data source!");
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
 		}
 		
 		return list;
@@ -55,7 +56,7 @@ public class FilmServiceImpl implements IFilmService {
 			
 			
 		} catch (DAOException e) {
-			throw new ServiceException("Error in data source!");
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
 		}
 		
 		return list;
@@ -74,7 +75,7 @@ public class FilmServiceImpl implements IFilmService {
 			
 			
 		} catch (DAOException e) {
-			throw new ServiceException("Error in data source!");
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
 		}
 		
 		return film;

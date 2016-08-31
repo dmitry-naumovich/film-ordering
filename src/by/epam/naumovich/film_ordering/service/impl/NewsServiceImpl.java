@@ -10,8 +10,9 @@ import by.epam.naumovich.film_ordering.dao.DAOFactory;
 import by.epam.naumovich.film_ordering.dao.INewsDAO;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.service.INewsService;
-import by.epam.naumovich.film_ordering.service.exception.GetNewsServiceException;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
+import by.epam.naumovich.film_ordering.service.exception.news.GetNewsServiceException;
+import by.epam.naumovich.film_ordering.service.util.ExceptionMessages;
 
 public class NewsServiceImpl implements INewsService {
 
@@ -42,7 +43,7 @@ public class NewsServiceImpl implements INewsService {
 			}
 			
 		} catch (DAOException e) {
-			throw new ServiceException("Error in data source!");
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
 		}
 		
 		return list;
@@ -61,7 +62,7 @@ public class NewsServiceImpl implements INewsService {
 			}
 			
 		} catch (DAOException e) {
-			throw new ServiceException("Error in data source!");
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
 		}
 		
 		return list;
@@ -80,7 +81,7 @@ public class NewsServiceImpl implements INewsService {
 			}
 			
 		} catch (DAOException e) {
-			throw new ServiceException("Error in data source!");
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
 		}
 		
 		return list;
@@ -101,7 +102,7 @@ public class NewsServiceImpl implements INewsService {
 			Collections.reverse(list);
 			
 		} catch (DAOException e) {
-			throw new ServiceException("Error in data source!");
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
 		}
 		
 		return list.subList(0, 4);
@@ -118,7 +119,7 @@ public class NewsServiceImpl implements INewsService {
 				throw new GetNewsServiceException("No news found. Sorry!");
 			}
 		} catch (DAOException e) {
-			throw new ServiceException("Error in data source!");
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
 		}
 		
 		return news;
