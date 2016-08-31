@@ -65,8 +65,7 @@
             <div class="col-md-12">
 				<c:if test="${errorMessage != null}">
 					<div class="alert alert-danger fade in">
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					  <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a> -->
+					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
 					 ${errorMessage} 
 					</div>
 				</c:if>

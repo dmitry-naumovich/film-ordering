@@ -16,6 +16,10 @@
 <fmt:message bundle="${loc}" key="local.settings.tellAbout" var="tellAbout" />
 <fmt:message bundle="${loc}" key="local.settings.changeSettingsBtn" var="changeSettingsBtn" />
 
+<fmt:message bundle="${loc}" key="local.signUp.male" var="male" />
+<fmt:message bundle="${loc}" key="local.signUp.female" var="female" />
+<fmt:message bundle="${loc}" key="local.signUp.unknown" var="unknown" />
+
 <fmt:message bundle="${loc}" key="local.profile.name" var="name" />
 <fmt:message bundle="${loc}" key="local.profile.surname" var="surname" />
 <fmt:message bundle="${loc}" key="local.profile.sex" var="sex" />
@@ -43,7 +47,8 @@
       
       $('.datepicker').datepicker({
           format: "dd/mm/yyyy"
-      });  
+      })
+}
   
   });
   
@@ -146,6 +151,29 @@
       <label for="pwd-again" class="col-sm-3 control-label">${repeatPass}:</label>
       <div class="col-sm-9">
         <input class="form-control" name="passwordRepeated" type="password" id="pwdRep" value="${user.password}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">${sex}*: </label>
+      <div class="col-sm-10">
+      	  <c:choose> 
+      	  	<c:when test="${user.sex eq 'm'.charAt(0)}"> 
+      	  		<label class="radio-inline"><input type="radio" name="sex" value="m" checked="">${male}</label>
+	      		<label class="radio-inline"><input type="radio" name="sex" value="f">${female}</label>
+	      		<label class="radio-inline"><input type="radio" name="sex" value="u">${unknown}</label>
+      	  	</c:when>
+      	  	<c:when test="${user.sex eq 'f'.charAt(0)}"> 
+      	  		<label class="radio-inline"><input type="radio" name="sex" value="m">${male}</label>
+	      		<label class="radio-inline"><input type="radio" name="sex" value="f" checked="">${female}</label>
+	      		<label class="radio-inline"><input type="radio" name="sex" value="u" >${unknown}</label>
+      	  	</c:when>
+      	  	<c:when test="${user.sex eq 'u'.charAt(0)}"> 
+      	  		<label class="radio-inline"><input type="radio" name="sex" value="m">${male}</label>
+	      		<label class="radio-inline"><input type="radio" name="sex" value="f">${female}</label>
+	      		<label class="radio-inline"><input type="radio" name="sex" value="u" checked="">${unknown}</label>
+      	  	</c:when>
+      	  </c:choose>
+	      
       </div>
     </div>
     <div class="form-group">

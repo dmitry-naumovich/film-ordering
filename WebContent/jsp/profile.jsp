@@ -43,6 +43,13 @@
   <link rel="stylesheet" href="css/bootstrap.min.css" >
   <link rel="stylesheet" href="css/styles.css">
   <script type="text/javascript">
+  
+  window.setTimeout(function() {
+	    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+	        $(this).remove(); 
+	    });
+	}, 1000)
+	
     $('.nav li').click(function(e) {
   e.preventDefault();
   $('.nav li').removeClass('active');
@@ -64,7 +71,7 @@
     <div class="row content ">
     
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
-	  <h4><c:out value="${errorMessage}" /></h4>
+	  
 	  
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
@@ -73,6 +80,18 @@
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
+            	<c:if test="${errorMessage != null}">
+					<div class="alert alert-danger fade in">
+					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+					 ${errorMessage} 
+					</div>
+				</c:if>
+				<c:if test="${successMessage != null}">
+					<div class="alert alert-success fade in">
+					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+					 ${successMessage} 
+					</div>
+				</c:if>
                 
                 <table class="table table-striped">
                     <thead>
