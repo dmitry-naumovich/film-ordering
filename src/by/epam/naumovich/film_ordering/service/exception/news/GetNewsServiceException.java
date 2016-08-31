@@ -1,4 +1,6 @@
-package by.epam.naumovich.film_ordering.service.exception;
+package by.epam.naumovich.film_ordering.service.exception.news;
+
+import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
 public class GetNewsServiceException extends ServiceException {
 
