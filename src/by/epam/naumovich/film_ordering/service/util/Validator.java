@@ -7,7 +7,7 @@ public final class Validator {
 	
 	public static boolean validateWithPattern(String toCheck, String pattern) {
 		
-		if (toCheck == null) {
+		if (toCheck == null || toCheck.isEmpty()) {
 			return false;
 		}
 		
