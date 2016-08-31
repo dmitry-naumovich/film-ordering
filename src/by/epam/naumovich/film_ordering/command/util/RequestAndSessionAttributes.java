@@ -32,7 +32,9 @@ public final class RequestAndSessionAttributes {
 	public static final String PHONE = "phone";
 	public static final String PREV_QUERY = "prev_query";
 	public static final String REVIEWS = "reviews";
+	public static final String SEX = "sex";
 	public static final String SIDEBAR_NEWS = "sidebarNews";
+	public static final String SUCCESS_MESSAGE = "successMessage";
 	public static final String SURNAME = "surname";
 	public static final String USER_ID = "userID";
 	public static final String USER_LOGIN = "userLogin";

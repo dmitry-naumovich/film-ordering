@@ -16,6 +16,9 @@ public class UserServiceImpl implements IUserService {
 
 	private static final String MYSQL = "mysql";
 	private static final String EMAIL_PATTERN = "^\\w(\\w\\.{4,})@(\\w+\\.)([a-zA-Z]{2,4})$";
+	private final static String EMAIL_PATTERN_2 = "^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$";
+	private final static String LOGIN_PATTERN = "(^[a-zA-Z]+)[a-zA-Z0-9]*";
+	private final static String PASSWORD_PATTERN = "^[a-zA-Zà-ÿÀ-ß0-9_-]{5,20}$";
 	
 	@Override
 	public User getUserByLogin(String login) throws ServiceException {
@@ -132,12 +135,20 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public void updateUser(User user) throws ServiceException {
+	public void updateUser(int id, User user) throws ServiceException {
 		if (!Validator.validateObject(user)) {
 			throw new ServiceException("Corrupted input user object");
 		}
-		if (!Validator.validateWithPattern(user.getEmail(), EMAIL_PATTERN)) {
+		/*if (!Validator.validateWithPattern(user.getEmail(), EMAIL_PATTERN)) {
 			throw new WrongEmailFormException("Entered email is not correct");
+		}*/
+		
+		try {
+			IUserDAO userDAO = DAOFactory.getDAOFactory(MYSQL).getUserDAO();
+			userDAO.updateUser(id, user);
+			
+		} catch (DAOException e) {
+			throw new ServiceException("Error in source!", e);
 		}
 		
 		

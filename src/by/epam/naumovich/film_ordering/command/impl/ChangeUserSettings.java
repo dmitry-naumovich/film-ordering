@@ -32,11 +32,13 @@ public class ChangeUserSettings implements Command {
 			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
 		}
 		else {
+			int userID = (int)session.getAttribute(RequestAndSessionAttributes.USER_ID);
 			String name = request.getParameter(RequestAndSessionAttributes.NAME);
 			String surname = request.getParameter(RequestAndSessionAttributes.SURNAME);
 			String pwd = request.getParameter(RequestAndSessionAttributes.PASSWORD);
 			String pwdRepeat = request.getParameter(RequestAndSessionAttributes.PASSWORD_REPEATED);
 			String bDate = request.getParameter(RequestAndSessionAttributes.BDATE);
+			String sex = request.getParameter(RequestAndSessionAttributes.SEX);
 			String email = request.getParameter(RequestAndSessionAttributes.EMAIL);
 			String phone = request.getParameter(RequestAndSessionAttributes.PHONE);
 			String about = request.getParameter(RequestAndSessionAttributes.ABOUT);
@@ -50,19 +52,24 @@ public class ChangeUserSettings implements Command {
 			updUser.setName(name);
 			updUser.setSurname(surname);
 			updUser.setPassword(pwd);
-			updUser.setBirthDate(Date.valueOf(bDate));
-			updUser.setEmail(email);
-			updUser.setPhone(phone);
-			updUser.setAbout(about);
+			if (bDate != null && !bDate.equals("")) { updUser.setBirthDate(Date.valueOf(bDate)); }
+			if (email != null && !email.equals("")) { updUser.setEmail(email); }
+			updUser.setSex(sex.charAt(0));
+			if (phone != null && !phone.equals("")) { updUser.setPhone(phone); }
+			if (about != null && !about.equals("")) { updUser.setAbout(about); }
 			
 			try {
 				IUserService userService = ServiceFactory.getInstance().getUserService();
-				userService.updateUser(updUser);
+				userService.updateUser(userID, updUser);
+				request.setAttribute(RequestAndSessionAttributes.SUCCESS_MESSAGE, "Your profile settings were successfully updated");
+				request.getRequestDispatcher("/Controller?command=open_user_profile&userID=" + userID).forward(request, response);
 				
 			} catch (WrongEmailFormException e) {
-				
+				System.out.println("WrongEmailFormException occured in ChangeUserSettings Command");
+				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, "The e-mail you entered is not valid! Try again.");
+				response.sendRedirect(query);
 			} catch (ServiceException e) {
-				
+				request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 			}
 		}
 	}

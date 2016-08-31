@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,10 +50,35 @@ public class MySQLUserDAO implements IUserDAO {
 			st.setString(6, String.valueOf(user.getType()));
 			st.setDate(7, user.getRegDate());
 			st.setTime(8, user.getRegTime());
-			st.setDate(9, user.getBirthDate());
-			st.setString(10, user.getPhone());
-			st.setString(11, user.getEmail());
-			st.setString(12, user.getAbout());
+			
+			if (user.getBirthDate() == null){
+				st.setNull(9, Types.DATE);
+			}
+			else {
+				st.setDate(9, user.getBirthDate());
+			}
+			
+			if (user.getPhone() == null){
+				st.setNull(10, Types.VARCHAR);
+			}
+			else {
+				st.setString(10, user.getPhone());
+			}
+			
+			if (user.getEmail() == null){
+				st.setNull(11, Types.VARCHAR);
+			}
+			else {
+				st.setString(11, user.getEmail());
+			}
+			
+			if (user.getAbout() == null){
+				st.setNull(12, Types.VARCHAR);
+			}
+			else {
+				st.setString(12, user.getAbout());
+			}
+			
 			st.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -84,10 +110,34 @@ public class MySQLUserDAO implements IUserDAO {
 			st.setString(2, updatedUser.getSurname());
 			st.setString(3, updatedUser.getPassword());
 			st.setString(4, String.valueOf(updatedUser.getSex()));
-			st.setDate(5, updatedUser.getBirthDate());
-			st.setString(6, updatedUser.getPhone());
-			st.setString(7, updatedUser.getEmail());
-			st.setString(8, updatedUser.getAbout());
+			if (updatedUser.getBirthDate() == null){
+				st.setNull(5, Types.DATE);
+			}
+			else {
+				st.setDate(5, updatedUser.getBirthDate());
+			}
+
+			if (updatedUser.getPhone() == null){
+				st.setNull(6, Types.VARCHAR);
+			}
+			else {
+				st.setString(6, updatedUser.getPhone());
+			}
+			
+			if (updatedUser.getEmail() == null){
+				st.setNull(7, Types.VARCHAR);
+			}
+			else {
+				st.setString(7, updatedUser.getEmail());
+			}
+			
+			if (updatedUser.getAbout() == null){
+				st.setNull(8, Types.VARCHAR);
+			}
+			else {
+				st.setString(8, updatedUser.getAbout());
+			}
+			
 			st.setInt(9, id);
 			st.executeUpdate();
 			
