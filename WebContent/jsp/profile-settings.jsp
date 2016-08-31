@@ -154,8 +154,8 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${sex}*: </label>
-      <div class="col-sm-10">
+      <label class="col-sm-3 control-label">${sex}: </label>
+      <div class="col-sm-9">
       	  <c:choose> 
       	  	<c:when test="${user.sex eq 'm'.charAt(0)}"> 
       	  		<label class="radio-inline"><input type="radio" name="sex" value="m" checked="">${male}</label>
