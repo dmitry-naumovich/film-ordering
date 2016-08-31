@@ -13,8 +13,8 @@ import by.epam.naumovich.film_ordering.command.util.QueryUtil;
 import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
 import by.epam.naumovich.film_ordering.service.INewsService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
-import by.epam.naumovich.film_ordering.service.exception.GetNewsServiceException;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
+import by.epam.naumovich.film_ordering.service.exception.news.GetNewsServiceException;
 
 public class OpenSingleNews implements Command {
 

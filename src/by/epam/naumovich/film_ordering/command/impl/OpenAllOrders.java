@@ -18,8 +18,8 @@ import by.epam.naumovich.film_ordering.service.IFilmService;
 import by.epam.naumovich.film_ordering.service.IOrderService;
 import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
-import by.epam.naumovich.film_ordering.service.exception.GetOrdersServiceException;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
+import by.epam.naumovich.film_ordering.service.exception.order.GetOrdersServiceException;
 
 public class OpenAllOrders implements Command {
 	

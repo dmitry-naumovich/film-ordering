@@ -14,8 +14,8 @@ import by.epam.naumovich.film_ordering.command.util.QueryUtil;
 import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
 import by.epam.naumovich.film_ordering.service.IFilmService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
-import by.epam.naumovich.film_ordering.service.exception.GetReviewsServiceException;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
+import by.epam.naumovich.film_ordering.service.exception.review.GetReviewsServiceException;
 
 public class OpenFilmList implements Command {
 

@@ -18,8 +18,8 @@ import by.epam.naumovich.film_ordering.service.IFilmService;
 import by.epam.naumovich.film_ordering.service.IReviewService;
 import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
-import by.epam.naumovich.film_ordering.service.exception.GetReviewsServiceException;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
+import by.epam.naumovich.film_ordering.service.exception.review.GetReviewsServiceException;
 
 public class OpenAllReviews implements Command {
 
