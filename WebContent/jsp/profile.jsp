@@ -80,13 +80,13 @@
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
-            	<c:if test="${errorMessage != null}">
+            	<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
 					<div class="alert alert-danger fade in">
 					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
 					 ${errorMessage} 
 					</div>
 				</c:if>
-				<c:if test="${successMessage != null}">
+				<c:if test="${successMessage != null && !successMessage.isEmpty()}">
 					<div class="alert alert-success fade in">
 					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
 					 ${successMessage} 
@@ -112,7 +112,7 @@
 				                        	<a href="<c:url value="/Controller?command=open_user_reviews&userID=${user.id}"/>" class="btn btn-warning" role="button">${userReviews}</a>
 				                        </c:when>
 				                        <c:when test="${sessionScope.isAdmin && user.id == sessionScope.userID}"> 
-				                        	<a href="jsp/profile-settings.jsp" class="btn btn-danger" role="button">${editProfile}</a>
+				                        	<a href="<c:url value="/Controller?command=open_user_settings&userID=${sessionScope.userID}"/>" class="btn btn-danger" role="button">${editProfile}</a>
 				                        </c:when>
 				                        <c:otherwise>
 				                        	<a href="<c:url value="/Controller?command=open_user_orders&userID=${sessionScope.userID}"/>" class="btn btn-primary" role="button">${myOrders}</a> 

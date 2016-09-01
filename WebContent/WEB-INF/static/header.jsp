@@ -76,7 +76,7 @@
                                 		  <li><a href="<c:url value="/Controller?command=open_user_profile&userID=${sessionScope.userID}"/>" role="menuItem">${profile}</a></li>
 		                                  <li><a href="jsp/film-adding.jsp" role="menuItem">${addAFilm}</a></li>
 		                                  <li><a href="jsp/news-adding.jsp" role="menuItem">${addNews}</a></li>
-		                                  <li><a href="<c:url value="/Controller/command=open_user_settings&userID=${sessionScope.userID}"/>"  role="menuItem">${settings}</a></li>
+		                                  <li><a href="<c:url value="/Controller?command=open_user_settings&userID=${sessionScope.userID}"/>"  role="menuItem">${settings}</a></li>
 		                                  <li class="divider"></li>
 		                                  <li><a href="<c:url value="/Controller?command=logout" />" role="menuItem">${logout}</a></li>
 			                            </ul>

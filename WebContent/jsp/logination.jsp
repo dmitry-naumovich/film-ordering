@@ -63,7 +63,7 @@
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
-				<c:if test="${errorMessage != null}">
+				<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
 					<div class="alert alert-danger fade in">
 					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
 					 ${errorMessage} 

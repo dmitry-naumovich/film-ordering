@@ -19,6 +19,7 @@
 <fmt:message bundle="${loc}" key="local.signUp.male" var="male" />
 <fmt:message bundle="${loc}" key="local.signUp.female" var="female" />
 <fmt:message bundle="${loc}" key="local.signUp.unknown" var="unknown" />
+<fmt:message bundle="${loc}" key="local.signUp.bDateFormat" var="bDateFormat" />
 
 <fmt:message bundle="${loc}" key="local.profile.name" var="name" />
 <fmt:message bundle="${loc}" key="local.profile.surname" var="surname" />
@@ -40,18 +41,23 @@
   <link rel="icon"  type="image/x-icon" href="img/tab-logo.png">
   <link rel="stylesheet" href="css/bootstrap.min.css" >
   <link rel="stylesheet" href="css/styles.css">
-   <script src="js/bootstrap-datepicker.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+  <script>
+  window.setTimeout(function() {
+	    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+	        $(this).remove(); 
+	    });
+	}, 1000);
+  </script>
+   <script>
+   $( function() {
+	    $( ".datepicker" ).datepicker();
+	  } );
+  </script>
   <script type="text/javascript">
-  
-  $(document).ready(function () {
-      
-      $('.datepicker').datepicker({
-          format: "dd/mm/yyyy"
-      })
-}
-  
-  });
-  
   function validateForm(event)
   {
       event.preventDefault(); // this will prevent the submit event
@@ -121,11 +127,20 @@
           <div class="row panel-body">
             <div class="col-md-12">
 
-<h4><c:out value="${errorMessage}" /></h4>
-<c:set var="user" value="${requestScope.user}"/>
+			<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
+				<div class="alert alert-danger fade in">
+				  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+				 ${errorMessage} 
+				</div>
+			</c:if>
+			<c:if test="${successMessage != null && !successMessage.isEmpty()}">
+				<div class="alert alert-success fade in">
+				  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+				 ${successMessage} 
+				</div>
+			</c:if>
 
 <form name="updSettingsForm" class="form-horizontal" action="Controller" method="post" onSubmit="return validateForm(event);">
-	<h4><c:out value="${errorMessage}" /></h4>
   	<div class="form-group">
     	<input type="hidden" name="command" value="change_user_settings" />
   	</div>
@@ -177,7 +192,7 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-3 control-label">${birthDate}:</label>
+      <label class="col-sm-3 control-label">${birthDate} <br> (${bDateFormat}):</label>
       <div class="col-sm-9">
         <input class="form-control datepicker" name="birthDate" type="date" value="${user.birthDate}">
       </div>
