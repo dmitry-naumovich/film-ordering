@@ -96,8 +96,8 @@
       else {
           document.updSettingsForm.submit(); // fire submit event
       }
-  }
-  
+  }</script>
+  <script>
     $('.nav li').click(function(e) {
   e.preventDefault();
   $('.nav li').removeClass('active');
@@ -197,19 +197,18 @@
         <input class="form-control datepicker" name="birthDate" type="date" value="${user.birthDate}">
       </div>
     </div>
-    <div class="form-group">
-      <label class="col-sm-3 control-label">${email}: </label>
-      <div class="col-sm-9">
-        <input class="form-control" name="email" type="email" value="${user.email}">
-      </div> 
-    </div>
      <div class="form-group">
       <label class="col-sm-3 control-label">${phoneNum}: (+375)</label>
       <div class="col-sm-9">
         <input class="form-control" name="phone" type="text" value="${user.phone}">
       </div>
     </div>
-
+	<div class="form-group">
+      <label class="col-sm-3 control-label">${email}: </label>
+      <div class="col-sm-9">
+        <input class="form-control" name="email" type="email" value="${user.email}">
+      </div> 
+    </div>
      <div class="form-group">
       <label class="col-sm-3 control-label">${avatar}: </label>
       <div class="col-sm-9">
@@ -225,7 +224,7 @@
     </div>
     <div class="form-group">
       <div class="col-sm-3 col-md-offset-2">
-      <button type="submit" class="btn btn-primary" name="Change settings">${changeSettingsBtn}</button>
+      <button type="submit" class="btn btn-primary">${changeSettingsBtn}</button>
       </div>
 
     </div>    

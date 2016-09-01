@@ -40,7 +40,7 @@
                 
                 <form class="navbar-form navbar-left " role="search">
                   <div class="input-group">
-                      <input type="text" class="form-control" placeholder="${search}" name="srch-term" id="srch-term" required>
+                      <input type="search" class="form-control" placeholder="${search}" name="srch-term" id="srch-term" required>
                       <div class="input-group-btn">
                         <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                       </div>
