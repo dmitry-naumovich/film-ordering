@@ -26,11 +26,20 @@ public class OpenUserSettings implements Command {
 		System.out.println(query);
 		
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
-			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, "Sign in to open profile settings");
+			if (request.getParameter(RequestAndSessionAttributes.USER_ID).isEmpty() || request.getParameter(RequestAndSessionAttributes.USER_ID) == null) {
+				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, "Sign in to open profile settings");
+			}
 			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
+			
 		}
 		else {
-			int userID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.USER_ID));
+			int userID = 0;
+			if (session.getAttribute(RequestAndSessionAttributes.USER_ID).toString() != request.getParameter(RequestAndSessionAttributes.USER_ID)) {
+				userID = Integer.parseInt(session.getAttribute(RequestAndSessionAttributes.USER_ID).toString());
+			}
+			else {
+				userID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.USER_ID));
+			}
 			IUserService userService = ServiceFactory.getInstance().getUserService();
 			
 			try {

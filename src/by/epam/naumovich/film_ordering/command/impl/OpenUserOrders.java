@@ -32,12 +32,21 @@ public class OpenUserOrders implements Command {
 		System.out.println(query);
 		
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
-			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, "Sign in to see your orders");
+			if (request.getParameter(RequestAndSessionAttributes.USER_ID).isEmpty() || request.getParameter(RequestAndSessionAttributes.USER_ID) == null) {
+				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, "Sign in to see your orders");
+			}
+			
 			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
 		}
 		else {
-			int userID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.USER_ID));
-			
+			int userID = 0;
+			if (session.getAttribute(RequestAndSessionAttributes.USER_ID).toString() != request.getParameter(RequestAndSessionAttributes.USER_ID)
+					&& !(boolean)session.getAttribute(RequestAndSessionAttributes.IS_ADMIN)) {
+				userID = Integer.parseInt(session.getAttribute(RequestAndSessionAttributes.USER_ID).toString());
+			}
+			else {
+				userID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.USER_ID));
+			}
 			IOrderService orderService = ServiceFactory.getInstance().getOrderService();
 			IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 			IUserService userService = ServiceFactory.getInstance().getUserService();

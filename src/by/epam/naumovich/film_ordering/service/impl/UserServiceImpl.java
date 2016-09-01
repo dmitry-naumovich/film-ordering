@@ -1,10 +1,10 @@
 package by.epam.naumovich.film_ordering.service.impl;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
+import java.time.LocalTime;
+import java.util.Calendar;
 
 import by.epam.naumovich.film_ordering.bean.User;
 import by.epam.naumovich.film_ordering.dao.DAOFactory;
@@ -23,10 +23,12 @@ import by.epam.naumovich.film_ordering.service.util.Validator;
 public class UserServiceImpl implements IUserService {
 
 	private static final String MYSQL = "mysql";
+	private static final int MIN_YEAR = 1920;
+	private static final int PHONE_NUM_LENGTH = 9;
 	//private static final String EMAIL_PATTERN = "^\\w(\\w\\.{4,})@(\\w+\\.)([a-zA-Z]{2,4})$";
-	private final static String EMAIL_PATTERN = "^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[a-zA-Z]{2,4}$";
-	private final static String LOGIN_PATTERN = "(^[a-zA-Z]{3,})[a-zA-Z0-9]*";
-	private final static String PASSWORD_PATTERN = "^[a-zA-Zà-ÿÀ-ß0-9_-]{4,30}$";
+	private static final String EMAIL_PATTERN = "^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[a-zA-Z]{2,4}$";
+	private static final String LOGIN_PATTERN = "(^[a-zA-Z]{3,})[a-zA-Z0-9]*";
+	private static final String PASSWORD_PATTERN = "^[a-zA-Zà-ÿÀ-ß0-9_-]{4,30}$";
 	
 	@Override
 	public void addUser(String login, String name, String surname, String password, String sex, String bDate,
@@ -54,6 +56,9 @@ public class UserServiceImpl implements IUserService {
 		newUser.setPassword(password);
 		
 		newUser.setRegDate(Date.valueOf(LocalDate.now())); // current date
+		newUser.setRegTime(Time.valueOf(LocalTime.now())); // current time
+		
+		
 		
 		try {
 			IUserDAO userDAO = DAOFactory.getDAOFactory(MYSQL).getUserDAO();
@@ -77,32 +82,41 @@ public class UserServiceImpl implements IUserService {
 		}
 		
 		if (!Validator.validateStrings(name, surname, sex)) {
-			throw new UserUpdateServiceException("At least one of the next fields is corrupted or empty: login, password, name, surname");
+			throw new UserUpdateServiceException("At least one of the next fields is corrupted or empty: name, surname, sex");
 		}
+		
 		User updUser = new User();
 		updUser.setName(name);
 		updUser.setSurname(surname);
-		updUser.setSex(sex.charAt(0));
 		updUser.setPassword(password);
+		updUser.setSex(sex.charAt(0));
+		updUser.setEmail(email);
 
 		if (Validator.validateStrings(bDate)) { 
-			//try {
-			
-			//DateTimeFormatter formatter = DateTimeFormatter.ofPattern ( "yyyy-mm-dd" , Locale.getDefault() );
-			//ZonedDateTime zdt = formatter.parse ( bDate , ZonedDateTime :: from );
-			Date date = Date.valueOf(bDate);
-			updUser.setBirthDate(Date.valueOf(bDate)); 
-			System.out.println("HERE 3");
-			/*} catch (IllegalArgumentException e) {
-				throw new UserUpdateServiceException("Birthdate must follow \"YYYY-MM-DD\" format");
-			}*/
+			try {
+				Date currentDate = Date.valueOf(LocalDate.now());
+				Date birthDate = Date.valueOf(bDate);
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(birthDate);
+				
+				if (birthDate.after(currentDate) | calendar.get(Calendar.YEAR) <= MIN_YEAR) {
+					throw new UserUpdateServiceException("The year must exceed " + MIN_YEAR + " and the date can not exceed today");
+				}
+				updUser.setBirthDate(Date.valueOf(bDate));
+			} catch (IllegalArgumentException e) {
+				throw new UserUpdateServiceException("BirthDate must follow \"YYYY-MM-DD\" format");
+			}
 		}
-		if (Validator.validateStrings(phone)) { updUser.setPhone(phone); }
+		if (Validator.validateStrings(phone)) { 
+			if (phone.length() != PHONE_NUM_LENGTH) {
+				throw new UserUpdateServiceException("Phone number must contain " + PHONE_NUM_LENGTH + " numbers");
+			}
+			updUser.setPhone(phone); 
+		}
 		if (Validator.validateStrings(about)) { updUser.setAbout(about); }
 		
 		try {
 			IUserDAO userDAO = DAOFactory.getDAOFactory(MYSQL).getUserDAO();
-			System.out.println("HERE 3");
 			userDAO.updateUser(id, updUser);
 			
 		} catch (DAOException e) {

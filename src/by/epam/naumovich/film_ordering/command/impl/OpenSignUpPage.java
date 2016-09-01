@@ -22,8 +22,9 @@ public class OpenSignUpPage implements Command {
 		System.out.println(query);
 		
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) != null) {
+			int userID = Integer.parseInt(session.getAttribute(RequestAndSessionAttributes.USER_ID).toString());
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, "Log out to be able to sign up!");
-			request.getRequestDispatcher(JavaServerPageNames.INDEX_PAGE).forward(request, response);
+			request.getRequestDispatcher("/Controller?command=open_user_profile&userID=" + userID).forward(request, response);
 		} else {
 			request.getRequestDispatcher(JavaServerPageNames.SIGN_UP_PAGE).forward(request, response);
 		}

@@ -64,13 +64,7 @@ public class MySQLUserDAO implements IUserDAO {
 			else {
 				st.setString(10, user.getPhone());
 			}
-			
-			if (user.getEmail() == null){
-				st.setNull(11, Types.VARCHAR);
-			}
-			else {
-				st.setString(11, user.getEmail());
-			}
+			st.setString(11, user.getEmail());
 			
 			if (user.getAbout() == null){
 				st.setNull(12, Types.VARCHAR);
@@ -124,12 +118,8 @@ public class MySQLUserDAO implements IUserDAO {
 				st.setString(6, updatedUser.getPhone());
 			}
 			
-			if (updatedUser.getEmail() == null){
-				st.setNull(7, Types.VARCHAR);
-			}
-			else {
-				st.setString(7, updatedUser.getEmail());
-			}
+			st.setString(7, updatedUser.getEmail());
+			
 			
 			if (updatedUser.getAbout() == null){
 				st.setNull(8, Types.VARCHAR);
@@ -137,11 +127,11 @@ public class MySQLUserDAO implements IUserDAO {
 			else {
 				st.setString(8, updatedUser.getAbout());
 			}
-			
 			st.setInt(9, id);
 			st.executeUpdate();
 			
 		} catch (SQLException e) {
+			System.out.println("NO OK 3");
 			throw new DAOException("Failure during SQL Insert Request execution", e);
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);

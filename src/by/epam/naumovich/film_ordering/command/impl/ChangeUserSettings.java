@@ -1,7 +1,6 @@
 package by.epam.naumovich.film_ordering.command.impl;
 
 import java.io.IOException;
-import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,12 +22,12 @@ public class ChangeUserSettings implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		HttpSession session = request.getSession(true);
-		String prev_query = (String) session.getAttribute(RequestAndSessionAttributes.PREV_QUERY);
 		String query = QueryUtil.createHttpQueryString(request);
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
+			
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, "Sign in for changing your profile settings");
 			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
 		}
@@ -43,8 +42,6 @@ public class ChangeUserSettings implements Command {
 			String phone = request.getParameter(RequestAndSessionAttributes.PHONE);
 			String about = request.getParameter(RequestAndSessionAttributes.ABOUT);
 			String avatar = request.getParameter(RequestAndSessionAttributes.AVATAR);
-			Date date = Date.valueOf(bDate);
-			System.out.println("date = " + date);
 			try {
 				IUserService userService = ServiceFactory.getInstance().getUserService();
 				userService.updateUser(userID, name, surname, pwd, sex, bDate, phone, email, about, avatar);
@@ -54,11 +51,11 @@ public class ChangeUserSettings implements Command {
 			} catch (WrongEmailFormException e) {
 				System.out.println("WrongEmailFormException occured in ChangeUserSettings Command");
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
-				response.sendRedirect(prev_query);
+				request.getRequestDispatcher("/Controller?command=open_user_settings&userID=" + userID).forward(request, response);
 			} catch (UserUpdateServiceException e) {
 				System.out.println("UserUpdateServiceException occured in ChangeUserSettings Command");
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
-				response.sendRedirect(prev_query);
+				request.getRequestDispatcher("/Controller?command=open_user_settings&userID=" + userID).forward(request, response);
 			} catch (ServiceException e) {
 				System.out.println("ServiceException occured in ChangeUserSettings Command");
 				request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
