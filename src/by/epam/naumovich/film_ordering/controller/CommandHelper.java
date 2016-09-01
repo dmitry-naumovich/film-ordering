@@ -36,6 +36,7 @@ public class CommandHelper {
 		commands.put(CommandName.OPEN_USER_ORDERS, new OpenUserOrders());
 		commands.put(CommandName.OPEN_USER_REVIEWS, new OpenUserReviews());
 		commands.put(CommandName.OPEN_WIDEN_SEARCH_PAGE, new OpenWidenSearchPage());
+		commands.put(CommandName.SIGN_UP, new SignUp());
 	}
 	
 	public Command getCommand(String name) {
