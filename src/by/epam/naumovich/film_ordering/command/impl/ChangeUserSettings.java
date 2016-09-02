@@ -47,11 +47,9 @@ public class ChangeUserSettings implements Command {
 				request.getRequestDispatcher("/Controller?command=open_user_profile&userID=" + userID).forward(request, response);
 				
 			} catch (UserUpdateServiceException e) {
-				System.out.println("UserUpdateServiceException occured in ChangeUserSettings Command");
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher("/Controller?command=open_user_settings&userID=" + userID).forward(request, response);
 			} catch (ServiceException e) {
-				System.out.println("ServiceException occured in ChangeUserSettings Command");
 				request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 			}
 		}
