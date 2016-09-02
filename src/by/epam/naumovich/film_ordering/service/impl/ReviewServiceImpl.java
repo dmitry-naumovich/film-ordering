@@ -40,7 +40,7 @@ public class ReviewServiceImpl implements IReviewService {
 				throw new GetReviewsServiceException("No reviews in database");
 			}
 		} catch (DAOException e) {
-			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
 		
 		return list;
@@ -58,7 +58,7 @@ public class ReviewServiceImpl implements IReviewService {
 				throw new GetReviewsServiceException("This user has not written any reviews yet");
 			}
 		} catch (DAOException e) {
-			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
 		
 		return list;
@@ -76,7 +76,7 @@ public class ReviewServiceImpl implements IReviewService {
 				throw new GetReviewsServiceException("No reviews for this film");
 			}
 		} catch (DAOException e) {
-			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
 		
 		return list;

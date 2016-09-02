@@ -41,7 +41,7 @@ public class OrderServiceImpl implements IOrderService {
 			}
 			
 		} catch (DAOException e) {
-			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
 		
 		return list;
@@ -60,7 +60,7 @@ public class OrderServiceImpl implements IOrderService {
 			}
 			
 		} catch (DAOException e) {
-			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
 		
 		return list;
@@ -79,7 +79,7 @@ public class OrderServiceImpl implements IOrderService {
 			}
 			
 		} catch (DAOException e) {
-			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
 		
 		return list;
