@@ -86,7 +86,7 @@
           				<c:otherwise>
           					<a class="btn btn-primary center-block" href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" role="button">${buyWithOneClickBtn}</a>
           					<br>
-             					<a class="btn btn-warning center-block" href="jsp/new-review.jsp" role="button">${writeReviewBtn}</a>
+             				<a class="btn btn-warning center-block" href="<c:url value="/Controller?command=open_new_review_page&filmID=${film.id}"/>" role="button">${writeReviewBtn}</a>
           				</c:otherwise>
           			</c:choose>
                 </div>
