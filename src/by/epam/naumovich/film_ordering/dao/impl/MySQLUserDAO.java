@@ -75,7 +75,6 @@ public class MySQLUserDAO implements IUserDAO {
 			else {
 				st.setString(12, user.getAbout());
 			}
-			//st.setInt(13, 51);
 			st.executeUpdate();
 			
 			st2 = con.prepareStatement(SELECT_NEW_USER_ID_BY_LOGIN);
@@ -86,8 +85,6 @@ public class MySQLUserDAO implements IUserDAO {
 			}
 			
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
 			throw new DAOException("Failure during SQL Insert Request execution", e);
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);

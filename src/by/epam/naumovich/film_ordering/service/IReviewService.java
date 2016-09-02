@@ -13,5 +13,6 @@ public interface IReviewService {
 	
 	List<Review> getReviewsByUserId(int id) throws ServiceException;
 	List<Review> getReviewsByFilmId(int id) throws ServiceException;
-
+	
+	Review getReviewByUserAndFilmId(int userID, int filmID)  throws ServiceException;
 }

@@ -13,6 +13,7 @@ public final class RequestAndSessionAttributes {
 	public static final String EMPTY_STRING = "";
 	public static final String ERROR_MESSAGE = "errorMessage";
 	public static final String FILM_ID = "filmID";
+	public static final String FILM_NAME = "filmName";
 	public static final String FILM_NAMES = "filmNames";
 	public static final String FILM = "film";
 	public static final String FILMS = "films";
@@ -31,6 +32,7 @@ public final class RequestAndSessionAttributes {
 	public static final String PASSWORD_REPEATED = "passwordRepeated";
 	public static final String PHONE = "phone";
 	public static final String PREV_QUERY = "prev_query";
+	public static final String REVIEW = "review";
 	public static final String REVIEWS = "reviews";
 	public static final String SEX = "sex";
 	public static final String SIDEBAR_NEWS = "sidebarNews";

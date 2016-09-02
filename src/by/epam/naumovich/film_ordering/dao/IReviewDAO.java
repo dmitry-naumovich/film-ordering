@@ -14,4 +14,5 @@ public interface IReviewDAO {
 	List<Review> getReviewsByUserId(int id) throws DAOException;
 	List<Review> getReviewsByFilmId(int id) throws DAOException;
 	
+	Review getReviewByUserAndFilmId(int userID, int filmID) throws DAOException;
 }

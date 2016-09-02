@@ -82,4 +82,21 @@ public class ReviewServiceImpl implements IReviewService {
 		return list;
 	}
 
+	@Override
+	public Review getReviewByUserAndFilmId(int userID, int filmID) throws ServiceException {
+		Review review = null;
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IReviewDAO reviewDAO = daoFactory.getReviewDAO();
+			review = reviewDAO.getReviewByUserAndFilmId(userID, filmID);
+			
+			if (review == null) {
+				throw new GetReviewsServiceException("This user has not written any reviews to this film yet");
+			}
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+		return review;
+	}
+
 }

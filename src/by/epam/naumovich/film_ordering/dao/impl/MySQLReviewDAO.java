@@ -22,6 +22,7 @@ public class MySQLReviewDAO implements IReviewDAO {
 	public static final String SELECT_ALL_REVIEWS = "SELECT * FROM Reviews";
 	public static final String SELECT_REVIEWS_BY_USER_ID = "SELECT * FROM Reviews WHERE r_author = ?";
 	public static final String SELECT_REVIEWS_BY_FILM_ID = "SELECT * FROM Reviews WHERE r_film = ?";
+	public static final String SELECT_REVIEW_BY_FILM_AND_USER_ID = "SELECT * FROM Reviews WHERE r_author = ? AND r_film = ?";
 	public static final String UPDATE_FILM_RATING = "UPDATE Films SET f_rating = (SELECT AVG(r_mark) FROM Reviews WHERE r_film = ?) WHERE Films.f_id = ?";
 	
 	public static MySQLReviewDAO getInstance() {
@@ -77,8 +78,8 @@ public class MySQLReviewDAO implements IReviewDAO {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(DELETE_REVIEW);
-			st.setString(1, String.valueOf(review.getAuthor()));
-			st.setString(2, String.valueOf(review.getFilmId()));
+			st.setInt(1, review.getAuthor());
+			st.setInt(2, review.getFilmId());
 			st.executeUpdate();
 			
 			stForRatingUpdate = con.prepareStatement(UPDATE_FILM_RATING);
@@ -153,7 +154,7 @@ public class MySQLReviewDAO implements IReviewDAO {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_REVIEWS_BY_USER_ID);
-			st.setString(1, String.valueOf(id));
+			st.setInt(1, id);
 			rs = st.executeQuery();
 			
 			while (rs.next()) {
@@ -197,7 +198,7 @@ public class MySQLReviewDAO implements IReviewDAO {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_REVIEWS_BY_FILM_ID);
-			st.setString(1, String.valueOf(id));
+			st.setInt(1, id);
 			rs = st.executeQuery();
 			
 			while (rs.next()) {
@@ -228,6 +229,49 @@ public class MySQLReviewDAO implements IReviewDAO {
 			}
 		}
 		return reviewList;
+	}
+
+	@Override
+	public Review getReviewByUserAndFilmId(int userID, int filmID) throws DAOException {
+		Review review = null;;
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(SELECT_REVIEW_BY_FILM_AND_USER_ID);
+			st.setInt(1, userID);
+			st.setInt(2, filmID);
+			rs = st.executeQuery();
+			
+			if (rs.next()) {
+				review = new Review();
+				review.setAuthor(rs.getInt(1));
+				review.setFilmId(rs.getInt(2));
+				review.setDate(rs.getDate(3));
+				review.setTime(rs.getTime(4));
+				review.setType(rs.getString(5));
+				review.setMark(rs.getInt(6));
+				review.setText(rs.getString(7));
+			}
+			
+		} catch (SQLException e) {
+			throw new DAOException("Failure during SQL Select Request execution", e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException("Failure during taking connection from ConnectionPool", e);
+		} finally {
+			try {
+				if (rs != null) { rs.close(); }
+				if (st != null) { st.close(); }
+			} catch (SQLException e) {
+				throw new DAOException("Result Set or Statement was not closed properly");
+			} finally {
+				pool.closeConnection(con);
+			}
+		}
+		return review;
 	}
 	
 }
