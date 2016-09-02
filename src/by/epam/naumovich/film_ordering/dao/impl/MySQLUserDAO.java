@@ -19,6 +19,7 @@ public class MySQLUserDAO implements IUserDAO {
 	private static final MySQLUserDAO instance = new MySQLUserDAO();
 	
 	public static final String INSERT_NEW_USER = "INSERT INTO Users (u_login, u_name, u_surname, u_passw, u_sex, u_type, u_regdate, u_regtime, u_bdate, u_phone, u_email, u_about) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	public static final String SELECT_NEW_USER_ID_BY_LOGIN = "SELECT u_id FROM Users WHERE u_login = ?";
 	public static final String UPDATE_USER_BY_ID = "UPDATE Users SET u_name = ?, u_surname = ?, u_passw = ?, u_sex = ?, u_bdate = ?, u_phone = ?, u_email = ?, u_about = ? WHERE u_id = ?";	
 	public static final String DELETE_USER = "DELETE FROM Users WHERE u.id = ?";
 	public static final String SELECT_ALL_USERS = "SELECT * FROM Users";
@@ -34,10 +35,13 @@ public class MySQLUserDAO implements IUserDAO {
 	}
 	
 	@Override
-	public void addUser(User user) throws DAOException {
+	public int addUser(User user) throws DAOException {
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
+		PreparedStatement st2 = null;
+		int newUserID = 0;
+		
 		try {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
@@ -50,20 +54,19 @@ public class MySQLUserDAO implements IUserDAO {
 			st.setString(6, String.valueOf(user.getType()));
 			st.setDate(7, user.getRegDate());
 			st.setTime(8, user.getRegTime());
-			
 			if (user.getBirthDate() == null){
 				st.setNull(9, Types.DATE);
 			}
 			else {
 				st.setDate(9, user.getBirthDate());
 			}
-			
 			if (user.getPhone() == null){
-				st.setNull(10, Types.VARCHAR);
+				st.setNull(10, Types.CHAR);
 			}
 			else {
 				st.setString(10, user.getPhone());
 			}
+			
 			st.setString(11, user.getEmail());
 			
 			if (user.getAbout() == null){
@@ -72,23 +75,33 @@ public class MySQLUserDAO implements IUserDAO {
 			else {
 				st.setString(12, user.getAbout());
 			}
-			
+			//st.setInt(13, 51);
 			st.executeUpdate();
 			
+			st2 = con.prepareStatement(SELECT_NEW_USER_ID_BY_LOGIN);
+			st2.setString(1, user.getLogin());
+			ResultSet rs = st2.executeQuery();
+			if (rs.next()) {
+				newUserID = rs.getInt(1);
+			}
+			
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
 			throw new DAOException("Failure during SQL Insert Request execution", e);
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);
 		} finally {
 			try {
-				st.close();
+				if (st != null) { st.close(); }
+				if (st2 != null) { st2.close(); }
 			} catch (SQLException e) {
 				throw new DAOException("Prepared Statement was not closed properly");
 			} finally {
 				pool.closeConnection(con);
 			}
 		}
-		
+		return newUserID;
 	}
 
 	@Override
@@ -131,7 +144,6 @@ public class MySQLUserDAO implements IUserDAO {
 			st.executeUpdate();
 			
 		} catch (SQLException e) {
-			System.out.println("NO OK 3");
 			throw new DAOException("Failure during SQL Insert Request execution", e);
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);
@@ -234,7 +246,6 @@ public class MySQLUserDAO implements IUserDAO {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_USER_BY_LOGIN);
-			
 			st.setString(1, login);
 			rs = st.executeQuery();
 			if (rs.next()) {
@@ -260,8 +271,8 @@ public class MySQLUserDAO implements IUserDAO {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);
 		} finally {
 			try {
-				rs.close();
-				st.close();
+				if (rs != null) { rs.close(); }
+				if (st != null) { st.close(); }
 			} catch (SQLException e) {
 				throw new DAOException("Result Set or Statement was not closed properly");
 			} finally {

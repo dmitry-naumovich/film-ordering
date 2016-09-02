@@ -67,40 +67,45 @@
 	function validateForm(event)
 	{
 	    event.preventDefault(); // this will prevent the submit event
-	    if(document.updSettingsForm.name.value=="") {
+	    if(document.signUpForm.login.value=="") {
+		      alert("Login can not be left blank");
+		      document.signUpForm.login.focus();
+		      return false;
+		    }
+	    if(document.signUpForm.name.value=="") {
 	      alert("User name can not be left blank");
-	      document.updSettingsForm.name.focus();
+	      document.signUpForm.name.focus();
 	      return false;
 	    }
-	    else if(document.updSettingsForm.surname.value=="") {
+	    else if(document.signUpForm.surname.value=="") {
 	      alert("Surname can not be left blank");
-	      document.updSettingsForm.surname.focus();
+	      document.signUpForm.surname.focus();
 	      return false;
 	    }
-	    else if(document.updSettingsForm.password.value=="") {
+	    else if(document.signUpForm.password.value=="") {
 	      alert("Password can not be left blank");
-	      document.updSettingsForm.password.focus();
+	      document.signUpForm.password.focus();
 	      return false;
 	    }
-	    else if (document.updSettingsForm.passwordRepeated.value=="") {
+	    else if (document.signUpForm.passwordRepeated.value=="") {
 	  	alert("Password repeated can not be left blank");
-	  	document.updSettingsForm.passwordRepeated.focus();
+	  	document.signUpForm.passwordRepeated.focus();
 	  	return false;
 	    }
-	    else if (document.updSettingsForm.password.value != document.updSettingsForm.passwordRepeated.value) {
+	    else if (document.signUpForm.password.value != document.signUpForm.passwordRepeated.value) {
 	  	  alert("Passwords do not match! Try again.");
 	  	  document.getElementById("pwd").value="";
 	  	  document.getElementById("pwdRep").value="";
-	  	  document.updSettingsForm.password.focus();
+	  	  document.signUpForm.password.focus();
 	  	  return false;
 	    }
-	    else if (document.updSettingsForm.email.value=="") {
+	    else if (document.signUpForm.email.value=="") {
 	    	alert("Email can not be left blank");
-	    	document.updSettingsForm.email.focus();
+	    	document.signUpForm.email.focus();
 	    	return false;
 	      }
 	    else {
-	        document.updSettingsForm.submit(); // fire submit event
+	        document.signUpForm.submit(); // fire submit event
 	    }
 	}
 	</script>
@@ -141,88 +146,88 @@
 					 ${errorMessage} 
 					</div>
 				</c:if>
-<form name="signUpForm" class="form-horizontal" action="Controller" method="post" onSubmit="return validateForm(event);">
-  	<div class="form-group">
-    	<input type="hidden" name="command" value="sign_up" />
-  	</div>
-     <div class="form-group">
-      <label class="col-sm-3 control-label">${login}*:</label>
-      <div class="col-sm-9">
-        <input class="form-control" name="login" type="text" placeholder="${enterLogin}" required>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-3 control-label">${name}*:</label>
-      <div class="col-sm-9">
-        <input class="form-control" name="name" type="text" placeholder="${enterName}" required>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-3 control-label">${surname}*:</label>
-      <div class="col-sm-9">
-        <input class="form-control" name="surname" type="text" placeholder="${enterSurname}" required>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="pwd" class="col-sm-3 control-label">${enterPass}*:</label>
-      <div class="col-sm-9">
-        <input class="form-control" name="password" type="password" placeholder="${enterPass}" required>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="pwd-again" class="col-sm-3 control-label">${repeatPass}*:</label>
-      <div class="col-sm-9">
-        <input class="form-control" name="passwordRepeated" type="password" placeholder="${enterPass}" required>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-3 control-label">${sex}*: </label>
-      <div class="col-sm-9">
-      <label class="radio-inline"><input type="radio" name="sex">${male}</label>
-      <label class="radio-inline"><input type="radio" name="sex">${female}</label>
-      <label class="radio-inline"><input type="radio" name="sex" checked>${unknown}</label>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-3 control-label">${chooseBDate} <br> (${bDateFormat}):</label>
-      <div class="col-sm-9">
-        <input class="form-control datepicker" name="birthDate" type="date">
-      </div>
-    </div>
-    
-     <div class="form-group">
-      <label class="col-sm-3 control-label">${phoneNum} (+375): </label>
-      <div class="col-sm-9">
-        <input class="form-control" name="phone" type="text" placeholder="${enterPhone}">
-      </div>
-    </div>
-     <div class="form-group">
-      <label class="col-sm-3 control-label">${email}*: </label>
-      <div class="col-sm-9">
-        <input class="form-control" name="email" type="email" placeholder="${enterEmail}" required>
-      </div> 
-    </div>
-    <div class="form-group">
-      <label class="col-sm-3 control-label" for="comment">${tellAbout}:</label>
-      <div class="col-sm-9">
-        <textarea class="form-control" rows="5" name="about"></textarea>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-3 control-label">${avatar}: </label>
-      <div class="col-sm-9">
-            <input type="file" name="avatar">
-      </div>
-    </div>  
-    <div class="form-group">
-      <div class="col-sm-3 col-md-offset-2">
-      <button type="submit" class="btn btn-primary">${signUpBtn}</button>
-      </div>
-
-      <label class="col-sm-4 col-md-offset-3 control-label" for="comment">${alreadySigned}</label>
-      <a href="<c:url value="/Controller?command=open_logination_page" />">${signInBtn}</a>
-    </div>    
-</form>
+			<form name="signUpForm" class="form-horizontal" action="Controller" method="post" onSubmit="return validateForm(event);">
+			  	<div class="form-group">
+			    	<input type="hidden" name="command" value="sign_up" />
+			  	</div>
+			     <div class="form-group">
+			      <label class="col-sm-3 control-label">${login}*:</label>
+			      <div class="col-sm-9">
+			        <input class="form-control" name="login" type="text" placeholder="${enterLogin}">
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label class="col-sm-3 control-label">${name}*:</label>
+			      <div class="col-sm-9">
+			        <input class="form-control" name="name" type="text" placeholder="${enterName}">
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label class="col-sm-3 control-label">${surname}*:</label>
+			      <div class="col-sm-9">
+			        <input class="form-control" name="surname" type="text" placeholder="${enterSurname}">
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label for="pwd" class="col-sm-3 control-label">${enterPass}*:</label>
+			      <div class="col-sm-9">
+			        <input class="form-control" name="password" id="pwd" type="password" placeholder="${enterPass}">
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label for="pwd-again" class="col-sm-3 control-label">${repeatPass}*:</label>
+			      <div class="col-sm-9">
+			        <input class="form-control" name="passwordRepeated" id="pwdRep" type="password" placeholder="${enterPass}">
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label class="col-sm-3 control-label">${sex}*: </label>
+			      <div class="col-sm-9">
+			      <label class="radio-inline"><input type="radio" name="sex" value="m">${male}</label>
+			      <label class="radio-inline"><input type="radio" name="sex" value="f">${female}</label>
+			      <label class="radio-inline"><input type="radio" name="sex" value="u" checked>${unknown}</label>
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label class="col-sm-3 control-label">${chooseBDate}:</label>
+			      <div class="col-sm-9">
+			        <input class="form-control datepicker" name="birthDate" type="date" placeholder="${bDateFormat}">
+			      </div>
+			    </div>
+			    
+			     <div class="form-group">
+			      <label class="col-sm-3 control-label">${phoneNum} (+375): </label>
+			      <div class="col-sm-9">
+			        <input class="form-control" name="phone" type="text" placeholder="${enterPhone}">
+			      </div>
+			    </div>
+			     <div class="form-group">
+			      <label class="col-sm-3 control-label">${email}*: </label>
+			      <div class="col-sm-9">
+			        <input class="form-control" name="email" type="email" placeholder="${enterEmail}">
+			      </div> 
+			    </div>
+			    <div class="form-group">
+			      <label class="col-sm-3 control-label" for="comment">${tellAbout}:</label>
+			      <div class="col-sm-9">
+			        <textarea class="form-control" rows="5" name="about"></textarea>
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label class="col-sm-3 control-label">${avatar}: </label>
+			      <div class="col-sm-9">
+			            <input type="file" name="avatar">
+			      </div>
+			    </div>  
+			    <div class="form-group">
+			      <div class="col-sm-2 col-md-offset-2">
+			      <button type="submit" class="btn btn-primary">${signUpBtn}</button>
+			      </div>
+			
+			      <div class="col-sm-4 col-md-6 col-xs-12 col-lg-4 col-md-offset-4 control-label">${alreadySigned}
+			      <a href="<c:url value="/Controller?command=open_logination_page" />">${signInBtn}</a> </div>
+			    </div>    
+			</form>
           </div>
           </div>
       </div>

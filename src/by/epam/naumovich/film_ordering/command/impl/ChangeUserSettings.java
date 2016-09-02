@@ -15,7 +15,6 @@ import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.user.UserUpdateServiceException;
-import by.epam.naumovich.film_ordering.service.exception.user.WrongEmailFormException;
 
 public class ChangeUserSettings implements Command {
 
@@ -27,7 +26,6 @@ public class ChangeUserSettings implements Command {
 		System.out.println(query);
 		
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
-			
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, "Sign in for changing your profile settings");
 			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
 		}
@@ -38,8 +36,8 @@ public class ChangeUserSettings implements Command {
 			String pwd = request.getParameter(RequestAndSessionAttributes.PASSWORD);
 			String sex = request.getParameter(RequestAndSessionAttributes.SEX);
 			String bDate = request.getParameter(RequestAndSessionAttributes.BDATE);
-			String email = request.getParameter(RequestAndSessionAttributes.EMAIL);
 			String phone = request.getParameter(RequestAndSessionAttributes.PHONE);
+			String email = request.getParameter(RequestAndSessionAttributes.EMAIL);
 			String about = request.getParameter(RequestAndSessionAttributes.ABOUT);
 			String avatar = request.getParameter(RequestAndSessionAttributes.AVATAR);
 			try {
@@ -48,10 +46,6 @@ public class ChangeUserSettings implements Command {
 				request.setAttribute(RequestAndSessionAttributes.SUCCESS_MESSAGE, "Your profile settings were successfully updated");
 				request.getRequestDispatcher("/Controller?command=open_user_profile&userID=" + userID).forward(request, response);
 				
-			} catch (WrongEmailFormException e) {
-				System.out.println("WrongEmailFormException occured in ChangeUserSettings Command");
-				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
-				request.getRequestDispatcher("/Controller?command=open_user_settings&userID=" + userID).forward(request, response);
 			} catch (UserUpdateServiceException e) {
 				System.out.println("UserUpdateServiceException occured in ChangeUserSettings Command");
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());

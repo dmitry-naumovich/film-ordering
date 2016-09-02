@@ -16,7 +16,6 @@ import by.epam.naumovich.film_ordering.service.exception.user.GetUserServiceExce
 import by.epam.naumovich.film_ordering.service.exception.user.ServiceAuthException;
 import by.epam.naumovich.film_ordering.service.exception.user.ServiceSignUpException;
 import by.epam.naumovich.film_ordering.service.exception.user.UserUpdateServiceException;
-import by.epam.naumovich.film_ordering.service.exception.user.WrongEmailFormException;
 import by.epam.naumovich.film_ordering.service.util.ExceptionMessages;
 import by.epam.naumovich.film_ordering.service.util.Validator;
 
@@ -25,48 +24,90 @@ public class UserServiceImpl implements IUserService {
 	private static final String MYSQL = "mysql";
 	private static final int MIN_YEAR = 1920;
 	private static final int PHONE_NUM_LENGTH = 9;
+	private static final char USER_TYPE_CLIENT = 'c';
+	
 	//private static final String EMAIL_PATTERN = "^\\w(\\w\\.{4,})@(\\w+\\.)([a-zA-Z]{2,4})$";
 	private static final String EMAIL_PATTERN = "^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[a-zA-Z]{2,4}$";
 	private static final String LOGIN_PATTERN = "(^[a-zA-Z]{3,})[a-zA-Z0-9]*";
 	private static final String PASSWORD_PATTERN = "^[a-zA-Zà-ÿÀ-ß0-9_-]{4,30}$";
 	
 	@Override
-	public void addUser(String login, String name, String surname, String password, String sex, String bDate,
+	public int addUser(String login, String name, String surname, String password, String sex, String bDate,
 			String phone, String email, String about, String avatar) throws ServiceException {
 
-		if (Validator.validateStrings(login, name, surname, password)) {
-			throw new ServiceSignUpException("At least one of the next fields is corrupted or empty: login, password, name, surname");
+		try {
+			IUserDAO userDAO = DAOFactory.getDAOFactory(MYSQL).getUserDAO();
+			User existingUser = userDAO.getUserByLogin(login);
+			if (existingUser != null) {
+				throw new ServiceSignUpException(ExceptionMessages.ALREADY_TAKEN_LOGIN);
+			}
+			
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
-		
 		if (!Validator.validateWithPattern(login, LOGIN_PATTERN)) {
-			throw new ServiceSignUpException("Login must start with the letter and consist at least 3 symbols (latin letters and numbers)");
+			throw new ServiceSignUpException(ExceptionMessages.INVALID_LOGIN);
 		}
-		
 		if (!Validator.validateWithPattern(password, PASSWORD_PATTERN)) {
-			throw new ServiceSignUpException("Password must be at least 4 symbols");
+			throw new ServiceSignUpException(ExceptionMessages.INVALID_PASSWORD);
 		}
-		
 		if (!Validator.validateWithPattern(email, EMAIL_PATTERN)) {
-			throw new WrongEmailFormException(ExceptionMessages.INVALID_EMAIL_MESSAGE);
+			throw new ServiceSignUpException(ExceptionMessages.INVALID_EMAIL);
+		}
+		if (!Validator.validateStrings(name, surname, sex)) {
+			throw new ServiceSignUpException(ExceptionMessages.CORRUPTED_NAME_SURN_SEX);
 		}
 		
 		User newUser = new User();
 		newUser.setLogin(login);
 		newUser.setName(name);
+		newUser.setSurname(surname);
 		newUser.setPassword(password);
+		newUser.setSex(sex.charAt(0));
+		newUser.setType(USER_TYPE_CLIENT);
 		
-		newUser.setRegDate(Date.valueOf(LocalDate.now())); // current date
-		newUser.setRegTime(Time.valueOf(LocalTime.now())); // current time
+		newUser.setRegDate(Date.valueOf(LocalDate.now()));
+		newUser.setRegTime(Time.valueOf(LocalTime.now()));
 		
+		if (Validator.validateStrings(bDate)) { 
+			try {
+				Date currentDate = Date.valueOf(LocalDate.now());
+				Date birthDate = Date.valueOf(bDate);
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(birthDate);
+				
+				if (birthDate.after(currentDate) | calendar.get(Calendar.YEAR) <= MIN_YEAR) {
+					throw new UserUpdateServiceException("The year must exceed " + MIN_YEAR + " and the date can not exceed today");
+				}
+				newUser.setBirthDate(Date.valueOf(bDate));
+			} catch (IllegalArgumentException e) {
+				throw new UserUpdateServiceException(ExceptionMessages.BIRTHDATE_RIGHT_FORMAT);
+			}
+		}
+		if (Validator.validateStrings(phone)) { 
+			if (phone.length() != PHONE_NUM_LENGTH) {
+				throw new UserUpdateServiceException("Phone number must contain " + PHONE_NUM_LENGTH + " numbers");
+			}
+			newUser.setPhone(phone); 
+		}
+		newUser.setEmail(email);
 		
+		if (Validator.validateStrings(about)) { newUser.setAbout(about); }
 		
+		int newUserID = 0;
 		try {
 			IUserDAO userDAO = DAOFactory.getDAOFactory(MYSQL).getUserDAO();
-			userDAO.addUser(newUser);
+			newUserID = userDAO.addUser(newUser);
+			if (newUserID == 0) {
+				throw new ServiceSignUpException(ExceptionMessages.UNSUCCESSFULL_SIGN_UP);
+			}
+			newUser.setId(newUserID);
 			
 		} catch (DAOException e) {
-			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
+		
+		return newUserID;
 	}
 
 	@Override
@@ -74,15 +115,15 @@ public class UserServiceImpl implements IUserService {
 			String email, String about, String avatar) throws ServiceException {
 
 		if (!Validator.validateWithPattern(password, PASSWORD_PATTERN)) {
-			throw new UserUpdateServiceException("Password must be at least 4 symbols");
+			throw new UserUpdateServiceException(ExceptionMessages.INVALID_PASSWORD);
 		}
 		
 		if (!Validator.validateWithPattern(email, EMAIL_PATTERN)) {
-			throw new WrongEmailFormException(ExceptionMessages.INVALID_EMAIL_MESSAGE);
+			throw new UserUpdateServiceException(ExceptionMessages.INVALID_EMAIL);
 		}
 		
 		if (!Validator.validateStrings(name, surname, sex)) {
-			throw new UserUpdateServiceException("At least one of the next fields is corrupted or empty: name, surname, sex");
+			throw new UserUpdateServiceException(ExceptionMessages.CORRUPTED_NAME_SURN_SEX);
 		}
 		
 		User updUser = new User();
@@ -104,7 +145,7 @@ public class UserServiceImpl implements IUserService {
 				}
 				updUser.setBirthDate(Date.valueOf(bDate));
 			} catch (IllegalArgumentException e) {
-				throw new UserUpdateServiceException("BirthDate must follow \"YYYY-MM-DD\" format");
+				throw new UserUpdateServiceException(ExceptionMessages.BIRTHDATE_RIGHT_FORMAT);
 			}
 		}
 		if (Validator.validateStrings(phone)) { 
@@ -120,7 +161,7 @@ public class UserServiceImpl implements IUserService {
 			userDAO.updateUser(id, updUser);
 			
 		} catch (DAOException e) {
-			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
 		
 	}
@@ -144,7 +185,7 @@ public class UserServiceImpl implements IUserService {
 			}
 			
 		} catch (DAOException e) {
-			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
 		
 		return user;
@@ -168,7 +209,7 @@ public class UserServiceImpl implements IUserService {
 			}
 			
 		} catch (DAOException e) {
-			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);	
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);	
 		}
 	}
 
@@ -189,7 +230,7 @@ public class UserServiceImpl implements IUserService {
 			}
 			return user.getLogin();
 		} catch (DAOException e) {
-			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);	
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);	
 		}
 	}
 
@@ -207,7 +248,7 @@ public class UserServiceImpl implements IUserService {
 			return discount;
 			
 		} catch (DAOException e) {
-			throw new ServiceException(ExceptionMessages.SOURCE_ERROR_MESSAGE, e);	
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);	
 		}	
 	}
 }
