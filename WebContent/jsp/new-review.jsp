@@ -28,6 +28,50 @@
   <link rel="icon"  type="image/x-icon" href="img/tab-logo.png">
   <link rel="stylesheet" href="css/bootstrap.min.css" >
   <link rel="stylesheet" href="css/styles.css">
+  <script>
+   $( function() {
+	    $( ".datepicker" ).datepicker();
+	  } );
+  </script>
+  <script type="text/javascript">
+  function validateForm(event)
+  {
+      event.preventDefault(); // this will prevent the submit event
+      
+      var mark = document.getElementsByName('mark');
+      var isMarkChecked = false;
+      for ( var i = 0; i < mark.length; i++) {
+          if(mark[i].checked) {
+        	  isMarkChecked = true;
+              break;
+          }
+      }
+      
+      var type = document.getElementsByName('type');
+      var isTypeChecked = false;
+      for ( var i = 0; i < type.length; i++) {
+          if(type[i].checked) {
+        	  isTypeChecked = true;
+              break;
+          }
+      }
+      if(!isMarkChecked)   {
+    	  alert("Mark can not be empty");
+          return false;
+      }
+      else if(!isTypeChecked) {
+        alert("Type can not be left blank");
+        return false;
+      }
+      else if(document.getElementById("reviewTextArea").value = "") {
+        alert("Review text must contain at least 50 symbols");
+        document.updSettingsForm.reviewText.focus();
+        return false;
+      }
+      else {
+          document.newReviewForm.submit();
+      }
+  }</script>
   <script type="text/javascript">
     $('.nav li').click(function(e) {
   e.preventDefault();
@@ -51,42 +95,51 @@
     <div class="row content ">
     
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
-	  <h4><c:out value="${errorMessage}" /></h4>
-	  
+	  <c:set var="film" value="${requestScope.film}" />
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
-          <h2 class=" text-left">${pageHeader}</h2>
+          <h2 class=" text-left">${pageHeader} ${film.name}</h2>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
+				<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
+					<div class="alert alert-danger fade in">
+					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+					 ${errorMessage} 
+					</div>
+				</c:if>
 
-
-<form class="form-horizontal" method="post" name="new-review" action="/Controller">
+<form  name="newReviewForm" class="form-horizontal" method="post"action="Controller" onSubmit="return validateForm(event);">
+  <div class="form-group">
+    	<input type="hidden" name="command" value="send_review"/>
+  	</div>
   <div class="form-group">
       <label class="col-sm-2 control-label">${yourMark}</label>
       <div class="col-sm-10">
-      <label class="radio-inline"><input type="radio" name="optradio">1</label>
-      <label class="radio-inline"><input type="radio" name="optradio">2</label>
-      <label class="radio-inline"><input type="radio" name="optradio">3</label>
-      <label class="radio-inline"><input type="radio" name="optradio">4</label>
-      <label class="radio-inline"><input type="radio" name="optradio">5</label>
+      <label class="radio-inline"><input type="radio" name="mark" value="1">1</label>
+      <label class="radio-inline"><input type="radio" name="mark" value="2">2</label>
+      <label class="radio-inline"><input type="radio" name="mark" value="3">3</label>
+      <label class="radio-inline"><input type="radio" name="mark" value="4">4</label>
+      <label class="radio-inline"><input type="radio" name="mark" value="5">5</label>
       </div>
     </div>
   <div class="form-group">
       <label class="col-sm-2 control-label">${chooseType} </label>
       <div class="col-sm-10">
-      <label class="radio-inline"><input type="radio" name="optradio">${positive}</label>
-      <label class="radio-inline"><input type="radio" name="optradio">${neutral}</label>
-      <label class="radio-inline"><input type="radio" name="optradio">${negative}</label>
+      <label class="radio-inline"><input type="radio" name="type" value="ps">${positive}</label>
+      <label class="radio-inline"><input type="radio" name="type" value="nt">${neutral}</label>
+      <label class="radio-inline"><input type="radio" name="type" value="ng">${negative}</label>
       </div>
     </div>
   <div class="form-group">
     <label class="col-sm-2 control-label">${reviewText}</label>
-    <div class="col-sm-10"> <textarea class="form-control" rows="5" id="comment" required></textarea></div>
+    <div class="col-sm-10"> 
+    	<textarea class="form-control" rows="5" name="reviewText" id="reviewTextArea">
+    	</textarea>
+    </div>
   </div>
-  
-  <a href="jsp/success-page.jsp" class="btn btn-primary" role="button">${sendBtn}</a>
+  <button type="submit" class="btn btn-primary">${sendBtn}</button>
 </form>
 
           </div>
