@@ -34,7 +34,7 @@ public class OpenNewReviewPage implements Command {
 		}
 		else {
 			int filmID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));
-			int userID = Integer.parseInt(session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER).toString());
+			int userID = Integer.parseInt(session.getAttribute(RequestAndSessionAttributes.USER_ID).toString());
 			IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 			IReviewService reviewService = ServiceFactory.getInstance().getReviewService();
 			Film film = null;
