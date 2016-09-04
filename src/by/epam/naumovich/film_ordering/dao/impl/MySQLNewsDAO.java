@@ -54,7 +54,7 @@ public class MySQLNewsDAO implements INewsDAO {
 			} catch (SQLException e) {
 				throw new DAOException(ExceptionMessages.PREP_STATEMENT_NOT_CLOSED, e);
 			} finally {
-				pool.closeConnection(con);
+				if (con != null) { pool.closeConnection(con); }
 			}
 		}
 	}
@@ -81,7 +81,7 @@ public class MySQLNewsDAO implements INewsDAO {
 			} catch (SQLException e) {
 				throw new DAOException(ExceptionMessages.PREP_STATEMENT_NOT_CLOSED, e);
 			} finally {
-				pool.closeConnection(con);
+				if (con != null) { pool.closeConnection(con); }
 			}
 		}
 	}
@@ -120,7 +120,7 @@ public class MySQLNewsDAO implements INewsDAO {
 			} catch (SQLException e) {
 				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED);
 			} finally {
-				pool.closeConnection(con);
+				if (con != null) { pool.closeConnection(con); }
 			}
 			
 		}
@@ -163,7 +163,7 @@ public class MySQLNewsDAO implements INewsDAO {
 			} catch (SQLException e) {
 				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED);
 			} finally {
-				pool.closeConnection(con);
+				if (con != null) { pool.closeConnection(con); }
 			}
 			
 		}
@@ -207,7 +207,7 @@ public class MySQLNewsDAO implements INewsDAO {
 			} catch (SQLException e) {
 				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED);
 			} finally {
-				pool.closeConnection(con);
+				if (con != null) { pool.closeConnection(con); }
 			}
 			
 		}
@@ -248,7 +248,7 @@ public class MySQLNewsDAO implements INewsDAO {
 			} catch (SQLException e) {
 				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED);
 			} finally {
-				pool.closeConnection(con);
+				if (con != null) { pool.closeConnection(con); }
 			}
 			
 		}

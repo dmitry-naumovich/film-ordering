@@ -67,7 +67,7 @@ public class MySQLOrderDAO implements IOrderDAO {
 			} catch (SQLException e) {
 				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED);
 			} finally {
-				pool.closeConnection(con);
+				if (con != null) { pool.closeConnection(con); }
 			}
 		}
 		return orderList;
@@ -112,7 +112,7 @@ public class MySQLOrderDAO implements IOrderDAO {
 			} catch (SQLException e) {
 				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED);
 			} finally {
-				pool.closeConnection(con);
+				if (con != null) { pool.closeConnection(con); }
 			}
 		}
 		return orderList;
@@ -156,7 +156,7 @@ public class MySQLOrderDAO implements IOrderDAO {
 			} catch (SQLException e) {
 				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED);
 			} finally {
-				pool.closeConnection(con);
+				if (con != null) { pool.closeConnection(con); }
 			}
 		}
 		return orderList;
@@ -190,7 +190,7 @@ public class MySQLOrderDAO implements IOrderDAO {
 			} catch (SQLException e) {
 				throw new DAOException(ExceptionMessages.PREP_STATEMENT_NOT_CLOSED, e);
 			} finally {
-				pool.closeConnection(con);
+				if (con != null) { pool.closeConnection(con); }
 			}
 		}
 	}
@@ -217,7 +217,7 @@ public class MySQLOrderDAO implements IOrderDAO {
 			} catch (SQLException e) {
 				throw new DAOException(ExceptionMessages.PREP_STATEMENT_NOT_CLOSED, e);
 			} finally {
-				pool.closeConnection(con);
+				if (con != null) { pool.closeConnection(con); }
 			}
 		}
 	}
