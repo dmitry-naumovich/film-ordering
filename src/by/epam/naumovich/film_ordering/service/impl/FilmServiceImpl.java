@@ -31,7 +31,7 @@ public class FilmServiceImpl implements IFilmService {
 			list = filmDAO.getTwelveLastAddedFilms();
 			
 			if (list.isEmpty()) {
-				throw new GetFilmsServiceException("No films in the database");
+				throw new GetFilmsServiceException(ExceptionMessages.NO_FILMS_IN_DB);
 			}
 			
 			
@@ -51,7 +51,7 @@ public class FilmServiceImpl implements IFilmService {
 			list = filmDAO.getAllFilms();
 			
 			if (list.isEmpty()) {
-				throw new GetFilmsServiceException("No films in database");
+				throw new GetFilmsServiceException(ExceptionMessages.NO_FILMS_IN_DB);
 			}
 			
 			
@@ -70,7 +70,7 @@ public class FilmServiceImpl implements IFilmService {
 			IFilmDAO filmDAO = daoFactory.getFilmDAO();
 			film = filmDAO.getFilmByID(id);
 			if (film == null) {
-				throw new GetFilmsServiceException("Film is missing in the database");
+				throw new GetFilmsServiceException(ExceptionMessages.FILM_NOT_PRESENT);
 			}
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);

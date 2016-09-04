@@ -37,7 +37,7 @@ public class OrderServiceImpl implements IOrderService {
 			list = orderDAO.getOrdersByUserId(id);
 			
 			if (list.isEmpty()) {
-				throw new GetOrdersServiceException("This user has not ordered anything yet");
+				throw new GetOrdersServiceException(ExceptionMessages.NO_USER_ORDERS_YET);
 			}
 			
 		} catch (DAOException e) {
@@ -56,7 +56,7 @@ public class OrderServiceImpl implements IOrderService {
 			list = orderDAO.getOrdersByFilmId(id);
 			
 			if (list.isEmpty()) {
-				throw new GetOrdersServiceException("This movie has not been ordered yet");
+				throw new GetOrdersServiceException(ExceptionMessages.NO_FILM_ORDERS);
 			}
 			
 		} catch (DAOException e) {
@@ -75,7 +75,7 @@ public class OrderServiceImpl implements IOrderService {
 			list = orderDAO.getAllOrders();
 			
 			if (list.isEmpty()) {
-				throw new GetOrdersServiceException("No orders in the database");
+				throw new GetOrdersServiceException(ExceptionMessages.NO_ORDERS_IN_DB);
 			}
 			
 		} catch (DAOException e) {

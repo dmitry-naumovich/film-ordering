@@ -26,7 +26,6 @@ public class UserServiceImpl implements IUserService {
 	private static final int PHONE_NUM_LENGTH = 9;
 	private static final char USER_TYPE_CLIENT = 'c';
 	
-	//private static final String EMAIL_PATTERN = "^\\w(\\w\\.{4,})@(\\w+\\.)([a-zA-Z]{2,4})$";
 	private static final String EMAIL_PATTERN = "^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[a-zA-Z]{2,4}$";
 	private static final String LOGIN_PATTERN = "(^[a-zA-Z]{3,})[a-zA-Z0-9]*";
 	private static final String PASSWORD_PATTERN = "^[a-zA-Zà-ÿÀ-ß0-9_-]{4,30}$";
@@ -77,7 +76,7 @@ public class UserServiceImpl implements IUserService {
 				calendar.setTime(birthDate);
 				
 				if (birthDate.after(currentDate) | calendar.get(Calendar.YEAR) <= MIN_YEAR) {
-					throw new UserUpdateServiceException("The year must exceed " + MIN_YEAR + " and the date can not exceed today");
+					throw new UserUpdateServiceException(String.format(ExceptionMessages.INVALID_BIRTHDATE, MIN_YEAR));
 				}
 				newUser.setBirthDate(Date.valueOf(bDate));
 			} catch (IllegalArgumentException e) {
@@ -86,7 +85,7 @@ public class UserServiceImpl implements IUserService {
 		}
 		if (Validator.validateStrings(phone)) { 
 			if (phone.length() != PHONE_NUM_LENGTH) {
-				throw new UserUpdateServiceException("Phone number must contain " + PHONE_NUM_LENGTH + " numbers");
+				throw new UserUpdateServiceException(String.format(ExceptionMessages.INVALID_PHONE_NUM, PHONE_NUM_LENGTH));
 			}
 			newUser.setPhone(phone); 
 		}
@@ -141,7 +140,7 @@ public class UserServiceImpl implements IUserService {
 				calendar.setTime(birthDate);
 				
 				if (birthDate.after(currentDate) | calendar.get(Calendar.YEAR) <= MIN_YEAR) {
-					throw new UserUpdateServiceException("The year must exceed " + MIN_YEAR + " and the date can not exceed today");
+					throw new UserUpdateServiceException(String.format(ExceptionMessages.INVALID_BIRTHDATE, MIN_YEAR));
 				}
 				updUser.setBirthDate(Date.valueOf(bDate));
 			} catch (IllegalArgumentException e) {
@@ -150,7 +149,7 @@ public class UserServiceImpl implements IUserService {
 		}
 		if (Validator.validateStrings(phone)) { 
 			if (phone.length() != PHONE_NUM_LENGTH) {
-				throw new UserUpdateServiceException("Phone number must contain " + PHONE_NUM_LENGTH + " numbers");
+				throw new UserUpdateServiceException(String.format(ExceptionMessages.INVALID_PHONE_NUM, PHONE_NUM_LENGTH));
 			}
 			updUser.setPhone(phone); 
 		}
@@ -170,7 +169,7 @@ public class UserServiceImpl implements IUserService {
 	public User getUserByLogin(String login) throws ServiceException {
 		
 		if(!Validator.validateStrings(login)){
-			throw new ServiceAuthException("Corrupted login!");
+			throw new ServiceAuthException(ExceptionMessages.CORRUPTED_LOGIN);
 		}
 		
 		User user = null;
@@ -181,7 +180,7 @@ public class UserServiceImpl implements IUserService {
 			user = dao.getUserByLogin(login);
 			
 			if (user == null) {
-				throw new ServiceAuthException("No such login registrated!");
+				throw new ServiceAuthException(ExceptionMessages.LOGIN_NOT_REGISTRATED);
 			}
 			
 		} catch (DAOException e) {
@@ -195,7 +194,7 @@ public class UserServiceImpl implements IUserService {
 	public void checkUserPassword(String login, String password) throws ServiceException {
 		
 		if(!Validator.validateStrings(login, password)){
-			throw new ServiceAuthException("Corrupted login or password!");
+			throw new ServiceAuthException(ExceptionMessages.CORRUPTED_LOGIN_OR_PWD);
 		}
 		
 		try {
@@ -205,7 +204,7 @@ public class UserServiceImpl implements IUserService {
 			String realPassw = dao.getPasswordByLogin(login);
 			
 			if (!realPassw.equals(password)) {
-				throw new ServiceAuthException("Wrong password!");
+				throw new ServiceAuthException(ExceptionMessages.WRONG_PASSWORD);
 			}
 			
 		} catch (DAOException e) {
@@ -217,7 +216,7 @@ public class UserServiceImpl implements IUserService {
 	public String getLoginByID(int id) throws ServiceException {
 		
 		if(!Validator.validateInt(id)){
-			throw new ServiceException("Corrupted user ID");
+			throw new ServiceException(ExceptionMessages.CORRUPTED_USER_ID);
 		}
 		
 		try {
@@ -226,7 +225,7 @@ public class UserServiceImpl implements IUserService {
 			
 			User user = dao.getUserByID(id);
 			if (user == null) {
-				throw new GetUserServiceException("No user found by this ID");
+				throw new GetUserServiceException(ExceptionMessages.USER_NOT_FOUND);
 			}
 			return user.getLogin();
 		} catch (DAOException e) {
@@ -237,7 +236,7 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public int getCurrentUserDiscountByID(int id) throws ServiceException {
 		if(!Validator.validateObject(id)){
-			throw new ServiceException("Corrupted user ID");
+			throw new ServiceException(ExceptionMessages.CORRUPTED_USER_ID);
 		}
 		
 		try {

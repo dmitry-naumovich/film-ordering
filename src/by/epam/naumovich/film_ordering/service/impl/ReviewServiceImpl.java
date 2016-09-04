@@ -77,7 +77,7 @@ public class ReviewServiceImpl implements IReviewService {
 			list = reviewDAO.getAllReviews();
 			
 			if (list.isEmpty()) {
-				throw new GetReviewsServiceException(ExceptionMessages.NO_REVIEW_IN_DB);
+				throw new GetReviewsServiceException(ExceptionMessages.NO_REVIEWS_IN_DB);
 			}
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
