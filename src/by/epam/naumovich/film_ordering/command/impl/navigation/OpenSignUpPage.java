@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import by.epam.naumovich.film_ordering.command.Command;
+import by.epam.naumovich.film_ordering.command.util.ErrorMessages;
 import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
 import by.epam.naumovich.film_ordering.command.util.QueryUtil;
 import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
@@ -23,7 +24,7 @@ public class OpenSignUpPage implements Command {
 		
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) != null) {
 			int userID = Integer.parseInt(session.getAttribute(RequestAndSessionAttributes.USER_ID).toString());
-			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, "Log out to be able to sign up!");
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.LOG_OUT_FOR_SIGN_UP);
 			request.getRequestDispatcher("/Controller?command=open_user_profile&userID=" + userID).forward(request, response);
 		} else {
 			request.getRequestDispatcher(JavaServerPageNames.SIGN_UP_PAGE).forward(request, response);

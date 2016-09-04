@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import by.epam.naumovich.film_ordering.bean.Film;
 import by.epam.naumovich.film_ordering.command.Command;
+import by.epam.naumovich.film_ordering.command.util.ErrorMessages;
 import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
 import by.epam.naumovich.film_ordering.command.util.QueryUtil;
 import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
@@ -29,7 +30,7 @@ public class OpenNewReviewPage implements Command {
 		System.out.println(query);
 		
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
-			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, "Sign in for writing reviews");
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.SIGN_IN_FOR_REVIEWING);
 			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
 		}
 		else {
@@ -41,7 +42,7 @@ public class OpenNewReviewPage implements Command {
 			try {
 				film = filmService.getFilmByID(filmID);
 				reviewService.getReviewByUserAndFilmId(userID, filmID);
-				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, "You are not able to write more than one review to a single film");
+				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.REVIEW_AMOUNT_RESTRICTION);
 				request.getRequestDispatcher("/Controller?command=open_single_review&userID=" + userID + "&filmID=" + filmID).forward(request, response);;
 			} catch (GetFilmsServiceException e) { 
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
