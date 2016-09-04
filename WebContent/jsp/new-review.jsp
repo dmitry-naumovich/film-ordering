@@ -63,7 +63,7 @@
         alert("Type can not be left blank");
         return false;
       }
-      else if(document.getElementById("reviewTextArea").value = "") {
+      else if(document.getElementById("reviewTextArea").value.length < 50) {
         alert("Review text must contain at least 50 symbols");
         document.updSettingsForm.reviewText.focus();
         return false;
@@ -110,10 +110,13 @@
 					</div>
 				</c:if>
 
-<form  name="newReviewForm" class="form-horizontal" method="post"action="Controller" onSubmit="return validateForm(event);">
+<form  name="newReviewForm" class="form-horizontal" method="post"action="Controller?" onSubmit="return validateForm(event);">
   <div class="form-group">
     	<input type="hidden" name="command" value="send_review"/>
+    	<input type="hidden" name="userID" value="${sessionScope.userID}" />
+  		<input type="hidden" name="filmID" value="${film.id}" />
   	</div>
+  	
   <div class="form-group">
       <label class="col-sm-2 control-label">${yourMark}</label>
       <div class="col-sm-10">
@@ -135,8 +138,7 @@
   <div class="form-group">
     <label class="col-sm-2 control-label">${reviewText}</label>
     <div class="col-sm-10"> 
-    	<textarea class="form-control" rows="5" name="reviewText" id="reviewTextArea">
-    	</textarea>
+    	<textarea class="form-control" rows="5" name="reviewText" id="reviewTextArea"></textarea>
     </div>
   </div>
   <button type="submit" class="btn btn-primary">${sendBtn}</button>
@@ -144,18 +146,11 @@
 
           </div>
           </div>
-
       </div>
       </div>
-
       <jsp:include page="/WEB-INF/static/right-sidebar.jsp"></jsp:include>
-      
      </div>
-
   </div>  
-  
-
   <jsp:include page="/WEB-INF/static/footer.jsp"></jsp:include>
-  
 </body>
 </html>

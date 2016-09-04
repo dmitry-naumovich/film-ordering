@@ -7,7 +7,7 @@ import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
 public interface IReviewService {
 	
-	void addReview(Review review) throws ServiceException;
+	void addReview(int userID, int filmID, String mark, String type, String text) throws ServiceException;
 	void deleteReview(Review review) throws ServiceException;
 	List<Review> getAllReviews() throws ServiceException;
 	
