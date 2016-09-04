@@ -10,6 +10,7 @@ import java.util.List;
 import by.epam.naumovich.film_ordering.bean.Order;
 import by.epam.naumovich.film_ordering.dao.IOrderDAO;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
+import by.epam.naumovich.film_ordering.dao.util.ExceptionMessages;
 import by.epam.naumovich.task82.dao.pool.MySQLConnectionPool;
 import by.epam.naumovich.task82.dao.pool.exception.ConnectionPoolException;
 
@@ -56,15 +57,15 @@ public class MySQLOrderDAO implements IOrderDAO {
 			}
 			
 		} catch (SQLException e) {
-			throw new DAOException("Failure during SQL Select Request execution", e);
+			throw new DAOException(ExceptionMessages.SQL_INSERT_FAILURE, e);
 		} catch (ConnectionPoolException e) {
-			throw new DAOException("Failure during taking connection from ConnectionPool", e);
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
 		} finally {
 			try {
-				rs.close();
-				st.close();
+				if (rs != null) { rs.close(); }
+				if (st != null) { st.close(); }
 			} catch (SQLException e) {
-				throw new DAOException("Result Set or Statement was not closed properly");
+				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED);
 			} finally {
 				pool.closeConnection(con);
 			}
@@ -101,15 +102,15 @@ public class MySQLOrderDAO implements IOrderDAO {
 			}
 			
 		} catch (SQLException e) {
-			throw new DAOException("Failure during SQL Select Request execution", e);
+			throw new DAOException(ExceptionMessages.SQL_SELECT_FAILURE, e);
 		} catch (ConnectionPoolException e) {
-			throw new DAOException("Failure during taking connection from ConnectionPool", e);
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
 		} finally {
 			try {
-				rs.close();
-				st.close();
+				if (rs != null) { rs.close(); }
+				if (st != null) { st.close(); }
 			} catch (SQLException e) {
-				throw new DAOException("Result Set or Statement was not closed properly");
+				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED);
 			} finally {
 				pool.closeConnection(con);
 			}
@@ -145,15 +146,15 @@ public class MySQLOrderDAO implements IOrderDAO {
 			}
 			
 		} catch (SQLException e) {
-			throw new DAOException("Failure during SQL Select Request execution", e);
+			throw new DAOException(ExceptionMessages.SQL_SELECT_FAILURE, e);
 		} catch (ConnectionPoolException e) {
-			throw new DAOException("Failure during taking connection from ConnectionPool", e);
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
 		} finally {
 			try {
-				rs.close();
-				st.close();
+				if (rs != null) { rs.close(); }
+				if (st != null) { st.close(); }
 			} catch (SQLException e) {
-				throw new DAOException("Result Set or Statement was not closed properly");
+				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED);
 			} finally {
 				pool.closeConnection(con);
 			}
@@ -180,14 +181,14 @@ public class MySQLOrderDAO implements IOrderDAO {
 			st.executeUpdate();
 			
 		} catch (SQLException e) {
-			throw new DAOException("Failure during SQL Insert Request execution", e);
+			throw new DAOException(ExceptionMessages.SQL_INSERT_FAILURE, e);
 		} catch (ConnectionPoolException e) {
-			throw new DAOException("Failure during taking connection from ConnectionPool", e);
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
 		} finally {
 			try {
-				st.close();
+				if (st != null) { st.close(); }
 			} catch (SQLException e) {
-				throw new DAOException("Prepared Statement was not closed properly");
+				throw new DAOException(ExceptionMessages.PREP_STATEMENT_NOT_CLOSED, e);
 			} finally {
 				pool.closeConnection(con);
 			}
@@ -207,14 +208,14 @@ public class MySQLOrderDAO implements IOrderDAO {
 			st.executeUpdate();
 			
 		} catch (SQLException e) {
-			throw new DAOException("Failure during SQL Delete Request execution", e);
+			throw new DAOException(ExceptionMessages.SQL_DELETE_FAILTURE, e);
 		} catch (ConnectionPoolException e) {
-			throw new DAOException("Failure during taking connection from ConnectionPool", e);
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
 		} finally {
 			try {
-				st.close();
+				if (st != null) { st.close(); }
 			} catch (SQLException e) {
-				throw new DAOException("Prepared Statement was not closed properly");
+				throw new DAOException(ExceptionMessages.PREP_STATEMENT_NOT_CLOSED, e);
 			} finally {
 				pool.closeConnection(con);
 			}
