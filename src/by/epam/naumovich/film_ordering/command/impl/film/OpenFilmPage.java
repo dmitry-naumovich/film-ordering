@@ -1,4 +1,4 @@
-package by.epam.naumovich.film_ordering.command.impl;
+package by.epam.naumovich.film_ordering.command.impl.film;
 
 import java.io.IOException;
 import java.util.ArrayList;

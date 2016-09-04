@@ -1,43 +1,43 @@
-package by.epam.naumovich.film_ordering.command.impl;
+package by.epam.naumovich.film_ordering.command.impl.news;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import by.epam.naumovich.film_ordering.bean.Film;
+import by.epam.naumovich.film_ordering.bean.News;
 import by.epam.naumovich.film_ordering.command.Command;
 import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
 import by.epam.naumovich.film_ordering.command.util.QueryUtil;
 import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
-import by.epam.naumovich.film_ordering.service.IFilmService;
+import by.epam.naumovich.film_ordering.service.INewsService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
-import by.epam.naumovich.film_ordering.service.exception.review.GetReviewsServiceException;
+import by.epam.naumovich.film_ordering.service.exception.news.GetNewsServiceException;
 
-public class OpenFilmList implements Command {
+public class OpenNewsList implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		IFilmService filmService = ServiceFactory.getInstance().getFilmService();
+		INewsService newsService = ServiceFactory.getInstance().getNewsService();
 		
 		String query = QueryUtil.createHttpQueryString(request);
 		request.getSession(true).setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
 		try {
-			List<Film> films = filmService.getAllFilms();
-			request.setAttribute(RequestAndSessionAttributes.FILMS, films);
+			List<News> news = newsService.getAllNews();
+			Collections.reverse(news); // reverse for showing most recent news first
+			request.setAttribute(RequestAndSessionAttributes.NEWS, news);
 			
-			String url = response.encodeRedirectURL(JavaServerPageNames.FILMS_JSP_PAGE);
+			String url = response.encodeRedirectURL(JavaServerPageNames.NEWS_JSP_PAGE);
 			request.getRequestDispatcher(url).forward(request, response);
-			
-			
-		} catch(GetReviewsServiceException e) {
+		} catch(GetNewsServiceException e) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
-			request.getRequestDispatcher(JavaServerPageNames.FILMS_JSP_PAGE).forward(request, response);
+			request.getRequestDispatcher(JavaServerPageNames.NEWS_JSP_PAGE).forward(request, response);
 		}
 		
 		catch (ServiceException e) {

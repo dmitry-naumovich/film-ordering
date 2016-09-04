@@ -1,4 +1,4 @@
-package by.epam.naumovich.film_ordering.command.impl;
+package by.epam.naumovich.film_ordering.command.impl.review;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,23 +9,23 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import by.epam.naumovich.film_ordering.bean.Order;
+import by.epam.naumovich.film_ordering.bean.Review;
 import by.epam.naumovich.film_ordering.command.Command;
 import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
 import by.epam.naumovich.film_ordering.command.util.QueryUtil;
 import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
 import by.epam.naumovich.film_ordering.service.IFilmService;
-import by.epam.naumovich.film_ordering.service.IOrderService;
+import by.epam.naumovich.film_ordering.service.IReviewService;
 import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
-import by.epam.naumovich.film_ordering.service.exception.order.GetOrdersServiceException;
+import by.epam.naumovich.film_ordering.service.exception.review.GetReviewsServiceException;
 
-public class OpenAllOrders implements Command {
-	
+public class OpenAllReviews implements Command {
+
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		IOrderService orderService = ServiceFactory.getInstance().getOrderService();
+		IReviewService reviewService = ServiceFactory.getInstance().getReviewService();
 		IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 		IUserService userService = ServiceFactory.getInstance().getUserService();
 		
@@ -34,33 +34,31 @@ public class OpenAllOrders implements Command {
 		System.out.println(query);
 		
 		try {
-			List<Order> orders = orderService.getAllOrders();
-			Collections.reverse(orders);
+			List<Review> reviews = reviewService.getAllReviews();
+			Collections.reverse(reviews);
 			
-			List<String> filmNames = new ArrayList<String>();
-			List<String> userLogins = new ArrayList<String>();
-			for (Order o : orders) {
-				String filmName = filmService.getFilmByID(o.getFilmId()).getName();
-				filmNames.add(filmName);
-				
-				String userLogin = userService.getLoginByID(o.getUserId());
-				userLogins.add(userLogin);
+			List<String> reviewLogins = new ArrayList<String>();
+			List<String> reviewFilmNames = new ArrayList<String>();
+			for (Review r : reviews) {
+				reviewLogins.add(userService.getLoginByID(r.getAuthor()));
+				reviewFilmNames.add(filmService.getFilmByID(r.getFilmId()).getName());
 			}
 			
-			request.setAttribute(RequestAndSessionAttributes.ORDERS, orders);
-			request.setAttribute(RequestAndSessionAttributes.FILM_NAMES, filmNames);
-			request.setAttribute(RequestAndSessionAttributes.USER_LOGINS, userLogins);
-			request.setAttribute(RequestAndSessionAttributes.ORDER_VIEW_TYPE, RequestAndSessionAttributes.VIEW_TYPE_ALL);
+			request.setAttribute(RequestAndSessionAttributes.REVIEWS, reviews);
+			request.setAttribute(RequestAndSessionAttributes.LOGINS, reviewLogins);
+			request.setAttribute(RequestAndSessionAttributes.FILM_NAMES, reviewFilmNames);
 			
-			String url = response.encodeRedirectURL(JavaServerPageNames.ORDERS_PAGE);
+			String url = response.encodeRedirectURL(JavaServerPageNames.REVIEWS_PAGE);
 			request.getRequestDispatcher(url).forward(request, response);
+		} catch (GetReviewsServiceException e) {
 			
-		} catch (GetOrdersServiceException e) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
-			request.getRequestDispatcher(JavaServerPageNames.ORDERS_PAGE).forward(request, response);
-			
-		} catch (ServiceException e) {
+			request.getRequestDispatcher(JavaServerPageNames.REVIEWS_PAGE).forward(request, response);
+		}
+		
+		catch (ServiceException e) {
 			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 		}
 	}
+
 }

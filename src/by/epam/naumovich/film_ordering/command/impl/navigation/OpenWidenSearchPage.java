@@ -1,4 +1,4 @@
-package by.epam.naumovich.film_ordering.command.impl;
+package by.epam.naumovich.film_ordering.command.impl.navigation;
 
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
 import by.epam.naumovich.film_ordering.command.util.QueryUtil;
 import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
 
-public class OpenFeedbackPage implements Command {
+public class OpenWidenSearchPage implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -19,7 +19,7 @@ public class OpenFeedbackPage implements Command {
 		request.getSession(true).setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
-		request.getRequestDispatcher(JavaServerPageNames.FEEDBACK_PAGE).forward(request, response);
+		request.getRequestDispatcher(JavaServerPageNames.WIDEN_SEARCH_PAGE).forward(request, response);
 	}
 
 }

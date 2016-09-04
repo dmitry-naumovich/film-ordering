@@ -1,4 +1,4 @@
-package by.epam.naumovich.film_ordering.command.impl;
+package by.epam.naumovich.film_ordering.command.impl.user;
 
 import java.io.IOException;
 

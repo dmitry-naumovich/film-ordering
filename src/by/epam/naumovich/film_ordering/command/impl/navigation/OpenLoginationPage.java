@@ -1,4 +1,4 @@
-package by.epam.naumovich.film_ordering.command.impl;
+package by.epam.naumovich.film_ordering.command.impl.navigation;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
 import by.epam.naumovich.film_ordering.command.util.QueryUtil;
 import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
 
-public class OpenSignUpPage implements Command {
+public class OpenLoginationPage implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -22,11 +22,11 @@ public class OpenSignUpPage implements Command {
 		System.out.println(query);
 		
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) != null) {
-			int userID = Integer.parseInt(session.getAttribute(RequestAndSessionAttributes.USER_ID).toString());
-			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, "Log out to be able to sign up!");
-			request.getRequestDispatcher("/Controller?command=open_user_profile&userID=" + userID).forward(request, response);
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, "Log out to sign into another account!");
+			request.getRequestDispatcher(JavaServerPageNames.INDEX_PAGE).forward(request, response);
 		} else {
-			request.getRequestDispatcher(JavaServerPageNames.SIGN_UP_PAGE).forward(request, response);
+		
+			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
 		}
 	}
 

@@ -1,8 +1,6 @@
-package by.epam.naumovich.film_ordering.command.impl;
+package by.epam.naumovich.film_ordering.command.impl.news;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,10 +16,11 @@ import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.news.GetNewsServiceException;
 
-public class OpenNewsList implements Command {
+public class OpenSingleNews implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		int newsID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.NEWS_ID));
 		INewsService newsService = ServiceFactory.getInstance().getNewsService();
 		
 		String query = QueryUtil.createHttpQueryString(request);
@@ -29,20 +28,20 @@ public class OpenNewsList implements Command {
 		System.out.println(query);
 		
 		try {
-			List<News> news = newsService.getAllNews();
-			Collections.reverse(news); // reverse for showing most recent news first
+			News news = newsService.getNewsById(newsID);
 			request.setAttribute(RequestAndSessionAttributes.NEWS, news);
 			
-			String url = response.encodeRedirectURL(JavaServerPageNames.NEWS_JSP_PAGE);
-			request.getRequestDispatcher(url).forward(request, response);
-		} catch(GetNewsServiceException e) {
+			request.getRequestDispatcher(JavaServerPageNames.SINGLE_NEWS_PAGE).forward(request, response);
+		} catch (GetNewsServiceException e) {
+			
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
-			request.getRequestDispatcher(JavaServerPageNames.NEWS_JSP_PAGE).forward(request, response);
+			request.getRequestDispatcher(JavaServerPageNames.SINGLE_NEWS_PAGE).forward(request, response);
 		}
 		
 		catch (ServiceException e) {
 			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 		}
+
 	}
 
 }
