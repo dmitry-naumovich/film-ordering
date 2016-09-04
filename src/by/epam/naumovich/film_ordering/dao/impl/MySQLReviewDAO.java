@@ -59,11 +59,11 @@ public class MySQLReviewDAO implements IReviewDAO {
 			throw new DAOException("Failure during taking connection from ConnectionPool", e);
 		} finally {
 			try {
-				st.close();
+				if (st != null) { st.close(); }
 			} catch (SQLException e) {
 				throw new DAOException("Prepared Statement was not closed properly");
 			} finally {
-				pool.closeConnection(con);
+				if (con != null) { pool.closeConnection(con); }
 			}
 		}
 	}
