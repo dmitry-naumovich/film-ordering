@@ -44,13 +44,14 @@ public class OpenSingleReview implements Command {
 			request.setAttribute(RequestAndSessionAttributes.REVIEW, rev);
 			request.setAttribute(RequestAndSessionAttributes.LOGIN, userLogin);
 			request.setAttribute(RequestAndSessionAttributes.FILM_NAME, filmName);
-			
+			System.out.println();
 			request.getRequestDispatcher(JavaServerPageNames.SINGLE_REVIEW_PAGE).forward(request, response);
 		} catch (GetReviewsServiceException e) {
-			
-		
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
+			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 		} catch (ServiceException e) {
-			
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
+			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 		}
 
 	}

@@ -20,6 +20,7 @@
 <fmt:message bundle="${loc}" key="local.film.price" var="price" />
 <fmt:message bundle="${loc}" key="local.film.buyWithOneClickBtn" var="buyWithOneClickBtn" />
 <fmt:message bundle="${loc}" key="local.film.writeReviewBtn" var="writeReviewBtn" />
+<fmt:message bundle="${loc}" key="local.film.myReviewBtn" var="myReviewBtn" />
 <fmt:message bundle="${loc}" key="local.film.reviewBy" var="reviewBy" />
 <fmt:message bundle="${loc}" key="local.reviews.mark" var="mark" />
 <fmt:message bundle="${loc}" key="local.reviews.date" var="date" />
@@ -27,7 +28,6 @@
 <fmt:message bundle="${loc}" key="local.index.editFilmBtn" var="editFilmBtn" />
 <fmt:message bundle="${loc}" key="local.film.openFilmOrders" var="openFilmOrdersBtn" />
 
-<%-- <jsp:useBean id="film" class="by.epam.naumovich.film_ordering.bean.Film" scope="request"/> --%>
 <c:set var="film" value="${requestScope.film}"/>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -86,7 +86,14 @@
           				<c:otherwise>
           					<a class="btn btn-primary center-block" href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" role="button">${buyWithOneClickBtn}</a>
           					<br>
-             				<a class="btn btn-warning center-block" href="<c:url value="/Controller?command=open_new_review_page&filmID=${film.id}"/>" role="button">${writeReviewBtn}</a>
+          					<c:choose>
+          						<c:when test="${!requestScope.ownReviewExists}">
+          							<a class="btn btn-warning center-block" href="<c:url value="/Controller?command=open_new_review_page&filmID=${film.id}"/>" role="button">${writeReviewBtn}</a>
+             					</c:when>
+             					<c:otherwise>
+	             					<a class="btn btn-warning center-block" href="<c:url value="/Controller?command=open_single_review&userID=${sessionScope.userID}&filmID=${film.id}"/>" role="button">${myReviewBtn}</a>
+	          					</c:otherwise>
+	          				</c:choose>
           				</c:otherwise>
           			</c:choose>
                 </div>

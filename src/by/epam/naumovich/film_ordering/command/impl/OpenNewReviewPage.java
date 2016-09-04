@@ -42,7 +42,7 @@ public class OpenNewReviewPage implements Command {
 				film = filmService.getFilmByID(filmID);
 				reviewService.getReviewByUserAndFilmId(userID, filmID);
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, "You are not able to write more than one review to a single film");
-				request.getRequestDispatcher("/Controller?command=open_single_review&userID=" + userID + "&filmID=" + filmID);
+				request.getRequestDispatcher("/Controller?command=open_single_review&userID=" + userID + "&filmID=" + filmID).forward(request, response);;
 			} catch (GetFilmsServiceException e) { 
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import by.epam.naumovich.film_ordering.bean.Film;
 import by.epam.naumovich.film_ordering.bean.Review;
@@ -26,36 +27,41 @@ public class OpenFilmPage implements Command {
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		int movieID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));
-		IFilmService filmService = ServiceFactory.getInstance().getFilmService();
-		IReviewService reviewService = ServiceFactory.getInstance().getReviewService();
-		IUserService userService = ServiceFactory.getInstance().getUserService();
-		
+		HttpSession session = request.getSession(true);
 		String query = QueryUtil.createHttpQueryString(request);
-		request.getSession(true).setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
+		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
+		int filmID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));
 		try {
-			Film film = filmService.getFilmByID(movieID);
+			IFilmService filmService = ServiceFactory.getInstance().getFilmService();
+			IReviewService reviewService = ServiceFactory.getInstance().getReviewService();
+			IUserService userService = ServiceFactory.getInstance().getUserService();
+			
+			Film film = filmService.getFilmByID(filmID);
 			request.setAttribute(RequestAndSessionAttributes.FILM, film);
 			
-			List<Review> reviews = reviewService.getReviewsByFilmId(movieID);
+			List<Review> reviews = reviewService.getReviewsByFilmId(filmID);
 			request.setAttribute(RequestAndSessionAttributes.REVIEWS, reviews);
 			
 			List<String> reviewLogins = new ArrayList<String>();
 			for (Review r : reviews) {
 				reviewLogins.add(userService.getLoginByID(r.getAuthor()));
 			}
-			
 			request.setAttribute(RequestAndSessionAttributes.LOGINS, reviewLogins);
 			
-			String url = response.encodeRedirectURL(JavaServerPageNames.FILM_JSP_PAGE);
-			//String url = request.getContextPath() + "/jsp/film.jsp";
-			//response.sendRedirect(url);
-			request.getRequestDispatcher(url).forward(request, response);
-			
-			
-			
+			if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) != null) {
+				if (!Boolean.parseBoolean(session.getAttribute(RequestAndSessionAttributes.IS_ADMIN).toString())) {
+					try {
+						int userID = Integer.parseInt(session.getAttribute(RequestAndSessionAttributes.USER_ID).toString());
+						reviewService.getReviewByUserAndFilmId(userID, filmID);
+						request.setAttribute(RequestAndSessionAttributes.OWN_REVIEW_EXISTS, true);
+					} catch (GetReviewsServiceException e) {
+						request.setAttribute(RequestAndSessionAttributes.OWN_REVIEW_EXISTS, false);
+					}
+				}
+			}
+			request.getRequestDispatcher(JavaServerPageNames.FILM_JSP_PAGE).forward(request, response);
 		} catch(GetReviewsServiceException e) {
 			request.getRequestDispatcher(JavaServerPageNames.FILM_JSP_PAGE).forward(request, response);
 		}

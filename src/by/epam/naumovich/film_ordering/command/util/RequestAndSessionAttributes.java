@@ -28,11 +28,15 @@ public final class RequestAndSessionAttributes {
 	public static final String ORDER_SUM = "orderSum";
 	public static final String ORDER_VIEW_TYPE = "orderViewType";
 	public static final String ORDERS = "orders";
+	public static final String OWN_REVIEW_EXISTS = "ownReviewExists";
 	public static final String PASSWORD = "password";
 	public static final String PASSWORD_REPEATED = "passwordRepeated";
 	public static final String PHONE = "phone";
 	public static final String PREV_QUERY = "prev_query";
 	public static final String REVIEW = "review";
+	public static final String REVIEW_MARK = "mark";
+	public static final String REVIEW_TEXT = "reviewText";
+	public static final String REVIEW_TYPE = "type";
 	public static final String REVIEWS = "reviews";
 	public static final String SEX = "sex";
 	public static final String SIDEBAR_NEWS = "sidebarNews";
