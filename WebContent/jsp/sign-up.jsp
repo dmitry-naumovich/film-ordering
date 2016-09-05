@@ -68,11 +68,11 @@
 	{
 	    event.preventDefault(); // this will prevent the submit event
 	    if(document.signUpForm.login.value=="") {
-		      alert("Login can not be left blank");
-		      document.signUpForm.login.focus();
-		      return false;
-		    }
-	    if(document.signUpForm.name.value=="") {
+	      alert("Login can not be left blank");
+	      document.signUpForm.login.focus();
+	      return false;
+		}
+	    else if(document.signUpForm.name.value=="") {
 	      alert("User name can not be left blank");
 	      document.signUpForm.name.focus();
 	      return false;
@@ -88,9 +88,9 @@
 	      return false;
 	    }
 	    else if (document.signUpForm.passwordRepeated.value=="") {
-	  	alert("Password repeated can not be left blank");
-	  	document.signUpForm.passwordRepeated.focus();
-	  	return false;
+		  	alert("Password repeated can not be left blank");
+		  	document.signUpForm.passwordRepeated.focus();
+		  	return false;
 	    }
 	    else if (document.signUpForm.password.value != document.signUpForm.passwordRepeated.value) {
 	  	  alert("Passwords do not match! Try again.");
@@ -103,7 +103,7 @@
 	    	alert("Email can not be left blank");
 	    	document.signUpForm.email.focus();
 	    	return false;
-	      }
+	    }
 	    else {
 	        document.signUpForm.submit(); // fire submit event
 	    }
