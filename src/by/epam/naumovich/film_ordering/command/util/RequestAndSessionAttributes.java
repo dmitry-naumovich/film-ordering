@@ -17,6 +17,7 @@ public final class RequestAndSessionAttributes {
 	public static final String FILM_NAMES = "filmNames";
 	public static final String FILM = "film";
 	public static final String FILMS = "films";
+	public static final String FOUND_FILMS = "foundFilms";
 	public static final String IS_ADMIN = "isAdmin";
 	public static final String LANGUAGE = "language";
 	public static final String LOGIN = "login";
@@ -38,6 +39,7 @@ public final class RequestAndSessionAttributes {
 	public static final String REVIEW_TEXT = "reviewText";
 	public static final String REVIEW_TYPE = "type";
 	public static final String REVIEWS = "reviews";
+	public static final String SEARCH_TEXT = "searchText";
 	public static final String SEX = "sex";
 	public static final String SIDEBAR_NEWS = "sidebarNews";
 	public static final String SUCCESS_MESSAGE = "successMessage";

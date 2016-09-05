@@ -5,29 +5,12 @@ import java.util.Map;
 
 import by.epam.naumovich.film_ordering.command.Command;
 import by.epam.naumovich.film_ordering.command.impl.*;
-import by.epam.naumovich.film_ordering.command.impl.film.GetNovelty;
-import by.epam.naumovich.film_ordering.command.impl.film.OpenFilmList;
-import by.epam.naumovich.film_ordering.command.impl.film.OpenFilmPage;
-import by.epam.naumovich.film_ordering.command.impl.navigation.OpenAboutUsPage;
-import by.epam.naumovich.film_ordering.command.impl.navigation.OpenFeedbackPage;
-import by.epam.naumovich.film_ordering.command.impl.navigation.OpenHelpPage;
-import by.epam.naumovich.film_ordering.command.impl.navigation.OpenLoginationPage;
-import by.epam.naumovich.film_ordering.command.impl.navigation.OpenSignUpPage;
-import by.epam.naumovich.film_ordering.command.impl.navigation.OpenWidenSearchPage;
-import by.epam.naumovich.film_ordering.command.impl.news.GetSidebarNews;
-import by.epam.naumovich.film_ordering.command.impl.news.OpenNewsList;
-import by.epam.naumovich.film_ordering.command.impl.news.OpenSingleNews;
-import by.epam.naumovich.film_ordering.command.impl.order.OpenAllOrders;
-import by.epam.naumovich.film_ordering.command.impl.order.OpenOrderPage;
-import by.epam.naumovich.film_ordering.command.impl.order.OpenUserOrders;
-import by.epam.naumovich.film_ordering.command.impl.review.OpenAllReviews;
-import by.epam.naumovich.film_ordering.command.impl.review.OpenNewReviewPage;
-import by.epam.naumovich.film_ordering.command.impl.review.OpenSingleReview;
-import by.epam.naumovich.film_ordering.command.impl.review.OpenUserReviews;
-import by.epam.naumovich.film_ordering.command.impl.review.SendReview;
-import by.epam.naumovich.film_ordering.command.impl.user.ChangeUserSettings;
-import by.epam.naumovich.film_ordering.command.impl.user.OpenUserProfile;
-import by.epam.naumovich.film_ordering.command.impl.user.OpenUserSettings;
+import by.epam.naumovich.film_ordering.command.impl.film.*;
+import by.epam.naumovich.film_ordering.command.impl.navigation.*;
+import by.epam.naumovich.film_ordering.command.impl.news.*;
+import by.epam.naumovich.film_ordering.command.impl.order.*;
+import by.epam.naumovich.film_ordering.command.impl.review.*;
+import by.epam.naumovich.film_ordering.command.impl.user.*;
 
 public class CommandHelper {
 
@@ -61,6 +44,7 @@ public class CommandHelper {
 		commands.put(CommandName.OPEN_USER_REVIEWS, new OpenUserReviews());
 		commands.put(CommandName.OPEN_WIDEN_SEARCH_PAGE, new OpenWidenSearchPage());
 		commands.put(CommandName.SIGN_UP, new SignUp());
+		commands.put(CommandName.SEARCH_FILMS, new SearchFilms());
 		commands.put(CommandName.SEND_REVIEW, new SendReview());
 	}
 	

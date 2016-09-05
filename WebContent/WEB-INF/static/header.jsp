@@ -37,15 +37,18 @@
             <a class="navbar-brand" href="#">${serviceName}</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-                
-                <form class="navbar-form navbar-left " role="search">
-                  <div class="input-group">
-                      <input type="search" class="form-control" placeholder="${search}" name="srch-term" id="srch-term" required>
-                      <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                      </div>
-                  </div>
-                </form>
+	        <form name="searchForm" class="navbar-form navbar-left" action="Controller" role="search">
+	          <div class="form-group">
+			    	<input type="hidden" name="command" value="search_films" />
+			  	</div>
+	          <div class="input-group">
+	              <input class="form-control" name="searchText" type="search" placeholder="${search}" required>
+	              <div class="input-group-btn">
+	                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+	              </div>
+	          </div>
+	        </form>
+	        
                 <c:choose>
               <c:when test="${sessionScope.authUser!=null}"> 
               		<form class=" navbar-form nav navbar-right">

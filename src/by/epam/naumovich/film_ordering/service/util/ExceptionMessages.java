@@ -23,6 +23,7 @@ public final class ExceptionMessages {
 	public static final String NO_FILM_ORDERS = "This film has not been ordered yet";
 	public static final String NO_FILM_REVIEWS = "No reviews for this film";
 	public static final String NO_FILM_USER_REVIEW = "This user has not written any reviews to this film yet";
+	public static final String NO_FILMS_FOUND = "No films found by your query! Please, try again.";
 	public static final String NO_FILMS_IN_DB = "No films in the database. Sorry!";
 	public static final String NO_NEWS_IN_DB = "No news in the database. Sorry!";
 	public static final String NO_ORDERS_IN_DB = "No orders in the database. Sorry!";
