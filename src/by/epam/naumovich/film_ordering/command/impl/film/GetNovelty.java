@@ -1,7 +1,7 @@
 package by.epam.naumovich.film_ordering.command.impl.film;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -28,8 +28,8 @@ public class GetNovelty implements Command {
 		System.out.println(query);
 		
 		try {
-			List<Film> filmList = filmService.getTwelveLastAddedFilms();
-			request.setAttribute(RequestAndSessionAttributes.NOVELTY_LIST, filmList);
+			Set<Film> filmSet = filmService.getTwelveLastAddedFilms();
+			request.setAttribute(RequestAndSessionAttributes.NOVELTY_LIST, filmSet);
 		} catch (ServiceException e) {
 			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);		
 		}

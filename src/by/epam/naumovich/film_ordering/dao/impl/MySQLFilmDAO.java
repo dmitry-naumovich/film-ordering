@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import by.epam.naumovich.film_ordering.bean.Film;
 import by.epam.naumovich.film_ordering.dao.IFilmDAO;
@@ -107,8 +107,8 @@ public class MySQLFilmDAO implements IFilmDAO {
 	
 
 	@Override
-	public List<Film> getAllFilms() throws DAOException {
-		List<Film> filmList = new ArrayList<Film>();
+	public Set<Film> getAllFilms() throws DAOException {
+		Set<Film> filmSet = new LinkedHashSet<Film>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -134,7 +134,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 				film.setRating(rs.getFloat(11));
 				film.setPrice(rs.getFloat(12));
 				
-				filmList.add(film);
+				filmSet.add(film);
 			}
 			
 		} catch (SQLException e) {
@@ -151,12 +151,12 @@ public class MySQLFilmDAO implements IFilmDAO {
 				if (con != null) { pool.closeConnection(con); }
 			}
 		}
-		return filmList;
+		return filmSet;
 	}
 
 	@Override
-	public List<Film> getFilmsByName(String name) throws DAOException {
-		List<Film> filmList = new ArrayList<Film>();
+	public Set<Film> getFilmsByName(String name) throws DAOException {
+		Set<Film> filmSet = new LinkedHashSet<Film>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -183,7 +183,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 				film.setRating(rs.getFloat(11));
 				film.setPrice(rs.getFloat(12));
 				
-				filmList.add(film);
+				filmSet.add(film);
 			}
 			
 		} catch (SQLException e) {
@@ -200,13 +200,13 @@ public class MySQLFilmDAO implements IFilmDAO {
 				if (con != null) { pool.closeConnection(con); }
 			}
 		}
-		return filmList;
+		return filmSet;
 	}
 
 
 	@Override
-	public List<Film> getFilmsByYear(int year) throws DAOException {
-		List<Film> filmList = new ArrayList<Film>();
+	public Set<Film> getFilmsByYear(int year) throws DAOException {
+		Set<Film> filmSet = new LinkedHashSet<Film>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -233,7 +233,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 				film.setRating(rs.getFloat(11));
 				film.setPrice(rs.getFloat(12));
 				
-				filmList.add(film);
+				filmSet.add(film);
 			}
 			
 		} catch (SQLException e) {
@@ -250,12 +250,12 @@ public class MySQLFilmDAO implements IFilmDAO {
 				if (con != null) { pool.closeConnection(con); }
 			}
 		}
-		return filmList;
+		return filmSet;
 	}
 
 	@Override
-	public List<Film> getFilmsByGenre(String genre) throws DAOException {
-		List<Film> filmList = new ArrayList<Film>();
+	public Set<Film> getFilmsByGenre(String genre) throws DAOException {
+		Set<Film> filmSet = new LinkedHashSet<Film>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -282,7 +282,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 				film.setRating(rs.getFloat(11));
 				film.setPrice(rs.getFloat(12));
 				
-				filmList.add(film);
+				filmSet.add(film);
 			}
 			
 		} catch (SQLException e) {
@@ -299,12 +299,12 @@ public class MySQLFilmDAO implements IFilmDAO {
 				if (con != null) { pool.closeConnection(con); }
 			}
 		}
-		return filmList;
+		return filmSet;
 	}
 
 	@Override
-	public List<Film> getFilmsByYearGenre(int year, String genre) throws DAOException {
-		List<Film> filmList = new ArrayList<Film>();
+	public Set<Film> getFilmsByYearGenre(int year, String genre) throws DAOException {
+		Set<Film> filmSet = new LinkedHashSet<Film>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -331,7 +331,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 				film.setRating(rs.getFloat(11));
 				film.setPrice(rs.getFloat(12));
 				
-				filmList.add(film);
+				filmSet.add(film);
 			}
 			
 		} catch (SQLException e) {
@@ -348,12 +348,12 @@ public class MySQLFilmDAO implements IFilmDAO {
 				if (con != null) { pool.closeConnection(con); }
 			}
 		}
-		return filmList;
+		return filmSet;
 	}
 
 	@Override
-	public List<Film> getFilmsByNameYear(String name, int year) throws DAOException {
-		List<Film> filmList = new ArrayList<Film>();
+	public Set<Film> getFilmsByNameYear(String name, int year) throws DAOException {
+		Set<Film> filmSet = new LinkedHashSet<Film>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -381,7 +381,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 				film.setRating(rs.getFloat(11));
 				film.setPrice(rs.getFloat(12));
 				
-				filmList.add(film);
+				filmSet.add(film);
 			}
 			
 		} catch (SQLException e) {
@@ -398,12 +398,12 @@ public class MySQLFilmDAO implements IFilmDAO {
 				if (con != null) { pool.closeConnection(con); }
 			}
 		}
-		return filmList;
+		return filmSet;
 	}
 
 	@Override
-	public List<Film> getFilmsByNameGenre(String name, String genre) throws DAOException {
-		List<Film> filmList = new ArrayList<Film>();
+	public Set<Film> getFilmsByNameGenre(String name, String genre) throws DAOException {
+		Set<Film> filmSet = new LinkedHashSet<Film>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -431,7 +431,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 				film.setRating(rs.getFloat(11));
 				film.setPrice(rs.getFloat(12));
 				
-				filmList.add(film);
+				filmSet.add(film);
 			}
 			
 		} catch (SQLException e) {
@@ -448,12 +448,12 @@ public class MySQLFilmDAO implements IFilmDAO {
 				if (con != null) { pool.closeConnection(con); }
 			}
 		}
-		return filmList;
+		return filmSet;
 	}
 
 	@Override
-	public List<Film> getFilmsByNameYearGenre(String name, int year, String genre) throws DAOException {
-		List<Film> filmList = new ArrayList<Film>();
+	public Set<Film> getFilmsByNameYearGenre(String name, int year, String genre) throws DAOException {
+		Set<Film> filmSet = new LinkedHashSet<Film>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -482,7 +482,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 				film.setRating(rs.getFloat(11));
 				film.setPrice(rs.getFloat(12));
 				
-				filmList.add(film);
+				filmSet.add(film);
 			}
 			
 		} catch (SQLException e) {
@@ -499,12 +499,12 @@ public class MySQLFilmDAO implements IFilmDAO {
 				if (con != null) { pool.closeConnection(con); }
 			}
 		}
-		return filmList;
+		return filmSet;
 	}
 
 	@Override
-	public List<Film> getTwelveLastAddedFilms() throws DAOException {
-		List<Film> filmList = new ArrayList<Film>();
+	public Set<Film> getTwelveLastAddedFilms() throws DAOException {
+		Set<Film> filmSet = new LinkedHashSet<Film>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -530,7 +530,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 				film.setRating(rs.getFloat(11));
 				film.setPrice(rs.getFloat(12));
 				
-				filmList.add(film);
+				filmSet.add(film);
 			}
 			
 		} catch (SQLException e) {
@@ -547,7 +547,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 				if (con != null) { pool.closeConnection(con); }
 			}
 		}
-		return filmList;
+		return filmSet;
 	}
 
 	@Override

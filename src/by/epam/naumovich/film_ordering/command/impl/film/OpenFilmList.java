@@ -1,7 +1,7 @@
 package by.epam.naumovich.film_ordering.command.impl.film;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +28,7 @@ public class OpenFilmList implements Command {
 		System.out.println(query);
 		
 		try {
-			List<Film> films = filmService.getAllFilms();
+			Set<Film> films = filmService.getAllFilms();
 			request.setAttribute(RequestAndSessionAttributes.FILMS, films);
 			
 			String url = response.encodeRedirectURL(JavaServerPageNames.FILMS_JSP_PAGE);
