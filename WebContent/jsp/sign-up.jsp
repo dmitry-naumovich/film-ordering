@@ -221,9 +221,8 @@
 			    </div>  
 			    <div class="form-group">
 			      <div class="col-sm-2 col-md-offset-2">
-			      <button type="submit" class="btn btn-primary">${signUpBtn}</button>
+			      	<button type="submit" class="btn btn-primary">${signUpBtn}</button>
 			      </div>
-			
 			      <div class="col-sm-4 col-md-6 col-xs-12 col-lg-4 col-md-offset-4 control-label">${alreadySigned}
 			      <a href="<c:url value="/Controller?command=open_logination_page" />">${signInBtn}</a> </div>
 			    </div>    
