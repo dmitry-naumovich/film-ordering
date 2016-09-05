@@ -64,6 +64,10 @@
 	    	document.searchWidenedForm.yearTo.focus();
 	    	return false;
 	    }
+	    else if (parseInt(document.searchWidenedForm.yearFrom.value) > parseInt(document.searchWidenedForm.yearTo.value)) {
+	    	alert("'From' year can not exceed 'to' year");
+	    	return false;
+	    }
 	    else {
 	        document.searchWidenedForm.submit(); // fire submit event
 	    }

@@ -35,6 +35,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 	public static final String SELECT_FILMS_BY_YEAR_GENRE = "SELECT * FROM Films WHERE f_year = ? AND FIND_IN_SET(?, f_genre) > 0";
 	
 	public static final String SELECT_FILMS_BY_NAME_YEAR_GENRE = "SELECT * FROM Films WHERE f_name = ? AND f_year = ? AND FIND_IN_SET(?, f_genre) > 0";
+	public static final String SELECT_FILMS_BETWEEN_YEARS = "SELECT * FROM Films WHERE f_year >= ? AND f_year <= ?";
 	
 	public static MySQLFilmDAO getInstance() {
 		return instance;
@@ -594,5 +595,55 @@ public class MySQLFilmDAO implements IFilmDAO {
 			}
 		}
 		return film;
+	}
+
+	@Override
+	public Set<Film> getFilmsBetweenYears(int yearFrom, int yearTo) throws DAOException {
+		Set<Film> filmSet = new LinkedHashSet<Film>();
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(SELECT_FILMS_BETWEEN_YEARS);
+			st.setInt(1, yearFrom);
+			st.setInt(2, yearTo);
+			rs = st.executeQuery();
+			
+			while (rs.next()) {
+				Film film = new Film();
+				film.setId(rs.getInt(1));
+				film.setName(rs.getString(2));
+				film.setYear(rs.getInt(3));
+				film.setDirector(rs.getString(4));
+				film.setCountry(rs.getString(5));
+				film.setGenre(rs.getString(6));
+				film.setActors(rs.getString(7));
+				film.setComposer(rs.getString(8));
+				film.setDescription(rs.getString(9));
+				film.setLength(rs.getInt(10));
+				film.setRating(rs.getFloat(11));
+				film.setPrice(rs.getFloat(12));
+				
+				filmSet.add(film);
+			}
+			
+		} catch (SQLException e) {
+			throw new DAOException(ExceptionMessages.SQL_SELECT_FAILURE, e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
+		} finally {
+			try {
+				if (rs != null) { rs.close(); }
+				if (st != null) { st.close(); }
+			} catch (SQLException e) {
+				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED, e);
+			} finally {
+				if (con != null) { pool.closeConnection(con); }
+			}
+		}
+		return filmSet;
 	}
 }

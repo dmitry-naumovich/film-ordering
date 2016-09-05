@@ -16,5 +16,5 @@ public interface IFilmService {
 	Set<Film> getAllFilms() throws ServiceException;
 	
 	Set<Film> searchByName(String text) throws ServiceException;
-	Set<Film> searchWidened(String name, String year, String genre) throws ServiceException;
+	Set<Film> searchWidened(String name, String yearFrom, String yearTo, String genre) throws ServiceException;
 }

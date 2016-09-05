@@ -52,4 +52,6 @@ public final class RequestAndSessionAttributes {
 	public static final String VIEW_TYPE_ALL = "all";
 	public static final String VIEW_TYPE_USER = "user";
 	public static final String YEAR = "year";
+	public static final String YEAR_FROM = "yearFrom";
+	public static final String YEAR_TO = "yearTo";
 }

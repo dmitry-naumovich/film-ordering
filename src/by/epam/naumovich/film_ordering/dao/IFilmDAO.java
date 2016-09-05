@@ -24,5 +24,5 @@ public interface IFilmDAO {
 	Set<Film> getFilmsByYearGenre(int year, String genre) throws DAOException;
 	
 	Set<Film> getFilmsByNameYearGenre(String name, int year, String genre) throws DAOException;
-	
+	Set<Film> getFilmsBetweenYears(int yearFrom, int yearTo) throws DAOException;
 }

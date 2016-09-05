@@ -29,12 +29,13 @@ public class SearchFilmsWidened implements Command {
 		System.out.println(query);
 		
 		String name = request.getParameter(RequestAndSessionAttributes.NAME);
-		String year = request.getParameter(RequestAndSessionAttributes.YEAR);
+		String yearFrom = request.getParameter(RequestAndSessionAttributes.YEAR_FROM);
+		String yearTo = request.getParameter(RequestAndSessionAttributes.YEAR_TO);
 		String genre = request.getParameter(RequestAndSessionAttributes.GENRE);
 		
 		try {
 			IFilmService filmService = ServiceFactory.getInstance().getFilmService();
-			Set<Film> foundFilms = filmService.searchWidened(name, year, genre);
+			Set<Film> foundFilms = filmService.searchWidened(name, yearFrom, yearTo, genre);
 			request.setAttribute(RequestAndSessionAttributes.SUCCESS_MESSAGE, SuccessMessages.FILMS_FOUND);
 			request.setAttribute(RequestAndSessionAttributes.FILMS, foundFilms);
 			request.getRequestDispatcher(JavaServerPageNames.FILMS_JSP_PAGE).forward(request, response);

@@ -120,7 +120,6 @@ public class FilmServiceImpl implements IFilmService {
 						}
 					}
 				}
-				
 			}
 			
 			if (foundFilms.isEmpty()) {
@@ -134,12 +133,26 @@ public class FilmServiceImpl implements IFilmService {
 	}
 
 	@Override
-	public Set<Film> searchWidened(String name, String year, String genre) throws ServiceException {
+	public Set<Film> searchWidened(String name, String yearFrom, String yearTo, String genre) throws ServiceException {
+		int fYearFrom = 0;
+		int fYearTo = 9999;
 		
-		if (Validator.validateStrings(year)) {
+		if (Validator.validateStrings(yearFrom)) {
 			try {
-				int fYear = Integer.parseInt(year);
-				if (fYear < 0) {
+				fYearFrom = Integer.parseInt(yearFrom);
+				if (fYearFrom < 0) {
+					throw new GetFilmsServiceException(ExceptionMessages.INVALID_FILM_YEAR);
+				}
+				
+			} catch (NumberFormatException e) {
+				throw new GetFilmsServiceException(ExceptionMessages.INVALID_FILM_YEAR, e);
+			}
+		}
+		
+		if (Validator.validateStrings(yearTo)) {
+			try {
+				fYearTo = Integer.parseInt(yearTo);
+				if (fYearTo < 0) {
 					throw new GetFilmsServiceException(ExceptionMessages.INVALID_FILM_YEAR);
 				}
 				
@@ -153,21 +166,19 @@ public class FilmServiceImpl implements IFilmService {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			IFilmDAO filmDAO = daoFactory.getFilmDAO();
 			
-			if (Validator.validateStrings(year)) {
-				foundFilms.addAll(filmDAO.getFilmsByYear(Integer.parseInt(year)));
+			foundFilms.addAll(filmDAO.getFilmsBetweenYears(fYearFrom, fYearTo));
+			
+			if (Validator.validateStrings(genre)) {
+				Set<Film> filmsByGenre = filmDAO.getFilmsByGenre(genre);
+				foundFilms.retainAll(filmsByGenre);
 			}
 			
 			if (Validator.validateStrings(name)) {
 				try {
-					foundFilms.addAll(searchByName(name));
+					Set<Film> filmsByName = searchByName(name);
+					foundFilms.retainAll(filmsByName);
 				} catch (GetFilmsServiceException e) {
 				}
-			}
-			
-			
-			
-			if (Validator.validateStrings(genre)) {
-				foundFilms.addAll(filmDAO.getFilmsByGenre(genre));
 			}
 			
 			if (foundFilms.isEmpty()) {
