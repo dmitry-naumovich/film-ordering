@@ -36,6 +36,32 @@
   $(this).addClass('active');
 });
   </script>
+  <script type="text/javascript">
+	  window.setTimeout(function() {
+		    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+		        $(this).remove(); 
+		    });
+		}, 1000);
+   </script>
+   <script type="text/javascript">
+	function validateForm(event)
+	{
+	    event.preventDefault(); // this will prevent the submit event
+	    if(document.searchWidenedForm.name.value=="" && document.searchWidenedForm.year.value=="" && document.searchWidenedForm.genre.value=="") {
+		      alert("At least one of all fields must be filled");
+		      document.searchWidenedForm.name.focus();
+		      return false;
+		}
+	    else if (document.searchWidenedForm.year.value!="" && document.searchWidenedForm.year.value.length != 4) {
+	    	alert("Year value must contain 4 numbers");
+	    	document.searchWidenedForm.year.focus();
+	    	return false;
+	    }
+	    else {
+	        document.searchWidenedForm.submit(); // fire submit event
+	    }
+	}
+	</script>
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -60,35 +86,41 @@
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
-
-
-<form class="form-horizontal" method="post" name="register">
+				<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
+					<div class="alert alert-danger fade in">
+					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+					 ${errorMessage} 
+					</div>
+				</c:if>
+				
+<form name="searchWidenedForm" class="form-horizontal" action="Controller" onSubmit="return validateForm(event);">
+    <div class="form-group">
+    	<input type="hidden" name="command" value="search_films_widened" />
+  	</div>
     <div class="form-group">
       <label class="col-sm-2 control-label">${filmName}:</label>
       <div class="col-sm-10">
-        <input class="form-control" name="film-name" type="text" placeholder="${enterName}" required>
+        <input class="form-control" name="name" type="text" placeholder="${enterName}">
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-2 control-label">${filmYear}:</label>
       <div class="col-sm-10">
-        <input class="form-control" name="film-year" type="text" placeholder="${enterYear}" required>
+        <input class="form-control" name="year" type="text" placeholder="${enterYear}">
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-2 control-label">${filmGenre}:</label>
       <div class="col-sm-10">
-        <input class="form-control" name="film-genre" type="text" placeholder="${enterGenre}" required>
+        <input class="form-control" name="genre" type="text" placeholder="${enterGenre}">
       </div>
     </div>
     
     <div class="form-group">
-      <div class="col-sm-2 col-md-offset-2">
-      <a href="jsp/search-results.jsp" class="btn btn-primary" role="button">${searchBtn}</a>
-    </div>
-
+      	<div class="col-sm-2 col-md-offset-2">
+      		<button type="submit" class="btn btn-primary">${searchBtn}</button>
+    	</div>
     </div>    
-    
     
 </form>
           </div>

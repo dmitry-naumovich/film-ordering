@@ -11,6 +11,7 @@ import by.epam.naumovich.film_ordering.service.IFilmService;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.film.GetFilmsServiceException;
 import by.epam.naumovich.film_ordering.service.util.ExceptionMessages;
+import by.epam.naumovich.film_ordering.service.util.Validator;
 
 public class FilmServiceImpl implements IFilmService {
 
@@ -88,6 +89,10 @@ public class FilmServiceImpl implements IFilmService {
 
 	@Override
 	public Set<Film> searchByName(String text) throws ServiceException {
+		if (!Validator.validateStrings(text)) {
+			throw new GetFilmsServiceException(ExceptionMessages.NO_FILMS_FOUND);
+		}
+		
 		Set<Film> foundFilms = new LinkedHashSet<Film>();
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
@@ -116,6 +121,53 @@ public class FilmServiceImpl implements IFilmService {
 					}
 				}
 				
+			}
+			
+			if (foundFilms.isEmpty()) {
+				throw new GetFilmsServiceException(ExceptionMessages.NO_FILMS_FOUND);
+			}
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+		
+		return foundFilms;
+	}
+
+	@Override
+	public Set<Film> searchWidened(String name, String year, String genre) throws ServiceException {
+		
+		if (Validator.validateStrings(year)) {
+			try {
+				int fYear = Integer.parseInt(year);
+				if (fYear < 0) {
+					throw new GetFilmsServiceException(ExceptionMessages.INVALID_FILM_YEAR);
+				}
+				
+			} catch (NumberFormatException e) {
+				throw new GetFilmsServiceException(ExceptionMessages.INVALID_FILM_YEAR, e);
+			}
+		}
+		
+		Set<Film> foundFilms = new LinkedHashSet<Film>();
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IFilmDAO filmDAO = daoFactory.getFilmDAO();
+			
+			if (Validator.validateStrings(year)) {
+				foundFilms.addAll(filmDAO.getFilmsByYear(Integer.parseInt(year)));
+			}
+			
+			if (Validator.validateStrings(name)) {
+				try {
+					foundFilms.addAll(searchByName(name));
+				} catch (GetFilmsServiceException e) {
+				}
+			}
+			
+			
+			
+			if (Validator.validateStrings(genre)) {
+				foundFilms.addAll(filmDAO.getFilmsByGenre(genre));
 			}
 			
 			if (foundFilms.isEmpty()) {

@@ -18,6 +18,7 @@ public final class RequestAndSessionAttributes {
 	public static final String FILM = "film";
 	public static final String FILMS = "films";
 	public static final String FOUND_FILMS = "foundFilms";
+	public static final String GENRE = "genre";
 	public static final String IS_ADMIN = "isAdmin";
 	public static final String LANGUAGE = "language";
 	public static final String LOGIN = "login";
@@ -50,4 +51,5 @@ public final class RequestAndSessionAttributes {
 	public static final String USER = "user";
 	public static final String VIEW_TYPE_ALL = "all";
 	public static final String VIEW_TYPE_USER = "user";
+	public static final String YEAR = "year";
 }

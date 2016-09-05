@@ -45,6 +45,7 @@ public class CommandHelper {
 		commands.put(CommandName.OPEN_WIDEN_SEARCH_PAGE, new OpenWidenSearchPage());
 		commands.put(CommandName.SIGN_UP, new SignUp());
 		commands.put(CommandName.SEARCH_FILMS, new SearchFilms());
+		commands.put(CommandName.SEARCH_FILMS_WIDENED, new SearchFilmsWidened());
 		commands.put(CommandName.SEND_REVIEW, new SendReview());
 	}
 	

@@ -18,6 +18,7 @@ public final class ExceptionMessages {
 	public static final String INVALID_PASSWORD = "Password must be at least 4 symbols";
 	public static final String INVALID_PHONE_NUM = "Phone number must contain %s numbers";
 	public static final String INVALID_REVIEW_TYPE = "Review type can only be positive, negative or neutral! Please, try again.";
+	public static final String INVALID_FILM_YEAR = "The film year must contain 4 numbers. Please, try again!";
 	public static final String LOGIN_NOT_REGISTRATED = "No such login registrated. Please, try again!";
 	public static final String NEWS_NOT_PRESENT = "The news is not present in the database.";
 	public static final String NO_FILM_ORDERS = "This film has not been ordered yet";
