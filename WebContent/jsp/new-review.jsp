@@ -65,7 +65,7 @@
       }
       else if(document.getElementById("reviewTextArea").value.length < 50) {
         alert("Review text must contain at least 50 symbols");
-        document.updSettingsForm.reviewText.focus();
+        document.newReviewForm.reviewText.focus();
         return false;
       }
       else {
@@ -110,7 +110,7 @@
 					</div>
 				</c:if>
 
-<form  name="newReviewForm" class="form-horizontal" method="post"action="Controller?" onSubmit="return validateForm(event);">
+<form  name="newReviewForm" class="form-horizontal" method="post"action="Controller" onSubmit="return validateForm(event);">
   <div class="form-group">
     	<input type="hidden" name="command" value="send_review"/>
     	<input type="hidden" name="userID" value="${sessionScope.userID}" />
@@ -138,12 +138,13 @@
   <div class="form-group">
     <label class="col-sm-2 control-label">${reviewText}</label>
     <div class="col-sm-10"> 
-    	<textarea class="form-control" rows="5" name="reviewText" id="reviewTextArea"></textarea>
+    	<textarea class="form-control" rows="10" name="reviewText" id="reviewTextArea"></textarea>
     </div>
   </div>
-  <button type="submit" class="btn btn-primary">${sendBtn}</button>
+   <div class="col-sm-2 col-md-offset-2">
+		<button type="submit" class="btn btn-primary">${sendBtn}</button>
+	</div>
 </form>
-
           </div>
           </div>
       </div>
