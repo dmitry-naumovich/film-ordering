@@ -25,5 +25,5 @@ public final class JavaServerPageNames {
 	public static final String SINGLE_NEWS_PAGE = "jsp/single-news.jsp";
 	public static final String SINGLE_REVIEW_PAGE = "jsp/single-review.jsp";
 	public static final String SUCCESS_PAGE = "jsp/success-page.jsp";
-	public static final String WIDEN_SEARCH_PAGE = "jsp/widen-search.jsp";
+	public static final String WIDEN_SEARCH_PAGE = "jsp/widened-search.jsp";
 }

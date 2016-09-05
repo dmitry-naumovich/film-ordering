@@ -7,14 +7,15 @@
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resources.local" var="loc" />
 <fmt:message bundle="${loc}" key="local.common.serviceName" var="serviceName" />
-<fmt:message bundle="${loc}" key="local.widenSearch.pageTitle" var="pageTitle" />
-<fmt:message bundle="${loc}" key="local.widenSearch.pageHeader" var="pageHeader" />
-<fmt:message bundle="${loc}" key="local.widenSearch.filmName" var="filmName" />
-<fmt:message bundle="${loc}" key="local.widenSearch.filmYear" var="filmYear" />
-<fmt:message bundle="${loc}" key="local.widenSearch.filmGenre" var="filmGenre" />
-<fmt:message bundle="${loc}" key="local.widenSearch.searchBtn" var="searchBtn" />
+<fmt:message bundle="${loc}" key="local.widenedSearch.pageTitle" var="pageTitle" />
+<fmt:message bundle="${loc}" key="local.widenedSearch.pageHeader" var="pageHeader" />
+<fmt:message bundle="${loc}" key="local.widenedSearch.filmName" var="filmName" />
+<fmt:message bundle="${loc}" key="local.widenedSearch.filmYear" var="filmYear" />
+<fmt:message bundle="${loc}" key="local.widenedSearch.yearFrom" var="yearFrom" />
+<fmt:message bundle="${loc}" key="local.widenedSearch.yearTo" var="yearTo" />
+<fmt:message bundle="${loc}" key="local.widenedSearch.filmGenre" var="filmGenre" />
+<fmt:message bundle="${loc}" key="local.widenedSearch.searchBtn" var="searchBtn" />
 <fmt:message bundle="${loc}" key="local.addFilm.enterName" var="enterName" />
-<fmt:message bundle="${loc}" key="local.addFilm.enterYear" var="enterYear" />
 <fmt:message bundle="${loc}" key="local.addFilm.enterGenre" var="enterGenre" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -47,14 +48,20 @@
 	function validateForm(event)
 	{
 	    event.preventDefault(); // this will prevent the submit event
-	    if(document.searchWidenedForm.name.value=="" && document.searchWidenedForm.year.value=="" && document.searchWidenedForm.genre.value=="") {
+	    if(document.searchWidenedForm.name.value=="" && document.searchWidenedForm.yearFrom.value=="" 
+	    	&& document.searchWidenedForm.yearTo.value=="" && document.searchWidenedForm.genre.value=="") {
 		      alert("At least one of all fields must be filled");
 		      document.searchWidenedForm.name.focus();
 		      return false;
 		}
-	    else if (document.searchWidenedForm.year.value!="" && document.searchWidenedForm.year.value.length != 4) {
+	    else if (document.searchWidenedForm.yearFrom.value!="" && document.searchWidenedForm.yearFrom.value.length != 4) {
 	    	alert("Year value must contain 4 numbers");
-	    	document.searchWidenedForm.year.focus();
+	    	document.searchWidenedForm.yearFrom.focus();
+	    	return false;
+	    }
+	    else if (document.searchWidenedForm.yearTo.value!="" && document.searchWidenedForm.yearTo.value.length != 4) {
+	    	alert("Year value must contain 4 numbers");
+	    	document.searchWidenedForm.yearTo.focus();
 	    	return false;
 	    }
 	    else {
@@ -104,9 +111,14 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${filmYear}:</label>
-      <div class="col-sm-10">
-        <input class="form-control" name="year" type="text" placeholder="${enterYear}">
+      <label class="col-sm-2 control-label">${filmYear}: </label>
+      <p class="col-sm-1 control-label">${yearFrom}</p>
+      <div class="col-sm-2"> 
+        <input class="form-control" name="yearFrom" type="number">
+      </div>
+      <p class="col-sm-1 control-label">${yearTo}</p> 
+      <div class="col-sm-2"> 
+        <input class="form-control" name="yearTo" type="number">
       </div>
     </div>
     <div class="form-group">

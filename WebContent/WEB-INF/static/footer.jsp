@@ -10,7 +10,7 @@
 <fmt:message bundle="${loc}" key="local.footer.siteMap.main" var="main" />
 <fmt:message bundle="${loc}" key="local.footer.siteMap.films" var="films" />
 <fmt:message bundle="${loc}" key="local.footer.siteMap.reviews" var="reviews" />
-<fmt:message bundle="${loc}" key="local.footer.siteMap.widenSearch" var="widenSearch" />
+<fmt:message bundle="${loc}" key="local.footer.siteMap.widenedSearch" var="widenedSearch" />
 <fmt:message bundle="${loc}" key="local.footer.siteMap.signIn" var="signIn" />
 <fmt:message bundle="${loc}" key="local.footer.siteMap.signUp" var="signUp" />
 <fmt:message bundle="${loc}" key="local.footer.siteMap.profile" var="profile" />
@@ -37,7 +37,7 @@
           <li><a href="index.jsp">${main}</a></li>
           <li><a href="<c:url value="/Controller?command=open_news_list"/>" > ${news} </a></li>
           <li><a href="<c:url value="/Controller?command=open_film_list"/>" >${films}</a></li>
-          <li><a href="<c:url value="/Controller?command=open_widen_search_page"/>"> ${widenSearch} </a></li>
+          <li><a href="<c:url value="/Controller?command=open_widened_search_page"/>"> ${widenedSearch} </a></li>
         </ul>
       </div>
       <div class="col-md-2">

@@ -42,7 +42,7 @@ public class CommandHelper {
 		commands.put(CommandName.OPEN_USER_SETTINGS, new OpenUserSettings());
 		commands.put(CommandName.OPEN_USER_ORDERS, new OpenUserOrders());
 		commands.put(CommandName.OPEN_USER_REVIEWS, new OpenUserReviews());
-		commands.put(CommandName.OPEN_WIDEN_SEARCH_PAGE, new OpenWidenSearchPage());
+		commands.put(CommandName.OPEN_WIDENED_SEARCH_PAGE, new OpenWidenedSearchPage());
 		commands.put(CommandName.SIGN_UP, new SignUp());
 		commands.put(CommandName.SEARCH_FILMS, new SearchFilms());
 		commands.put(CommandName.SEARCH_FILMS_WIDENED, new SearchFilmsWidened());

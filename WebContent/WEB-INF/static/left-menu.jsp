@@ -12,7 +12,7 @@
    	<fmt:message bundle="${loc}" key="local.leftMenu.profilePage" var="profilePage" />
    	<fmt:message bundle="${loc}" key="local.leftMenu.aboutUsPage" var="aboutUsPage" />
    	<fmt:message bundle="${loc}" key="local.leftMenu.newsPage" var="newsPage" />
-   	<fmt:message bundle="${loc}" key="local.leftMenu.widenSearchPage" var="widenSearchPage" />
+   	<fmt:message bundle="${loc}" key="local.leftMenu.widenedSearchPage" var="widenedSearchPage" />
    	
 <div class="col-md-2"> 
       <div class="left-sidebar" id="myScrollspy">
@@ -22,7 +22,7 @@
           <li><a href="<c:url value="/Controller?command=open_user_profile&userID=${sessionScope.userID}"/>"> ${profilePage} </a></li> 
           <li><a href="<c:url value="/Controller?command=open_about_us_page"/>"> ${aboutUsPage} </a></li>
           <li><a href="<c:url value="/Controller?command=open_news_list"/>"> ${newsPage} </a></li>
-          <li><a href="<c:url value="/Controller?command=open_widen_search_page"/>"> ${widenSearchPage} </a></li>
+          <li><a href="<c:url value="/Controller?command=open_widened_search_page"/>"> ${widenedSearchPage} </a></li>
         </ul>
       </div>
 </div>
