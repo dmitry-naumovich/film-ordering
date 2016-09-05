@@ -15,6 +15,7 @@ import by.epam.naumovich.film_ordering.service.util.ExceptionMessages;
 public class FilmServiceImpl implements IFilmService {
 
 	private static final String MYSQL = "mysql";
+	private static final String SPACE = " ";
 	
 	@Override
 	public void addNewFilm(Film film) throws ServiceException {
@@ -93,13 +94,29 @@ public class FilmServiceImpl implements IFilmService {
 			IFilmDAO filmDAO = daoFactory.getFilmDAO();
 			foundFilms.addAll(filmDAO.getFilmsByName(text));
 			Set<Film> allFilms = filmDAO.getAllFilms();
+			
+			String searchText = text.toLowerCase();
+			boolean moreThanOneWord = false;
+			String[] words = null;
+			
+			if (searchText.split(SPACE).length > 1) {
+				moreThanOneWord = true;
+				words = searchText.split(SPACE);
+			}
 			for (Film f : allFilms) {
 				String filmName = f.getName().toLowerCase();
-				if (filmName.contains(text.toLowerCase()) || text.toLowerCase().contains(filmName)) {
+				if (filmName.contains(searchText) || searchText.contains(filmName)) {
 					foundFilms.add(f);
 				}
+				if (moreThanOneWord) {
+					for (String s : words) {
+						if (filmName.contains(s) || s.contains(filmName)) {
+							foundFilms.add(f);
+						}
+					}
+				}
+				
 			}
-			
 			
 			if (foundFilms.isEmpty()) {
 				throw new GetFilmsServiceException(ExceptionMessages.NO_FILMS_FOUND);
