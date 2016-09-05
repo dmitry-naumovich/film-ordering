@@ -20,14 +20,13 @@ public class OpenSingleNews implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		int newsID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.NEWS_ID));
-		INewsService newsService = ServiceFactory.getInstance().getNewsService();
-		
 		String query = QueryUtil.createHttpQueryString(request);
 		request.getSession(true).setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
 		try {
+			int newsID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.NEWS_ID));
+			INewsService newsService = ServiceFactory.getInstance().getNewsService();
 			News news = newsService.getNewsById(newsID);
 			request.setAttribute(RequestAndSessionAttributes.NEWS, news);
 			

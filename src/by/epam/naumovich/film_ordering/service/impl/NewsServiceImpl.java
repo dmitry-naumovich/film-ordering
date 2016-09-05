@@ -1,5 +1,9 @@
 package by.epam.naumovich.film_ordering.service.impl;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,21 +15,43 @@ import by.epam.naumovich.film_ordering.dao.INewsDAO;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.service.INewsService;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
+import by.epam.naumovich.film_ordering.service.exception.news.AddNewsServiceException;
 import by.epam.naumovich.film_ordering.service.exception.news.GetNewsServiceException;
 import by.epam.naumovich.film_ordering.service.util.ExceptionMessages;
+import by.epam.naumovich.film_ordering.service.util.Validator;
 
 public class NewsServiceImpl implements INewsService {
 
 	private static final String MYSQL = "mysql";
 	
 	@Override
-	public void addNews(News news) throws ServiceException {
-		// TODO Auto-generated method stub
-
+	public int addNews(String title, String text) throws ServiceException {
+		if (!Validator.validateStrings(title, text)) {
+			throw new AddNewsServiceException(ExceptionMessages.INVALID_NEWS_TITLE_OR_TEXT);
+		}
+		News news = new News();
+		news.setTitle(title);
+		news.setText(text);
+		news.setDate(Date.valueOf(LocalDate.now()));
+		news.setTime(Time.valueOf(LocalTime.now()));
+		
+		int newsID = 0;
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			INewsDAO newsDAO = daoFactory.getNewsDAO();
+			newsID = newsDAO.addNews(news);
+			if (newsID == 0) {
+				throw new AddNewsServiceException(ExceptionMessages.NEWS_NOT_ADDED);
+			}
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+		
+		return newsID;
 	}
 
 	@Override
-	public void deleteNews(News news) throws ServiceException {
+	public void deleteNews(int id) throws ServiceException {
 		// TODO Auto-generated method stub
 
 	}

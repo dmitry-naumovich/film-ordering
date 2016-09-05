@@ -7,8 +7,8 @@ import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
 public interface INewsService {
 
-	void addNews(News news) throws ServiceException;
-	void deleteNews(News news) throws ServiceException;
+	int addNews(String title, String text) throws ServiceException;
+	void deleteNews(int id) throws ServiceException;
 	List<News> getAllNews() throws ServiceException;
 	List<News> getFourLastNews() throws ServiceException;
 	News getNewsById(int id) throws ServiceException;

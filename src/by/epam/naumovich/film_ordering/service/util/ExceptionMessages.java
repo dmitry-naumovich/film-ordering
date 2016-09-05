@@ -14,12 +14,14 @@ public final class ExceptionMessages {
 	public static final String FILM_NOT_PRESENT = "The film is not present in the database";
 	public static final String INVALID_BIRTHDATE = "The year must exceed %s and the date can not exceed today";
 	public static final String INVALID_EMAIL = "The e-mail you entered is not valid. Please, try again.";
+	public static final String INVALID_FILM_YEAR = "The film year must contain 4 numbers. Please, try again!";
 	public static final String INVALID_LOGIN = "Login must start with the letter and consist at least 3 symbols (latin letters and numbers)";
+	public static final String INVALID_NEWS_TITLE_OR_TEXT = "Invalid news title or text! Please, try again.";
 	public static final String INVALID_PASSWORD = "Password must be at least 4 symbols";
 	public static final String INVALID_PHONE_NUM = "Phone number must contain %s numbers";
 	public static final String INVALID_REVIEW_TYPE = "Review type can only be positive, negative or neutral! Please, try again.";
-	public static final String INVALID_FILM_YEAR = "The film year must contain 4 numbers. Please, try again!";
 	public static final String LOGIN_NOT_REGISTRATED = "No such login registrated. Please, try again!";
+	public static final String NEWS_NOT_ADDED = "The news was not added to the database. Sorry!";
 	public static final String NEWS_NOT_PRESENT = "The news is not present in the database.";
 	public static final String NO_FILM_ORDERS = "This film has not been ordered yet";
 	public static final String NO_FILM_REVIEWS = "No reviews for this film";

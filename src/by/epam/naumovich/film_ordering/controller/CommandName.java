@@ -1,6 +1,7 @@
 package by.epam.naumovich.film_ordering.controller;
 
 public enum CommandName {
+	ADD_NEWS,
 	CHANGE_LANGUAGE,
 	CHANGE_USER_SETTINGS,
 	GET_NOVELTY,

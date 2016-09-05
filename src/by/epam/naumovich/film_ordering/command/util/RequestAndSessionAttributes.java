@@ -26,6 +26,8 @@ public final class RequestAndSessionAttributes {
 	public static final String NAME = "name";
 	public static final String NEWS = "news";
 	public static final String NEWS_ID = "newsID";
+	public static final String NEWS_TITLE = "newsTitle";
+	public static final String NEWS_TEXT = "newsText";
 	public static final String NOVELTY_LIST = "noveltyList";
 	public static final String ORDER_SUM = "orderSum";
 	public static final String ORDER_VIEW_TYPE = "orderViewType";

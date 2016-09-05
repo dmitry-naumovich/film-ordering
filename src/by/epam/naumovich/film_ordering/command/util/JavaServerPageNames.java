@@ -15,6 +15,7 @@ public final class JavaServerPageNames {
 	public static final String HELP_PAGE = "jsp/help.jsp";
 	public static final String LOGINATION_PAGE = "jsp/logination.jsp";
 	public static final String NEW_REVIEW_PAGE = "jsp/new-review.jsp";
+	public static final String NEWS_ADDING_PAGE = "jsp/news-adding.jsp";
 	public static final String NEWS_JSP_PAGE = "jsp/news.jsp";
 	public static final String ORDER_PAGE = "jsp/order.jsp";
 	public static final String ORDERS_PAGE = "jsp/orders.jsp";

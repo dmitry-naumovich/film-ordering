@@ -16,12 +16,13 @@ import by.epam.naumovich.task82.dao.pool.exception.ConnectionPoolException;
 
 public class MySQLNewsDAO implements INewsDAO {
 
-	public static final String INSERT_NEW_NEWS = "INSERT INTO News (n_date, n_time, n_title, n_text) VALUES (?, ?, ?)";
+	public static final String INSERT_NEW_NEWS = "INSERT INTO News (n_date, n_time, n_title, n_text) VALUES (?, ?, ?, ?)";
 	public static final String DELETE_NEWS = "DELETE FROM News WHERE n_id = ?";
 	public static final String SELECT_ALL_NEWS = "SELECT * FROM News";
 	public static final String SELECT_NEWS_BY_ID = "SELECT * FROM News WHERE n_id = ?";
 	public static final String SELECT_NEWS_BY_YEAR = "SELECT * FROM News WHERE YEAR(n_date) = ?";
 	public static final String SELECT_NEWS_BY_MONTH_AND_YEAR = "SELECT * FROM News WHERE MONTH(n_date) = ? AND YEAR(n_date) = ?";
+	public static final String SELECT_NEW_NEWS_ID = "SELECT n_id FROM News WHERE n_title = ? AND n_text = ?";
 	
 	private static final MySQLNewsDAO instance = new MySQLNewsDAO();
 	
@@ -30,10 +31,12 @@ public class MySQLNewsDAO implements INewsDAO {
 	}
 	
 	@Override
-	public void addNews(News news) throws DAOException {
+	public int addNews(News news) throws DAOException {
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
+		PreparedStatement st2 = null;
+		ResultSet rs = null;
 		try {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
@@ -44,6 +47,15 @@ public class MySQLNewsDAO implements INewsDAO {
 			st.setString(4, news.getText());
 			st.executeUpdate();
 			
+			st2 = con.prepareStatement(SELECT_NEW_NEWS_ID);
+			
+			st2.setString(1, news.getTitle());
+			st2.setString(2, news.getText());
+			rs = st2.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			
 		} catch (SQLException e) {
 			throw new DAOException(ExceptionMessages.SQL_INSERT_FAILURE, e);
 		} catch (ConnectionPoolException e) {
@@ -51,16 +63,19 @@ public class MySQLNewsDAO implements INewsDAO {
 		} finally {
 			try {
 				if (st != null) { st.close(); }
+				if (rs != null) { rs.close(); }
+				if (st2 != null) { st2.close(); }
 			} catch (SQLException e) {
 				throw new DAOException(ExceptionMessages.PREP_STATEMENT_NOT_CLOSED, e);
 			} finally {
 				if (con != null) { pool.closeConnection(con); }
 			}
 		}
+		return 0;
 	}
 
 	@Override
-	public void deleteNews(News news) throws DAOException {
+	public void deleteNews(int id) throws DAOException {
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -68,7 +83,7 @@ public class MySQLNewsDAO implements INewsDAO {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(DELETE_NEWS);
-			st.setString(1, String.valueOf(news.getId()));
+			st.setInt(1, id);
 			st.executeUpdate();
 			
 		} catch (SQLException e) {

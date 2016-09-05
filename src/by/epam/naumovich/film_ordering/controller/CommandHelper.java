@@ -18,6 +18,7 @@ public class CommandHelper {
 	private Map<CommandName, Command> commands = new HashMap<>();
 	
 	public CommandHelper() {
+		commands.put(CommandName.ADD_NEWS, new AddNews());
 		commands.put(CommandName.CHANGE_LANGUAGE, new ChangeLanguage());
 		commands.put(CommandName.CHANGE_USER_SETTINGS, new ChangeUserSettings());
 		commands.put(CommandName.GET_NOVELTY, new GetNovelty());

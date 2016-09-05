@@ -4,6 +4,7 @@ public final class ErrorMessages {
 
 	public ErrorMessages() {}
 	
+	public static final String ADD_NEWS_RESTRICTION = "Only administrator is able to add news";
 	public static final String LOG_OUT_FOR_ANOTHER_ACC = "Log out to sign into another account!";
 	public static final String LOG_OUT_FOR_SIGN_UP = "Log out to be able to sign up!";
 	public static final String NOTHING_FOUND = "No films found within this search query! Please, try again.";
@@ -14,4 +15,5 @@ public final class ErrorMessages {
 	public static final String SIGN_IN_FOR_SETTINGS = "Sign in to access or change your profile settings";
 	public static final String SIGN_IN_FOR_YOUR_ORDERS = "Sign in to see your orders";
 	public static final String SIGN_IN_FOR_YOUR_REVIEWS = "Sign in to see your reviews";
+	
 }
