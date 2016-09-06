@@ -2,6 +2,7 @@ package by.epam.naumovich.film_ordering.controller;
 
 public enum CommandName {
 	ADD_NEWS,
+	ADD_REVIEW,
 	CHANGE_LANGUAGE,
 	CHANGE_USER_SETTINGS,
 	GET_NOVELTY,
@@ -29,6 +30,5 @@ public enum CommandName {
 	OPEN_WIDENED_SEARCH_PAGE,
 	SIGN_UP,
 	SEARCH_FILMS,
-	SEARCH_FILMS_WIDENED,
-	SEND_REVIEW
+	SEARCH_FILMS_WIDENED	
 }

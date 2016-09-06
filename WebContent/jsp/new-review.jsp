@@ -112,7 +112,7 @@
 
 <form  name="newReviewForm" class="form-horizontal" method="post"action="Controller" onSubmit="return validateForm(event);">
   <div class="form-group">
-    	<input type="hidden" name="command" value="send_review"/>
+    	<input type="hidden" name="command" value="add_review"/>
     	<input type="hidden" name="userID" value="${sessionScope.userID}" />
   		<input type="hidden" name="filmID" value="${film.id}" />
   	</div>
