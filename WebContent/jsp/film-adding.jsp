@@ -43,6 +43,32 @@
   <link rel="stylesheet" href="css/bootstrap.min.css" >
   <link rel="stylesheet" href="css/styles.css">
   <script type="text/javascript">
+  window.setTimeout(function() {
+	    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+	        $(this).remove(); 
+	    });
+	}, 1000);
+  </script>
+  <script type="text/javascript">
+	  function validateForm(event)
+	  {
+	      event.preventDefault(); // this will prevent the submit event
+	      if(document.newNewsForm.newsTitle.value=="") {
+		      alert("News title can not be left blank");
+		      document.newNewsForm.newsTitle.focus();
+		      return false;
+			}
+	      else if(document.getElementById("newsTextArea").value.length < 50) {
+	        alert("News text must contain at least 50 symbols");
+	        document.newNewsForm.newsText.focus();
+	        return false;
+	      }
+	      else {
+	          document.newNewsForm.submit();
+	      }
+	  }
+  </script>
+  <script type="text/javascript">
     $('.nav li').click(function(e) {
   e.preventDefault();
   $('.nav li').removeClass('active');
@@ -60,7 +86,6 @@
 
   <jsp:include page="/WEB-INF/static/header.jsp"></jsp:include>
 
-
   <div class="container-fluid"> 
     <div class="row content ">
     
@@ -73,104 +98,98 @@
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
+            	<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
+					<div class="alert alert-danger fade in">
+					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+					 ${errorMessage} 
+					</div>
+				</c:if>
 
 
-<form class="form-horizontal" name="newFilm" action="Controller" method="post">
+<form name="newFilmForm" class="form-horizontal" method="post" action="Controller" onSubmit="return validateForm(event);">
     <div class="form-group">
-		 <input type="hidden" name="command" value="add_new_film" />
+		 <input type="hidden" name="command" value="add_film" />
 	</div>
     
     <div class="form-group">
       <label class="col-sm-2 control-label">${name}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="nameInput" type="text" placeholder="${enterName}" required>
+        <input class="form-control" name="name" type="text" placeholder="${enterName}" required>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-2 control-label">${year}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="yearInput" type="text" placeholder="${enterYear}" required>
+        <input class="form-control" name="year" type="text" placeholder="${enterYear}" required>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-2 control-label">${director}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="directorInput" type="text" placeholder="${enterDirector}" required>
+        <input class="form-control" name="director" type="text" placeholder="${enterDirector}" required>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-2 control-label">${cast}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="yearInput" type="text" placeholder="${enterCast}" required>
+        <input class="form-control" name="cast" type="text" placeholder="${enterCast}" required>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-2 control-label">${country}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="countriesInput" type="text" placeholder="${enterCountry}" required>
+        <input class="form-control" name="country" type="text" placeholder="${enterCountry}" required>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-2 control-label">${composer}:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="composerInput" type="text" placeholder="${enterComposer}" required>
+        <input class="form-control" name="composer" type="text" placeholder="${enterComposer}" required>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-2 control-label">${genre}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="genresInput" type="text" placeholder="${enterGenre}" required>
+        <input class="form-control" name="genre" type="text" placeholder="${enterGenre}" required>
       </div>
     </div>
      <div class="form-group">
       <label class="col-sm-2 control-label">${lengthmin}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="lengthInput" type="text" placeholder="${enterLength}" required>
+        <input class="form-control" name="length" type="text" placeholder="${enterLength}" required>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-2 control-label">${price}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="costInput" type="text" placeholder="${enterPrice}" required>
+        <input class="form-control" name="price" type="text" placeholder="${enterPrice}" required>
       </div>
     </div>
-
      <div class="form-group">
       <label class="col-sm-2 control-label">${folder}: </label>
       <div class="col-sm-10">
-            <input type="file" name="avatar">
+            <input type="file" name="filmFolder">
       </div>
     </div>    
-
     <div class="form-group">
       <label class="col-sm-2 control-label" for="comment">${description}:</label>
       <div class="col-sm-10">
-        <textarea class="form-control" rows="5" id="comment"></textarea>
+        <textarea class="form-control" name="description" rows="5"></textarea>
       </div>
     </div>
     <div class="form-group">
       <div class="col-sm-2 col-md-offset-2">
-      <button type="submit" class="btn btn-primary">${addFilmBtn}</button>
+      	<button type="submit" class="btn btn-primary">${addFilmBtn}</button>
       </div>
-
     </div>    
-    
-    
 </form>
           </div>
           </div>
-
       </div>
       </div>
-
       <jsp:include page="/WEB-INF/static/right-sidebar.jsp"></jsp:include>
-      
     </div>
-     </div>
-
-  </div>  
-  
-
+   </div>
   <jsp:include page="/WEB-INF/static/footer.jsp"></jsp:include>
 </body>
 </html>

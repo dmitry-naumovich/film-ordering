@@ -28,11 +28,6 @@
   <link rel="icon"  type="image/x-icon" href="img/tab-logo.png">
   <link rel="stylesheet" href="css/bootstrap.min.css" >
   <link rel="stylesheet" href="css/styles.css">
-  <script>
-   $( function() {
-	    $( ".datepicker" ).datepicker();
-	  } );
-  </script>
   <script type="text/javascript">
   function validateForm(event)
   {
