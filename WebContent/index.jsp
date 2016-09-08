@@ -61,11 +61,28 @@
 		            <div class="col-sm-6 col-md-4 col-xs-12 col-lg-4" style="height:520px;">
 		              <h2 style="text-align:center">${film.name} (${film.year}) </h2>
 		              <p><b>${director}:</b> ${film.director} </p>
-		              <p><b>${cast}:</b> ${film.actors} </p>
-		              <p><b>${genre}:</b> ${film.genre} </p>
-		              <img src="img/films/${film.id}/01.jpg" alt="${film.name}" class="img-rounded" style="width: 100%; height: auto;" />
+		              <c:choose>
+		              <c:when test="${film.actors != null}">
+		                       <p><b>${cast}:</b> ${film.actors} </p>
+	                      </c:when>
+	                      <c:otherwise>
+	                      <p><b>${cast}:</b> — </p>
+	                      </c:otherwise>
+	                  </c:choose>
+	                  <c:choose>
+	                  <c:when test="${film.genre != null}">
+		                       <p><b>${genre}:</b> ${film.genre} </p>
+	                      </c:when>
+	                      <c:otherwise>
+	                      <p><b>${genre}:</b> — </p>
+	                      </c:otherwise>
+	                  </c:choose>
+		             
 		              
-		              <br><p>${film.description} </p>
+		              <img src="img/films/${film.id}/01.jpg" alt="${film.name}" class="img-rounded" style="width: 100%; height: auto;" />
+		              <c:if test="${film.description != null}">
+		              	<br><p>${film.description} </p>
+		              </c:if>
 		              <p>
 		              	<c:choose> 
               				<c:when test="${sessionScope.isAdmin}">
