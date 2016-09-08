@@ -40,9 +40,7 @@ public class MySQLUserDAO implements IUserDAO {
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
-		PreparedStatement st2 = null;
-		int newUserID = 0;
-		
+		PreparedStatement st2 = null;		
 		try {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
@@ -82,7 +80,7 @@ public class MySQLUserDAO implements IUserDAO {
 			st2.setString(1, user.getLogin());
 			ResultSet rs = st2.executeQuery();
 			if (rs.next()) {
-				newUserID = rs.getInt(1);
+				return rs.getInt(1);
 			}
 			
 		} catch (SQLException e) {
@@ -99,7 +97,7 @@ public class MySQLUserDAO implements IUserDAO {
 				if (con != null) { pool.closeConnection(con); }
 			}
 		}
-		return newUserID;
+		return 0;
 	}
 
 	@Override

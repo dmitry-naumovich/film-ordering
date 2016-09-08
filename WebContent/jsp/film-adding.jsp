@@ -53,18 +53,33 @@
 	  function validateForm(event)
 	  {
 	      event.preventDefault(); // this will prevent the submit event
-	      if(document.newNewsForm.newsTitle.value=="") {
-		      alert("News title can not be left blank");
-		      document.newNewsForm.newsTitle.focus();
+	      if(document.newFilmForm.name.value=="") {
+		      alert("Film name can not be left blank");
+		      document.newFilmForm.name.focus();
 		      return false;
 			}
-	      else if(document.getElementById("newsTextArea").value.length < 50) {
-	        alert("News text must contain at least 50 symbols");
-	        document.newNewsForm.newsText.focus();
-	        return false;
+	      else if (document.newFilmForm.year.value=="") {
+	    	  alert("Film year can not be left blank");
+		      document.newFilmForm.year.focus();
+		      return false;
+	      }
+	      else if (document.newFilmForm.director.value=="") {
+	    	  alert("Film director can not be left blank");
+		      document.newFilmForm.director.focus();
+		      return false;
+	      }
+	      else if (document.newFilmForm.length.value=="") {
+	    	  alert("Film length can not be left blank");
+		      document.newFilmForm.length.focus();
+		      return false;
+	      }
+	      else if (document.newFilmForm.price.value=="") {
+	    	  alert("Film price can not be left blank");
+		      document.newFilmForm.price.focus();
+		      return false;
 	      }
 	      else {
-	          document.newNewsForm.submit();
+	          document.newFilmForm.submit();
 	      }
 	  }
   </script>
@@ -114,55 +129,55 @@
     <div class="form-group">
       <label class="col-sm-2 control-label">${name}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" name="name" type="text" placeholder="${enterName}" required>
+        <input class="form-control" name="name" type="text" placeholder="${enterName}" >
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-2 control-label">${year}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" name="year" type="text" placeholder="${enterYear}" required>
+        <input class="form-control" name="year" type="text" placeholder="${enterYear}" >
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-2 control-label">${director}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" name="director" type="text" placeholder="${enterDirector}" required>
+        <input class="form-control" name="director" type="text" placeholder="${enterDirector}" >
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${cast}*:</label>
+      <label class="col-sm-2 control-label">${cast}:</label>
       <div class="col-sm-10">
-        <input class="form-control" name="cast" type="text" placeholder="${enterCast}" required>
+        <input class="form-control" name="cast" type="text" placeholder="${enterCast}">
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${country}*:</label>
+      <label class="col-sm-2 control-label">${country}:</label>
       <div class="col-sm-10">
-        <input class="form-control" name="country" type="text" placeholder="${enterCountry}" required>
+        <input class="form-control" name="country" type="text" placeholder="${enterCountry}">
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-2 control-label">${composer}:</label>
       <div class="col-sm-10">
-        <input class="form-control" name="composer" type="text" placeholder="${enterComposer}" required>
+        <input class="form-control" name="composer" type="text" placeholder="${enterComposer}">
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${genre}*:</label>
+      <label class="col-sm-2 control-label">${genre}:</label>
       <div class="col-sm-10">
-        <input class="form-control" name="genre" type="text" placeholder="${enterGenre}" required>
+        <input class="form-control" name="genre" type="text" placeholder="${enterGenre}">
       </div>
     </div>
      <div class="form-group">
       <label class="col-sm-2 control-label">${lengthmin}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" name="length" type="text" placeholder="${enterLength}" required>
+        <input class="form-control" name="length" type="text" placeholder="${enterLength}">
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-2 control-label">${price}*:</label>
       <div class="col-sm-10">
-        <input class="form-control" name="price" type="text" placeholder="${enterPrice}" required>
+        <input class="form-control" name="price" type="text" placeholder="${enterPrice}">
       </div>
     </div>
      <div class="form-group">

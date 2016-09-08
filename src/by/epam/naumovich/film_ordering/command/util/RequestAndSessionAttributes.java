@@ -8,6 +8,11 @@ public final class RequestAndSessionAttributes {
 	public static final String AUTHORIZED_USER = "authUser";
 	public static final String AVATAR = "avatar";
 	public static final String BDATE = "birthDate";
+	public static final String CAST = "cast";
+	public static final String COMPOSER = "composer";
+	public static final String COUNTRY = "country";
+	public static final String DESCRIPTION = "description";
+	public static final String DIRECTOR = "director";
 	public static final String DISCOUNT_AMOUNT = "discountAmount";
 	public static final String EMAIL = "email";
 	public static final String EMPTY_STRING = "";
@@ -21,6 +26,7 @@ public final class RequestAndSessionAttributes {
 	public static final String GENRE = "genre";
 	public static final String IS_ADMIN = "isAdmin";
 	public static final String LANGUAGE = "language";
+	public static final String LENGTH = "length";
 	public static final String LOGIN = "login";
 	public static final String LOGINS = "logins";
 	public static final String NAME = "name";
@@ -37,6 +43,7 @@ public final class RequestAndSessionAttributes {
 	public static final String PASSWORD_REPEATED = "passwordRepeated";
 	public static final String PHONE = "phone";
 	public static final String PREV_QUERY = "prev_query";
+	public static final String PRICE = "price";
 	public static final String REVIEW = "review";
 	public static final String REVIEW_MARK = "mark";
 	public static final String REVIEW_TEXT = "reviewText";

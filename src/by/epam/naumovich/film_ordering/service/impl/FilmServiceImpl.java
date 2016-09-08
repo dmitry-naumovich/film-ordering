@@ -9,6 +9,7 @@ import by.epam.naumovich.film_ordering.dao.IFilmDAO;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.service.IFilmService;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
+import by.epam.naumovich.film_ordering.service.exception.film.AddFilmServiceException;
 import by.epam.naumovich.film_ordering.service.exception.film.GetFilmsServiceException;
 import by.epam.naumovich.film_ordering.service.util.ExceptionMessages;
 import by.epam.naumovich.film_ordering.service.util.Validator;
@@ -19,9 +20,68 @@ public class FilmServiceImpl implements IFilmService {
 	private static final String SPACE = " ";
 	
 	@Override
-	public void addNewFilm(Film film) throws ServiceException {
-		// TODO Auto-generated method stub
-
+	public int addNewFilm(String name, String year, String director, String cast, String country, String composer,
+			String genre, String length, String price, String description) throws ServiceException {
+		
+		if (!Validator.validateStrings(name, year, director, length, price)) {
+			throw new AddFilmServiceException(ExceptionMessages.CORRUPTED_FILM_REQUIRED_FIELDS);
+		}
+		Film newFilm = new Film();
+		newFilm.setName(name);
+		
+		try {
+			int fYear = Integer.parseInt(year);
+			newFilm.setYear(fYear);
+		} catch (NumberFormatException e) {
+			throw new AddFilmServiceException(ExceptionMessages.INVALID_FILM_YEAR);
+		}
+		
+		newFilm.setDirector(director);
+		if (Validator.validateStrings(cast)) { 
+			 newFilm.setActors(cast);
+		}
+		if (Validator.validateStrings(country)) {
+			newFilm.setCountry(country);
+		}
+		if (Validator.validateStrings(composer)) {
+			newFilm.setComposer(composer);
+		}
+		if (Validator.validateStrings(genre)) {
+			newFilm.setGenre(genre);
+		}
+		
+		try {
+			int fLength = Integer.parseInt(length);
+			newFilm.setLength(fLength);
+		} catch (NumberFormatException e) {
+			throw new AddFilmServiceException(ExceptionMessages.INVALID_FILM_LENGTH);
+		}
+		
+		try {
+			int fPrice = Integer.parseInt(price);
+			newFilm.setPrice(fPrice);
+		} catch (NumberFormatException e) {
+			throw new AddFilmServiceException(ExceptionMessages.INVALID_FILM_PRICE);
+		}
+	
+		if (Validator.validateStrings(description)) {
+			newFilm.setDescription(description);
+		}
+		
+		int newFilmID = 0;
+		try {
+			IFilmDAO filmDAO = DAOFactory.getDAOFactory(MYSQL).getFilmDAO();
+			newFilmID = filmDAO.addFilm(newFilm);
+			if (newFilmID == 0) {
+				throw new AddFilmServiceException(ExceptionMessages.FILM_NOT_ADDED);
+			}
+			newFilm.setId(newFilmID);
+			
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+		
+		return newFilmID;
 	}
 	
 	@Override

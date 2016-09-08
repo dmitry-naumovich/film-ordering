@@ -5,6 +5,7 @@ public final class ErrorMessages {
 	public ErrorMessages() {}
 	
 	public static final String ADD_NEWS_RESTRICTION = "Only administrator is able to add news";
+	public static final String ADD_FILM_RESTRICTION = "Only administrator is able to add films";
 	public static final String LOG_OUT_FOR_ANOTHER_ACC = "Log out to sign into another account!";
 	public static final String LOG_OUT_FOR_SIGN_UP = "Log out to be able to sign up!";
 	public static final String NOTHING_FOUND = "No films found within this search query! Please, try again.";
