@@ -127,7 +127,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 	}
 
 	@Override
-	public void deleteFilm(Film film) throws DAOException {
+	public void deleteFilm(int id) throws DAOException {
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -135,7 +135,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(DELETE_FILM);
-			st.setString(1, String.valueOf(film.getId()));
+			st.setInt(1, id);
 			st.executeUpdate();
 			
 		} catch (SQLException e) {

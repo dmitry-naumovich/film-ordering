@@ -86,8 +86,13 @@ public class FilmServiceImpl implements IFilmService {
 	
 	@Override
 	public void deleteFilm(int id) throws ServiceException {
-		// TODO Auto-generated method stub
-		
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IFilmDAO filmDAO = daoFactory.getFilmDAO();
+			filmDAO.deleteFilm(id);
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}	
 	}
 
 	@Override

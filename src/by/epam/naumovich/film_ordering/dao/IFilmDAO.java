@@ -8,7 +8,7 @@ import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 public interface IFilmDAO {
 
 	int addFilm(Film film) throws DAOException;
-	void deleteFilm(Film film) throws DAOException;
+	void deleteFilm(int id) throws DAOException;
 	
 	Film getFilmByID(int id) throws DAOException;
 	

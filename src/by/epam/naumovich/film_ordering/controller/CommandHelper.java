@@ -23,6 +23,7 @@ public class CommandHelper {
 		commands.put(CommandName.ADD_REVIEW, new AddReview());
 		commands.put(CommandName.CHANGE_LANGUAGE, new ChangeLanguage());
 		commands.put(CommandName.CHANGE_USER_SETTINGS, new ChangeUserSettings());
+		commands.put(CommandName.DELETE_FILM, new DeleteFilm());
 		commands.put(CommandName.GET_NOVELTY, new GetNovelty());
 		commands.put(CommandName.GET_SIDEBAR_NEWS, new GetSidebarNews());
 		commands.put(CommandName.LOGIN, new Login());

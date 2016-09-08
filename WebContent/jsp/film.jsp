@@ -26,6 +26,7 @@
 <fmt:message bundle="${loc}" key="local.reviews.date" var="date" />
 <fmt:message bundle="${loc}" key="local.index.rublesShorten" var="rublesShorten" />
 <fmt:message bundle="${loc}" key="local.index.editFilmBtn" var="editFilmBtn" />
+<fmt:message bundle="${loc}" key="local.film.deleteFilmBtn" var="deleteFilmBtn" />
 <fmt:message bundle="${loc}" key="local.film.openFilmOrders" var="openFilmOrdersBtn" />
 
 <c:set var="film" value="${requestScope.film}"/>
@@ -99,7 +100,9 @@
           				<c:when test="${sessionScope.isAdmin}">
           					<a class="btn btn-primary center-block" href="<c:url value="/Controller?command=edit_film&filmID=${film.id}"/>" role="button">${editFilmBtn}</a>
           					<br>
-             					<a class="btn btn-warning center-block" href="<c:url value="/Controller?command=open_film_orders&filmID=${film.id}"/>" role="button">${openFilmOrdersBtn}</a>
+             				<a class="btn btn-warning center-block" href="<c:url value="/Controller?command=open_film_orders&filmID=${film.id}"/>" role="button">${openFilmOrdersBtn}</a>
+             				<br>
+             				<a class="btn btn-danger center-block" href="<c:url value="/Controller?command=delete_film&filmID=${film.id}"/>" role="button">${deleteFilmBtn}</a>
           				</c:when>
           				<c:otherwise>
           					<a class="btn btn-primary center-block" href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" role="button">${buyWithOneClickBtn}</a>
