@@ -48,6 +48,13 @@
   $(this).addClass('active');
 });
   </script>
+  <script type="text/javascript">
+  	window.setTimeout(function() {
+	    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+	        $(this).remove(); 
+	    });
+	}, 1000)
+  </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="http://mybootstrap.ru/wp-content/themes/clear-theme/js/bootstrap-affix.js"></script>
@@ -71,7 +78,18 @@
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
-            	<h4><c:out value="${errorMessage}" /></h4>
+            	<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
+					<div class="alert alert-danger fade in">
+					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+					 ${errorMessage} 
+					</div>
+				</c:if>
+				<c:if test="${successMessage != null && !successMessage.isEmpty()}">
+					<div class="alert alert-success fade in">
+					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+					 ${successMessage} 
+					</div>
+				</c:if>
             	<div class="col-md-4">
                   <figure>
                     <img src="img/films/${film.id}/folder.jpg" alt="$ {film.name}" class="img-thumbnail img-responsive center-block" width="210" height="140" style="margin-top: 30px;"/> 
