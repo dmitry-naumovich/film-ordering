@@ -36,8 +36,10 @@ public final class RequestAndSessionAttributes {
 	public static final String NEWS_TITLE = "newsTitle";
 	public static final String NEWS_TEXT = "newsText";
 	public static final String NOVELTY_LIST = "noveltyList";
+	public static final String ORDER_NUM = "orderNum";
 	public static final String ORDER_SUM = "orderSum";
 	public static final String ORDER_VIEW_TYPE = "orderViewType";
+	public static final String ORDER = "order";
 	public static final String ORDERS = "orders";
 	public static final String OWN_REVIEW_EXISTS = "ownReviewExists";
 	public static final String PASSWORD = "password";

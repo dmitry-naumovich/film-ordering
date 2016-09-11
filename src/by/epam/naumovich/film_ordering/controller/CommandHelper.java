@@ -42,6 +42,7 @@ public class CommandHelper {
 		commands.put(CommandName.OPEN_ORDER_PAGE, new OpenOrderPage());
 		commands.put(CommandName.OPEN_SIGN_UP_PAGE, new OpenSignUpPage());
 		commands.put(CommandName.OPEN_SINGLE_NEWS, new OpenSingleNews());
+		commands.put(CommandName.OPEN_SINGLE_ORDER, new OpenSingleOrder());
 		commands.put(CommandName.OPEN_SINGLE_REVIEW, new OpenSingleReview());
 		commands.put(CommandName.OPEN_USER_PROFILE, new OpenUserProfile());		
 		commands.put(CommandName.OPEN_USER_SETTINGS, new OpenUserSettings());

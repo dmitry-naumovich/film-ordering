@@ -9,13 +9,11 @@
 <fmt:message bundle="${loc}" key="local.common.serviceName" var="serviceName" />
 <fmt:message bundle="${loc}" key="local.common.rublesShorten" var="rublesShorten" />
 <fmt:message bundle="${loc}" key="local.films.openFilmPage" var="openFilmPage" />
-<fmt:message bundle="${loc}" key="local.orders.openSingleOrderBtn" var="openSingleOrderBtn" />
-<fmt:message bundle="${loc}" key="local.profile.myOrders" var="myOrders" />
-<fmt:message bundle="${loc}" key="local.orders.pageTitle" var="pageTitle" />
 <fmt:message bundle="${loc}" key="local.orders.userOrder" var="userOrder" />
 <fmt:message bundle="${loc}" key="local.orders.orderDate" var="orderDate" />
 <fmt:message bundle="${loc}" key="local.orders.orderTime" var="orderTime" />
 <fmt:message bundle="${loc}" key="local.orders.filmName" var="filmName" />
+<fmt:message bundle="${loc}" key="local.orders.userLogin" var="userLogin" />
 <fmt:message bundle="${loc}" key="local.orders.filmPrice" var="filmPrice" />
 <fmt:message bundle="${loc}" key="local.orders.discount" var="discount" />
 <fmt:message bundle="${loc}" key="local.orders.orderSum" var="orderSum" />
@@ -27,7 +25,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> ${serviceName} - ${pageTitle}</title>
+  <title> ${serviceName}</title>
   <c:set var="url">${pageContext.request.requestURL}</c:set>
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
   <link rel="icon"  type="image/x-icon" href="img/tab-logo.png">
@@ -59,38 +57,30 @@
 
   <div class="container-fluid"> 
     <div class="row content ">
-    
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
-	  
-	  
+      
+	  <c:set var="order" value="${requestScope.order}" />
+      <c:set var="orderFilmName" value="${requestScope.filmName}" />
+      <c:set var="orderUserLogin" value="${requestScope.userLogin}" />
+      
       <div class="col-md-8 main content ">
-        <div class="panel panel-primary">
-          <div class="panel-heading" >
-          	<c:choose> 
-          		<c:when test="${sessionScope.isAdmin}">
-          			<c:choose>
-	          			<c:when test="${requestScope.orderViewType eq 'all'}"> 
-	          				<h4 class="text-left">${orders}</h4>
-	          				
-	          			</c:when>
-	          			<c:when test="${requestScope.orderViewType eq 'user'}"> 
-	          				
-	          				<h4 class="text-left"> ${userOrder}
-	          				 	<a href="<c:url value="/Controller?command=open_user_profile&userID=${requestScope.userID}"/>">${requestScope.userLogin} </a>
-	          				</h4>
-	          			</c:when>
-          			</c:choose> 
-          			
-          		</c:when>
-          		<c:otherwise>
-          			<h4 class="text-left"> ${myOrders} </h4>
-          		</c:otherwise>
-          	</c:choose>
-          	
+        <div class="panel panel-primary container-fluid">
+          <div class="row panel-heading" >
+   		         	<div class="col-md-6">                         	
+                        		<h5 class="text-left" >
+                        			<a href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}" />" style="color:white">${orderFilmName} </a>
+                        		</h5>
+                        	</div>
+                        	
+                        	<div class="col-md-6">
+                        		<h5 class="text-right">  
+                        			<a href="<c:url value="/Controller?command=open_user_profile&userID=${order.userId}"/>" style="color:white">${orderUserLogin} </a>
+                        		</h5>
+                        	</div>
           </div> 
           <div class="row panel-body">
-            <div class="col-md-12">
-            <c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
+          	<div class="col-md-12">
+          		<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
 					<div class="alert alert-danger fade in">
 					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
 					 ${errorMessage} 
@@ -103,25 +93,6 @@
 					</div>
 				</c:if>
                 
-                <c:forEach items="${requestScope.orders}" var="order" varStatus="status">
-                
-                    <div class="panel panel-default container-fluid">
-                        <div class="row panel-heading" >
-                        	<div class="col-md-6">                         	
-                        		<h5 class="text-left">
-                        			<a href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>">${requestScope.filmNames[status.index]}</a>
-                        		</h5>
-                        	</div>
-                        	<c:if test="${requestScope.orderViewType eq 'all'}">
-                        	<div class="col-md-6">
-                        		<h5 class="text-right">  
-                        			<a href="<c:url value="/Controller?command=open_profile&userID=${order.userId}"/>">${requestScope.userLogins[status.index]}</a>
-                        		</h5>
-                        	</div>
-                        	 </c:if>
-                        </div> 
-                    <div class="row panel-body">
-                        <div class="col-md-12">
                           <div class="col-md-4">
                             
                               <figure>
@@ -136,9 +107,7 @@
                       <td> 
                       	<a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
                       </td>
-                       <td> 
-                      	<a class="btn btn-success" href="<c:url value="/Controller?command=open_single_order&orderNum=${order.ordNum}"/>" role="button" >${openSingleOrderBtn}</a>
-                      </td>
+                        
                       </tr>
                     </thead>
                     <tbody>
@@ -151,8 +120,12 @@
                         <td>${order.time}</td>
                       </tr>
                       <tr>
+                      	<td>${userLogin}</td>
+                      	<td>${orderUserLogin}</td>
+                      </tr>
+                      <tr>
                         <td>${filmName}</td>
-                        <td>${requestScope.filmNames[status.index]}</td>
+                        <td>${orderFilmName}</td>
                       </tr>
                       <tr>
                         <td>${filmPrice}</td>
@@ -171,12 +144,7 @@
 
                           </div>
                           
-                        </div>
-                        </div>
-                        </div>
-                    </c:forEach>
-
-          </div>
+           </div>
           </div>
 
       </div>

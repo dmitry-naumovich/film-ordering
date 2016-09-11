@@ -40,7 +40,7 @@ public class OpenAllOrders implements Command {
 			List<String> filmNames = new ArrayList<String>();
 			List<String> userLogins = new ArrayList<String>();
 			for (Order o : orders) {
-				String filmName = filmService.getFilmByID(o.getFilmId()).getName();
+				String filmName = filmService.getFilmNameByID(o.getFilmId());
 				filmNames.add(filmName);
 				
 				String userLogin = userService.getLoginByID(o.getUserId());

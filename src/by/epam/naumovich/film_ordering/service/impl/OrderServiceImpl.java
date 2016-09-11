@@ -70,6 +70,22 @@ public class OrderServiceImpl implements IOrderService {
 	}
 	
 	@Override
+	public Order getOrderByOrderNum(int orderNum) throws ServiceException {
+		Order order = null;
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IOrderDAO orderDAO = daoFactory.getOrderDAO();
+			order = orderDAO.getOrderByOrderNum(orderNum);
+			if (order == null) {
+				throw new GetOrdersServiceException(ExceptionMessages.ORDER_NOT_FOUND);
+			}
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+		return order;
+	}
+
+	@Override
 	public List<Order> getOrdersByUserId(int id) throws ServiceException {
 		List<Order> list = new ArrayList<Order>();
 		try {
@@ -125,7 +141,4 @@ public class OrderServiceImpl implements IOrderService {
 		
 		return list;
 	}
-
-
-
 }

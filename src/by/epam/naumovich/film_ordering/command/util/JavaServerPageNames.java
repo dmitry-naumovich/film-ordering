@@ -17,13 +17,14 @@ public final class JavaServerPageNames {
 	public static final String NEW_REVIEW_PAGE = "jsp/new-review.jsp";
 	public static final String NEWS_ADDING_PAGE = "jsp/news-adding.jsp";
 	public static final String NEWS_JSP_PAGE = "jsp/news.jsp";
-	public static final String ORDER_PAGE = "jsp/order.jsp";
+	public static final String FILM_ORDERING_PAGE = "jsp/order.jsp";
 	public static final String ORDERS_PAGE = "jsp/orders.jsp";
 	public static final String PROFILE_SETTINGS_PAGE = "jsp/profile-settings.jsp";
 	public static final String PROFILE_PAGE = "jsp/profile.jsp";
 	public static final String REVIEWS_PAGE = "jsp/reviews.jsp";
 	public static final String SIGN_UP_PAGE = "jsp/sign-up.jsp";
 	public static final String SINGLE_NEWS_PAGE = "jsp/single-news.jsp";
+	public static final String SINGLE_ORDER_PAGE = "jsp/single-order.jsp";
 	public static final String SINGLE_REVIEW_PAGE = "jsp/single-review.jsp";
 	public static final String SUCCESS_PAGE = "jsp/success-page.jsp";
 	public static final String WIDEN_SEARCH_PAGE = "jsp/widened-search.jsp";

@@ -22,20 +22,13 @@ public class AddOrder implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		HttpSession session = request.getSession(true);
-		String prev_query = (String) session.getAttribute(RequestAndSessionAttributes.PREV_QUERY);
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.ADD_ORDER_RESTRICTION);
 			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
 		}
 		else if (Boolean.parseBoolean(session.getAttribute(RequestAndSessionAttributes.IS_ADMIN).toString())) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.ADMIN_CAN_NOT_ORDER);
-			
-			if (prev_query != null) {
-				response.sendRedirect(prev_query);
-			}
-			else {
-				request.getRequestDispatcher(JavaServerPageNames.INDEX_PAGE).forward(request, response);
-			}
+			request.getRequestDispatcher("/Controller?open_film_page&filmID=" + Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID)));
 		}
 		else {
 			int filmID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));
@@ -46,11 +39,10 @@ public class AddOrder implements Command {
 			
 			try {
 				IOrderService orderService = ServiceFactory.getInstance().getOrderService();
-				int orderID = orderService.addOrder(filmID, userID, price, discount, payment);
+				int orderNum = orderService.addOrder(filmID, userID, price, discount, payment);
 				
 				request.setAttribute(RequestAndSessionAttributes.SUCCESS_MESSAGE, SuccessMessages.ORDER_ADDED);
-				request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
-				//request.getRequestDispatcher("/Controller?command=open_single_order&orderID=" + orderID).forward(request, response);
+				request.getRequestDispatcher("/Controller?command=open_single_orders&orderNum=" + orderNum).forward(request, response);
 			} catch (AddOrderServiceException e) {
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher("/Controller?command=open_order_page&filmID=" + filmID).forward(request, response);

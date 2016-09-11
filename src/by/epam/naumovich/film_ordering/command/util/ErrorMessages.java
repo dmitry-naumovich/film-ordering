@@ -6,7 +6,7 @@ public final class ErrorMessages {
 	
 	public static final String ADD_NEWS_RESTRICTION = "Only administrator is able to add news";
 	public static final String ADD_FILM_RESTRICTION = "Only administrator is able to add films";
-	public static final String ADD_ORDER_RESTRICTION = "Only registrated users are able to order films";
+	public static final String ADD_ORDER_RESTRICTION = "Sign in to be able to order films";
 	public static final String ADMIN_CAN_NOT_ORDER = "Administrator is not able to order films.";
 	public static final String DELETE_FILM_RESTRICTION = "Only administrator is able to delete films";
 	public static final String LOG_OUT_FOR_ANOTHER_ACC = "Log out to sign into another account!";
@@ -17,6 +17,7 @@ public final class ErrorMessages {
 	public static final String SIGN_IN_FOR_PROFILE = "Sign in to access your profile page";
 	public static final String SIGN_IN_FOR_REVIEWING = "Sign in to be able to write reviews";
 	public static final String SIGN_IN_FOR_SETTINGS = "Sign in to access or change your profile settings";
+	public static final String SIGN_IN_FOR_SINGLE_ORDER = "Sign in to be able to look through the order";
 	public static final String SIGN_IN_FOR_YOUR_ORDERS = "Sign in to see your orders";
 	public static final String SIGN_IN_FOR_YOUR_REVIEWS = "Sign in to see your reviews";
 	

@@ -68,9 +68,7 @@ public class OpenUserOrders implements Command {
 				request.setAttribute(RequestAndSessionAttributes.USER_LOGIN, userLogin);
 				request.setAttribute(RequestAndSessionAttributes.USER_ID, userID);
 				request.setAttribute(RequestAndSessionAttributes.ORDER_VIEW_TYPE, RequestAndSessionAttributes.VIEW_TYPE_USER);
-				
-				String url = response.encodeRedirectURL(JavaServerPageNames.ORDERS_PAGE);
-				request.getRequestDispatcher(url).forward(request, response);
+				request.getRequestDispatcher(JavaServerPageNames.ORDERS_PAGE).forward(request, response);
 				
 			} catch (GetOrdersServiceException e) {
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
