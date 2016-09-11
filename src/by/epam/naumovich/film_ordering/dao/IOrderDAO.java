@@ -7,8 +7,8 @@ import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 
 public interface IOrderDAO {
 
-	void addOrder(Order order) throws DAOException;
-	void deleteOrder(Order order) throws DAOException;
+	int addOrder(Order order) throws DAOException;
+	void deleteOrder(int orderNum) throws DAOException;
 	
 	List<Order> getOrdersByUserId(int id) throws DAOException;
 	List<Order> getOrdersByFilmId(int id) throws DAOException;

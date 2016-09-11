@@ -13,6 +13,7 @@ public final class RequestAndSessionAttributes {
 	public static final String COUNTRY = "country";
 	public static final String DESCRIPTION = "description";
 	public static final String DIRECTOR = "director";
+	public static final String DISCOUNT = "discount";
 	public static final String DISCOUNT_AMOUNT = "discountAmount";
 	public static final String EMAIL = "email";
 	public static final String EMPTY_STRING = "";
@@ -41,6 +42,7 @@ public final class RequestAndSessionAttributes {
 	public static final String OWN_REVIEW_EXISTS = "ownReviewExists";
 	public static final String PASSWORD = "password";
 	public static final String PASSWORD_REPEATED = "passwordRepeated";
+	public static final String PAYMENT = "payment";
 	public static final String PHONE = "phone";
 	public static final String PREV_QUERY = "prev_query";
 	public static final String PRICE = "price";

@@ -6,6 +6,8 @@ public final class ErrorMessages {
 	
 	public static final String ADD_NEWS_RESTRICTION = "Only administrator is able to add news";
 	public static final String ADD_FILM_RESTRICTION = "Only administrator is able to add films";
+	public static final String ADD_ORDER_RESTRICTION = "Only registrated users are able to order films";
+	public static final String ADMIN_CAN_NOT_ORDER = "Administrator is not able to order films.";
 	public static final String DELETE_FILM_RESTRICTION = "Only administrator is able to delete films";
 	public static final String LOG_OUT_FOR_ANOTHER_ACC = "Log out to sign into another account!";
 	public static final String LOG_OUT_FOR_SIGN_UP = "Log out to be able to sign up!";

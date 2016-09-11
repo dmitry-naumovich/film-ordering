@@ -36,7 +36,13 @@
   $(this).addClass('active');
 });
   </script>
-
+	<script type="text/javascript">
+  	window.setTimeout(function() {
+	    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+	        $(this).remove(); 
+	    });
+	}, 1000)
+  </script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -52,7 +58,6 @@
     <div class="row content ">
     
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
-	  <h4><c:out value="${errorMessage}" /></h4>
 	  
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
@@ -61,7 +66,15 @@
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
-                
+            	<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
+					<div class="alert alert-danger fade in">
+					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+					 ${errorMessage} 
+					</div>
+				</c:if>
+            
+                <c:set var="discountAmount" value="${requestScope.discountAmount}" />
+                <c:set var="payment" value="${requestScope.orderSum}" />
                 <table class="table table-striped">
                     <thead>
                       <tr>
@@ -73,28 +86,24 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <%-- <tr>
-                        <td>${user????}</td>
-                        <td>${order.user???}</td>
-                      </tr> --%>
                       <tr>
                         <td>${price}</td>
                         <td>${film.price} ${rublesShorten}</td>
                       </tr>
                       <tr>
                         <td>${discount}</td>
-                        <td>${requestScope.discountAmount}%</td>
+                        <td>${discountAmount}%</td>
                       </tr>
                       <tr>
                         <td>${orderSum}</td>
-                        <td>${requestScope.orderSum} ${rublesShorten}</td>
+                        <td>${paymentrequestScope.orderSum} ${rublesShorten}</td>
                       </tr>
 
                       <tr>
                         <th>
                           <a href="#" onclick="history.back();" class="btn btn-danger" role="button">${cancelBtn}</a>
                         </th>
-                        <td> <a href="jsp/success-page.jsp" class="btn btn-primary" role="button">${buyBtn}</a></td>
+                        <td> <a href="<c:url value="/Controller?command=add_order&filmID=${film.id}&userID=${sessionScope.userID}&price=${film.price}&discount=${discountAmount}&payment=${payment}" />" class="btn btn-primary" role="button">${buyBtn}</a></td>
                       </tr>
                     </tbody>
                 </table>
