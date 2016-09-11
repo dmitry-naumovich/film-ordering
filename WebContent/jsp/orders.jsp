@@ -9,6 +9,7 @@
 <fmt:message bundle="${loc}" key="local.common.serviceName" var="serviceName" />
 <fmt:message bundle="${loc}" key="local.common.rublesShorten" var="rublesShorten" />
 <fmt:message bundle="${loc}" key="local.films.openFilmPage" var="openFilmPage" />
+<fmt:message bundle="${loc}" key="local.orders.openSingleOrderBtn" var="openSingleOrderBtn" />
 <fmt:message bundle="${loc}" key="local.profile.myOrders" var="myOrders" />
 <fmt:message bundle="${loc}" key="local.orders.pageTitle" var="pageTitle" />
 <fmt:message bundle="${loc}" key="local.orders.userOrder" var="userOrder" />
@@ -39,7 +40,13 @@
   $(this).addClass('active');
 });
   </script>
-
+	<script type="text/javascript">
+  	window.setTimeout(function() {
+	    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+	        $(this).remove(); 
+	    });
+	}, 1000)
+  </script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -54,7 +61,7 @@
     <div class="row content ">
     
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
-	  <h4><c:out value="${errorMessage}" /></h4>
+	  
 	  
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
@@ -69,7 +76,7 @@
 	          			<c:when test="${requestScope.orderViewType eq 'user'}"> 
 	          				
 	          				<h4 class="text-left"> ${userOrder}
-	          				 	<a href="<c:url value="/Controller?command=open_user_profile&userID=${requestScope.userID}"/>" >${requestScope.userLogin} </a>
+	          				 	<a href="<c:url value="/Controller?command=open_user_profile&userID=${requestScope.userID}" />" >${requestScope.userLogin} </a>
 	          				</h4>
 	          			</c:when>
           			</c:choose> 
@@ -77,12 +84,24 @@
           		</c:when>
           		<c:otherwise>
           			<h4 class="text-left"> ${myOrders} </h4>
-          		</c:otherwise>
+          		</c:otherwise>a
           	</c:choose>
           	
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
+            <c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
+					<div class="alert alert-danger fade in">
+					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+					 ${errorMessage} 
+					</div>
+				</c:if>
+				<c:if test="${successMessage != null && !successMessage.isEmpty()}">
+					<div class="alert alert-success fade in">
+					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+					 ${successMessage} 
+					</div>
+				</c:if>
                 
                 <c:forEach items="${requestScope.orders}" var="order" varStatus="status">
                 
@@ -90,13 +109,13 @@
                         <div class="row panel-heading" >
                         	<div class="col-md-6">                         	
                         		<h5 class="text-left">
-                        			<a href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" >${requestScope.filmNames[status.index]} </a>
+                        			<a href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}" /> " > ${requestScope.filmNames[status.index]} </a>
                         		</h5>
                         	</div>
                         	<c:if test="${requestScope.orderViewType eq 'all'}">
                         	<div class="col-md-6">
                         		<h5 class="text-right">  
-                        			<a href="<c:url value="/Controller?command=open_profile&userID=${order.userId}"/>" >${requestScope.userLogins[status.index]}</a>
+                        			<a href="<c:url value="/Controller?command=open_profile&userID=${order.userId}" />" >${requestScope.userLogins[status.index]}</a>
                         		</h5>
                         	</div>
                         	 </c:if>
@@ -117,7 +136,9 @@
                       <td> 
                       	<a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
                       </td>
-                        
+                       <td> 
+                      	<a class="btn btn-success" href="<c:url value="/Controller?command=open_single_order&orderNum=${order.ordNum}"/>" role="button" >${openSingleOrderBtn}</a>
+                      </td>
                       </tr>
                     </thead>
                     <tbody>
