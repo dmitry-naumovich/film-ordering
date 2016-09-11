@@ -11,6 +11,7 @@ public interface IFilmDAO {
 	void deleteFilm(int id) throws DAOException;
 	
 	Film getFilmByID(int id) throws DAOException;
+	String getFilmNameByID(int id) throws DAOException;
 	
 	Set<Film> getTwelveLastAddedFilms() throws DAOException;
 	Set<Film> getAllFilms() throws DAOException;

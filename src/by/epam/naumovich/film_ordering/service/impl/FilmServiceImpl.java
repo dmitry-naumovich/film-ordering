@@ -149,6 +149,22 @@ public class FilmServiceImpl implements IFilmService {
 		
 		return film;
 	}
+	
+
+	@Override
+	public String getFilmNameByID(int id) throws ServiceException {
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IFilmDAO filmDAO = daoFactory.getFilmDAO();
+			String name = filmDAO.getFilmNameByID(id);
+			if (name == null) {
+				throw new GetFilmsServiceException(ExceptionMessages.FILM_NOT_PRESENT);
+			}
+			return name;
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+	}
 
 	
 

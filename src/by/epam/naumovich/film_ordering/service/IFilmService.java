@@ -3,6 +3,7 @@ package by.epam.naumovich.film_ordering.service;
 import java.util.Set;
 
 import by.epam.naumovich.film_ordering.bean.Film;
+import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
 public interface IFilmService {
@@ -13,6 +14,7 @@ public interface IFilmService {
 	void deleteFilm(int id) throws ServiceException; 
 	
 	Film getFilmByID(int id) throws ServiceException;
+	String getFilmNameByID(int id) throws ServiceException;
 	
 	Set<Film> getTwelveLastAddedFilms() throws ServiceException;
 	Set<Film> getAllFilms() throws ServiceException;
