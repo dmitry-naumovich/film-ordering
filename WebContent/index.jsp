@@ -36,6 +36,13 @@
 	  $(this).addClass('active');
 	})
   </script>
+  <script type="text/javascript">
+  	window.setTimeout(function() {
+	    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+	        $(this).remove(); 
+	    });
+	}, 1000)
+  </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="http://mybootstrap.ru/wp-content/themes/clear-theme/js/bootstrap-affix.js"></script>
@@ -51,6 +58,19 @@
      <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 
       <div class="col-md-8 main content " style="text-align:justify;">
+      			<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
+					<div class="alert alert-danger fade in">
+					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+					 ${errorMessage} 
+					</div>
+				</c:if>
+				<c:if test="${successMessage != null && !successMessage.isEmpty()}">
+					<div class="alert alert-success fade in">
+					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+					 ${successMessage} 
+					</div>
+				</c:if>
+      
         <div class="panel panel-primary">
           <div class=" panel-heading" >
           	<h2 class=" text-left"> ${novelty} </h2>
