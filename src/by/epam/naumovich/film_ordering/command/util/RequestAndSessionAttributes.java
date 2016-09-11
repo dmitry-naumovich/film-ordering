@@ -63,6 +63,7 @@ public final class RequestAndSessionAttributes {
 	public static final String USER_LOGINS = "userLogins";
 	public static final String USER = "user";
 	public static final String VIEW_TYPE_ALL = "all";
+	public static final String VIEW_TYPE_FILM = "film";
 	public static final String VIEW_TYPE_USER = "user";
 	public static final String YEAR = "year";
 	public static final String YEAR_FROM = "yearFrom";

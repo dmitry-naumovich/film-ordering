@@ -78,6 +78,10 @@ section a {
 	vertical-align: middle;
 }
 
+.panel-heading h4 > a, .panel-heading h5 > a {
+	color:yellow;
+	
+}
 /* section a:visited
 {
 	text-decoration:none;

@@ -68,13 +68,13 @@
           <div class="row panel-heading" >
    		         	<div class="col-md-6">                         	
                         		<h5 class="text-left" >
-                        			<a href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}" />" style="color:white">${orderFilmName} </a>
+                        			<a href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}" />" ">${orderFilmName} </a>
                         		</h5>
                         	</div>
                         	
                         	<div class="col-md-6">
                         		<h5 class="text-right">  
-                        			<a href="<c:url value="/Controller?command=open_user_profile&userID=${order.userId}"/>" style="color:white">${orderUserLogin} </a>
+                        			<a href="<c:url value="/Controller?command=open_user_profile&userID=${order.userId}"/>" >${orderUserLogin} </a>
                         		</h5>
                         	</div>
           </div> 

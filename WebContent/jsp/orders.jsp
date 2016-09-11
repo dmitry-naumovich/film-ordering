@@ -13,13 +13,18 @@
 <fmt:message bundle="${loc}" key="local.profile.myOrders" var="myOrders" />
 <fmt:message bundle="${loc}" key="local.orders.pageTitle" var="pageTitle" />
 <fmt:message bundle="${loc}" key="local.orders.userOrder" var="userOrder" />
+<fmt:message bundle="${loc}" key="local.orders.userProfile" var="userProfile" />
+<fmt:message bundle="${loc}" key="local.orders.orderNum" var="orderNum" />
 <fmt:message bundle="${loc}" key="local.orders.orderDate" var="orderDate" />
 <fmt:message bundle="${loc}" key="local.orders.orderTime" var="orderTime" />
 <fmt:message bundle="${loc}" key="local.orders.filmName" var="filmName" />
+<fmt:message bundle="${loc}" key="local.orders.userLogin" var="userLogin" />
 <fmt:message bundle="${loc}" key="local.orders.filmPrice" var="filmPrice" />
 <fmt:message bundle="${loc}" key="local.orders.discount" var="discount" />
 <fmt:message bundle="${loc}" key="local.orders.orderSum" var="orderSum" />
+<fmt:message bundle="${loc}" key="local.orders.filmOrders" var="filmOrders" />
 <fmt:message bundle="${loc}" key="local.footer.siteMap.orders" var="orders" />
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="${language}">
@@ -71,12 +76,18 @@
           			<c:choose>
 	          			<c:when test="${requestScope.orderViewType eq 'all'}"> 
 	          				<h4 class="text-left">${orders}</h4>
-	          				
 	          			</c:when>
 	          			<c:when test="${requestScope.orderViewType eq 'user'}"> 
-	          				
 	          				<h4 class="text-left"> ${userOrder}
 	          				 	<a href="<c:url value="/Controller?command=open_user_profile&userID=${requestScope.userID}"/>">${requestScope.userLogin} </a>
+	          				</h4>
+	          				<h4 class="text-right">
+	          					<a class="btn btn-info" href="<c:url value="/Controller?command=open_user_profile&userID=${order.userId}"/>" role="button" >${userProfile}</a>
+	          				</h4>
+	          			</c:when>
+	          			<c:when test="${requestScope.orderViewType eq 'film'}">
+	          				<h4 class="text-left"> ${filmOrders}
+	          					<a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" role="button" >${requestScope.filmName}</a>
 	          				</h4>
 	          			</c:when>
           			</c:choose> 
@@ -107,18 +118,15 @@
                 
                     <div class="panel panel-default container-fluid">
                         <div class="row panel-heading" >
-                        	<div class="col-md-6">                         	
-                        		<h5 class="text-left">
-                        			<a href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>">${requestScope.filmNames[status.index]}</a>
-                        		</h5>
+                        	<div class="col-md-12">                         	
+                        		<h5 class="text-left"> </h5>
+                        		<c:if test="${requestScope.orderViewType eq 'all'}" >
+	                        		<h5 class="text-right">
+	                        			<a class="btn btn-info" href="<c:url value="/Controller?command=open_single_order&orderNum=${order.ordNum}"/>" role="button" >${openSingleOrderBtn}</a>
+	                        		</h5>
+                        		</c:if>
                         	</div>
-                        	<c:if test="${requestScope.orderViewType eq 'all'}">
-                        	<div class="col-md-6">
-                        		<h5 class="text-right">  
-                        			<a href="<c:url value="/Controller?command=open_profile&userID=${order.userId}"/>">${requestScope.userLogins[status.index]}</a>
-                        		</h5>
-                        	</div>
-                        	 </c:if>
+                        	
                         </div> 
                     <div class="row panel-body">
                         <div class="col-md-12">
@@ -137,12 +145,17 @@
                       	<a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
                       </td>
                        <td> 
-                      	<a class="btn btn-success" href="<c:url value="/Controller?command=open_single_order&orderNum=${order.ordNum}"/>" role="button" >${openSingleOrderBtn}</a>
+                      	<a class="btn btn-success" href="<c:url value="/Controller?command=open_user_profile&userID=${order.userId}"/>" role="button" >${userProfile}</a>
                       </td>
+                      
                       </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                      <tr>
+                        <td>${orderNum}</td>
+                        <td>#${order.ordNum}</td>
+                      </tr>
+                      <tr>
                         <td>${orderDate}</td>
                         <td>${order.date}</td>
                       </tr>
@@ -150,10 +163,18 @@
                         <td>${orderTime}</td>
                         <td>${order.time}</td>
                       </tr>
-                      <tr>
-                        <td>${filmName}</td>
-                        <td>${requestScope.filmNames[status.index]}</td>
-                      </tr>
+                      <c:if test="${!(requestScope.orderViewType eq 'film')}">
+	                      <tr>
+	                        <td>${filmName}</td>
+	                        <td>${requestScope.filmNames[status.index]}</td>
+	                      </tr>
+                      </c:if>
+                      <c:if test="${!(requestScope.orderViewType eq 'user')}"> 
+	          			<tr>
+	          				<td>${userLogin}</td>
+                        	<td>${requestScope.userLogins[status.index]}</td>
+                        </tr>
+	          		  </c:if>
                       <tr>
                         <td>${filmPrice}</td>
                         <td>${order.price} ${rublesShorten}</td>
