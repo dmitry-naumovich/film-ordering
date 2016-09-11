@@ -10,7 +10,7 @@ public class Order {
 	private int filmId;
 	private Date date;
 	private Time time;
-	private int price;
+	private float price;
 	private int discount;
 	private float payment;
 	
@@ -44,10 +44,10 @@ public class Order {
 	public void setTime(Time time) {
 		this.time = time;
 	}
-	public int getPrice() {
+	public float getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
 	public int getDiscount() {
@@ -71,7 +71,7 @@ public class Order {
 	    hash = 31 * hash + this.filmId;
 	    hash = 67 * hash + ((null != this.date) ? this.date.hashCode() : 0);
 	    hash = 47 * hash + ((null != this.time) ? this.time.hashCode() : 0);
-	    hash = 3 * hash + this.price;
+	    hash = 3 * hash + (int)this.price;
 	    hash = 11 * hash + this.discount;
 	    hash = 19 * hash + (int)this.payment;
 	    return hash;
