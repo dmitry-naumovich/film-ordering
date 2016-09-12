@@ -33,7 +33,7 @@ public class ReviewServiceImpl implements IReviewService {
 		}
 		
 		int rMark = Integer.parseInt(mark);
-		if (rMark < 0 || rMark > 5) {
+		if (rMark < 1 || rMark > 5) {
 			throw new SendReviewServiceException(ExceptionMessages.REVIEW_MARK_RANGE);
 		}
 		if (!type.equals(POSITIVE_REVIEW) && !type.equals(NEGATIVE_REVIEW) && !type.equals(NEUTRAL_REVIEW)) {
@@ -63,8 +63,18 @@ public class ReviewServiceImpl implements IReviewService {
 	}
 	
 	@Override
-	public void deleteReview(Review review) throws ServiceException {
-		// TODO Auto-generated method stub
+	public void deleteReview(int userID, int filmID) throws ServiceException {
+		if (!Validator.validateInt(userID) || !Validator.validateInt(filmID)) {
+			throw new ServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
+		}
+		
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IReviewDAO reviewDAO = daoFactory.getReviewDAO();
+			reviewDAO.deleteReview(userID, filmID);
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
 
 	}
 

@@ -70,7 +70,7 @@ public class MySQLReviewDAO implements IReviewDAO {
 	}
 
 	@Override
-	public void deleteReview(Review review) throws DAOException {
+	public void deleteReview(int userID, int filmID) throws DAOException {
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -79,11 +79,13 @@ public class MySQLReviewDAO implements IReviewDAO {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(DELETE_REVIEW);
-			st.setInt(1, review.getAuthor());
-			st.setInt(2, review.getFilmId());
+			st.setInt(1, userID);
+			st.setInt(2, filmID);
 			st.executeUpdate();
 			
 			stForRatingUpdate = con.prepareStatement(UPDATE_FILM_RATING);
+			stForRatingUpdate.setInt(1, filmID);
+			stForRatingUpdate.setInt(2, filmID);
 			stForRatingUpdate.executeUpdate();
 			
 		} catch (SQLException e) {

@@ -4,7 +4,6 @@ import java.util.List;
 
 import by.epam.naumovich.film_ordering.bean.Order;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
-import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
 public interface IOrderDAO {
 

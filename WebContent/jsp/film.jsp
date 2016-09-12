@@ -24,6 +24,7 @@
 <fmt:message bundle="${loc}" key="local.film.reviewBy" var="reviewBy" />
 <fmt:message bundle="${loc}" key="local.reviews.mark" var="mark" />
 <fmt:message bundle="${loc}" key="local.reviews.date" var="date" />
+<fmt:message bundle="${loc}" key="local.reviews.openSingleReviewBtn" var="openSingleReviewBtn" />
 <fmt:message bundle="${loc}" key="local.index.rublesShorten" var="rublesShorten" />
 <fmt:message bundle="${loc}" key="local.index.editFilmBtn" var="editFilmBtn" />
 <fmt:message bundle="${loc}" key="local.film.deleteFilmBtn" var="deleteFilmBtn" />
@@ -124,7 +125,6 @@
   						<col width="70">
 	                
 	                    <thead>
-	                      
 	                      <tr>
 	                        <th>
 	                          <p>    </p>
@@ -132,7 +132,6 @@
 	                        <th>
 	                          <p>     </p>
 	                        </th>
-	                        
 	                      </tr>
 	                    </thead>
 	                    <tbody>
@@ -239,35 +238,30 @@
 			                          </p>
 			                        </div>
 		                        </div>
-		                        
-		                        
+		                        		                        
 		                        <div class="row panel-footer" style="background-color:${rColor}">
-		                        	<div class="col-md-6">
+		                        	<div class="col-md-4">
 		                        		<h5 class="text-left">${mark}: ${review.mark}/5</h5>
 		                        	</div>
-		                        	<div class="col-md-6">
-		                        		<h5 class="text-right">${date}: ${review.date} ${review.time} </h5>
+		                        	<div class="col-md-4">
+		                        		<h5 class="text-center">
+		                        			<a href="<c:url value="/Controller?command=open_single_review&userID=${review.author}&filmID=${review.filmId}" />"  >${openSingleReviewBtn}</a>
+		                        		</h5>
+		                        	</div>
+		                        	<div class="col-md-4">
+		                        		<h5 class="text-right"> ${date}: ${review.date} ${review.time} </h5>
 		                        	</div>
 		                        </div>
-		                        
 		                        </div>
-			                     
-			                     
 						</c:forEach>
                      </div>    
           </div>
           </div>
-
       </div>
       </div>
-
       <jsp:include page="/WEB-INF/static/right-sidebar.jsp"></jsp:include>
-      
      </div>
-
-  </div>  
-  
-  <jsp:include page="/WEB-INF/static/footer.jsp"></jsp:include>
-  
+  </div>    
+  <jsp:include page="/WEB-INF/static/footer.jsp"></jsp:include>  
 </body>
 </html>

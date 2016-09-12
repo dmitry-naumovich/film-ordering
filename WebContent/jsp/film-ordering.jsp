@@ -75,38 +75,46 @@
             
                 <c:set var="discountAmount" value="${requestScope.discountAmount}" />
                 <c:set var="payment" value="${requestScope.orderSum}" />
-                <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>
-                          <figure>
-                          	<img src="img/films/${film.id}/folder.jpg" alt="$ {film.name}" class="img-thumbnail img-responsive" width="210" height="140" /> 
-                          </figure>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>${price}</td>
-                        <td>${film.price} ${rublesShorten}</td>
-                      </tr>
-                      <tr>
-                        <td>${discount}</td>
-                        <td>${discountAmount}%</td>
-                      </tr>
-                      <tr>
-                        <td>${orderSum}</td>
-                        <td>${paymentrequestScope.orderSum} ${rublesShorten}</td>
-                      </tr>
-
-                      <tr>
-                        <th>
-                          <a href="#" onclick="history.back();" class="btn btn-danger" role="button">${cancelBtn}</a>
-                        </th>
-                        <td> <a href="<c:url value="/Controller?command=add_order&filmID=${film.id}&userID=${sessionScope.userID}&price=${film.price}&discount=${discountAmount}&payment=${payment}" />" class="btn btn-primary" role="button">${buyBtn}</a></td>
-                      </tr>
-                    </tbody>
-                </table>
+                <div class="col-md-4">
+	                <figure>
+	                	<img src="img/films/${film.id}/folder.jpg" alt="$ {film.name}" class="img-thumbnail img-responsive" width="210" height="140" /> 
+	                </figure>
+	            </div>
+                <div class="col-md-8">
+	                <table class="table table-striped">
+	                    <thead>
+	                      <tr>
+	                        <th>
+	                          <p>    </p>
+	                        </th>
+	                        <th>
+	                          <p>     </p>
+	                        </th>
+	                      </tr>
+	                    </thead>
+	                    <tbody>
+	                      <tr>
+	                        <td>${price}</td>
+	                        <td>${film.price} ${rublesShorten}</td>
+	                      </tr>
+	                      <tr>
+	                        <td>${discount}</td>
+	                        <td>${discountAmount}%</td>
+	                      </tr>
+	                      <tr>
+	                        <td>${orderSum}</td>
+	                        <td>${paymentrequestScope.orderSum} ${rublesShorten}</td>
+	                      </tr>
+	
+	                      <tr>
+	                        <th>
+	                          <a href="#" onclick="history.back();" class="btn btn-danger" role="button">${cancelBtn}</a>
+	                        </th>
+	                        <td> <a href="<c:url value="/Controller?command=add_order&filmID=${film.id}&userID=${sessionScope.userID}&price=${film.price}&discount=${discountAmount}&payment=${payment}" />" class="btn btn-primary" role="button">${buyBtn}</a></td>
+	                      </tr>
+	                    </tbody>
+	                </table>
+                </div>
           </div>
           </div>
 

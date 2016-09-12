@@ -86,6 +86,10 @@ public class FilmServiceImpl implements IFilmService {
 	
 	@Override
 	public void deleteFilm(int id) throws ServiceException {
+		if (!Validator.validateInt(id)) {
+			throw new ServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
+		}
+		
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			IFilmDAO filmDAO = daoFactory.getFilmDAO();
@@ -106,7 +110,6 @@ public class FilmServiceImpl implements IFilmService {
 			if (filmSet.isEmpty()) {
 				throw new GetFilmsServiceException(ExceptionMessages.NO_FILMS_IN_DB);
 			}
-			
 			
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
