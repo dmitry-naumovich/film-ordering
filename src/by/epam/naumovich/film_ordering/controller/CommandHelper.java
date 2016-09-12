@@ -34,6 +34,7 @@ public class CommandHelper {
 		commands.put(CommandName.OPEN_ALL_REVIEWS, new OpenAllReviews());
 		commands.put(CommandName.OPEN_FEEDBACK_PAGE, new OpenFeedbackPage());
 		commands.put(CommandName.OPEN_FILM_LIST, new OpenFilmList());
+		commands.put(CommandName.OPEN_FILM_ORDERS, new OpenFilmOrders());
 		commands.put(CommandName.OPEN_FILM_PAGE, new OpenFilmPage());
 		commands.put(CommandName.OPEN_HELP_PAGE, new OpenHelpPage());
 		commands.put(CommandName.OPEN_LOGINATION_PAGE, new OpenLoginationPage());

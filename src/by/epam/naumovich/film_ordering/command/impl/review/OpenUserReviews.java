@@ -20,6 +20,7 @@ import by.epam.naumovich.film_ordering.service.IFilmService;
 import by.epam.naumovich.film_ordering.service.IReviewService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
+import by.epam.naumovich.film_ordering.service.exception.review.GetReviewsServiceException;
 
 public class OpenUserReviews implements Command {
 
@@ -35,27 +36,28 @@ public class OpenUserReviews implements Command {
 			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
 		}
 		else {
-			int userId = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.USER_ID));
+			int userID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.USER_ID));
 			
 			IReviewService reviewService = ServiceFactory.getInstance().getReviewService();
 			IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 			
 			try {
-				List<Review> reviews = reviewService.getReviewsByUserId(userId);
+				List<Review> reviews = reviewService.getReviewsByUserId(userID);
 				Collections.reverse(reviews);
 				
 				List<String> reviewFilmNames = new ArrayList<String>();
 				for (Review r : reviews) {
-					reviewFilmNames.add(filmService.getFilmByID(r.getFilmId()).getName());
+					reviewFilmNames.add(filmService.getFilmNameByID(r.getFilmId()));
 				}
 				
 				request.setAttribute(RequestAndSessionAttributes.REVIEWS, reviews);
 				request.setAttribute(RequestAndSessionAttributes.FILM_NAMES, reviewFilmNames);
-				
-				String url = response.encodeRedirectURL(JavaServerPageNames.REVIEWS_PAGE);
-				request.getRequestDispatcher(url).forward(request, response);
-			}
-			catch (ServiceException e) {
+				request.getRequestDispatcher(JavaServerPageNames.REVIEWS_PAGE).forward(request, response);
+			} catch (GetReviewsServiceException e) {
+				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
+				request.getRequestDispatcher("/Controller?command=open_user_profile&userID=" + userID).forward(request, response);;
+			} catch (ServiceException e) {
+				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 			}
 		}

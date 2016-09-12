@@ -97,7 +97,7 @@
                     <thead>
                       <tr>
                         <th>
-                          <figure><img src="img/avatars/avatars${user.id}.gif" alt="${user.login} avatar" class="img-thumbnail img-responsive" width="150" height="150" /> </figure>
+                          <figure><img src="img/avatars/avatars${user.id}.gif" alt="img/no-avatar.jpg" class="img-thumbnail img-responsive" width="150" height="150" /> </figure>
                         </th>
                         <th>
                         	<c:choose>

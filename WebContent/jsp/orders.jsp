@@ -82,12 +82,15 @@
 	          				 	<a href="<c:url value="/Controller?command=open_user_profile&userID=${requestScope.userID}"/>">${requestScope.userLogin} </a>
 	          				</h4>
 	          				<h4 class="text-right">
-	          					<a class="btn btn-info" href="<c:url value="/Controller?command=open_user_profile&userID=${order.userId}"/>" role="button" >${userProfile}</a>
+	          					<a class="btn btn-info" href="<c:url value="/Controller?command=open_user_profile&userID=${requestScope.userID}"/>" role="button" >${userProfile}</a>
 	          				</h4>
 	          			</c:when>
 	          			<c:when test="${requestScope.orderViewType eq 'film'}">
-	          				<h4 class="text-left"> ${filmOrders}
-	          					<a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" role="button" >${requestScope.filmName}</a>
+	          				<h4 class="text-left"> 
+	          					${filmOrders} ${requestScope.filmName}
+	          				</h4>
+	          				<h4 class="text-right">
+	          					<a class="btn btn-info" href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
 	          				</h4>
 	          			</c:when>
           			</c:choose> 
@@ -119,36 +122,36 @@
                     <div class="panel panel-default container-fluid">
                         <div class="row panel-heading" >
                         	<div class="col-md-12">                         	
-                        		<h5 class="text-left"> </h5>
-                        		<c:if test="${requestScope.orderViewType eq 'all'}" >
-	                        		<h5 class="text-right">
+                        		
+	                        		<h5 class="text-left">
 	                        			<a class="btn btn-info" href="<c:url value="/Controller?command=open_single_order&orderNum=${order.ordNum}"/>" role="button" >${openSingleOrderBtn}</a>
+	                        			<c:if test="${!(requestScope.orderViewType eq 'film')}" >
+	                        				<a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
+	                        			</c:if>
+	                        			<c:if test="${!(requestScope.orderViewType eq 'user')}" >
+	                        				<a class="btn btn-success" href="<c:url value="/Controller?command=open_user_profile&userID=${order.userId}"/>" role="button" >${userProfile}</a>
+	                        			</c:if>
 	                        		</h5>
-                        		</c:if>
                         	</div>
                         	
                         </div> 
                     <div class="row panel-body">
                         <div class="col-md-12">
                           <div class="col-md-4">
-                            
+                            <c:if test="${requestScope.orderViewType eq 'user' || requestScope.orderViewType eq 'all'}">
                               <figure>
                                 <img src="img/films/${order.filmId}/folder.jpg" alt="Img not loaded" class="img-thumbnail img-responsive" width="210" height="140" style="margin-top: 30px;"/> 
                               </figure>
+                             </c:if>
+                             <c:if test="${requestScope.orderViewType eq 'film'}" >
+                             	<img src="img/avatars/avatars${order.userId}.gif" alt="img/no-avatar.jpg" class="img-thumbnail img-responsive" width="150" height="150" style="margin-top: 30px;"/>
+                             </c:if>
                           </div>
                           <div class="col-md-8">
                               <table class="table table-striped">
                     <thead>
                         
-                      <tr>
-                      <td> 
-                      	<a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
-                      </td>
-                       <td> 
-                      	<a class="btn btn-success" href="<c:url value="/Controller?command=open_user_profile&userID=${order.userId}"/>" role="button" >${userProfile}</a>
-                      </td>
                       
-                      </tr>
                     </thead>
                     <tbody>
                       <tr>

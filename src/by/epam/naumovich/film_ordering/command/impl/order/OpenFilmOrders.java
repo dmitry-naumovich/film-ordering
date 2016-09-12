@@ -23,8 +23,8 @@ import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.order.GetOrdersServiceException;
 
-public class OpenAllOrders implements Command {
-	
+public class OpenFilmOrders implements Command {
+
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		HttpSession session = request.getSession(true);
@@ -32,50 +32,48 @@ public class OpenAllOrders implements Command {
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
+		int filmID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));
+		
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
-			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.OPEN_ALL_ORDERS_RESTRICTION);
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.FILM_ORDERS_RESTRICTION);
 			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
 		}
 		else if (!Boolean.parseBoolean(session.getAttribute(RequestAndSessionAttributes.IS_ADMIN).toString())) {
-			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.OPEN_ALL_ORDERS_RESTRICTION);
-			request.getRequestDispatcher(JavaServerPageNames.INDEX_PAGE).forward(request, response);
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.FILM_ORDERS_RESTRICTION);
+			request.getRequestDispatcher("/Controller?command=open_film_page&filmID=" + filmID).forward(request, response);
 		}
 		else {
-			
+		
 			try {
 				IOrderService orderService = ServiceFactory.getInstance().getOrderService();
 				IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 				IUserService userService = ServiceFactory.getInstance().getUserService();
-				List<Order> orders = orderService.getAllOrders();
+				
+				List<Order> orders = orderService.getOrdersByFilmId(filmID);
 				Collections.reverse(orders);
 				
-				List<String> filmNames = new ArrayList<String>();
 				List<String> userLogins = new ArrayList<String>();
 				for (Order o : orders) {
-					String filmName = filmService.getFilmNameByID(o.getFilmId());
-					filmNames.add(filmName);
-					
 					String userLogin = userService.getLoginByID(o.getUserId());
 					userLogins.add(userLogin);
 				}
+				String filmName = filmService.getFilmNameByID(filmID);
 				
 				request.setAttribute(RequestAndSessionAttributes.ORDERS, orders);
-				request.setAttribute(RequestAndSessionAttributes.FILM_NAMES, filmNames);
+				request.setAttribute(RequestAndSessionAttributes.FILM_NAME, filmName);
 				request.setAttribute(RequestAndSessionAttributes.USER_LOGINS, userLogins);
-				request.setAttribute(RequestAndSessionAttributes.ORDER_VIEW_TYPE, RequestAndSessionAttributes.VIEW_TYPE_ALL);
-				
-				String url = response.encodeRedirectURL(JavaServerPageNames.ORDERS_PAGE);
-				request.getRequestDispatcher(url).forward(request, response);
+				request.setAttribute(RequestAndSessionAttributes.FILM_ID, filmID);
+				request.setAttribute(RequestAndSessionAttributes.ORDER_VIEW_TYPE, RequestAndSessionAttributes.VIEW_TYPE_FILM);
+				request.getRequestDispatcher(JavaServerPageNames.ORDERS_PAGE).forward(request, response);
 				
 			} catch (GetOrdersServiceException e) {
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
-				request.getRequestDispatcher(JavaServerPageNames.ORDERS_PAGE).forward(request, response);
-				
+				request.getRequestDispatcher("/Controller?command=open_film_page&filmID=" + filmID).forward(request, response);
 			} catch (ServiceException e) {
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 			}
-		
 		}
 	}
+
 }

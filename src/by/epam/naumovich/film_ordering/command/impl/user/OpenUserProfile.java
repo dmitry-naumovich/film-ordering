@@ -22,7 +22,6 @@ public class OpenUserProfile implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		
 		HttpSession session = request.getSession(true);
 		String query = QueryUtil.createHttpQueryString(request);
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
@@ -36,15 +35,15 @@ public class OpenUserProfile implements Command {
 			int userID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.USER_ID));
 			IUserService userService = ServiceFactory.getInstance().getUserService();
 			try {
-				User user = userService.getUserByLogin(userService.getLoginByID(userID));
+				User user = userService.getUserByID(userID);
 				request.setAttribute(RequestAndSessionAttributes.USER, user);
 				
 				request.getRequestDispatcher(JavaServerPageNames.PROFILE_PAGE).forward(request, response);	
 			} catch (GetUserServiceException e) {
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher(JavaServerPageNames.PROFILE_PAGE).forward(request, response);
-				
 			} catch (ServiceException e) {
+				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 			}
 		}

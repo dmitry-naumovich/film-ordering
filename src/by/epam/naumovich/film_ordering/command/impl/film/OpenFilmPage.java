@@ -62,11 +62,13 @@ public class OpenFilmPage implements Command {
 				}
 			}
 			request.getRequestDispatcher(JavaServerPageNames.FILM_JSP_PAGE).forward(request, response);
+		
 		} catch(GetReviewsServiceException e) {
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 			request.getRequestDispatcher(JavaServerPageNames.FILM_JSP_PAGE).forward(request, response);
 		}
-		
 		catch (ServiceException e) {
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 		}
 

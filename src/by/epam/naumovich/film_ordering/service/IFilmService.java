@@ -3,7 +3,6 @@ package by.epam.naumovich.film_ordering.service;
 import java.util.Set;
 
 import by.epam.naumovich.film_ordering.bean.Film;
-import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
 public interface IFilmService {

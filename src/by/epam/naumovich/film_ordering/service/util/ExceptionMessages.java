@@ -45,7 +45,7 @@ public final class ExceptionMessages {
 	public static final String REVIEW_TEXT_LENGTH = "Review text must be at least 50 symbols!";
 	public static final String SOURCE_ERROR = "The error occured in the data source!";
 	public static final String UNSUCCESSFULL_SIGN_UP = "User was not successfully registered. Sorry.";
-	public static final String USER_NOT_FOUND = "No user found by this ID";
+	public static final String USER_NOT_FOUND = "No user found by this ID. Sorry!";
 	public static final String WRONG_PASSWORD = "Wrong password! Please, try again.";
 
 }

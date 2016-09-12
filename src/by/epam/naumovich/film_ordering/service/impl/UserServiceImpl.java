@@ -167,27 +167,42 @@ public class UserServiceImpl implements IUserService {
 	
 	@Override
 	public User getUserByLogin(String login) throws ServiceException {
-		
 		if(!Validator.validateStrings(login)){
 			throw new ServiceAuthException(ExceptionMessages.CORRUPTED_LOGIN);
 		}
 		
-		User user = null;
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			IUserDAO dao = daoFactory.getUserDAO();
-			
-			user = dao.getUserByLogin(login);
-			
+			User user = dao.getUserByLogin(login);
 			if (user == null) {
 				throw new ServiceAuthException(ExceptionMessages.LOGIN_NOT_REGISTRATED);
 			}
+			return user;
 			
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
-		
-		return user;
+	}
+	
+
+	@Override
+	public User getUserByID(int id) throws ServiceException {
+		if(!Validator.validateInt(id)){
+			throw new GetUserServiceException(ExceptionMessages.CORRUPTED_USER_ID);
+		}
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IUserDAO dao = daoFactory.getUserDAO();
+			User user = dao.getUserByID(id);
+			if (user == null) {
+				throw new GetUserServiceException(ExceptionMessages.USER_NOT_FOUND);
+			}
+			return user;
+			
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
 	}
 
 	@Override

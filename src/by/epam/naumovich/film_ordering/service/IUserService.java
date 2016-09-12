@@ -12,7 +12,8 @@ public interface IUserService {
 			String sex, String bDate, String phone, String email, String about, String avatar) throws ServiceException;
 	
 	User getUserByLogin(String login) throws ServiceException;
-	void checkUserPassword(String login, String password) throws ServiceException;
+	User getUserByID(int id) throws ServiceException;
 	String getLoginByID(int id) throws ServiceException;
+	void checkUserPassword(String login, String password) throws ServiceException;
 	int getCurrentUserDiscountByID(int id) throws ServiceException;
 }
