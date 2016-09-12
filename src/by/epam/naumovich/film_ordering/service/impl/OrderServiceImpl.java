@@ -56,7 +56,6 @@ public class OrderServiceImpl implements IOrderService {
 			newOrder.setOrdNum(orderNum);
 			
 		} catch (DAOException e) {
-			e.printStackTrace();
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
 		
@@ -64,29 +63,65 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	@Override
-	public void deleteOrder(int orderID) throws ServiceException {
-		// TODO Auto-generated method stub
+	public void deleteOrder(int orderNum) throws ServiceException {
+		if (!Validator.validateInt(orderNum)) {
+			throw new ServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
+		}
 		
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IOrderDAO orderDAO = daoFactory.getOrderDAO();
+			orderDAO.deleteOrder(orderNum);
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
 	}
 	
 	@Override
 	public Order getOrderByOrderNum(int orderNum) throws ServiceException {
-		Order order = null;
+		if (!Validator.validateInt(orderNum)) {
+			throw new ServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
+		}
+		
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			IOrderDAO orderDAO = daoFactory.getOrderDAO();
-			order = orderDAO.getOrderByOrderNum(orderNum);
+			Order order = orderDAO.getOrderByOrderNum(orderNum);
 			if (order == null) {
 				throw new GetOrdersServiceException(ExceptionMessages.ORDER_NOT_FOUND);
 			}
+			return order;
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
-		return order;
 	}
 
+
+	@Override
+	public Order getOrderByUserAndFilmId(int userID, int filmID) throws ServiceException {
+		if (!Validator.validateInt(userID) || !Validator.validateInt(userID)) {
+			throw new ServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
+		}
+		
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IOrderDAO orderDAO = daoFactory.getOrderDAO();
+			Order order = orderDAO.getOrderByUserAndFilmId(userID, filmID);
+			if (order == null) {
+				throw new GetOrdersServiceException(ExceptionMessages.NO_FILM_USER_ORDER);
+			}
+			return order;
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+	}
+	
 	@Override
 	public List<Order> getOrdersByUserId(int id) throws ServiceException {
+		if (!Validator.validateInt(id)) {
+			throw new ServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
+		}
+		
 		List<Order> list = new ArrayList<Order>();
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
@@ -106,6 +141,10 @@ public class OrderServiceImpl implements IOrderService {
 
 	@Override
 	public List<Order> getOrdersByFilmId(int id) throws ServiceException {
+		if (!Validator.validateInt(id)) {
+			throw new ServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
+		}
+		
 		List<Order> list = new ArrayList<Order>();
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);

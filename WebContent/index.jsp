@@ -16,6 +16,7 @@
 <fmt:message bundle="${loc}" key="local.index.readMoreBtn" var="readMore" />
 <fmt:message bundle="${loc}" key="local.index.addInfo" var="addInfo" />
 <fmt:message bundle="${loc}" key="local.index.editFilmBtn" var="editFilmBtn" />
+<fmt:message bundle="${loc}" key="local.film.purchased" var="purchased" />
    	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -37,6 +38,8 @@
 	})
   </script>
   <script type="text/javascript">
+  document.getElementByClass("disabledBtn").disabled = true;
+  
   	window.setTimeout(function() {
 	    $(".alert").fadeTo(500, 0).slideUp(500, function(){
 	        $(this).remove(); 
@@ -109,7 +112,15 @@
               					<a class="btn btn-info" href="<c:url value="/Controller?command=edit_film&filmID=${film.id}"/>" role="button">${editFilmBtn}</a>
               				</c:when>
               				<c:otherwise>
-              					<a class="btn btn-info" href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" role="button">${film.price} ${rublesShorten}</a>
+              					<c:choose>
+	             					<c:when test="${sessionScope.authUser!=null && !requestScope.userOrderFilmIDs.isEmpty() && requestScope.userOrderFilmIDs.contains(film.id)}">
+	             						<button type="button" class="btn btn-default disabledBtn">${purchased}</button>
+	               					</c:when>
+	               					<c:otherwise>
+	               						<a class="btn btn-info" href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" role="button">${film.price} ${rublesShorten}</a>
+	               					</c:otherwise>
+               					</c:choose>
+              					
               				</c:otherwise>
 		              	</c:choose> 
 		                

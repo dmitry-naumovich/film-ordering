@@ -8,9 +8,10 @@ import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 public interface IOrderService {
 
 	int addOrder(int filmID, int userID, String price, String discount, String payment) throws ServiceException;
-	void deleteOrder(int orderID) throws ServiceException;
+	void deleteOrder(int orderNum) throws ServiceException;
 	
 	Order getOrderByOrderNum(int orderNum) throws ServiceException;
+	Order getOrderByUserAndFilmId(int userID, int filmID) throws ServiceException;
 	List<Order> getOrdersByUserId(int id) throws ServiceException;
 	List<Order> getOrdersByFilmId(int id) throws ServiceException;
 	List<Order> getAllOrders() throws ServiceException;

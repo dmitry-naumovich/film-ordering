@@ -1,6 +1,7 @@
 package by.epam.naumovich.film_ordering.command.impl.order;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -8,16 +9,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import by.epam.naumovich.film_ordering.bean.Film;
+import by.epam.naumovich.film_ordering.bean.Order;
 import by.epam.naumovich.film_ordering.command.Command;
 import by.epam.naumovich.film_ordering.command.util.ErrorMessages;
 import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
 import by.epam.naumovich.film_ordering.command.util.QueryUtil;
 import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
 import by.epam.naumovich.film_ordering.service.IFilmService;
+import by.epam.naumovich.film_ordering.service.IOrderService;
 import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.film.GetFilmsServiceException;
+import by.epam.naumovich.film_ordering.service.exception.order.GetOrdersServiceException;
 
 public class OpenOrderPage implements Command {
 
@@ -28,16 +32,39 @@ public class OpenOrderPage implements Command {
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
+		int filmID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));
+		
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.SIGN_IN_FOR_ORDERING);
 			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
 		}
+		else if (Boolean.parseBoolean(session.getAttribute(RequestAndSessionAttributes.IS_ADMIN).toString())) {
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.ADMIN_CAN_NOT_ORDER);
+			request.getRequestDispatcher("/Controller?command=open_film_page&filmID=" + filmID).forward(request, response);
+		}
 		else {
-			int filmID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));
-			IFilmService filmService = ServiceFactory.getInstance().getFilmService();
-			IUserService userService = ServiceFactory.getInstance().getUserService();
+			ServiceFactory sFactory = ServiceFactory.getInstance();
+			IOrderService orderService = sFactory.getOrderService();
 			
+			int userID = Integer.parseInt(session.getAttribute(RequestAndSessionAttributes.USER_ID).toString());
 			try {
+				List<Order> orders = orderService.getOrdersByUserId(userID);
+				for (Order o : orders) {
+					if (o.getFilmId() == filmID) {
+						request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.FILM_ALREADY_ORDERED);
+						request.getRequestDispatcher("/Controller?command=open_single_order&orderNum=" + o.getOrdNum()).forward(request, response);
+					}
+				}
+			} catch (GetOrdersServiceException e) {
+				
+			} catch (ServiceException e) {
+				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
+				request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
+			}
+			try {
+				IFilmService filmService = sFactory.getFilmService();
+				IUserService userService = sFactory.getUserService();
+				
 				Film film = filmService.getFilmByID(filmID);
 				int userSessionId = (int)request.getSession().getAttribute(RequestAndSessionAttributes.USER_ID);
 				int discount = userService.getCurrentUserDiscountByID(userSessionId);

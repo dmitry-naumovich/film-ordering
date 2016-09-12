@@ -10,6 +10,7 @@ public final class ErrorMessages {
 	public static final String ADMIN_CAN_NOT_ORDER = "Administrator is not able to order films.";
 	public static final String DELETE_FILM_RESTRICTION = "Only administrator is able to delete films";
 	public static final String DELETE_REVIEW_RESTRICTION = "Only administrator and review author is able to delete the review";
+	public static final String FILM_ALREADY_ORDERED = "Sorry! You have already ordered this film.";
 	public static final String FILM_ORDERS_RESTRICTION = "Only administrator is able to view film orders";
 	public static final String LOG_OUT_FOR_ANOTHER_ACC = "Log out to sign into another account!";
 	public static final String LOG_OUT_FOR_SIGN_UP = "Log out to be able to sign up!";
@@ -22,6 +23,5 @@ public final class ErrorMessages {
 	public static final String SIGN_IN_FOR_SETTINGS = "Sign in to access or change your profile settings";
 	public static final String SIGN_IN_FOR_SINGLE_ORDER = "Sign in to be able to look through the order";
 	public static final String SIGN_IN_FOR_YOUR_ORDERS = "Sign in to see your orders";
-	public static final String SIGN_IN_FOR_YOUR_REVIEWS = "Sign in to see your reviews";
-	
+	public static final String SIGN_IN_FOR_YOUR_REVIEWS = "Sign in to see your reviews";	
 }

@@ -21,6 +21,7 @@
 <fmt:message bundle="${loc}" key="local.film.buyWithOneClickBtn" var="buyWithOneClickBtn" />
 <fmt:message bundle="${loc}" key="local.film.writeReviewBtn" var="writeReviewBtn" />
 <fmt:message bundle="${loc}" key="local.film.myReviewBtn" var="myReviewBtn" />
+<fmt:message bundle="${loc}" key="local.film.myOrderBtn" var="myOrderBtn" />
 <fmt:message bundle="${loc}" key="local.film.reviewBy" var="reviewBy" />
 <fmt:message bundle="${loc}" key="local.reviews.mark" var="mark" />
 <fmt:message bundle="${loc}" key="local.reviews.date" var="date" />
@@ -106,11 +107,19 @@
              				<a class="btn btn-danger center-block" href="<c:url value="/Controller?command=delete_film&filmID=${film.id}"/>" role="button">${deleteFilmBtn}</a>
           				</c:when>
           				<c:otherwise>
-          					<a class="btn btn-primary center-block" href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" role="button">${buyWithOneClickBtn}</a>
+          				<c:choose>
+          						<c:when test="${!requestScope.ownOrderExists}">
+          							<a class="btn btn-primary center-block" href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" role="button">${buyWithOneClickBtn}</a>
+             					</c:when>
+             					<c:otherwise>
+	             					<a class="btn btn-warning center-block" href="<c:url value="/Controller?command=open_single_order&orderNum=${requestScope.orderNum}"/>" role="button">${myOrderBtn}</a>
+	          					</c:otherwise>
+	          				</c:choose>
+          					
           					<br>
           					<c:choose>
           						<c:when test="${!requestScope.ownReviewExists}">
-          							<a class="btn btn-warning center-block" href="<c:url value="/Controller?command=open_new_review_page&filmID=${film.id}"/>" role="button">${writeReviewBtn}</a>
+          							<a class="btn btn-primary center-block" href="<c:url value="/Controller?command=open_new_review_page&filmID=${film.id}"/>" role="button">${writeReviewBtn}</a>
              					</c:when>
              					<c:otherwise>
 	             					<a class="btn btn-warning center-block" href="<c:url value="/Controller?command=open_single_review&userID=${sessionScope.userID}&filmID=${film.id}"/>" role="button">${myReviewBtn}</a>

@@ -41,6 +41,7 @@ public final class RequestAndSessionAttributes {
 	public static final String ORDER_VIEW_TYPE = "orderViewType";
 	public static final String ORDER = "order";
 	public static final String ORDERS = "orders";
+	public static final String OWN_ORDER_EXISTS = "ownOrderExists";
 	public static final String OWN_REVIEW_EXISTS = "ownReviewExists";
 	public static final String PASSWORD = "password";
 	public static final String PASSWORD_REPEATED = "passwordRepeated";
@@ -61,6 +62,7 @@ public final class RequestAndSessionAttributes {
 	public static final String USER_ID = "userID";
 	public static final String USER_LOGIN = "userLogin";
 	public static final String USER_LOGINS = "userLogins";
+	public static final String USER_ORDER_FILM_IDS = "userOrderFilmIDs";
 	public static final String USER = "user";
 	public static final String VIEW_TYPE_ALL = "all";
 	public static final String VIEW_TYPE_FILM = "film";

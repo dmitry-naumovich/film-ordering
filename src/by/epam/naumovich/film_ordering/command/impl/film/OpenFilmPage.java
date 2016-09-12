@@ -10,16 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import by.epam.naumovich.film_ordering.bean.Film;
+import by.epam.naumovich.film_ordering.bean.Order;
 import by.epam.naumovich.film_ordering.bean.Review;
 import by.epam.naumovich.film_ordering.command.Command;
 import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
 import by.epam.naumovich.film_ordering.command.util.QueryUtil;
 import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
 import by.epam.naumovich.film_ordering.service.IFilmService;
+import by.epam.naumovich.film_ordering.service.IOrderService;
 import by.epam.naumovich.film_ordering.service.IReviewService;
 import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
+import by.epam.naumovich.film_ordering.service.exception.order.GetOrdersServiceException;
 import by.epam.naumovich.film_ordering.service.exception.review.GetReviewsServiceException;
 
 public class OpenFilmPage implements Command {
@@ -34,9 +37,11 @@ public class OpenFilmPage implements Command {
 		
 		int filmID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));
 		try {
-			IFilmService filmService = ServiceFactory.getInstance().getFilmService();
-			IReviewService reviewService = ServiceFactory.getInstance().getReviewService();
-			IUserService userService = ServiceFactory.getInstance().getUserService();
+			ServiceFactory sFactory = ServiceFactory.getInstance();
+			IFilmService filmService = sFactory.getFilmService();
+			IReviewService reviewService = sFactory.getReviewService();
+			IUserService userService = sFactory.getUserService();
+			IOrderService orderService = sFactory.getOrderService();
 			
 			Film film = filmService.getFilmByID(filmID);
 			request.setAttribute(RequestAndSessionAttributes.FILM, film);
@@ -52,15 +57,25 @@ public class OpenFilmPage implements Command {
 			
 			if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) != null) {
 				if (!Boolean.parseBoolean(session.getAttribute(RequestAndSessionAttributes.IS_ADMIN).toString())) {
+					int userID = Integer.parseInt(session.getAttribute(RequestAndSessionAttributes.USER_ID).toString());
 					try {
-						int userID = Integer.parseInt(session.getAttribute(RequestAndSessionAttributes.USER_ID).toString());
 						reviewService.getReviewByUserAndFilmId(userID, filmID);
 						request.setAttribute(RequestAndSessionAttributes.OWN_REVIEW_EXISTS, true);
 					} catch (GetReviewsServiceException e) {
 						request.setAttribute(RequestAndSessionAttributes.OWN_REVIEW_EXISTS, false);
 					}
+					
+					try {
+						Order order = orderService.getOrderByUserAndFilmId(userID, filmID);
+						request.setAttribute(RequestAndSessionAttributes.OWN_ORDER_EXISTS, true);
+						request.setAttribute(RequestAndSessionAttributes.ORDER_NUM, order.getOrdNum());
+					} catch (GetOrdersServiceException e) {
+						request.setAttribute(RequestAndSessionAttributes.OWN_ORDER_EXISTS, false);
+					}
+					
 				}
 			}
+			
 			request.getRequestDispatcher(JavaServerPageNames.FILM_JSP_PAGE).forward(request, response);
 		
 		} catch(GetReviewsServiceException e) {

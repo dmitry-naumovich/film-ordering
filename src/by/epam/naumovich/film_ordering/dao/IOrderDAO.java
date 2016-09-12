@@ -12,6 +12,7 @@ public interface IOrderDAO {
 	
 	Order getOrderByOrderNum(int orderNum) throws DAOException;
 	
+	Order getOrderByUserAndFilmId(int userID, int filmID) throws DAOException;
 	List<Order> getOrdersByUserId(int id) throws DAOException;
 	List<Order> getOrdersByFilmId(int id) throws DAOException;
 	List<Order> getAllOrders() throws DAOException;

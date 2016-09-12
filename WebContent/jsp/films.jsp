@@ -17,6 +17,7 @@
 <fmt:message bundle="${loc}" key="local.film.filmRating" var="filmRating" />
 <fmt:message bundle="${loc}" key="local.film.description" var="description" />
 <fmt:message bundle="${loc}" key="local.film.price" var="price" />
+<fmt:message bundle="${loc}" key="local.film.purchased" var="purchased" />
 <fmt:message bundle="${loc}" key="local.film.buyWithOneClickBtn" var="buyWithOneClickBtn" />
 <fmt:message bundle="${loc}" key="local.index.editFilmBtn" var="editFilmBtn" />
 <fmt:message bundle="${loc}" key="local.film.openFilmOrders" var="openFilmOrdersBtn" />
@@ -41,6 +42,7 @@
 });
   </script>
   <script type="text/javascript">
+  
   	window.setTimeout(function() {
 	    $(".alert").fadeTo(500, 0).slideUp(500, function(){
 	        $(this).remove(); 
@@ -101,8 +103,6 @@
                               <table class="table table-striped">
                     			<thead>
                     				<br>
-                    				<col width="50">
-  									<col width="80">
                       	<tr>
 	              			<c:choose> 
 	              				<c:when test="${sessionScope.isAdmin}">
@@ -110,7 +110,14 @@
                   					<td><a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${film.id}"/>" role="button">${openFilmPage}</a></td>
 	              				</c:when>
 	              				<c:otherwise>
-	              					<td><a class="btn btn-primary" href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" role="button">${buyWithOneClickBtn}</a></td>
+	              					<c:choose>
+		              					<c:when test="${sessionScope.authUser!=null && !requestScope.userOrderFilmIDs.isEmpty() && requestScope.userOrderFilmIDs.contains(film.id)}">
+		              						<td><button type="button" class="btn btn-default disabledBtn">${purchased}</button></td>
+	                  					</c:when>
+	                  					<c:otherwise>
+	                  						<td><a class="btn btn-primary" href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" role="button">${buyWithOneClickBtn}</a></td>
+	                  					</c:otherwise>
+                  					</c:choose>
                   					<td><a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${film.id}"/>" role="button">${openFilmPage}</a></td>
 	              				</c:otherwise>
 	              			</c:choose>
