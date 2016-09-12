@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import by.epam.naumovich.film_ordering.command.Command;
+import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
+import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
 
 /**
  * Servlet implementation class Controller
@@ -36,9 +38,14 @@ public class Controller extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String commandName = request.getParameter(COMMAND);
-		Command command  = CommandHelper.getInstance().getCommand(commandName.toUpperCase());
-		command.execute(request, response);
+		try {
+			String commandName = request.getParameter(COMMAND);
+			Command command  = CommandHelper.getInstance().getCommand(commandName.toUpperCase());
+			command.execute(request, response);
+		} catch (RuntimeException e) {
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
+			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
+		}
 	}
 
 }
