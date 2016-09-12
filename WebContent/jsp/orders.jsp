@@ -69,8 +69,8 @@
 	  
 	  
       <div class="col-md-8 main content ">
-        <div class="panel panel-primary">
-          <div class="panel-heading" >
+        <div class="panel panel-primary container-fluid">
+          <div class="panel-heading row" >
           	<c:choose> 
           		<c:when test="${sessionScope.isAdmin}">
           			<c:choose>
@@ -78,20 +78,28 @@
 	          				<h4 class="text-left">${orders}</h4>
 	          			</c:when>
 	          			<c:when test="${requestScope.orderViewType eq 'user'}"> 
+	          				<div class="col-md-6">
 	          				<h4 class="text-left"> ${userOrder}
-	          				 	<a href="<c:url value="/Controller?command=open_user_profile&userID=${requestScope.userID}"/>">${requestScope.userLogin} </a>
+	          				 	${requestScope.userLogin}
 	          				</h4>
+	          				</div>
+	          				<div class="col-md-6">
 	          				<h4 class="text-right">
 	          					<a class="btn btn-info" href="<c:url value="/Controller?command=open_user_profile&userID=${requestScope.userID}"/>" role="button" >${userProfile}</a>
 	          				</h4>
+	          				</div>
 	          			</c:when>
 	          			<c:when test="${requestScope.orderViewType eq 'film'}">
+	          				<div class="col-md-6">
 	          				<h4 class="text-left"> 
 	          					${filmOrders} ${requestScope.filmName}
 	          				</h4>
+	          				</div>
+	          				<div class="col-md-6">
 	          				<h4 class="text-right">
 	          					<a class="btn btn-info" href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
 	          				</h4>
+	          				</div>
 	          			</c:when>
           			</c:choose> 
           			
@@ -120,21 +128,6 @@
                 <c:forEach items="${requestScope.orders}" var="order" varStatus="status">
                 
                     <div class="panel panel-default container-fluid">
-                        <div class="row panel-heading" >
-                        	<div class="col-md-12">                         	
-                        		
-	                        		<h5 class="text-left">
-	                        			<a class="btn btn-info" href="<c:url value="/Controller?command=open_single_order&orderNum=${order.ordNum}"/>" role="button" >${openSingleOrderBtn}</a>
-	                        			<c:if test="${!(requestScope.orderViewType eq 'film')}" >
-	                        				<a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
-	                        			</c:if>
-	                        			<c:if test="${!(requestScope.orderViewType eq 'user')}" >
-	                        				<a class="btn btn-success" href="<c:url value="/Controller?command=open_user_profile&userID=${order.userId}"/>" role="button" >${userProfile}</a>
-	                        			</c:if>
-	                        		</h5>
-                        	</div>
-                        	
-                        </div> 
                     <div class="row panel-body">
                         <div class="col-md-12">
                           <div class="col-md-4">
@@ -146,12 +139,24 @@
                              <c:if test="${requestScope.orderViewType eq 'film'}" >
                              	<img src="img/avatars/avatars${order.userId}.gif" alt="img/no-avatar.jpg" class="img-thumbnail img-responsive" width="150" height="150" style="margin-top: 30px;"/>
                              </c:if>
+                             <c:if test="${requestScope.orderViewType eq 'all'}" >
+                             	<br>
+	                      		<a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
+	                      	</c:if>
+                             
                           </div>
                           <div class="col-md-8">
                               <table class="table table-striped">
                     <thead>
-                        
-                      
+                    <tr>
+	                        <th>
+	                          <p>    </p>
+	                        </th>
+	                        <th>
+	                          <p>     </p>
+	                        </th>
+	                        
+	                      </tr>
                     </thead>
                     <tbody>
                       <tr>
@@ -189,6 +194,19 @@
                       <tr>
                         <td>${orderSum}</td>
                         <td>${order.payment} ${rublesShorten}</td>
+                      </tr>
+                      <tr>
+	                      <td>
+	                      	<a class="btn btn-info" href="<c:url value="/Controller?command=open_single_order&orderNum=${order.ordNum}"/>" role="button" >${openSingleOrderBtn}</a>
+	                      </td>
+	                      <td>
+	                      	<c:if test="${requestScope.orderViewType eq 'user'}" >
+	                      		<a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
+	                      	</c:if>
+	               			<c:if test="${!(requestScope.orderViewType eq 'user')}" >
+	               				<a class="btn btn-success" href="<c:url value="/Controller?command=open_user_profile&userID=${order.userId}"/>" role="button" >${userProfile}</a>
+	               			</c:if>
+	               		  </td>
                       </tr>
                     </tbody>
                 </table>

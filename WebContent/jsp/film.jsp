@@ -120,8 +120,8 @@
                 </div>
                 <div class="col-md-8">
 	                <table class="table table-striped">
-	                	<col width="50">
-  						<col width="80">
+	                	<col width="40">
+  						<col width="70">
 	                
 	                    <thead>
 	                      

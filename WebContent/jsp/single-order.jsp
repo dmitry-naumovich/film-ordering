@@ -10,10 +10,12 @@
 <fmt:message bundle="${loc}" key="local.common.rublesShorten" var="rublesShorten" />
 <fmt:message bundle="${loc}" key="local.films.openFilmPage" var="openFilmPage" />
 <fmt:message bundle="${loc}" key="local.orders.userOrder" var="userOrder" />
+<fmt:message bundle="${loc}" key="local.orders.orderNum" var="orderNum" />
 <fmt:message bundle="${loc}" key="local.orders.orderDate" var="orderDate" />
 <fmt:message bundle="${loc}" key="local.orders.orderTime" var="orderTime" />
 <fmt:message bundle="${loc}" key="local.orders.filmName" var="filmName" />
 <fmt:message bundle="${loc}" key="local.orders.userLogin" var="userLogin" />
+<fmt:message bundle="${loc}" key="local.orders.userProfile" var="userProfile" />
 <fmt:message bundle="${loc}" key="local.orders.filmPrice" var="filmPrice" />
 <fmt:message bundle="${loc}" key="local.orders.discount" var="discount" />
 <fmt:message bundle="${loc}" key="local.orders.orderSum" var="orderSum" />
@@ -65,19 +67,6 @@
       
       <div class="col-md-8 main content ">
         <div class="panel panel-primary container-fluid">
-          <div class="row panel-heading" >
-   		         	<div class="col-md-6">                         	
-                        		<h5 class="text-left" >
-                        			<a href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}" />" ">${orderFilmName} </a>
-                        		</h5>
-                        	</div>
-                        	
-                        	<div class="col-md-6">
-                        		<h5 class="text-right">  
-                        			<a href="<c:url value="/Controller?command=open_user_profile&userID=${order.userId}"/>" >${orderUserLogin} </a>
-                        		</h5>
-                        	</div>
-          </div> 
           <div class="row panel-body">
           	<div class="col-md-12">
           		<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
@@ -92,9 +81,7 @@
 					 ${successMessage} 
 					</div>
 				</c:if>
-                
                           <div class="col-md-4">
-                            
                               <figure>
                                 <img src="img/films/${order.filmId}/folder.jpg" alt="Img not loaded" class="img-thumbnail img-responsive" width="210" height="140" style="margin-top: 30px;"/> 
                               </figure>
@@ -102,16 +89,14 @@
                           <div class="col-md-8">
                               <table class="table table-striped">
                     <thead>
-                        
-                      <tr>
-                      <td> 
-                      	<a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
-                      </td>
-                        
-                      </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <br>
+                      <tr>
+                        <td>${orderNum}</td>
+                        <td>#${order.ordNum}</td>
+                      </tr>
+                      <tr>
                         <td>${orderDate}</td>
                         <td>${order.date}</td>
                       </tr>
@@ -139,23 +124,28 @@
                         <td>${orderSum}</td>
                         <td>${order.payment} ${rublesShorten}</td>
                       </tr>
+                      <tr>
+	                      <td> 
+	                      	<a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
+	                      </td>
+	                      <td> 
+	                      	<a class="btn btn-info" href="<c:url value="/Controller?command=open_user_profile&userID=${order.userId}"/>" role="button" >${userProfile}</a>
+	                      </td>
+                      </tr>
+                      <tr>
+	                      <td></td>
+	                      <td></td>
+                      </tr>
                     </tbody>
                 </table>
-
                           </div>
-                          
            </div>
           </div>
-
       </div>
       </div>
-
-      <jsp:include page="/WEB-INF/static/right-sidebar.jsp"></jsp:include>
-      
+      <jsp:include page="/WEB-INF/static/right-sidebar.jsp"></jsp:include>      
      </div>
-  </div>  
-  
+  </div>    
   <jsp:include page="/WEB-INF/static/footer.jsp"></jsp:include>
-  
 </body>
 </html>
