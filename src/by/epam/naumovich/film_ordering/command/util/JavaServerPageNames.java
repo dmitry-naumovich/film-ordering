@@ -11,7 +11,6 @@ public final class JavaServerPageNames {
 	public static final String EDIT_NEWS_JSP_PAGE = "jsp/edit-news.jsp";
 	public static final String FEEDBACK_PAGE = "jsp/feedback.jsp";
 	public static final String FILM_ADDING_PAGE = "jsp/film-adding.jsp";
-	public static final String FILM_JSP_PAGE = "jsp/film.jsp";
 	public static final String FILM_ORDERING_PAGE = "jsp/film-ordering.jsp";
 	public static final String FILMS_JSP_PAGE = "jsp/films.jsp";
 	public static final String HELP_PAGE = "jsp/help.jsp";
@@ -24,6 +23,7 @@ public final class JavaServerPageNames {
 	public static final String PROFILE_PAGE = "jsp/profile.jsp";
 	public static final String REVIEWS_PAGE = "jsp/reviews.jsp";
 	public static final String SIGN_UP_PAGE = "jsp/sign-up.jsp";
+	public static final String SINGLE_FILM_PAGE = "jsp/single-film.jsp";
 	public static final String SINGLE_NEWS_PAGE = "jsp/single-news.jsp";
 	public static final String SINGLE_ORDER_PAGE = "jsp/single-order.jsp";
 	public static final String SINGLE_REVIEW_PAGE = "jsp/single-review.jsp";
