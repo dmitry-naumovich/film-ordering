@@ -10,5 +10,6 @@ public final class ExceptionMessages {
 	public static final String SQL_DELETE_FAILTURE = "Failure during the SQL delete request execution";
 	public static final String SQL_INSERT_FAILURE = "Failure during the SQL insert request execution";
 	public static final String SQL_SELECT_FAILURE = "Failure during the SQL select request execution";
+	public static final String SQL_UPDATE_FAILURE = "Failure during the SQL update request execution";
 	
 }

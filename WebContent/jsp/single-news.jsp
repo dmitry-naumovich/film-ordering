@@ -5,6 +5,9 @@
 
 <c:set var="language" value="${not empty sessionScope.language ? sessionScope.language : 'en' }" scope="session"/>
 <fmt:setLocale value="${language}" />
+<fmt:setBundle basename="resources.local" var="loc" />
+<fmt:message bundle="${loc}" key="local.news.editNewsBtn" var="editNewsBtn" />
+<fmt:message bundle="${loc}" key="local.news.deleteNewsBtn" var="deleteNewsBtn" />
 
 <c:set var="news" value="${requestScope.news}" />
 
@@ -19,6 +22,13 @@
   <link rel="icon"  type="image/x-icon" href="img/tab-logo.png">
   <link rel="stylesheet" href="css/bootstrap.min.css" >
   <link rel="stylesheet" href="css/styles.css">
+  <script type="text/javascript">
+	  window.setTimeout(function() {
+		    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+		        $(this).remove(); 
+		    });
+		}, 1000);
+   </script>
   <script type="text/javascript">
     $('.nav li').click(function(e) {
   e.preventDefault();
@@ -42,25 +52,52 @@
     <div class="row content ">
     
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
-	  <h4><c:out value="${errorMessage}" /></h4>
+	  
 	  
       <div class="col-md-8 main content ">
         <div class="panel panel-primary container-fluid">
           <div class="panel-heading row" style="margin-top: 0px;padding-top:0px">
-          <div class="col-md-9" >
-          	<h4 class="text-left"> ${news.title} </h4>
-          </div>
-          <div class="col-md-3" >
-          	<h4 class="text-right"> ${news.date} ${news.time}</h4>
-          </div>
-          
+	          <div class="col-md-8" >
+	          	<h4 class="text-left"> ${news.title} </h4>
+	          </div>
+	          <div class="col-md-4" >
+	          	<h4 class="text-right"> ${news.date} ${news.time}</h4>
+	          </div>
           </div> 
           <div class="row panel-body ">
             <div class="col-md-12">
-            <img src="img/news/${news.id}/01.jpg" alt="News Img" class="img-thumbnail img-responsive" style="float:left; margin:20px;" width="210" height="140" />
-            <br><p style="text-align:justify;"> ${news.text} </p>
+            	<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
+					<div class="alert alert-danger fade in">
+					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+					 ${errorMessage} 
+					</div>
+				</c:if>
+				<c:if test="${successMessage != null && !successMessage.isEmpty()}">
+					<div class="alert alert-success fade in">
+					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+					 ${successMessage} 
+					</div>
+				</c:if>
+            
+	            <img src="img/news/${news.id}/01.jpg" alt="News Img" class="img-thumbnail img-responsive" style="float:left; margin:20px;" width="210" height="140" />
+	            <br><p style="text-align:justify;"> ${news.text} </p>
+          	</div>
           </div>
+          <c:if test="${sessionScope.isAdmin}">
+          <div class="row panel-footer">
+          	<%-- <div class="col-md-6">
+          		<h5 class="text-left">
+            		<a href="<c:url value="/Controller?command=edit_news&newsID=${news.id}" />" >${editNewsBtn}</a>
+	            </h5>
+          	</div> --%>
+          	<div class="col-md-12">
+          		<h5 class="text-right">
+          		<a href="<c:url value="/Controller?command=open_news_edit_page&newsID=${news.id}" />" >${editNewsBtn}</a> |
+            		<a href="<c:url value="/Controller?command=delete_news&newsID=${news.id}" />" >${deleteNewsBtn}</a>
+	            </h5>
+          	</div>
           </div>
+          </c:if>
 
       </div>
       </div>

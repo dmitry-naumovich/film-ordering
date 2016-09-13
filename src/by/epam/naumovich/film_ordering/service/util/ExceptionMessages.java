@@ -11,7 +11,8 @@ public final class ExceptionMessages {
 	public static final String CORRUPTED_LOGIN = "The login is corrupted. Sorry!";
 	public static final String CORRUPTED_LOGIN_OR_PWD = "Corrupted login or password. Sorry!";
 	public static final String CORRUPTED_NAME_SURN_SEX = "At least one of the next fields is corrupted or empty: name, surname, sex.";
-	public static final String CORRUPTED_USER_ID = "Corrupted user ID. Sorry!";
+	public static final String CORRUPTED_NEWS_ID = "Corrupted news ID! Please, try again.";
+	public static final String CORRUPTED_USER_ID = "Corrupted user ID! Please, try again.";
 	public static final String FILM_NOT_ADDED = "The film was not added the database! Sorry! Please, try again";
 	public static final String FILM_NOT_PRESENT = "The film is not present in the database";
 	public static final String INVALID_BIRTHDATE = "The year must exceed %s and the date can not exceed today";

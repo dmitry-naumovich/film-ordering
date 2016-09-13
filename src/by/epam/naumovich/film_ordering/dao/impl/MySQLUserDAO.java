@@ -140,7 +140,7 @@ public class MySQLUserDAO implements IUserDAO {
 			st.executeUpdate();
 			
 		} catch (SQLException e) {
-			throw new DAOException(ExceptionMessages.SQL_INSERT_FAILURE, e);
+			throw new DAOException(ExceptionMessages.SQL_UPDATE_FAILURE, e);
 		} catch (ConnectionPoolException e) {
 			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
 		} finally {

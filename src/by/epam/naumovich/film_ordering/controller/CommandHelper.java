@@ -25,7 +25,9 @@ public class CommandHelper {
 		commands.put(CommandName.CHANGE_LANGUAGE, new ChangeLanguage());
 		commands.put(CommandName.CHANGE_USER_SETTINGS, new ChangeUserSettings());
 		commands.put(CommandName.DELETE_FILM, new DeleteFilm()); 
+		commands.put(CommandName.DELETE_NEWS, new DeleteNews());
 		commands.put(CommandName.DELETE_REVIEW, new DeleteReview());
+		commands.put(CommandName.EDIT_NEWS, new EditNews());
 		commands.put(CommandName.GET_NOVELTY, new GetNovelty());
 		commands.put(CommandName.GET_SIDEBAR_NEWS, new GetSidebarNews());
 		commands.put(CommandName.LOGIN, new Login());
@@ -40,6 +42,7 @@ public class CommandHelper {
 		commands.put(CommandName.OPEN_HELP_PAGE, new OpenHelpPage());
 		commands.put(CommandName.OPEN_LOGINATION_PAGE, new OpenLoginationPage());
 		commands.put(CommandName.OPEN_NEW_REVIEW_PAGE, new OpenNewReviewPage());
+		commands.put(CommandName.OPEN_NEWS_EDIT_PAGE, new OpenNewsEditPage());
 		commands.put(CommandName.OPEN_NEWS_LIST, new OpenNewsList());
 		commands.put(CommandName.OPEN_ORDER_PAGE, new OpenOrderPage());
 		commands.put(CommandName.OPEN_SIGN_UP_PAGE, new OpenSignUpPage());

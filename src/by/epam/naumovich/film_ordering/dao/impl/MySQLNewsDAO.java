@@ -18,6 +18,7 @@ public class MySQLNewsDAO implements INewsDAO {
 
 	public static final String INSERT_NEW_NEWS = "INSERT INTO News (n_date, n_time, n_title, n_text) VALUES (?, ?, ?, ?)";
 	public static final String DELETE_NEWS = "DELETE FROM News WHERE n_id = ?";
+	public static final String UPDATE_NEWS = "UPDATE News SET n_title = ?, n_text = ? WHERE n_id = ?";
 	public static final String SELECT_ALL_NEWS = "SELECT * FROM News";
 	public static final String SELECT_NEWS_BY_ID = "SELECT * FROM News WHERE n_id = ?";
 	public static final String SELECT_NEWS_BY_YEAR = "SELECT * FROM News WHERE YEAR(n_date) = ?";
@@ -88,6 +89,34 @@ public class MySQLNewsDAO implements INewsDAO {
 			
 		} catch (SQLException e) {
 			throw new DAOException(ExceptionMessages.SQL_DELETE_FAILTURE, e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
+		} finally {
+			try {
+				if (st != null) { st.close(); }
+			} catch (SQLException e) {
+				throw new DAOException(ExceptionMessages.PREP_STATEMENT_NOT_CLOSED, e);
+			} finally {
+				if (con != null) { pool.closeConnection(con); }
+			}
+		}
+	}
+	
+	@Override
+	public void editNews(int id, String title, String text) throws DAOException {
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;
+		try {
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(UPDATE_NEWS);
+			st.setString(1, title);
+			st.setString(2, text);
+			st.setInt(3, id);
+			st.executeUpdate();
+		} catch (SQLException e) {
+			throw new DAOException(ExceptionMessages.SQL_UPDATE_FAILURE, e);
 		} catch (ConnectionPoolException e) {
 			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
 		} finally {
@@ -269,5 +298,4 @@ public class MySQLNewsDAO implements INewsDAO {
 		}
 		return news;
 	}
-
 }

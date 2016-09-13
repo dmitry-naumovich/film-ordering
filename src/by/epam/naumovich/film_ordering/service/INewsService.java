@@ -9,9 +9,11 @@ public interface INewsService {
 
 	int addNews(String title, String text) throws ServiceException;
 	void deleteNews(int id) throws ServiceException;
+	void editNews(int id, String title, String text) throws ServiceException;
+	
+	News getNewsById(int id) throws ServiceException;
 	List<News> getAllNews() throws ServiceException;
 	List<News> getFourLastNews() throws ServiceException;
-	News getNewsById(int id) throws ServiceException;
 	List<News> getNewsByYear(int year) throws ServiceException;
 	List<News> getNewsByMonth(int month, int year) throws ServiceException;
 }

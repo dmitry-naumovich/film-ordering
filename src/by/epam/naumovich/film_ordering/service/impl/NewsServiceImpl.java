@@ -16,6 +16,7 @@ import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.service.INewsService;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.news.AddNewsServiceException;
+import by.epam.naumovich.film_ordering.service.exception.news.EditNewsServiceException;
 import by.epam.naumovich.film_ordering.service.exception.news.GetNewsServiceException;
 import by.epam.naumovich.film_ordering.service.util.ExceptionMessages;
 import by.epam.naumovich.film_ordering.service.util.Validator;
@@ -52,10 +53,36 @@ public class NewsServiceImpl implements INewsService {
 
 	@Override
 	public void deleteNews(int id) throws ServiceException {
-		// TODO Auto-generated method stub
-
+		if (!Validator.validateInt(id)) {
+			throw new ServiceException(ExceptionMessages.CORRUPTED_NEWS_ID);
+		}
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			INewsDAO newsDAO = daoFactory.getNewsDAO();
+			newsDAO.deleteNews(id);
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
 	}
 
+
+	@Override
+	public void editNews(int id, String title, String text) throws ServiceException {
+		if (!Validator.validateInt(id)) {
+			throw new ServiceException(ExceptionMessages.CORRUPTED_NEWS_ID);
+		}
+		else if (!Validator.validateStrings(title, text)) {
+			throw new EditNewsServiceException(ExceptionMessages.INVALID_NEWS_TITLE_OR_TEXT);
+		}
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			INewsDAO newsDAO = daoFactory.getNewsDAO();
+			newsDAO.editNews(id, title, text);
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+	}
+	
 	@Override
 	public List<News> getAllNews() throws ServiceException {
 		List<News> list = new ArrayList<News>();
@@ -150,5 +177,4 @@ public class NewsServiceImpl implements INewsService {
 		
 		return news;
 	}
-
 }
