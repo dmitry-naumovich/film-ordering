@@ -166,6 +166,23 @@ public class UserServiceImpl implements IUserService {
 	}
 	
 	@Override
+	public void deleteUser(int id) throws ServiceException {
+		if (!Validator.validateInt(id)) {
+			throw new ServiceException(ExceptionMessages.CORRUPTED_USER_ID);
+		}
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IUserDAO dao = daoFactory.getUserDAO();
+			dao.deleteUser(id);
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+		
+		
+		
+	}
+	
+	@Override
 	public User getUserByLogin(String login) throws ServiceException {
 		if(!Validator.validateStrings(login)){
 			throw new ServiceAuthException(ExceptionMessages.CORRUPTED_LOGIN);

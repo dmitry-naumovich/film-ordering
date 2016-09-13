@@ -9,7 +9,7 @@ public interface IUserDAO {
 
 	int addUser(User user) throws DAOException;
 	void updateUser(int id, User updatedUser) throws DAOException;
-	void deleteUser(User user) throws DAOException;
+	void deleteUser(int id) throws DAOException;
 	
 	List<User> getAllUsers() throws DAOException;
 	List<User> getUsersInBan() throws DAOException;

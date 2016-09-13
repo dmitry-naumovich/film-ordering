@@ -156,7 +156,7 @@ public class MySQLUserDAO implements IUserDAO {
 	}
 	
 	@Override
-	public void deleteUser(User user) throws DAOException {
+	public void deleteUser(int id) throws DAOException {
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -164,7 +164,7 @@ public class MySQLUserDAO implements IUserDAO {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(DELETE_USER);
-			st.setString(1, String.valueOf(user.getId()));
+			st.setInt(1, id);
 			st.executeUpdate();
 			
 		} catch (SQLException e) {

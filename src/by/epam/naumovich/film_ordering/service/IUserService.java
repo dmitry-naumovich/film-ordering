@@ -10,7 +10,7 @@ public interface IUserService {
 	
 	void updateUser(int id, String name, String surname, String password, 
 			String sex, String bDate, String phone, String email, String about, String avatar) throws ServiceException;
-	
+	void deleteUser(int id) throws ServiceException;
 	User getUserByLogin(String login) throws ServiceException;
 	User getUserByID(int id) throws ServiceException;
 	String getLoginByID(int id) throws ServiceException;
