@@ -25,15 +25,15 @@ public class OpenAllReviews implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		IReviewService reviewService = ServiceFactory.getInstance().getReviewService();
-		IFilmService filmService = ServiceFactory.getInstance().getFilmService();
-		IUserService userService = ServiceFactory.getInstance().getUserService();
-		
 		String query = QueryUtil.createHttpQueryString(request);
 		request.getSession(true).setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
 		try {
+			IReviewService reviewService = ServiceFactory.getInstance().getReviewService();
+			IFilmService filmService = ServiceFactory.getInstance().getFilmService();
+			IUserService userService = ServiceFactory.getInstance().getUserService();
+			
 			List<Review> reviews = reviewService.getAllReviews();
 			Collections.reverse(reviews);
 			
@@ -47,16 +47,13 @@ public class OpenAllReviews implements Command {
 			request.setAttribute(RequestAndSessionAttributes.REVIEWS, reviews);
 			request.setAttribute(RequestAndSessionAttributes.LOGINS, reviewLogins);
 			request.setAttribute(RequestAndSessionAttributes.FILM_NAMES, reviewFilmNames);
+			request.getRequestDispatcher(JavaServerPageNames.REVIEWS_PAGE).forward(request, response);
 			
-			String url = response.encodeRedirectURL(JavaServerPageNames.REVIEWS_PAGE);
-			request.getRequestDispatcher(url).forward(request, response);
 		} catch (GetReviewsServiceException e) {
-			
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 			request.getRequestDispatcher(JavaServerPageNames.REVIEWS_PAGE).forward(request, response);
-		}
-		
-		catch (ServiceException e) {
+		} catch (ServiceException e) {
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 		}
 	}

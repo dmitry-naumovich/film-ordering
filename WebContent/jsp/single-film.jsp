@@ -109,7 +109,7 @@
           				<c:otherwise>
           				<c:choose>
           						<c:when test="${!requestScope.ownOrderExists}">
-          							<a class="btn btn-primary center-block" href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" role="button">${buyWithOneClickBtn}</a>
+          							<a class="btn btn-primary center-block" href="<c:url value="/Controller?command=open_new_order_page&filmID=${film.id}"/>" role="button">${buyWithOneClickBtn}</a>
              					</c:when>
              					<c:otherwise>
 	             					<a class="btn btn-warning center-block" href="<c:url value="/Controller?command=open_single_order&orderNum=${requestScope.orderNum}"/>" role="button">${myOrderBtn}</a>

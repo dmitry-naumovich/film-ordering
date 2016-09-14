@@ -39,7 +39,7 @@ public class DeleteReview implements Command {
 				reviewService.deleteReview(userID, filmID);
 				
 				request.setAttribute(RequestAndSessionAttributes.SUCCESS_MESSAGE, SuccessMessages.REVIEW_DELETED);
-				request.getRequestDispatcher("/Controller?command=open_film_page&filmID="+ filmID).forward(request, response);
+				request.getRequestDispatcher("/Controller?command=open_single_film&filmID="+ filmID).forward(request, response);
 			} catch (ServiceException e) {
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);

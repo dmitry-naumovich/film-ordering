@@ -29,7 +29,7 @@ public class AddNews implements Command {
 		}
 		else if (!Boolean.parseBoolean(session.getAttribute(RequestAndSessionAttributes.IS_ADMIN).toString())) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.ADD_NEWS_RESTRICTION);
-			request.getRequestDispatcher("/Controller?command=open_news_list").forward(request, response);
+			request.getRequestDispatcher("/Controller?command=open_all_news").forward(request, response);
 		}
 		else {
 			String title = request.getParameter(RequestAndSessionAttributes.NEWS_TITLE);

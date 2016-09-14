@@ -40,7 +40,7 @@ public class OpenFilmOrders implements Command {
 		}
 		else if (!Boolean.parseBoolean(session.getAttribute(RequestAndSessionAttributes.IS_ADMIN).toString())) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.FILM_ORDERS_RESTRICTION);
-			request.getRequestDispatcher("/Controller?command=open_film_page&filmID=" + filmID).forward(request, response);
+			request.getRequestDispatcher("/Controller?command=open_single_film&filmID=" + filmID).forward(request, response);
 		}
 		else {
 		
@@ -65,10 +65,9 @@ public class OpenFilmOrders implements Command {
 				request.setAttribute(RequestAndSessionAttributes.FILM_ID, filmID);
 				request.setAttribute(RequestAndSessionAttributes.ORDER_VIEW_TYPE, RequestAndSessionAttributes.VIEW_TYPE_FILM);
 				request.getRequestDispatcher(JavaServerPageNames.ORDERS_PAGE).forward(request, response);
-				
 			} catch (GetOrdersServiceException e) {
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
-				request.getRequestDispatcher("/Controller?command=open_film_page&filmID=" + filmID).forward(request, response);
+				request.getRequestDispatcher("/Controller?command=open_single_film&filmID=" + filmID).forward(request, response);
 			} catch (ServiceException e) {
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);

@@ -107,7 +107,7 @@
 	              			<c:choose> 
 	              				<c:when test="${sessionScope.isAdmin}">
 	              					<td><a class="btn btn-primary" href="<c:url value="/Controller?command=edit_film&filmID=${film.id}"/>" role="button">${editFilmBtn}</a></td>
-                  					<td><a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${film.id}"/>" role="button">${openFilmPage}</a></td>
+                  					<td><a class="btn btn-success" href="<c:url value="/Controller?command=open_single_film&filmID=${film.id}"/>" role="button">${openFilmPage}</a></td>
 	              				</c:when>
 	              				<c:otherwise>
 	              					<c:choose>
@@ -115,10 +115,10 @@
 		              						<td><button type="button" class="btn btn-default disabledBtn">${purchased}</button></td>
 	                  					</c:when>
 	                  					<c:otherwise>
-	                  						<td><a class="btn btn-primary" href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" role="button">${buyWithOneClickBtn}</a></td>
+	                  						<td><a class="btn btn-primary" href="<c:url value="/Controller?command=open_new_order_page&filmID=${film.id}"/>" role="button">${buyWithOneClickBtn}</a></td>
 	                  					</c:otherwise>
                   					</c:choose>
-                  					<td><a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${film.id}"/>" role="button">${openFilmPage}</a></td>
+                  					<td><a class="btn btn-success" href="<c:url value="/Controller?command=open_single_film&filmID=${film.id}"/>" role="button">${openFilmPage}</a></td>
 	              				</c:otherwise>
 	              			</c:choose>
 	                      </tr>

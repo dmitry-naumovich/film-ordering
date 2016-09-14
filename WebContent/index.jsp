@@ -109,7 +109,7 @@
 		              <p>
 		              	<c:choose> 
               				<c:when test="${sessionScope.isAdmin}">
-              					<a class="btn btn-info" href="<c:url value="/Controller?command=edit_film&filmID=${film.id}"/>" role="button">${editFilmBtn}</a>
+              					<a class="btn btn-info" href="<c:url value="/Controller?command=open_edit_film_page&filmID=${film.id}"/>" role="button">${editFilmBtn}</a>
               				</c:when>
               				<c:otherwise>
               					<c:choose>
@@ -117,14 +117,14 @@
 	             						<button type="button" class="btn btn-default disabledBtn">${purchased}</button>
 	               					</c:when>
 	               					<c:otherwise>
-	               						<a class="btn btn-info" href="<c:url value="/Controller?command=open_order_page&filmID=${film.id}"/>" role="button">${film.price} ${rublesShorten}</a>
+	               						<a class="btn btn-info" href="<c:url value="/Controller?command=open_new_order_page&filmID=${film.id}"/>" role="button">${film.price} ${rublesShorten}</a>
 	               					</c:otherwise>
                					</c:choose>
               					
               				</c:otherwise>
 		              	</c:choose> 
 		                
-		                <a class="btn btn-link" href="<c:url value="/Controller?command=open_film_page&filmID=${film.id}"/>" role="button"> ${readMore} &raquo;</a> 
+		                <a class="btn btn-link" href="<c:url value="/Controller?command=open_single_film&filmID=${film.id}"/>" role="button"> ${readMore} &raquo;</a> 
 		              </p>
 		            </div>
            		</c:forEach>

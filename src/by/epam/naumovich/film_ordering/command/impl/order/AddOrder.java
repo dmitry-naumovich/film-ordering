@@ -28,7 +28,7 @@ public class AddOrder implements Command {
 		}
 		else if (Boolean.parseBoolean(session.getAttribute(RequestAndSessionAttributes.IS_ADMIN).toString())) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.ADMIN_CAN_NOT_ORDER);
-			request.getRequestDispatcher("/Controller?open_film_page&filmID=" + Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID)));
+			request.getRequestDispatcher("/Controller?command=open_single_film&filmID=" + Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID)));
 		}
 		else {
 			int filmID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));
@@ -42,10 +42,10 @@ public class AddOrder implements Command {
 				int orderNum = orderService.addOrder(filmID, userID, price, discount, payment);
 				
 				request.setAttribute(RequestAndSessionAttributes.SUCCESS_MESSAGE, SuccessMessages.ORDER_ADDED);
-				request.getRequestDispatcher("/Controller?command=open_single_orders&orderNum=" + orderNum).forward(request, response);
+				request.getRequestDispatcher("/Controller?command=open_single_order&orderNum=" + orderNum).forward(request, response);
 			} catch (AddOrderServiceException e) {
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
-				request.getRequestDispatcher("/Controller?command=open_order_page&filmID=" + filmID).forward(request, response);
+				request.getRequestDispatcher("/Controller?command=open_new_order_page&filmID=" + filmID).forward(request, response);
 			} catch (ServiceException e) {
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);

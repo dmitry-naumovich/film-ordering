@@ -97,7 +97,7 @@
 	          				</div>
 	          				<div class="col-md-6">
 	          				<h4 class="text-right">
-	          					<a class="btn btn-info" href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
+	          					<a class="btn btn-info" href="<c:url value="/Controller?command=open_single_film&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
 	          				</h4>
 	          				</div>
 	          			</c:when>
@@ -141,7 +141,7 @@
                              </c:if>
                              <c:if test="${requestScope.orderViewType eq 'all'}" >
                              	<br>
-	                      		<a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
+	                      		<a class="btn btn-success" href="<c:url value="/Controller?command=open_single_film&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
 	                      	</c:if>
                              
                           </div>
@@ -201,7 +201,7 @@
 	                      </td>
 	                      <td>
 	                      	<c:if test="${requestScope.orderViewType eq 'user'}" >
-	                      		<a class="btn btn-success" href="<c:url value="/Controller?command=open_film_page&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
+	                      		<a class="btn btn-success" href="<c:url value="/Controller?command=open_single_film&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
 	                      	</c:if>
 	               			<c:if test="${!(requestScope.orderViewType eq 'user')}" >
 	               				<a class="btn btn-success" href="<c:url value="/Controller?command=open_user_profile&userID=${order.userId}"/>" role="button" >${userProfile}</a>

@@ -19,12 +19,12 @@ public class GetSidebarNews implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		INewsService newsService = ServiceFactory.getInstance().getNewsService();
-		
 		try {
+			INewsService newsService = ServiceFactory.getInstance().getNewsService();
 			List<News> newsList = newsService.getFourLastNews();
 			request.setAttribute(RequestAndSessionAttributes.SIDEBAR_NEWS, newsList);
 		} catch (ServiceException e) {
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);		
 		}
 

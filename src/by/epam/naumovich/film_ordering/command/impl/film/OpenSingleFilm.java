@@ -25,7 +25,7 @@ import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.order.GetOrdersServiceException;
 import by.epam.naumovich.film_ordering.service.exception.review.GetReviewsServiceException;
 
-public class OpenFilmPage implements Command {
+public class OpenSingleFilm implements Command {
 
 	
 	@Override

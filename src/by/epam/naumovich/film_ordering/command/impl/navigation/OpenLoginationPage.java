@@ -26,7 +26,6 @@ public class OpenLoginationPage implements Command {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.LOG_OUT_FOR_ANOTHER_ACC);
 			request.getRequestDispatcher(JavaServerPageNames.INDEX_PAGE).forward(request, response);
 		} else {
-		
 			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
 		}
 	}

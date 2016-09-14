@@ -41,7 +41,6 @@ public class OpenAllOrders implements Command {
 			request.getRequestDispatcher(JavaServerPageNames.INDEX_PAGE).forward(request, response);
 		}
 		else {
-			
 			try {
 				IOrderService orderService = ServiceFactory.getInstance().getOrderService();
 				IFilmService filmService = ServiceFactory.getInstance().getFilmService();
@@ -63,9 +62,7 @@ public class OpenAllOrders implements Command {
 				request.setAttribute(RequestAndSessionAttributes.FILM_NAMES, filmNames);
 				request.setAttribute(RequestAndSessionAttributes.USER_LOGINS, userLogins);
 				request.setAttribute(RequestAndSessionAttributes.ORDER_VIEW_TYPE, RequestAndSessionAttributes.VIEW_TYPE_ALL);
-				
-				String url = response.encodeRedirectURL(JavaServerPageNames.ORDERS_PAGE);
-				request.getRequestDispatcher(url).forward(request, response);
+				request.getRequestDispatcher(JavaServerPageNames.ORDERS_PAGE).forward(request, response);
 				
 			} catch (GetOrdersServiceException e) {
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());

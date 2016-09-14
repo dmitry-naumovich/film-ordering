@@ -23,7 +23,7 @@ import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.film.GetFilmsServiceException;
 import by.epam.naumovich.film_ordering.service.exception.order.GetOrdersServiceException;
 
-public class OpenOrderPage implements Command {
+public class OpenNewOrderPage implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -40,7 +40,7 @@ public class OpenOrderPage implements Command {
 		}
 		else if (Boolean.parseBoolean(session.getAttribute(RequestAndSessionAttributes.IS_ADMIN).toString())) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.ADMIN_CAN_NOT_ORDER);
-			request.getRequestDispatcher("/Controller?command=open_film_page&filmID=" + filmID).forward(request, response);
+			request.getRequestDispatcher("/Controller?command=open_single_film&filmID=" + filmID).forward(request, response);
 		}
 		else {
 			ServiceFactory sFactory = ServiceFactory.getInstance();

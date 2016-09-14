@@ -23,9 +23,6 @@ public class SignUp implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		HttpSession session = request.getSession(true);
-		/*String query = QueryUtil.createHttpQueryString(request);
-		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
-		System.out.println(query);*/
 		
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) != null) {
 			int userID = Integer.parseInt(session.getAttribute(RequestAndSessionAttributes.USER_ID).toString());
@@ -43,10 +40,9 @@ public class SignUp implements Command {
 			String about = request.getParameter(RequestAndSessionAttributes.ABOUT);
 			String avatar = request.getParameter(RequestAndSessionAttributes.AVATAR);
 			
-			int userID = 0;
 			try {
 				IUserService userService = ServiceFactory.getInstance().getUserService();
-				userID = userService.addUser(login, name, surname, pwd, sex, bDate, phone, email, about, avatar);
+				int userID = userService.addUser(login, name, surname, pwd, sex, bDate, phone, email, about, avatar);
 				
 				User user = userService.getUserByLogin(login);
 				session.setAttribute(RequestAndSessionAttributes.AUTHORIZED_USER, login);
@@ -64,7 +60,5 @@ public class SignUp implements Command {
 				request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 			}
 		}
-
 	}
-
 }

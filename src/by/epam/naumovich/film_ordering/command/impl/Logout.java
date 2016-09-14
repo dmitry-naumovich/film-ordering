@@ -29,5 +29,4 @@ public class Logout implements Command {
 			request.getRequestDispatcher(JavaServerPageNames.INDEX_PAGE).forward(request, response);
 		}
 	}
-
 }

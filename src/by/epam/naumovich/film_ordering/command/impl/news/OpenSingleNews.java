@@ -29,15 +29,13 @@ public class OpenSingleNews implements Command {
 			INewsService newsService = ServiceFactory.getInstance().getNewsService();
 			News news = newsService.getNewsById(newsID);
 			request.setAttribute(RequestAndSessionAttributes.NEWS, news);
-			
 			request.getRequestDispatcher(JavaServerPageNames.SINGLE_NEWS_PAGE).forward(request, response);
-		} catch (GetNewsServiceException e) {
-			
+		} catch (GetNewsServiceException e) {	
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 			request.getRequestDispatcher(JavaServerPageNames.SINGLE_NEWS_PAGE).forward(request, response);
 		}
-		
 		catch (ServiceException e) {
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 		}
 

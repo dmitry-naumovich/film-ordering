@@ -18,29 +18,26 @@ import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.news.GetNewsServiceException;
 
-public class OpenNewsList implements Command {
+public class OpenAllNews implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		INewsService newsService = ServiceFactory.getInstance().getNewsService();
-		
 		String query = QueryUtil.createHttpQueryString(request);
 		request.getSession(true).setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
 		try {
+			INewsService newsService = ServiceFactory.getInstance().getNewsService();
 			List<News> news = newsService.getAllNews();
 			Collections.reverse(news); // reverse for showing most recent news first
 			request.setAttribute(RequestAndSessionAttributes.NEWS, news);
-			
-			String url = response.encodeRedirectURL(JavaServerPageNames.NEWS_JSP_PAGE);
-			request.getRequestDispatcher(url).forward(request, response);
-		} catch(GetNewsServiceException e) {
+			request.getRequestDispatcher(JavaServerPageNames.NEWS_JSP_PAGE).forward(request, response);
+		} catch (GetNewsServiceException e) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 			request.getRequestDispatcher(JavaServerPageNames.NEWS_JSP_PAGE).forward(request, response);
 		}
-		
 		catch (ServiceException e) {
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 		}
 	}

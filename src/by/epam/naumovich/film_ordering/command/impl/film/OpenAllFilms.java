@@ -24,7 +24,7 @@ import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.film.GetFilmsServiceException;
 import by.epam.naumovich.film_ordering.service.exception.order.GetOrdersServiceException;
 
-public class OpenFilmList implements Command {
+public class OpenAllFilms implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -53,7 +53,6 @@ public class OpenFilmList implements Command {
 					} catch (GetOrdersServiceException e) {
 						request.setAttribute(RequestAndSessionAttributes.USER_ORDER_FILM_IDS, Collections.emptyList());
 					}
-					
 				}
 			}
 			

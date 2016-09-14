@@ -50,13 +50,11 @@ public class Login implements Command {
 			} catch (ServiceAuthException e) {
 				session.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
-				
 				request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
-				
 			}  catch (ServiceException e) {
+				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);		
 			}
 		}
 	}
-
 }

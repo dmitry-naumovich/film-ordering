@@ -29,7 +29,7 @@ public class DeleteFilm implements Command {
 		}
 		else if (!Boolean.parseBoolean(session.getAttribute(RequestAndSessionAttributes.IS_ADMIN).toString())) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.DELETE_FILM_RESTRICTION);
-			request.getRequestDispatcher("/Controller?command=open_film_page&filmID=" + filmID).forward(request, response);
+			request.getRequestDispatcher("/Controller?command=open_single_film&filmID=" + filmID).forward(request, response);
 		}
 		else {
 			try {
@@ -37,7 +37,7 @@ public class DeleteFilm implements Command {
 				filmService.deleteFilm(filmID);
 				
 				request.setAttribute(RequestAndSessionAttributes.SUCCESS_MESSAGE, SuccessMessages.FILM_DELETED);
-				request.getRequestDispatcher("/Controller?command=open_film_list").forward(request, response);
+				request.getRequestDispatcher("/Controller?command=open_all_films").forward(request, response);
 			} catch (ServiceException e) {
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);

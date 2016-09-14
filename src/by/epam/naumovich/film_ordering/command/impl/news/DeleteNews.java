@@ -34,7 +34,7 @@ public class DeleteNews implements Command {
 				newsService.deleteNews(newsID);
 				
 				request.setAttribute(RequestAndSessionAttributes.SUCCESS_MESSAGE, SuccessMessages.NEWS_DELETED);
-				request.getRequestDispatcher("/Controller?command=open_news_list").forward(request, response);
+				request.getRequestDispatcher("/Controller?command=open_all_news").forward(request, response);
 			} catch (ServiceException e) {
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);

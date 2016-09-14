@@ -28,7 +28,7 @@ public class OpenNewNewsPage implements Command {
 		}
 		else if (!Boolean.parseBoolean(session.getAttribute(RequestAndSessionAttributes.IS_ADMIN).toString())) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.ADD_NEWS_RESTRICTION);
-			request.getRequestDispatcher("/Controller?command=open_news_list").forward(request, response);
+			request.getRequestDispatcher("/Controller?command=open_all_news").forward(request, response);
 		}
 		else {
 			request.getRequestDispatcher(JavaServerPageNames.NEWS_ADDING_PAGE).forward(request, response);

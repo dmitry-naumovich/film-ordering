@@ -82,7 +82,7 @@
               <div class="row panel-heading" style="background-color:${rColor}">
 	              <div class="col-md-6">
 	              	<h4 class=" text-left"> 
-	             		<a href="<c:url value="/Controller?command=open_film_page&filmID=${review.filmId}" />" >${filmName} </a>
+	             		<a href="<c:url value="/Controller?command=open_single_film&filmID=${review.filmId}" />" >${filmName} </a>
 	             	</h4>
 	              </div>
 	              <div class="col-md-6">

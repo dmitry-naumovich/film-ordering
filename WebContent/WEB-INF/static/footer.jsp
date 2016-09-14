@@ -35,8 +35,8 @@
       <div class="col-md-2 col-md-offset-3">
         <ul>
           <li><a href="index.jsp">${main}</a></li>
-          <li><a href="<c:url value="/Controller?command=open_news_list"/>" > ${news} </a></li>
-          <li><a href="<c:url value="/Controller?command=open_film_list"/>" >${films}</a></li>
+          <li><a href="<c:url value="/Controller?command=open_all_news"/>" > ${news} </a></li>
+          <li><a href="<c:url value="/Controller?command=open_all_films"/>" >${films}</a></li>
           <li><a href="<c:url value="/Controller?command=open_widened_search_page"/>"> ${widenedSearch} </a></li>
         </ul>
       </div>

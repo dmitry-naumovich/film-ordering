@@ -28,7 +28,7 @@ public class AddFilm implements Command {
 		}
 		else if (!Boolean.parseBoolean(session.getAttribute(RequestAndSessionAttributes.IS_ADMIN).toString())) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.ADD_FILM_RESTRICTION);
-			request.getRequestDispatcher("/Controller?command=open_film_list").forward(request, response);
+			request.getRequestDispatcher("/Controller?command=open_all_films").forward(request, response);
 		}
 		else {
 			String name = request.getParameter(RequestAndSessionAttributes.NAME);
@@ -48,7 +48,7 @@ public class AddFilm implements Command {
 						genres, length, price, description);
 				
 				request.setAttribute(RequestAndSessionAttributes.SUCCESS_MESSAGE, SuccessMessages.FILM_ADDED);
-				request.getRequestDispatcher("/Controller?command=open_film_page&filmID=" + filmID).forward(request, response);
+				request.getRequestDispatcher("/Controller?command=open_single_film&filmID=" + filmID).forward(request, response);
 			} catch (AddFilmServiceException e) {
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher(JavaServerPageNames.FILM_ADDING_PAGE).forward(request, response);
