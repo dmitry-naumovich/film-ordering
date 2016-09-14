@@ -14,7 +14,9 @@
 <fmt:message bundle="${loc}" key="local.widenedSearch.yearFrom" var="yearFrom" />
 <fmt:message bundle="${loc}" key="local.widenedSearch.yearTo" var="yearTo" />
 <fmt:message bundle="${loc}" key="local.widenedSearch.filmGenre" var="filmGenre" />
+<fmt:message bundle="${loc}" key="local.widenedSearch.filmCountry" var="filmCountry" />
 <fmt:message bundle="${loc}" key="local.widenedSearch.searchBtn" var="searchBtn" />
+<fmt:message bundle="${loc}" key="local.widenedSearch.multilpleChoice" var="multilpleChoice" />
 <fmt:message bundle="${loc}" key="local.addFilm.enterName" var="enterName" />
 <fmt:message bundle="${loc}" key="local.addFilm.enterGenre" var="enterGenre" />
 
@@ -49,7 +51,8 @@
 	{
 	    event.preventDefault(); // this will prevent the submit event
 	    if(document.searchWidenedForm.name.value=="" && document.searchWidenedForm.yearFrom.value=="" 
-	    	&& document.searchWidenedForm.yearTo.value=="" && document.searchWidenedForm.genre.value=="") {
+	    	&& document.searchWidenedForm.yearTo.value=="" && document.searchWidenedForm.genre.value==""
+	    	&& document.searchWidenedForm.country.value=="") {
 		      alert("At least one of all fields must be filled");
 		      document.searchWidenedForm.name.focus();
 		      return false;
@@ -126,10 +129,40 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${filmGenre}:</label>
-      <div class="col-sm-10">
-        <input class="form-control" name="genre" type="text" placeholder="${enterGenre}">
-      </div>
+    	<div class="col-sm-2">
+	  		<label class="control-label" for="sel1">${filmGenre}:</label>
+	    	<div class="text-center"> ${multilpleChoice}</div>
+	   </div>
+	  <div class="col-sm-10">
+		  <select multiple class="form-control" name="genre" id="sel1">
+		    <option>Action</option>
+		    <option>Sci-Fi</option>
+		    <option>Fantasy</option>
+		    <option>Drama</option>
+		    <option>Drama</option>
+		    <option>Drama</option>
+		    <option>Drama</option>
+		    <option>Drama</option>
+		  </select>
+	  </div>
+    </div>
+    <div class="form-group">
+    	<div class="col-sm-2">
+	  		<label class="control-label" for="sel2">${filmCountry}:</label>
+	  		<div class="text-center"> ${multilpleChoice}</div>
+	  	</div>
+	  <div class="col-sm-10">
+		  <select multiple class="form-control" name="country" id="sel2">
+		    <option>USA</option>
+		    <option>Russia</option>
+		    <option>Germany</option>
+		    <option>Algire</option>
+		    <option>Brasil</option>
+		    <option>France</option>
+		    <option>UK</option>
+		    <option>Belarus</option>
+		  </select>
+	  </div>
     </div>
     
     <div class="form-group">

@@ -34,4 +34,13 @@ public final class Validator {
 	public static boolean validateInt(int i) {
 		return i != 0;
 	}
+	
+	public static boolean validateStringArray(String[] array) {
+		for (String s : array) {
+			if (!validateStrings(s)) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

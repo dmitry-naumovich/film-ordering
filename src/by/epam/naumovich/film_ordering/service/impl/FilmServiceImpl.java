@@ -217,7 +217,7 @@ public class FilmServiceImpl implements IFilmService {
 	}
 
 	@Override
-	public Set<Film> searchWidened(String name, String yearFrom, String yearTo, String genre) throws ServiceException {
+	public Set<Film> searchWidened(String name, String yearFrom, String yearTo, String[] genres, String[] countries) throws ServiceException {
 		int fYearFrom = 0;
 		int fYearTo = 9999;
 		
@@ -252,9 +252,20 @@ public class FilmServiceImpl implements IFilmService {
 			
 			foundFilms.addAll(filmDAO.getFilmsBetweenYears(fYearFrom, fYearTo));
 			
-			if (Validator.validateStrings(genre)) {
-				Set<Film> filmsByGenre = filmDAO.getFilmsByGenre(genre);
-				foundFilms.retainAll(filmsByGenre);
+			if (Validator.validateObject(genres) && Validator.validateStringArray(genres)) {
+				Set<Film> filmsByGenre = new LinkedHashSet<Film>();
+				for (String genre : genres) {
+					filmsByGenre = filmDAO.getFilmsByGenre(genre);
+					foundFilms.retainAll(filmsByGenre);
+				}
+			}
+			
+			if (Validator.validateObject(countries) && Validator.validateStringArray(countries)) {
+				Set<Film> filmsByCountry = new LinkedHashSet<Film>();
+				for (String country : countries) {
+					filmsByCountry = filmDAO.getFilmsByCountry(country);
+					foundFilms.retainAll(filmsByCountry);
+				}
 			}
 			
 			if (Validator.validateStrings(name)) {

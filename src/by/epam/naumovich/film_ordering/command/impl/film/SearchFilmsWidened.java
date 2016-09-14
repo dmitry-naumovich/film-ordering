@@ -31,17 +31,18 @@ public class SearchFilmsWidened implements Command {
 		String name = request.getParameter(RequestAndSessionAttributes.NAME);
 		String yearFrom = request.getParameter(RequestAndSessionAttributes.YEAR_FROM);
 		String yearTo = request.getParameter(RequestAndSessionAttributes.YEAR_TO);
-		String genre = request.getParameter(RequestAndSessionAttributes.GENRE);
+		String[] genres = request.getParameterValues(RequestAndSessionAttributes.GENRE);
+		String[] countries = request.getParameterValues(RequestAndSessionAttributes.COUNTRY);
 		
 		try {
 			IFilmService filmService = ServiceFactory.getInstance().getFilmService();
-			Set<Film> foundFilms = filmService.searchWidened(name, yearFrom, yearTo, genre);
+			Set<Film> foundFilms = filmService.searchWidened(name, yearFrom, yearTo, genres, countries);
 			request.setAttribute(RequestAndSessionAttributes.SUCCESS_MESSAGE, SuccessMessages.FILMS_FOUND);
 			request.setAttribute(RequestAndSessionAttributes.FILMS, foundFilms);
 			request.getRequestDispatcher(JavaServerPageNames.FILMS_JSP_PAGE).forward(request, response);
 		} catch (GetFilmsServiceException e) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
-			request.getRequestDispatcher(JavaServerPageNames.FILMS_JSP_PAGE).forward(request, response);
+			request.getRequestDispatcher(JavaServerPageNames.WIDEN_SEARCH_PAGE).forward(request, response);
 		} catch (ServiceException e) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);

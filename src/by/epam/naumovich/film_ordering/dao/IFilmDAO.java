@@ -19,11 +19,14 @@ public interface IFilmDAO {
 	Set<Film> getFilmsByName(String name) throws DAOException;
 	Set<Film> getFilmsByYear(int year) throws DAOException;
 	Set<Film> getFilmsByGenre(String genre) throws DAOException;
+	Set<Film> getFilmsByCountry(String country) throws DAOException;
+	
+	Set<Film> getFilmsBetweenYears(int yearFrom, int yearTo) throws DAOException;
 	
 	Set<Film> getFilmsByNameYear(String name, int year) throws DAOException;
 	Set<Film> getFilmsByNameGenre(String name, String genre) throws DAOException;
 	Set<Film> getFilmsByYearGenre(int year, String genre) throws DAOException;
 	
 	Set<Film> getFilmsByNameYearGenre(String name, int year, String genre) throws DAOException;
-	Set<Film> getFilmsBetweenYears(int yearFrom, int yearTo) throws DAOException;
+	
 }
