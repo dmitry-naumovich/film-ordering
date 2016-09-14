@@ -99,7 +99,7 @@ public class OrderServiceImpl implements IOrderService {
 
 	@Override
 	public Order getOrderByUserAndFilmId(int userID, int filmID) throws ServiceException {
-		if (!Validator.validateInt(userID) || !Validator.validateInt(userID)) {
+		if (!Validator.validateInt(userID) || !Validator.validateInt(filmID)) {
 			throw new ServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
 		}
 		

@@ -45,12 +45,13 @@ public class OpenNewOrderPage implements Command {
 		else {
 			ServiceFactory sFactory = ServiceFactory.getInstance();
 			IOrderService orderService = sFactory.getOrderService();
-			
+			boolean already = false;
 			int userID = Integer.parseInt(session.getAttribute(RequestAndSessionAttributes.USER_ID).toString());
 			try {
 				List<Order> orders = orderService.getOrdersByUserId(userID);
 				for (Order o : orders) {
 					if (o.getFilmId() == filmID) {
+						already = true;
 						request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.FILM_ALREADY_ORDERED);
 						request.getRequestDispatcher("/Controller?command=open_single_order&orderNum=" + o.getOrdNum()).forward(request, response);
 					}
@@ -58,32 +59,37 @@ public class OpenNewOrderPage implements Command {
 			} catch (GetOrdersServiceException e) {
 				
 			} catch (ServiceException e) {
+				already = true;
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 			}
-			try {
-				IFilmService filmService = sFactory.getFilmService();
-				IUserService userService = sFactory.getUserService();
-				
-				Film film = filmService.getFilmByID(filmID);
-				int userSessionId = (int)request.getSession().getAttribute(RequestAndSessionAttributes.USER_ID);
-				int discount = userService.getCurrentUserDiscountByID(userSessionId);
-				float orderSum = film.getPrice() * (1.0f - discount/100f);   
-				
-				request.setAttribute(RequestAndSessionAttributes.FILM, film);
-				request.setAttribute(RequestAndSessionAttributes.DISCOUNT_AMOUNT, discount);
-				request.setAttribute(RequestAndSessionAttributes.ORDER_SUM, orderSum);
-		
-				request.getRequestDispatcher(JavaServerPageNames.FILM_ORDERING_PAGE).forward(request, response);
-				
-			} catch (GetFilmsServiceException e) {
-				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
-				request.getRequestDispatcher(JavaServerPageNames.FILM_ORDERING_PAGE).forward(request, response);
-				
-			} catch (ServiceException e) {
-				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
-				request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
+			
+			if (!already) {
+				try {
+					IFilmService filmService = sFactory.getFilmService();
+					IUserService userService = sFactory.getUserService();
+					
+					Film film = filmService.getFilmByID(filmID);
+					int userSessionId = (int)request.getSession().getAttribute(RequestAndSessionAttributes.USER_ID);
+					int discount = userService.getCurrentUserDiscountByID(userSessionId);
+					float orderSum = film.getPrice() * (1.0f - discount/100f);   
+					
+					request.setAttribute(RequestAndSessionAttributes.FILM, film);
+					request.setAttribute(RequestAndSessionAttributes.DISCOUNT_AMOUNT, discount);
+					request.setAttribute(RequestAndSessionAttributes.ORDER_SUM, orderSum);
+			
+					request.getRequestDispatcher(JavaServerPageNames.FILM_ORDERING_PAGE).forward(request, response);
+					
+				} catch (GetFilmsServiceException e) {
+					request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
+					request.getRequestDispatcher(JavaServerPageNames.FILM_ORDERING_PAGE).forward(request, response);
+					
+				} catch (ServiceException e) {
+					request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
+					request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
+				}
 			}
+			
 		}
 	}
 
