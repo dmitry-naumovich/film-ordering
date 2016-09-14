@@ -25,7 +25,6 @@
 <fmt:message bundle="${loc}" key="local.orders.filmOrders" var="filmOrders" />
 <fmt:message bundle="${loc}" key="local.footer.siteMap.orders" var="orders" />
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="${language}">
 <head>
@@ -71,7 +70,7 @@
 	          				</div>
 	          				<div class="col-md-6">
 	          				<h4 class="text-right">
-	          					<a class="btn btn-info" href="<c:url value="/Controller?command=open_user_profile&userID=${requestScope.userID}"/>" role="button" >${userProfile}</a>
+	          					<a class="btn btn-default" href="<c:url value="/Controller?command=open_user_profile&userID=${requestScope.userID}"/>" role="button" >${userProfile}</a>
 	          				</h4>
 	          				</div>
 	          			</c:when>
@@ -83,7 +82,7 @@
 	          				</div>
 	          				<div class="col-md-6">
 	          				<h4 class="text-right">
-	          					<a class="btn btn-info" href="<c:url value="/Controller?command=open_single_film&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
+	          					<a class="btn btn-default" href="<c:url value="/Controller?command=open_single_film&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
 	          				</h4>
 	          				</div>
 	          			</c:when>
