@@ -103,19 +103,11 @@
                 </div>
           </div>
           </div>
-
       </div>
       </div>
-
-
       <jsp:include page="/WEB-INF/static/right-sidebar.jsp"></jsp:include>
-      
      </div>
-
   </div>  
-  
-
   <jsp:include page="/WEB-INF/static/footer.jsp"></jsp:include>
-  
 </body>
 </html>
