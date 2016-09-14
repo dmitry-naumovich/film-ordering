@@ -42,7 +42,7 @@ public class SearchFilmsWidened implements Command {
 			request.getRequestDispatcher(JavaServerPageNames.FILMS_JSP_PAGE).forward(request, response);
 		} catch (GetFilmsServiceException e) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
-			request.getRequestDispatcher(JavaServerPageNames.WIDEN_SEARCH_PAGE).forward(request, response);
+			request.getRequestDispatcher("/Controller?command=open_widened_search_page").forward(request, response);
 		} catch (ServiceException e) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);

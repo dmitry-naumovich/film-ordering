@@ -29,6 +29,7 @@
 <fmt:message bundle="${loc}" key="local.film.lengthmin" var="lengthmin" />
 <fmt:message bundle="${loc}" key="local.film.description" var="description" />
 <fmt:message bundle="${loc}" key="local.film.price" var="price" />
+<fmt:message bundle="${loc}" key="local.widenedSearch.multilpleChoice" var="multilpleChoice" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="${language}">
@@ -127,73 +128,87 @@
 	</div>
     
     <div class="form-group">
-      <label class="col-sm-2 control-label">${name}*:</label>
-      <div class="col-sm-10">
+      <label class="col-sm-3 control-label">${name}*:</label>
+      <div class="col-sm-9">
         <input class="form-control" name="name" type="text" placeholder="${enterName}" >
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${year}*:</label>
-      <div class="col-sm-10">
+      <label class="col-sm-3 control-label">${year}*:</label>
+      <div class="col-sm-9">
         <input class="form-control" name="year" type="text" placeholder="${enterYear}" >
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${director}*:</label>
-      <div class="col-sm-10">
+      <label class="col-sm-3 control-label">${director}*:</label>
+      <div class="col-sm-9">
         <input class="form-control" name="director" type="text" placeholder="${enterDirector}" >
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${cast}:</label>
-      <div class="col-sm-10">
+      <label class="col-sm-3 control-label">${cast}:</label>
+      <div class="col-sm-9">
         <input class="form-control" name="cast" type="text" placeholder="${enterCast}">
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${country}:</label>
-      <div class="col-sm-10">
-        <input class="form-control" name="country" type="text" placeholder="${enterCountry}">
-      </div>
+    	<div class="col-sm-3">
+	  		<label class="text-center control-label" for="sel2">${country}:</label>
+	  		<div class="text-center"> ${multilpleChoice}</div>
+	  	</div>
+	  <div class="col-sm-9">
+		  <select multiple class="form-control" name="country" id="sel2">
+		    <c:forEach items="${requestScope.availableCountries}" var="fCountry">
+		    	<option>${fCountry}</option>
+		    </c:forEach>
+		  </select>
+	  </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${composer}:</label>
-      <div class="col-sm-10">
+      <label class="col-sm-3 control-label">${composer}:</label>
+      <div class="col-sm-9">
         <input class="form-control" name="composer" type="text" placeholder="${enterComposer}">
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${genre}:</label>
-      <div class="col-sm-10">
-        <input class="form-control" name="genre" type="text" placeholder="${enterGenre}">
-      </div>
+    	<div class="col-sm-3">
+	  		<label class="text-center control-label" for="sel1">${genre}:</label>
+	    	<div class="text-center"> ${multilpleChoice}</div>
+	   </div>
+	  <div class="col-sm-9">
+		  <select multiple class="form-control" name="genre" id="sel1">
+		    <c:forEach items="${requestScope.availableGenres}" var="fGenre">
+		    	<option>${fGenre}</option>
+		    </c:forEach>
+		  </select>
+	  </div>
     </div>
      <div class="form-group">
-      <label class="col-sm-2 control-label">${lengthmin}*:</label>
-      <div class="col-sm-10">
+      <label class="col-sm-3 control-label">${lengthmin}*:</label>
+      <div class="col-sm-9">
         <input class="form-control" name="length" type="text" placeholder="${enterLength}">
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${price}*:</label>
-      <div class="col-sm-10">
+      <label class="col-sm-3 control-label">${price}*:</label>
+      <div class="col-sm-9">
         <input class="form-control" name="price" type="text" placeholder="${enterPrice}">
       </div>
     </div>
      <div class="form-group">
-      <label class="col-sm-2 control-label">${folder}: </label>
-      <div class="col-sm-10">
+      <label class="col-sm-3 control-label">${folder}: </label>
+      <div class="col-sm-9">
             <input type="file" name="filmFolder">
       </div>
     </div>    
     <div class="form-group">
-      <label class="col-sm-2 control-label" for="comment">${description}:</label>
-      <div class="col-sm-10">
+      <label class="col-sm-3 control-label" for="comment">${description}:</label>
+      <div class="col-sm-9">
         <textarea class="form-control" name="description" rows="5"></textarea>
       </div>
     </div>
     <div class="form-group">
-      <div class="col-sm-2 col-md-offset-2">
+      <div class="col-sm-3 col-md-offset-2">
       	<button type="submit" class="btn btn-primary">${addFilmBtn}</button>
       </div>
     </div>    

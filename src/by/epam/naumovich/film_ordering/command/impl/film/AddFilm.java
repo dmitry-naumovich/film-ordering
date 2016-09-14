@@ -35,17 +35,17 @@ public class AddFilm implements Command {
 			String year = request.getParameter(RequestAndSessionAttributes.YEAR);
 			String director = request.getParameter(RequestAndSessionAttributes.DIRECTOR);
 			String cast = request.getParameter(RequestAndSessionAttributes.CAST);
-			String country = request.getParameter(RequestAndSessionAttributes.COUNTRY);
+			String[] countries = request.getParameterValues(RequestAndSessionAttributes.COUNTRY);
 			String composer = request.getParameter(RequestAndSessionAttributes.COMPOSER);
-			String genre = request.getParameter(RequestAndSessionAttributes.GENRE);
+			String[] genres = request.getParameterValues(RequestAndSessionAttributes.GENRE);
 			String length = request.getParameter(RequestAndSessionAttributes.LENGTH);
 			String price = request.getParameter(RequestAndSessionAttributes.PRICE);
 			String description = request.getParameter(RequestAndSessionAttributes.DESCRIPTION);
 			
 			try {
 				IFilmService filmService = ServiceFactory.getInstance().getFilmService();
-				int filmID = filmService.addNewFilm(name, year, director, cast, country, composer, 
-						genre, length, price, description);
+				int filmID = filmService.addNewFilm(name, year, director, cast, countries, composer, 
+						genres, length, price, description);
 				
 				request.setAttribute(RequestAndSessionAttributes.SUCCESS_MESSAGE, SuccessMessages.FILM_ADDED);
 				request.getRequestDispatcher("/Controller?command=open_film_page&filmID=" + filmID).forward(request, response);

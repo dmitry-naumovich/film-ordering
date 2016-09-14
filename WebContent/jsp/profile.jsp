@@ -14,6 +14,8 @@
 <fmt:message bundle="${loc}" key="local.profile.userReviews" var="userReviews" />
 <fmt:message bundle="${loc}" key="local.profile.userOrders" var="userOrders" />
 <fmt:message bundle="${loc}" key="local.profile.banUser" var="banUser" />
+<fmt:message bundle="${loc}" key="local.profile.setDiscount" var="setDiscount" />
+<fmt:message bundle="${loc}" key="local.profile.currentDiscount" var="currentDiscount" />
 <fmt:message bundle="${loc}" key="local.profile.editProfile" var="editProfile" />
 <fmt:message bundle="${loc}" key="local.profile.name" var="name" />
 <fmt:message bundle="${loc}" key="local.profile.surname" var="surname" />

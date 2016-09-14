@@ -41,6 +41,9 @@ public class MySQLFilmDAO implements IFilmDAO {
 	public static final String SELECT_FILMS_BY_NAME_YEAR_GENRE = "SELECT * FROM Films WHERE f_name = ? AND f_year = ? AND FIND_IN_SET(?, f_genre) > 0";
 	public static final String SELECT_FILMS_BETWEEN_YEARS = "SELECT * FROM Films WHERE f_year >= ? AND f_year <= ?";
 	
+	public static final String SHOW_ALL_GENRES = "SHOW COLUMNS FROM films LIKE 'f_genre'";
+	public static final String SHOW_ALL_COUNTRIES = "SHOW COLUMNS FROM films LIKE 'f_country'";
+	
 	public static MySQLFilmDAO getInstance() {
 		return instance;
 	}
@@ -778,5 +781,73 @@ public class MySQLFilmDAO implements IFilmDAO {
 			}
 		}
 		return filmSet;
+	}
+
+	@Override
+	public String[] getAvailableGenres() throws DAOException {
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(SHOW_ALL_GENRES);
+			rs = st.executeQuery();
+			if (rs.next()) {
+				String s = rs.getString(2);
+				String ss = s.substring(5, s.length() - 2);
+				String[] sA = ss.split("','");
+				return sA;
+			}
+		} catch (SQLException e) {
+			throw new DAOException(ExceptionMessages.SQL_SHOW_FAILURE, e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
+		} finally {
+			try {
+				if (rs != null) { rs.close(); }
+				if (st != null) { st.close(); }
+			} catch (SQLException e) {
+				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED, e);
+			} finally {
+				if (con != null) { pool.closeConnection(con); }
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public String[] getAvailableCountries() throws DAOException {
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(SHOW_ALL_COUNTRIES);
+			rs = st.executeQuery();
+			if (rs.next()) {
+				String s = rs.getString(2);
+				String ss = s.substring(5, s.length() - 2);
+				String[] sA = ss.split("','");
+				return sA;
+			}
+		} catch (SQLException e) {
+			throw new DAOException(ExceptionMessages.SQL_SHOW_FAILURE, e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
+		} finally {
+			try {
+				if (rs != null) { rs.close(); }
+				if (st != null) { st.close(); }
+			} catch (SQLException e) {
+				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED, e);
+			} finally {
+				if (con != null) { pool.closeConnection(con); }
+			}
+		}
+		return null;
 	}
 }

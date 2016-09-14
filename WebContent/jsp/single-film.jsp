@@ -100,7 +100,7 @@
                   <br>
           			<c:choose> 
           				<c:when test="${sessionScope.isAdmin}">
-          					<a class="btn btn-primary center-block" href="<c:url value="/Controller?command=edit_film&filmID=${film.id}"/>" role="button">${editFilmBtn}</a>
+          					<a class="btn btn-primary center-block" href="<c:url value="/Controller?command=open_film_edit_page&filmID=${film.id}"/>" role="button">${editFilmBtn}</a>
           					<br>
              				<a class="btn btn-warning center-block" href="<c:url value="/Controller?command=open_film_orders&filmID=${film.id}"/>" role="button">${openFilmOrdersBtn}</a>
              				<br>

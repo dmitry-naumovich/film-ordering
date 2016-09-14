@@ -135,14 +135,9 @@
 	   </div>
 	  <div class="col-sm-10">
 		  <select multiple class="form-control" name="genre" id="sel1">
-		    <option>Action</option>
-		    <option>Sci-Fi</option>
-		    <option>Fantasy</option>
-		    <option>Drama</option>
-		    <option>Drama</option>
-		    <option>Drama</option>
-		    <option>Drama</option>
-		    <option>Drama</option>
+		    <c:forEach items="${requestScope.availableGenres}" var="fGenre">
+		    	<option>${fGenre}</option>
+		    </c:forEach>
 		  </select>
 	  </div>
     </div>
@@ -153,14 +148,9 @@
 	  	</div>
 	  <div class="col-sm-10">
 		  <select multiple class="form-control" name="country" id="sel2">
-		    <option>USA</option>
-		    <option>Russia</option>
-		    <option>Germany</option>
-		    <option>Algire</option>
-		    <option>Brasil</option>
-		    <option>France</option>
-		    <option>UK</option>
-		    <option>Belarus</option>
+		    <c:forEach items="${requestScope.availableCountries}" var="fCountry">
+		    	<option>${fCountry}</option>
+		    </c:forEach>
 		  </select>
 	  </div>
     </div>

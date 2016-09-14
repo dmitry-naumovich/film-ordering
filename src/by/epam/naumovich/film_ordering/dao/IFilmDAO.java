@@ -29,4 +29,6 @@ public interface IFilmDAO {
 	
 	Set<Film> getFilmsByNameYearGenre(String name, int year, String genre) throws DAOException;
 	
+	String[] getAvailableGenres() throws DAOException;
+	String[] getAvailableCountries() throws DAOException;
 }

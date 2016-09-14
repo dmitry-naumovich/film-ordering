@@ -48,7 +48,7 @@ public class Film {
 	public void setDirector(String director) {
 		this.director = director;
 	}
-
+	
 	public String getCountry() {
 		return country;
 	}
@@ -177,8 +177,8 @@ public class Film {
 	    result.append(", Name: " + name);
 	    result.append(", Year: " + year);
 	    if (director != null) { result.append(", Director: " + director); }
-	    if (country != null) {result.append(", Country: " + country); }
-	    if (genre != null) { result.append(", Genre: " + genre); }
+	    if (country != null) {result.append(", Country(-ies): " + country); }
+	    if (genre != null) { result.append(", Genre(s): " + genre); }
 	    if (actors != null) { result.append(", Actors: " + actors); }
 	    if (composer != null) { result.append(", Composer: " + composer); }
 	    if (description != null) { result.append(", Description: " + description); }

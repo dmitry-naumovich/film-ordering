@@ -20,8 +20,8 @@ public class FilmServiceImpl implements IFilmService {
 	private static final String SPACE = " ";
 	
 	@Override
-	public int addNewFilm(String name, String year, String director, String cast, String country, String composer,
-			String genre, String length, String price, String description) throws ServiceException {
+	public int addNewFilm(String name, String year, String director, String cast, String[] countries, String composer,
+			String[] genres, String length, String price, String description) throws ServiceException {
 		
 		if (!Validator.validateStrings(name, year, director, length, price)) {
 			throw new AddFilmServiceException(ExceptionMessages.CORRUPTED_FILM_REQUIRED_FIELDS);
@@ -40,14 +40,25 @@ public class FilmServiceImpl implements IFilmService {
 		if (Validator.validateStrings(cast)) { 
 			 newFilm.setActors(cast);
 		}
-		if (Validator.validateStrings(country)) {
-			newFilm.setCountry(country);
+		
+		if (Validator.validateObject(countries) && Validator.validateStringArray(countries)) {
+			StringBuilder countryBuilder = new StringBuilder();
+			for (String s : countries) {
+				countryBuilder.append(s + ",");
+			}
+			countryBuilder.deleteCharAt(countryBuilder.length() - 1);
+			newFilm.setCountry(countryBuilder.toString());
 		}
 		if (Validator.validateStrings(composer)) {
 			newFilm.setComposer(composer);
 		}
-		if (Validator.validateStrings(genre)) {
-			newFilm.setGenre(genre);
+		if (Validator.validateObject(genres) && Validator.validateStringArray(genres)) {
+			StringBuilder genresBuilder = new StringBuilder();
+			for (String g : genres) {
+				genresBuilder.append(g + ",");
+			}
+			genresBuilder.deleteCharAt(genresBuilder.length() - 1);
+			newFilm.setGenre(genresBuilder.toString());
 		}
 		
 		try {
@@ -284,5 +295,35 @@ public class FilmServiceImpl implements IFilmService {
 		}
 		
 		return foundFilms;
+	}
+
+	@Override
+	public String[] getAvailableGenres() throws ServiceException {
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IFilmDAO filmDAO = daoFactory.getFilmDAO();
+			String[] genres = filmDAO.getAvailableGenres();
+			if (genres == null) {
+				throw new ServiceException(ExceptionMessages.GENRES_NOT_AVAILABLE);
+			}
+			return genres;
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+	}
+
+	@Override
+	public String[] getAvailableCountries() throws ServiceException {
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IFilmDAO filmDAO = daoFactory.getFilmDAO();
+			String[] countries = filmDAO.getAvailableCountries();
+			if (countries == null) {
+				throw new ServiceException(ExceptionMessages.COUNTRIES_NOT_AVAILABLE);
+			}
+			return countries;
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
 	}
 }

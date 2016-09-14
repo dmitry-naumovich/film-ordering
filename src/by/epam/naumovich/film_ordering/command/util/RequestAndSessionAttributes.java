@@ -6,6 +6,8 @@ public final class RequestAndSessionAttributes {
 	
 	public static final String ABOUT = "about";
 	public static final String AUTHORIZED_USER = "authUser";
+	public static final String AVAILABLE_COUNTRIES = "availableCountries";
+	public static final String AVAILABLE_GENRES = "availableGenres";
 	public static final String AVATAR = "avatar";
 	public static final String BDATE = "birthDate";
 	public static final String CAST = "cast";
