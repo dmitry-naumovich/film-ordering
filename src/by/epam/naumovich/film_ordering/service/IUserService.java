@@ -1,5 +1,7 @@
 package by.epam.naumovich.film_ordering.service;
 
+import java.util.Set;
+
 import by.epam.naumovich.film_ordering.bean.User;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
@@ -16,4 +18,7 @@ public interface IUserService {
 	String getLoginByID(int id) throws ServiceException;
 	void checkUserPassword(String login, String password) throws ServiceException;
 	int getCurrentUserDiscountByID(int id) throws ServiceException;
+	
+	Set<User> getAllUsers() throws ServiceException;
+	Set<User> getUsersInBanNow() throws ServiceException;
 }

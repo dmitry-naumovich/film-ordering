@@ -18,6 +18,8 @@ public final class ErrorMessages {
 	public static final String LOG_OUT_FOR_SIGN_UP = "Log out to be able to sign up!";
 	public static final String NOTHING_FOUND = "No films found within this search query! Please, try again.";
 	public static final String OPEN_ALL_ORDERS_RESTRICTION = "Only administrator is able to view all orders";
+	public static final String OPEN_ALL_REVIEWS_RESTRICTION = "Only administrator is able to view all reviews";
+	public static final String OPEN_ALL_USERS_RESTRICTION = "Only administrator is able to view all users";
 	public static final String REVIEW_AMOUNT_RESTRICTION = "You are not able to write more than one review to a single film!";
 	public static final String SIGN_IN_FOR_ORDERING = "Sign in to be able to order films";
 	public static final String SIGN_IN_FOR_PROFILE = "Sign in to access your profile page";

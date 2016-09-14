@@ -5,8 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import by.epam.naumovich.film_ordering.bean.User;
 import by.epam.naumovich.film_ordering.dao.IUserDAO;
@@ -183,8 +183,8 @@ public class MySQLUserDAO implements IUserDAO {
 	}
 	
 	@Override
-	public List<User> getAllUsers() throws DAOException {
-		List<User> list = new ArrayList<User>();
+	public Set<User> getAllUsers() throws DAOException {
+		Set<User> userSet = new LinkedHashSet<User>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -211,7 +211,7 @@ public class MySQLUserDAO implements IUserDAO {
 				user.setEmail(rs.getString(12));
 				user.setAbout(rs.getString(13));
 				
-				list.add(user);
+				userSet.add(user);
 			}
 		} catch (SQLException e) {
 			throw new DAOException(ExceptionMessages.SQL_SELECT_FAILURE, e);
@@ -227,7 +227,7 @@ public class MySQLUserDAO implements IUserDAO {
 				if (con != null) { pool.closeConnection(con); }
 			}
 		}
-		return list;
+		return userSet;
 	}
 	
 	@Override
@@ -279,8 +279,8 @@ public class MySQLUserDAO implements IUserDAO {
 	}
 
 	@Override
-	public List<User> getUsersInBan() throws DAOException {
-		List<User> list = new ArrayList<User>();
+	public Set<User> getUsersInBan() throws DAOException {
+		Set<User> userSet = new LinkedHashSet<User>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -307,7 +307,7 @@ public class MySQLUserDAO implements IUserDAO {
 				user.setEmail(rs.getString(12));
 				user.setAbout(rs.getString(13));
 				
-				list.add(user);
+				userSet.add(user);
 			}
 		} catch (SQLException e) {
 			throw new DAOException(ExceptionMessages.SQL_SELECT_FAILURE, e);
@@ -323,7 +323,7 @@ public class MySQLUserDAO implements IUserDAO {
 				if (con != null) { pool.closeConnection(con); }
 			}
 		}
-		return list;
+		return userSet;
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 package by.epam.naumovich.film_ordering.dao;
 
-import java.util.List;
+import java.util.Set;
 
 import by.epam.naumovich.film_ordering.bean.User;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
@@ -11,8 +11,8 @@ public interface IUserDAO {
 	void updateUser(int id, User updatedUser) throws DAOException;
 	void deleteUser(int id) throws DAOException;
 	
-	List<User> getAllUsers() throws DAOException;
-	List<User> getUsersInBan() throws DAOException;
+	Set<User> getAllUsers() throws DAOException;
+	Set<User> getUsersInBan() throws DAOException;
 	
 	User getUserByID(int id) throws DAOException;
 	User getUserByLogin(String login) throws DAOException;

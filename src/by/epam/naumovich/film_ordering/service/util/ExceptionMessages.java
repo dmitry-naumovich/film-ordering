@@ -43,6 +43,8 @@ public final class ExceptionMessages {
 	public static final String NO_REVIEWS_IN_DB = "No reviews in the database. Sorry!";
 	public static final String NO_USER_ORDERS_YET = "This user has not ordered anything yet";
 	public static final String NO_USER_REVIEWS_YET = "This user has not written any reviews yet";
+	public static final String NO_USERS_IN_BAN_NOW = "No users in ban now. Sorry!";
+	public static final String NO_USERS_IN_DB = "No users in the database. Sorry!";
 	public static final String ORDER_NOT_ADDED = "The order was not added the database! Sorry! Please, try again.";
 	public static final String ORDER_NOT_FOUND = "The order was not found in the database! Sorry! Please, try again.";
 	public static final String REVIEW_MARK_RANGE = "Review mark must be between 0 and 5 (both including)";

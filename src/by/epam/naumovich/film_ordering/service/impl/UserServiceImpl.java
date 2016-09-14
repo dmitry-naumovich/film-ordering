@@ -5,6 +5,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Calendar;
+import java.util.Set;
 
 import by.epam.naumovich.film_ordering.bean.User;
 import by.epam.naumovich.film_ordering.dao.DAOFactory;
@@ -44,6 +45,7 @@ public class UserServiceImpl implements IUserService {
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
+		
 		if (!Validator.validateWithPattern(login, LOGIN_PATTERN)) {
 			throw new ServiceSignUpException(ExceptionMessages.INVALID_LOGIN);
 		}
@@ -278,6 +280,36 @@ public class UserServiceImpl implements IUserService {
 			int discount = dao.getCurrentUserDiscountByID(id);
 			return discount;
 			
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);	
+		}	
+	}
+
+	@Override
+	public Set<User> getAllUsers() throws ServiceException {
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IUserDAO dao = daoFactory.getUserDAO();
+			Set<User> users = dao.getAllUsers();
+			if (users == null) {
+				throw new GetUserServiceException(ExceptionMessages.NO_USERS_IN_DB);
+			}
+			return users;
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);	
+		}	
+	}
+
+	@Override
+	public Set<User> getUsersInBanNow() throws ServiceException {
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IUserDAO dao = daoFactory.getUserDAO();
+			Set<User> users = dao.getUsersInBan();
+			if (users == null) {
+				throw new GetUserServiceException(ExceptionMessages.NO_USERS_IN_BAN_NOW);
+			}
+			return users;
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);	
 		}	

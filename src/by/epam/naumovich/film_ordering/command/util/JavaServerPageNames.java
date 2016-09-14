@@ -28,5 +28,6 @@ public final class JavaServerPageNames {
 	public static final String SINGLE_ORDER_PAGE = "jsp/single-order.jsp";
 	public static final String SINGLE_REVIEW_PAGE = "jsp/single-review.jsp";
 	public static final String SUCCESS_PAGE = "jsp/success-page.jsp";
+	public static final String USERS_PAGE = "jsp/users.jsp";
 	public static final String WIDEN_SEARCH_PAGE = "jsp/widened-search.jsp";
 }
