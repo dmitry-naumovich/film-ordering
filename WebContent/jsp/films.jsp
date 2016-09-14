@@ -34,23 +34,7 @@
   <link rel="icon"  type="image/x-icon" href="img/tab-logo.png">
   <link rel="stylesheet" href="css/bootstrap.min.css" >
   <link rel="stylesheet" href="css/styles.css">
-  <script type="text/javascript">
-    $('.nav li').click(function(e) {
-  e.preventDefault();
-  $('.nav li').removeClass('active');
-  $(this).addClass('active');
-});
-  </script>
-  <script type="text/javascript">
-  
-  	window.setTimeout(function() {
-	    $(".alert").fadeTo(500, 0).slideUp(500, function(){
-	        $(this).remove(); 
-	    });
-	}, 1000)
-  </script>
-
-
+  <script src="js/scripts.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="http://mybootstrap.ru/wp-content/themes/clear-theme/js/bootstrap-affix.js"></script>
@@ -59,7 +43,6 @@
 <body data-spy="scroll" data-target="#myScrollspy" data-offset-top="15">
 
   <jsp:include page="/WEB-INF/static/header.jsp"></jsp:include>
-
 
   <div class="container-fluid"> 
     <div class="row content ">
@@ -183,16 +166,11 @@
 				</c:forEach>
                  </div>
           </div>
-
       </div>
       </div>
-
-
       <jsp:include page="/WEB-INF/static/right-sidebar.jsp"></jsp:include>
-      
      </div>
   </div>  
-  
   <jsp:include page="/WEB-INF/static/footer.jsp"></jsp:include>
 </body>
 </html>

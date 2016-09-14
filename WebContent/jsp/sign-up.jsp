@@ -51,18 +51,6 @@
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
-  <script type="text/javascript">
-	  window.setTimeout(function() {
-		    $(".alert").fadeTo(500, 0).slideUp(500, function(){
-		        $(this).remove(); 
-		    });
-		}, 1000);
-   </script>
-   <script>
-	 $( function() {
-		    $( ".datepicker" ).datepicker();
-	} );
-   </script>
 	<script type="text/javascript">
 	function validateForm(event)
 	{
@@ -109,15 +97,7 @@
 	    }
 	}
 	</script>
-	<script>
-	    $('.nav li').click(function(e) {
-	  e.preventDefault();
-	  $('.nav li').removeClass('active');
-	  $(this).addClass('active');
-	});
-  </script>
-
-
+	<script src="js/scripts.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="http://mybootstrap.ru/wp-content/themes/clear-theme/js/bootstrap-affix.js"></script>

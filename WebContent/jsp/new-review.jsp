@@ -66,16 +66,9 @@
       else {
           document.newReviewForm.submit();
       }
-  }</script>
-  <script type="text/javascript">
-    $('.nav li').click(function(e) {
-  e.preventDefault();
-  $('.nav li').removeClass('active');
-  $(this).addClass('active');
-});
+  }
   </script>
-
-
+  <script src="js/scripts.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="http://mybootstrap.ru/wp-content/themes/clear-theme/js/bootstrap-affix.js"></script>
