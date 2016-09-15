@@ -39,6 +39,15 @@
 <fmt:message bundle="${loc}" key="local.ban.userWord" var="userWord" />
 <fmt:message bundle="${loc}" key="local.ban.unbanBtn" var="unbanBtn" />
 <fmt:message bundle="${loc}" key="local.ban.isBanned" var="isBanned" />
+<fmt:message bundle="${loc}" key="local.discount.editDiscount" var="editDiscount" />
+<fmt:message bundle="${loc}" key="local.discount.setDiscountFor" var="setDiscountFor" />
+<fmt:message bundle="${loc}" key="local.discount.editDiscountFor" var="editDiscountFor" />
+<fmt:message bundle="${loc}" key="local.discount.amount" var="amount" />
+<fmt:message bundle="${loc}" key="local.discount.enterAmount" var="enterAmount" />
+<fmt:message bundle="${loc}" key="local.discount.endDate" var="endDate" />
+<fmt:message bundle="${loc}" key="local.discount.endTime" var="endTime" />
+<fmt:message bundle="${loc}" key="local.discount.dateFormat" var="dateFormat" />
+<fmt:message bundle="${loc}" key="local.discount.timeFormat" var="timeFormat" />
 
 <c:set var="user" value="${requestScope.user}" />
 
@@ -72,6 +81,48 @@
 	        }
 	      else {
 	          document.banForm.submit();
+	      }
+	  }
+	  
+	  function validateSetDiscountForm(event)
+	  {
+	      event.preventDefault(); // this will prevent the submit event
+	      if(document.setDiscountForm.amount.value=="") {
+		      alert("Discount amount can not be left blank");
+		      document.setDiscountForm.amount.focus();
+		      return false;
+		  } else if(document.setDiscountForm.enDate.value=="") {
+	          alert("Discount end date can not be left blank");
+	          document.setDiscountForm.endDate.focus();
+	          return false;
+	      } else if(document.setDiscountForm.endTime.value=="") {
+	          alert("Discount end time can not be left blank");
+	          document.setDiscountForm.endTime.focus();
+	          return false;
+		  }
+	      else {
+	          document.setDiscountForm.submit();
+	      }
+	  }
+	  
+	  function validateEditDiscountForm(event)
+	  {
+	      event.preventDefault();
+	      if(document.editDiscountForm.amount.value=="") {
+		      alert("Discount amount can not be left blank");
+		      document.editDiscountForm.amount.focus();
+		      return false;
+		  } else if(document.editDiscountForm.enDate.value=="") {
+	          alert("Discount end date can not be left blank");
+	          document.editDiscountForm.endDate.focus();
+	          return false;
+	      } else if(document.editDiscountForm.endTime.value=="") {
+	          alert("Discount end time can not be left blank");
+	          document.editDiscountForm.endTime.focus();
+	          return false;
+		  }
+	      else {
+	          document.editDiscountForm.submit();
 	      }
 	  }
   </script>
@@ -121,10 +172,18 @@
 			                           	<c:when test="${sessionScope.isAdmin && user.id != sessionScope.userID}">
 				                          	<a href="<c:url value="/Controller?command=open_user_orders&userID=${user.id}"/>" class="btn btn-primary" role="button">${userOrders}</a> 
 				                          	<a href="<c:url value="/Controller?command=open_user_reviews&userID=${user.id}"/>" class="btn btn-default" role="button">${userReviews}</a>
-				                          	<a href="jsp/discount.jsp" class="btn btn-info" role="button">${setDiscount}</a>
+				                          	<c:choose>
+				                          		<c:when test="${requestScope.userDiscount == null}">
+				                          			<a data-toggle="modal" data-target="#setDiscountModal" class="btn btn-danger" role="button">${setDiscount}</a>
+				                          		</c:when>
+				                          		<c:otherwise>
+				                          			<a data-toggle="modal" data-target="#editDiscountModal" class="btn btn-default" role="button">${editDiscount}</a>
+				                          		</c:otherwise>
+				                          	</c:choose>
+				                          	
 				                          	<c:choose>
 				                          		<c:when test="${!requestScope.banned}">
-				                          			<a data-toggle="modal" data-target="#banModal" class="btn btn-danger" role="button">${banUser}</a>
+				                          			<a data-toggle="modal" data-target="#banModal" class="btn btn-info" role="button">${banUser}</a>
 				                          		</c:when>
 				                          		<c:otherwise>
 				                          			<a data-toggle="modal" data-target="#unbanModal" class="btn btn-default" role="button">${banned}</a>
@@ -228,6 +287,14 @@
 	                        </c:choose>
                         </td>
                       </tr>
+                      <c:if test="${requestScope.userDiscount != null}">
+	                      <c:if test="${sessionScope.authUser != null && (sessionScope.isAdmin || sessionScope.userID eq user.id)}">
+		                      <tr>
+		                      	<td>${currentDiscount}</td>
+		                      	<td>${requestScope.userDiscount.amount} %</td>
+		                      </tr>
+	                      </c:if>
+                      </c:if>
                     </tbody>
                 </table>
           </div>
@@ -287,6 +354,102 @@
 			        	<a href="<c:url value="/Controller?command=unban_user&userID=${user.id}"/>" class="btn btn-default" role="button">${unbanBtn}</a>
 			          	<button type="button" class="btn btn-default" data-dismiss="modal">${closeBtn}</button>
 			        </div>
+			      </div>
+			      
+			    </div>
+			  </div>
+			  
+			  <div class="modal fade" id="setDiscountModal" role="dialog">
+			    <div class="modal-dialog">
+			      <div class="modal-content">
+			      	<form  name="setDiscountForm" class="form-horizontal" method="post" action="Controller" onSubmit="return validateSetDiscountForm(event);">
+			        <div class="modal-header">
+			          <button type="button" class="close" data-dismiss="modal">&times;</button>
+			          <h4 class="modal-title">${setDiscountFor} ${user.login}</h4>
+			        </div>
+			        <div class="modal-body">
+			        	
+			          		<div class="form-group">
+						    	<input type="hidden" name="command" value="set_discount"/>
+						  	</div>
+						  	<div class="form-group">
+						    	<input type="hidden" name="userID" value="${user.id}"/>
+						  	</div>
+						  	
+			          		<div class="form-group">
+					      		<label class="col-sm-3 control-label">${amount}</label>
+					      		<div class="col-sm-9">
+					        		<input class="form-control" name="amount" type="text" placeholder="${enterAmount}">
+					      		</div>
+							</div>
+							<div class="form-group">
+					      		<label class="col-sm-3 control-label">${endDate}</label>
+					      		<div class="col-sm-9">
+					        		<input class="form-control" name="endDate" type="text" placeholder="${dateFormat}">
+					      		</div>
+							</div>
+							<div class="form-group">
+					      		<label class="col-sm-3 control-label">${endTime}</label>
+					      		<div class="col-sm-9">
+					        		<input class="form-control" name="endTime" type="text" placeholder="${timeFormat}">
+					      		</div>
+							</div>
+							
+			        	
+			        </div>
+			        <div class="modal-footer">
+			          <button type="submit" class="btn btn-danger">${setDiscount}</button>
+			          <button type="button" class="btn btn-default" data-dismiss="modal">${closeBtn}</button>
+			        </div>
+			        </form>
+			      </div>
+			      
+			    </div>
+			  </div>
+			  
+			  <div class="modal fade" id="editDiscountModal" role="dialog">
+			    <div class="modal-dialog">
+			      <div class="modal-content">
+			      	<form  name="editDiscountForm" class="form-horizontal" method="post" action="Controller" onSubmit="return validateEditDiscountForm(event);">
+			        <div class="modal-header">
+			          <button type="button" class="close" data-dismiss="modal">&times;</button>
+			          <h4 class="modal-title">${editDiscountFor} ${user.login}</h4>
+			        </div>
+			        <div class="modal-body">
+			        		<c:set var="discount" value="${requestScope.userDiscount}" />
+			          		<div class="form-group">
+						    	<input type="hidden" name="command" value="edit_discount"/>
+						  	</div>
+						  	<div class="form-group">
+						    	<input type="hidden" name="discountID" value="${discount.id}"/>
+						  	</div>
+						  	
+			          		<div class="form-group">
+					      		<label class="col-sm-3 control-label">${amount}</label>
+					      		<div class="col-sm-9">
+					        		<input class="form-control" name="amount" type="text" placeholder="${discount.amount}">
+					      		</div>
+							</div>
+							<div class="form-group">
+					      		<label class="col-sm-3 control-label">${endDate}</label>
+					      		<div class="col-sm-9">
+					        		<input class="form-control" name="endDate" type="text" placeholder="${discount.enDate}">
+					      		</div>
+							</div>
+							<div class="form-group">
+					      		<label class="col-sm-3 control-label">${endTime}</label>
+					      		<div class="col-sm-9">
+					        		<input class="form-control" name="endTime" type="text" placeholder="${discount.enTime}">
+					      		</div>
+							</div>
+							
+			        	
+			        </div>
+			        <div class="modal-footer">
+			          <button type="submit" class="btn btn-danger">${editDiscountFor}</button>
+			          <button type="button" class="btn btn-default" data-dismiss="modal">${closeBtn}</button>
+			        </div>
+			        </form>
 			      </div>
 			      
 			    </div>

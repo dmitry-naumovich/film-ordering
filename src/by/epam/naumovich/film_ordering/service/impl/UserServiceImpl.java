@@ -7,6 +7,7 @@ import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Set;
 
+import by.epam.naumovich.film_ordering.bean.Discount;
 import by.epam.naumovich.film_ordering.bean.User;
 import by.epam.naumovich.film_ordering.dao.DAOFactory;
 import by.epam.naumovich.film_ordering.dao.IUserDAO;
@@ -15,6 +16,7 @@ import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.film.AddFilmServiceException;
 import by.epam.naumovich.film_ordering.service.exception.user.BanUserServiceException;
+import by.epam.naumovich.film_ordering.service.exception.user.GetDiscountServiceException;
 import by.epam.naumovich.film_ordering.service.exception.user.GetUserServiceException;
 import by.epam.naumovich.film_ordering.service.exception.user.ServiceAuthException;
 import by.epam.naumovich.film_ordering.service.exception.user.ServiceSignUpException;
@@ -281,18 +283,19 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public int getCurrentUserDiscountByID(int id) throws ServiceException {
+	public Discount getCurrentUserDiscountByID(int id) throws ServiceException {
 		if(!Validator.validateObject(id)){
 			throw new ServiceException(ExceptionMessages.CORRUPTED_USER_ID);
 		}
 		
 		try {
-			
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			IUserDAO dao = daoFactory.getUserDAO();
-			int discount = dao.getCurrentUserDiscountByID(id);
+			Discount discount = dao.getCurrentUserDiscountByID(id);
+			if (discount == null) {
+				throw new GetDiscountServiceException(ExceptionMessages.DISCOUNT_NOT_FOUND);
+			}
 			return discount;
-			
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);	
 		}	

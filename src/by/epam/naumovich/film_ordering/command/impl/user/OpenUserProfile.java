@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import by.epam.naumovich.film_ordering.bean.Discount;
 import by.epam.naumovich.film_ordering.bean.User;
 import by.epam.naumovich.film_ordering.command.Command;
 import by.epam.naumovich.film_ordering.command.util.ErrorMessages;
@@ -16,6 +17,7 @@ import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
 import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
+import by.epam.naumovich.film_ordering.service.exception.user.GetDiscountServiceException;
 import by.epam.naumovich.film_ordering.service.exception.user.GetUserServiceException;
 
 public class OpenUserProfile implements Command {
@@ -43,6 +45,10 @@ public class OpenUserProfile implements Command {
 				} else {
 					request.setAttribute(RequestAndSessionAttributes.BANNED, false);
 				}
+				try {
+					Discount discount = userService.getCurrentUserDiscountByID(userID);
+					request.setAttribute(RequestAndSessionAttributes.USER_DISCOUNT, discount);
+				} catch (GetDiscountServiceException e) {}
 				
 				request.getRequestDispatcher(JavaServerPageNames.PROFILE_PAGE).forward(request, response);	
 			} catch (GetUserServiceException e) {

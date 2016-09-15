@@ -65,6 +65,7 @@ public final class RequestAndSessionAttributes {
 	public static final String SIDEBAR_NEWS = "sidebarNews";
 	public static final String SUCCESS_MESSAGE = "successMessage";
 	public static final String SURNAME = "surname";
+	public static final String USER_DISCOUNT = "userDiscount";
 	public static final String USER_ID = "userID";
 	public static final String USER_LOGIN = "userLogin";
 	public static final String USER_LOGINS = "userLogins";

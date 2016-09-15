@@ -2,6 +2,7 @@ package by.epam.naumovich.film_ordering.service;
 
 import java.util.Set;
 
+import by.epam.naumovich.film_ordering.bean.Discount;
 import by.epam.naumovich.film_ordering.bean.User;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
@@ -20,7 +21,7 @@ public interface IUserService {
 	User getUserByID(int id) throws ServiceException;
 	String getLoginByID(int id) throws ServiceException;
 	
-	int getCurrentUserDiscountByID(int id) throws ServiceException;
+	Discount getCurrentUserDiscountByID(int id) throws ServiceException;
 	
 	Set<User> getAllUsers() throws ServiceException;
 	Set<User> getUsersInBanNow() throws ServiceException;

@@ -16,6 +16,7 @@ public final class ExceptionMessages {
 	public static final String CORRUPTED_NEWS_ID = "Corrupted news ID! Please, try again.";
 	public static final String CORRUPTED_USER_ID = "Corrupted user ID! Please, try again.";
 	public static final String COUNTRIES_NOT_AVAILABLE = "No countries available in the database! Please, try again.";
+	public static final String DISCOUNT_NOT_FOUND = "This user has not current discount.";
 	public static final String FILM_NOT_ADDED = "The film was not added the database! Sorry! Please, try again";
 	public static final String FILM_NOT_PRESENT = "The film is not present in the database";
 	public static final String GENRES_NOT_AVAILABLE = "No genres available in the database! Please, try again.";
