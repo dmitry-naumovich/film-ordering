@@ -30,11 +30,10 @@ public class Login implements Command {
 		else {
 			String login = request.getParameter(RequestAndSessionAttributes.LOGIN);
 			String password = request.getParameter(RequestAndSessionAttributes.PASSWORD);
-			IUserService userService = ServiceFactory.getInstance().getUserService();
 			
 			try {
-				User user = userService.getUserByLogin(login);
-				userService.checkUserPassword(login, password);
+				IUserService userService = ServiceFactory.getInstance().getUserService();
+				User user = userService.authenticate(login, password);
 				request.setAttribute(RequestAndSessionAttributes.USER, user);
 				session.setAttribute(RequestAndSessionAttributes.AUTHORIZED_USER, user.getLogin());
 				session.setAttribute(RequestAndSessionAttributes.USER_ID, user.getId());
@@ -48,7 +47,6 @@ public class Login implements Command {
 					request.getRequestDispatcher(JavaServerPageNames.INDEX_PAGE).forward(request, response);
 				}
 			} catch (ServiceAuthException e) {
-				session.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
 			}  catch (ServiceException e) {

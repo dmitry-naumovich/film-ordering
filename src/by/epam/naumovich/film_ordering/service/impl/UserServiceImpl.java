@@ -227,8 +227,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public void checkUserPassword(String login, String password) throws ServiceException {
-		
+	public User authenticate(String login, String password) throws ServiceException {
 		if(!Validator.validateStrings(login, password)){
 			throw new ServiceAuthException(ExceptionMessages.CORRUPTED_LOGIN_OR_PWD);
 		}
@@ -236,12 +235,24 @@ public class UserServiceImpl implements IUserService {
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			IUserDAO dao = daoFactory.getUserDAO();
+			User user = dao.getUserByLogin(login);
+			if (user == null) {
+				throw new ServiceAuthException(ExceptionMessages.LOGIN_NOT_REGISTRATED);
+			}
 			
 			String realPassw = dao.getPasswordByLogin(login);
 			
 			if (!realPassw.equals(password)) {
 				throw new ServiceAuthException(ExceptionMessages.WRONG_PASSWORD);
 			}
+			
+			if (dao.userIsInBan(user.getId())) {
+				String untilDateAndTime = dao.getCurrentBanEnd(user.getId());
+				String banReason = dao.getCurrentBanReason(user.getId());
+				throw new ServiceAuthException(String.format(ExceptionMessages.YOU_ARE_BANNED, untilDateAndTime, banReason));
+			}
+			
+			return user;
 			
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);	

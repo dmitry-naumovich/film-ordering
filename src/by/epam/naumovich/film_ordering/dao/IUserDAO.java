@@ -25,5 +25,7 @@ public interface IUserDAO {
 	boolean userIsInBan(int id) throws DAOException;
 	void banUser(int userID, Date startDate, Time startTime, int length, String reason) throws DAOException;
 	void unbanUser(int userID) throws DAOException;
+	String getCurrentBanEnd(int userID) throws DAOException;
+	String getCurrentBanReason(int userID) throws DAOException;
 	
 }

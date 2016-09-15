@@ -56,5 +56,6 @@ public final class ExceptionMessages {
 	public static final String UNSUCCESSFULL_SIGN_UP = "User was not successfully registered. Sorry.";
 	public static final String USER_NOT_FOUND = "No user found by this ID. Sorry!";
 	public static final String WRONG_PASSWORD = "Wrong password! Please, try again.";
+	public static final String YOU_ARE_BANNED = "You are banned until %s. The reason is: \"%s\"";
 
 }
