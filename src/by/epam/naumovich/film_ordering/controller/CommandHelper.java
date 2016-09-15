@@ -22,6 +22,7 @@ public class CommandHelper {
 		commands.put(CommandName.ADD_NEWS, new AddNews());
 		commands.put(CommandName.ADD_ORDER, new AddOrder());
 		commands.put(CommandName.ADD_REVIEW, new AddReview());
+		commands.put(CommandName.BAN_USER, new BanUser());
 		commands.put(CommandName.CHANGE_LANGUAGE, new ChangeLanguage());
 		commands.put(CommandName.CHANGE_USER_SETTINGS, new ChangeUserSettings());
 		commands.put(CommandName.DELETE_FILM, new DeleteFilm()); 
@@ -62,6 +63,7 @@ public class CommandHelper {
 		commands.put(CommandName.SIGN_UP, new SignUp());
 		commands.put(CommandName.SEARCH_FILMS, new SearchFilms());
 		commands.put(CommandName.SEARCH_FILMS_WIDENED, new SearchFilmsWidened());
+		commands.put(CommandName.UNBAN_USER, new UnbanUser());
 	}
 	
 	public Command getCommand(String name) {

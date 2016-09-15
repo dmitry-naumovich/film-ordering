@@ -21,4 +21,9 @@ public interface IUserService {
 	
 	Set<User> getAllUsers() throws ServiceException;
 	Set<User> getUsersInBanNow() throws ServiceException;
+	
+	boolean userIsInBan(int id) throws ServiceException;
+	
+	void banUser(int userID, String length, String reason) throws ServiceException;
+	void unbanUser(int userID) throws ServiceException;
 }

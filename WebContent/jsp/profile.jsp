@@ -29,6 +29,16 @@
 <fmt:message bundle="${loc}" key="local.profile.birthDate" var="birthDate" />
 <fmt:message bundle="${loc}" key="local.profile.email" var="email" />
 <fmt:message bundle="${loc}" key="local.profile.aboutMe" var="aboutMe" />
+<fmt:message bundle="${loc}" key="local.profile.banned" var="banned" />
+<fmt:message bundle="${loc}" key="local.ban.banLength" var="banLength" />
+<fmt:message bundle="${loc}" key="local.ban.banReason" var="banReason" />
+<fmt:message bundle="${loc}" key="local.ban.banUserBtn" var="banUserBtn" />
+<fmt:message bundle="${loc}" key="local.ban.closeBtn" var="closeBtn" />
+<fmt:message bundle="${loc}" key="local.ban.enterReason" var="enterReason" />
+<fmt:message bundle="${loc}" key="local.ban.enterLength" var="enterLength" />
+<fmt:message bundle="${loc}" key="local.ban.userWord" var="userWord" />
+<fmt:message bundle="${loc}" key="local.ban.unbanBtn" var="unbanBtn" />
+<fmt:message bundle="${loc}" key="local.ban.isBanned" var="isBanned" />
 
 <c:set var="user" value="${requestScope.user}" />
 
@@ -45,6 +55,27 @@
   <link rel="stylesheet" href="css/bootstrap.min.css" >
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/scripts.js"></script>
+  
+  <script type="text/javascript">
+	  function validateBanForm(event)
+	  {
+	      event.preventDefault(); // this will prevent the submit event
+	      if(document.banForm.banLength.value=="") {
+		      alert("Ban length can not be left blank");
+		      document.banForm.banLength.focus();
+		      return false;
+			}
+	      else if(document.getElementById("banReasonTextArea").value.length < 2) {
+	          alert("Ban reason must be at least 2 symbols");
+	          document.banForm.banReason.focus();
+	          return false;
+	        }
+	      else {
+	          document.banForm.submit();
+	      }
+	  }
+  </script>
+  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="http://mybootstrap.ru/wp-content/themes/clear-theme/js/bootstrap-affix.js"></script>
@@ -91,7 +122,15 @@
 				                          	<a href="<c:url value="/Controller?command=open_user_orders&userID=${user.id}"/>" class="btn btn-primary" role="button">${userOrders}</a> 
 				                          	<a href="<c:url value="/Controller?command=open_user_reviews&userID=${user.id}"/>" class="btn btn-default" role="button">${userReviews}</a>
 				                          	<a href="jsp/discount.jsp" class="btn btn-info" role="button">${setDiscount}</a>
-				                          	<a href="jsp/ban.jsp" class="btn btn-danger" role="button">${banUser}</a>
+				                          	<c:choose>
+				                          		<c:when test="${!requestScope.banned}">
+				                          			<a data-toggle="modal" data-target="#banModal" class="btn btn-danger" role="button">${banUser}</a>
+				                          		</c:when>
+				                          		<c:otherwise>
+				                          			<a data-toggle="modal" data-target="#unbanModal" class="btn btn-default" role="button">${banned}</a>
+				                          		</c:otherwise>
+				                          	</c:choose>
+				                          	
 				                        </c:when>
 				                        <c:when test="${!sessionScope.isAdmin && user.id != sessionScope.userID}">
 				                        	<a href="<c:url value="/Controller?command=open_user_reviews&userID=${user.id}"/>" class="btn btn-default" role="button">${userReviews}</a>
@@ -151,11 +190,27 @@
                       </tr>
                       <tr>
                         <td>${birthDate}</td>
-                        <td>${user.birthDate }</td>
+                        <td>
+                        	<c:choose>
+	                        	<c:when test="${user.birthDate != null }">
+	                        		<p>${user.birthDate}</p>
+	                        	</c:when>
+	                        	<c:otherwise>—
+	                        	</c:otherwise>
+	                        </c:choose>
+                        </td>
                       </tr>
                       <tr>
                         <td>${phoneNum}</td>
-                        <td>${user.phone}</td>
+                        <td>
+                        	<c:choose>
+	                        	<c:when test="${user.phone != null }">
+	                        		<p>${user.phone}</p>
+	                        	</c:when>
+	                        	<c:otherwise>—
+	                        	</c:otherwise>
+	                        </c:choose>
+	                        </td>
                       </tr>
                       <tr>
                         <td>${email}</td>
@@ -163,9 +218,15 @@
                       </tr>
                       <tr>
                         <td>${aboutMe}</td>
-                        <td><p>
-                              ${user.about}
-                          </p></td>
+                        <td>
+	                        <c:choose>
+	                        	<c:when test="${user.about != null }">
+	                        		<p>${user.about}</p>
+	                        	</c:when>
+	                        	<c:otherwise>—
+	                        	</c:otherwise>
+	                        </c:choose>
+                        </td>
                       </tr>
                     </tbody>
                 </table>
@@ -173,6 +234,64 @@
           </div>
       </div>
       </div>
+			      	<div class="modal fade" id="banModal" role="dialog">
+			    <div class="modal-dialog">
+			      <div class="modal-content">
+			      	<form  name="banForm" class="form-horizontal" method="post" action="Controller" onSubmit="return validateBanForm(event);">
+			        <div class="modal-header">
+			          <button type="button" class="close" data-dismiss="modal">&times;</button>
+			          <h4 class="modal-title">${banUser} ${user.login}</h4>
+			        </div>
+			        <div class="modal-body">
+			        	
+			          		<div class="form-group">
+						    	<input type="hidden" name="command" value="ban_user"/>
+						  	</div>
+						  	<div class="form-group">
+						    	<input type="hidden" name="userID" value="${user.id}"/>
+						  	</div>
+						  	
+			          		<div class="form-group">
+					      		<label class="col-sm-3 control-label">${banLength}</label>
+					      		<div class="col-sm-9">
+					        		<input class="form-control" name="banLength" type="text" placeholder="${enterLength}">
+					      		</div>
+							</div>
+							<div class="form-group">
+							    <label class="col-sm-3 control-label">${banReason}</label>
+							    <div class="col-sm-9"> 
+							    	<textarea class="form-control" rows="3" name="banReason" id="banReasonTextArea" placeholder="${enterReason}"></textarea>
+							    </div>
+							</div>
+			        	
+			        </div>
+			        <div class="modal-footer">
+			          <button type="submit" class="btn btn-danger">${banUserBtn}</button>
+			          <button type="button" class="btn btn-default" data-dismiss="modal">${closeBtn}</button>
+			        </div>
+			        </form>
+			      </div>
+			      
+			    </div>
+			  </div>
+			  
+			  <div class="modal fade" id="unbanModal" role="dialog">
+			    <div class="modal-dialog">
+			      <div class="modal-content">
+			        <div class="modal-header">
+			          <button type="button" class="close" data-dismiss="modal">&times;</button>
+			          <h4 class="modal-title">${userWord} ${user.login} ${isBanned}</h4>
+			        </div>
+			        
+			        <div class="modal-footer">
+			        	<a href="<c:url value="/Controller?command=unban_user&userID=${user.id}"/>" class="btn btn-default" role="button">${unbanBtn}</a>
+			          	<button type="button" class="btn btn-default" data-dismiss="modal">${closeBtn}</button>
+			        </div>
+			      </div>
+			      
+			    </div>
+			  </div>
+      
       <jsp:include page="/WEB-INF/static/right-sidebar.jsp"></jsp:include>
      </div>
   </div>  

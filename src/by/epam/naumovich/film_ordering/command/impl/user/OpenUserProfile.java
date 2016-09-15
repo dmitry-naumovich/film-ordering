@@ -38,6 +38,12 @@ public class OpenUserProfile implements Command {
 				User user = userService.getUserByID(userID);
 				request.setAttribute(RequestAndSessionAttributes.USER, user);
 				
+				if (userService.userIsInBan(userID)) {
+					request.setAttribute(RequestAndSessionAttributes.BANNED, true);
+				} else {
+					request.setAttribute(RequestAndSessionAttributes.BANNED, false);
+				}
+				
 				request.getRequestDispatcher(JavaServerPageNames.PROFILE_PAGE).forward(request, response);	
 			} catch (GetUserServiceException e) {
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());

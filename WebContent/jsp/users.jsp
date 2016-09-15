@@ -21,6 +21,16 @@
 <fmt:message bundle="${loc}" key="local.profile.surname" var="surname" />
 <fmt:message bundle="${loc}" key="local.profile.login" var="login" />
 <fmt:message bundle="${loc}" key="local.profile.regDateTime" var="regDateTime" />
+<fmt:message bundle="${loc}" key="local.profile.banned" var="banned" />
+<fmt:message bundle="${loc}" key="local.ban.banLength" var="banLength" />
+<fmt:message bundle="${loc}" key="local.ban.banReason" var="banReason" />
+<fmt:message bundle="${loc}" key="local.ban.banUserBtn" var="banUserBtn" />
+<fmt:message bundle="${loc}" key="local.ban.closeBtn" var="closeBtn" />
+<fmt:message bundle="${loc}" key="local.ban.enterReason" var="enterReason" />
+<fmt:message bundle="${loc}" key="local.ban.enterLength" var="enterLength" />
+<fmt:message bundle="${loc}" key="local.ban.userWord" var="userWord" />
+<fmt:message bundle="${loc}" key="local.ban.unbanBtn" var="unbanBtn" />
+<fmt:message bundle="${loc}" key="local.ban.isBanned" var="isBanned" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="${language}">
@@ -34,6 +44,25 @@
   <link rel="icon"  type="image/x-icon" href="img/tab-logo.png">
   <link rel="stylesheet" href="css/bootstrap.min.css" >
   <link rel="stylesheet" href="css/styles.css">
+  <script type="text/javascript">
+	  function validateBanForm(event)
+	  {
+	      event.preventDefault(); // this will prevent the submit event
+	      if(document.banForm.banLength.value=="") {
+		      alert("Ban length can not be left blank");
+		      document.banForm.banLength.focus();
+		      return false;
+			}
+	      else if(document.getElementByClass("banReasonTextArea").value.length < 2) {
+	          alert("Ban reason must be at least 2 symbols");
+	          document.banForm.banReason.focus();
+	          return false;
+	        }
+	      else {
+	          document.banForm.submit();
+	      }
+	  }
+  </script>
   <script src="js/scripts.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -77,9 +106,6 @@
                         <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 text-center">
                           <div class="col-md-4">
                             <figure><img src="img/avatars/avatars${user.id}.gif" alt="img/no-avatar.jpg" class="img-thumbnail img-responsive" width="150" height="150" /> </figure>
-                          
-                          <br>
-                          
                           </div>
                           <div class="col-md-8">
                           
@@ -126,8 +152,16 @@
                            	<c:when test="${sessionScope.isAdmin && user.id != sessionScope.userID}">
 	                          	<a href="<c:url value="/Controller?command=open_user_orders&userID=${user.id}"/>" class="btn btn-default" role="button">${userOrders}</a> 
 	                          	<a href="<c:url value="/Controller?command=open_user_reviews&userID=${user.id}"/>" class="btn btn-info" role="button">${userReviews}</a>
-	                          	<a href="jsp/ban.jsp" class="btn btn-danger" role="button">${banUser}</a>
 	                          	<a href="jsp/discount.jsp" class="btn btn-warning" role="button">${setDiscount}</a>
+	                          	
+	                          	<c:choose>
+	                          		<c:when test="${!banList[status.index]}">
+	                          			<a data-toggle="modal" data-target="#banModal" class="btn btn-danger" role="button">${banUser}</a>
+	                          		</c:when>
+	                          		<c:otherwise>
+	                          			<a data-toggle="modal" data-target="#unbanModal" class="btn btn-default" role="button">${banned}</a>
+	                          		</c:otherwise>
+	                          	</c:choose>
 	                        </c:when>
 	                        <c:when test="${sessionScope.isAdmin && user.id == sessionScope.userID}"> 
 	                        	<a href="<c:url value="/Controller?command=open_user_settings&userID=${sessionScope.userID}"/>" class="btn btn-danger" role="button">${editProfile}</a>
@@ -137,6 +171,63 @@
                         </div>
                         </div>
                         </div>
+                        
+                        	<div class="modal fade" id="banModal" role="dialog">
+							    <div class="modal-dialog">
+							      <div class="modal-content">
+							      	<form  name="banForm" class="form-horizontal" method="post" action="Controller" >
+							        <div class="modal-header">
+							          <button type="button" class="close" data-dismiss="modal">&times;</button>
+							          <h4 class="modal-title">${banUser} ${user.login}</h4>
+							        </div>
+							        <div class="modal-body">
+							        	
+							          		<div class="form-group">
+										    	<input type="hidden" name="command" value="ban_user"/>
+										  	</div>
+										  	<div class="form-group">
+										    	<input type="hidden" name="userID" value="${user.id}"/>
+										  	</div>
+										  	
+							          		<div class="form-group">
+									      		<label class="col-sm-3 control-label">${banLength}</label>
+									      		<div class="col-sm-9">
+									        		<input class="form-control" name="banLength" type="text" placeholder="${enterLength}">
+									      		</div>
+											</div>
+											<div class="form-group">
+											    <label class="col-sm-3 control-label">${banReason}</label>
+											    <div class="col-sm-9"> 
+											    	<textarea class="form-control banReasonTextArea" rows="3" name="banReason" placeholder="${enterReason}"></textarea>
+											    </div>
+											</div>
+							        	
+							        </div>
+							        <div class="modal-footer">
+							          <button type="submit" class="btn btn-danger">${banUserBtn}</button>
+							          <button type="button" class="btn btn-default" data-dismiss="modal">${closeBtn}</button>
+							        </div>
+							        </form>
+							      </div>
+							      
+							    </div>
+							  </div>
+							  
+							  <div class="modal fade" id="unbanModal" role="dialog">
+							    <div class="modal-dialog">
+							      <div class="modal-content">
+							        <div class="modal-header">
+							          <button type="button" class="close" data-dismiss="modal">&times;</button>
+							          <h4 class="modal-title">${userWord} ${user.login} ${isBanned}</h4>
+							        </div>
+							        
+							        <div class="modal-footer">
+							        	<a href="<c:url value="/Controller?command=unban_user&userID=${user.id}"/>" class="btn btn-default" role="button">${unbanBtn}</a>
+							          	<button type="button" class="btn btn-default" data-dismiss="modal">${closeBtn}</button>
+							        </div>
+							      </div>
+							    </div>
+							  </div>
                     </c:forEach>
           </div>
           </div>

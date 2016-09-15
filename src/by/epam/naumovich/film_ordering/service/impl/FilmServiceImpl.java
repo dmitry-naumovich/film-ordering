@@ -32,6 +32,9 @@ public class FilmServiceImpl implements IFilmService {
 		
 		try {
 			int fYear = Integer.parseInt(year);
+			if (fYear < 0) {
+				throw new AddFilmServiceException(ExceptionMessages.INVALID_FILM_YEAR);
+			}
 			newFilm.setYear(fYear);
 		} catch (NumberFormatException e) {
 			throw new AddFilmServiceException(ExceptionMessages.INVALID_FILM_YEAR);
@@ -64,6 +67,9 @@ public class FilmServiceImpl implements IFilmService {
 		
 		try {
 			int fLength = Integer.parseInt(length);
+			if (fLength < 0) {
+				throw new AddFilmServiceException(ExceptionMessages.INVALID_FILM_LENGTH);
+			}
 			newFilm.setLength(fLength);
 		} catch (NumberFormatException e) {
 			throw new AddFilmServiceException(ExceptionMessages.INVALID_FILM_LENGTH);
@@ -71,6 +77,9 @@ public class FilmServiceImpl implements IFilmService {
 		
 		try {
 			float fPrice = Float.parseFloat(price);
+			if (fPrice < 0) {
+				throw new AddFilmServiceException(ExceptionMessages.INVALID_FILM_PRICE);
+			}
 			newFilm.setPrice(fPrice);
 		} catch (NumberFormatException e) {
 			throw new AddFilmServiceException(ExceptionMessages.INVALID_FILM_PRICE);
@@ -126,6 +135,9 @@ public class FilmServiceImpl implements IFilmService {
 		
 		try {
 			int fYear = Integer.parseInt(year);
+			if (fYear < 0) {
+				throw new AddFilmServiceException(ExceptionMessages.INVALID_FILM_YEAR);
+			}
 			editedFilm.setYear(fYear);
 		} catch (NumberFormatException e) {
 			throw new EditFilmServiceException(ExceptionMessages.INVALID_FILM_YEAR);
@@ -158,6 +170,9 @@ public class FilmServiceImpl implements IFilmService {
 		
 		try {
 			int fLength = Integer.parseInt(length);
+			if (fLength < 0) {
+				throw new AddFilmServiceException(ExceptionMessages.INVALID_FILM_LENGTH);
+			}
 			editedFilm.setLength(fLength);
 		} catch (NumberFormatException e) {
 			throw new EditFilmServiceException(ExceptionMessages.INVALID_FILM_LENGTH);
@@ -165,6 +180,9 @@ public class FilmServiceImpl implements IFilmService {
 		
 		try {
 			float fPrice = Float.parseFloat(price);
+			if (fPrice < 0) {
+				throw new AddFilmServiceException(ExceptionMessages.INVALID_FILM_PRICE);
+			}
 			editedFilm.setPrice(fPrice);
 		} catch (NumberFormatException e) {
 			throw new EditFilmServiceException(ExceptionMessages.INVALID_FILM_PRICE);

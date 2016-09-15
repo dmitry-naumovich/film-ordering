@@ -1,5 +1,7 @@
 package by.epam.naumovich.film_ordering.dao;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.Set;
 
 import by.epam.naumovich.film_ordering.bean.User;
@@ -17,8 +19,11 @@ public interface IUserDAO {
 	User getUserByID(int id) throws DAOException;
 	User getUserByLogin(String login) throws DAOException;
 	
-	boolean userIsInBan(int id) throws DAOException;
 	String getPasswordByLogin(String login) throws DAOException;
 	int getCurrentUserDiscountByID(int id) throws DAOException;
+	
+	boolean userIsInBan(int id) throws DAOException;
+	void banUser(int userID, Date startDate, Time startTime, int length, String reason) throws DAOException;
+	void unbanUser(int userID) throws DAOException;
 	
 }

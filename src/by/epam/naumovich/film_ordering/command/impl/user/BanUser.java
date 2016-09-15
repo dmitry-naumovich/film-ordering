@@ -1,72 +1,54 @@
 package by.epam.naumovich.film_ordering.command.impl.user;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import by.epam.naumovich.film_ordering.bean.User;
 import by.epam.naumovich.film_ordering.command.Command;
 import by.epam.naumovich.film_ordering.command.util.ErrorMessages;
 import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
-import by.epam.naumovich.film_ordering.command.util.QueryUtil;
 import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
+import by.epam.naumovich.film_ordering.command.util.SuccessMessages;
 import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
-import by.epam.naumovich.film_ordering.service.exception.user.GetUserServiceException;
+import by.epam.naumovich.film_ordering.service.exception.user.BanUserServiceException;
 
-public class OpenAllUsers implements Command {
+public class BanUser implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		HttpSession session = request.getSession(true);
-		String query = QueryUtil.createHttpQueryString(request);
-		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
-		System.out.println(query);
+		int userID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.USER_ID));
 		
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
-			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.OPEN_ALL_USERS_RESTRICTION);
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.BAN_USER_RESTRICTION);
 			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
 		}
 		else if (!Boolean.parseBoolean(session.getAttribute(RequestAndSessionAttributes.IS_ADMIN).toString())) {
-			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.OPEN_ALL_USERS_RESTRICTION);
-			request.getRequestDispatcher(JavaServerPageNames.INDEX_PAGE).forward(request, response);
+			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.BAN_USER_RESTRICTION);
+			request.getRequestDispatcher("/Controller?command=open_user_profile&userID=" + userID).forward(request, response);
 		}
 		else {
+			String length = request.getParameter(RequestAndSessionAttributes.BAN_LENGTH);
+			String reason = request.getParameter(RequestAndSessionAttributes.BAN_REASON);
+			
 			try {
 				IUserService userService = ServiceFactory.getInstance().getUserService();
-				Set<User> users = userService.getAllUsers();
-				List<User> list = new ArrayList<User>(users);
-				Collections.reverse(list);
-				users = new LinkedHashSet<User>(list);
-
-				List<Boolean> banList = new ArrayList<Boolean>();
-				for (User u : users) {
-					banList.add(userService.userIsInBan(u.getId()));
-				}
-				
-				request.setAttribute(RequestAndSessionAttributes.USERS, users);
-				request.setAttribute(RequestAndSessionAttributes.BAN_LIST, banList);
-				request.getRequestDispatcher(JavaServerPageNames.USERS_PAGE).forward(request, response);
-				
-			} catch (GetUserServiceException e) {
+				userService.banUser(userID, length, reason);
+				request.setAttribute(RequestAndSessionAttributes.SUCCESS_MESSAGE, SuccessMessages.USER_BANNED);
+				Thread.sleep(1000);
+				request.getRequestDispatcher("/Controller?command=open_user_profile&userID=" + userID).forward(request, response);
+			} catch (BanUserServiceException e) {
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
-				request.getRequestDispatcher(JavaServerPageNames.USERS_PAGE).forward(request, response);
-				
-			} catch (ServiceException e) {
+				request.getRequestDispatcher("/Controller?command=open_user_profile&userID=" + userID).forward(request, response);
+			} catch (ServiceException | InterruptedException e) {
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 			}
-		
 		}
 	}
-
 }

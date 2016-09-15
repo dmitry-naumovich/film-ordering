@@ -13,6 +13,8 @@ import by.epam.naumovich.film_ordering.dao.IUserDAO;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
+import by.epam.naumovich.film_ordering.service.exception.film.AddFilmServiceException;
+import by.epam.naumovich.film_ordering.service.exception.user.BanUserServiceException;
 import by.epam.naumovich.film_ordering.service.exception.user.GetUserServiceException;
 import by.epam.naumovich.film_ordering.service.exception.user.ServiceAuthException;
 import by.epam.naumovich.film_ordering.service.exception.user.ServiceSignUpException;
@@ -313,5 +315,65 @@ public class UserServiceImpl implements IUserService {
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);	
 		}	
+	}
+
+	@Override
+	public void banUser(int userID, String length, String reason) throws ServiceException {
+		if (!Validator.validateInt(userID)) {
+			throw new BanUserServiceException(ExceptionMessages.CORRUPTED_USER_ID);
+		}
+		if (!Validator.validateStrings(length, reason)) {
+			throw new BanUserServiceException(ExceptionMessages.CORRUPTED_LENGTH_OR_REASON);
+		}
+		int bLength = 0;
+		try {
+			bLength = Integer.parseInt(length);
+		} catch (NumberFormatException e) {
+			throw new AddFilmServiceException(ExceptionMessages.INVALID_BAN_LENGTH);
+		}
+		if (bLength < 0) {
+			throw new AddFilmServiceException(ExceptionMessages.INVALID_BAN_LENGTH);
+		}
+		
+		Date startDate = Date.valueOf(LocalDate.now());
+		Time startTime = Time.valueOf(LocalTime.now());
+		
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IUserDAO userDAO = daoFactory.getUserDAO();
+			userDAO.banUser(userID, startDate, startTime, bLength, reason);
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+		
+	}
+
+	@Override
+	public void unbanUser(int userID) throws ServiceException {
+		if (!Validator.validateInt(userID)) {
+			throw new ServiceException(ExceptionMessages.CORRUPTED_USER_ID);
+		}
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IUserDAO userDAO = daoFactory.getUserDAO();
+			userDAO.unbanUser(userID);
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+		
+	}
+
+	@Override
+	public boolean userIsInBan(int id) throws ServiceException {
+		if (!Validator.validateInt(id)) {
+			throw new ServiceException(ExceptionMessages.CORRUPTED_USER_ID);
+		}
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IUserDAO userDAO = daoFactory.getUserDAO();
+			return userDAO.userIsInBan(id);
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
 	}
 }

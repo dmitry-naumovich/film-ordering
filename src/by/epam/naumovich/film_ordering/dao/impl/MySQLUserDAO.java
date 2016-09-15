@@ -1,9 +1,11 @@
 package by.epam.naumovich.film_ordering.dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.sql.Types;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -26,10 +28,13 @@ public class MySQLUserDAO implements IUserDAO {
 	public static final String SELECT_ALL_USERS = "SELECT * FROM Users";
 	public static final String SELECT_USER_BY_LOGIN = "SELECT * FROM Users WHERE u_login = ?";
 	public static final String SELECT_USER_BY_ID = "SELECT * FROM Users WHERE u_id = ?";
-	public static final String SELECT_USERS_IN_BAN = "SELECT Users.* FROM Users JOIN Bans ON users.u_id = bans.b_user WHERE ((CURDATE() = b_stdate AND CURTIME() > b_sttime) OR (CURDATE() = DATE_ADD(b_stdate, INTERVAL b_length DAY) AND CURTIME() < b_sttime) OR (CURDATE() > b_stdate AND CURDATE() < DATE_ADD(b_stdate, INTERVAL b_length DAY))) ";
-	public static final String SELECT_USER_IN_BAN_NOW_BY_ID = "SELECT * FROM Bans WHERE bans.b_user = ? AND ((CURDATE() = b_stdate AND CURTIME() > b_sttime) OR (CURDATE() = DATE_ADD(b_stdate, INTERVAL b_length DAY) AND CURTIME() < b_sttime) OR (CURDATE() > b_stdate AND CURDATE() < DATE_ADD(b_stdate, INTERVAL b_length DAY)))";
+	public static final String SELECT_USERS_IN_BAN = "SELECT Users.* FROM Users JOIN Bans ON users.u_id = bans.b_user WHERE ((CURDATE() = b_stdate AND CURTIME() > b_sttime) OR (CURDATE() = DATE_ADD(b_stdate, INTERVAL b_length DAY) AND CURTIME() < b_sttime) OR (CURDATE() > b_stdate AND CURDATE() < DATE_ADD(b_stdate, INTERVAL b_length DAY))) AND b_active = 1";
+	public static final String SELECT_USER_IN_BAN_NOW_BY_ID = "SELECT * FROM Bans WHERE bans.b_user = ? AND ((CURDATE() = b_stdate AND CURTIME() > b_sttime) OR (CURDATE() = DATE_ADD(b_stdate, INTERVAL b_length DAY) AND CURTIME() < b_sttime) OR (CURDATE() > b_stdate AND CURDATE() < DATE_ADD(b_stdate, INTERVAL b_length DAY))) AND b_active = 1";
 	public static final String SELECT_PASSWORD_BY_LOGIN = "SELECT u_passw FROM Users WHERE u_login = ?";
 	public static final String SELECT_CURRENT_DISCOUNT_BY_USER_ID = "SELECT d_amount FROM Discounts WHERE d_user = ? AND ((CURDATE() = d_stdate AND CURTIME() > d_sttime) OR (CURDATE() = d_endate AND CURTIME() < d_entime) OR (CURDATE() > d_stdate AND CURDATE() < d_endate))";
+	
+	public static final String INSERT_BAN_RECORD = "INSERT INTO Bans (b_user, b_stdate, b_sttime, b_length, b_reason) VALUES (?, ?, ?, ?, ?)";
+	public static final String UNBAN_USER_BY_ID = "UPDATE Bans SET b_active = 0 WHERE b_user = ?";
 	
 	public static MySQLUserDAO getInstance() {
 		return instance; 
@@ -473,6 +478,62 @@ public class MySQLUserDAO implements IUserDAO {
 		}
 		return 0;
 	}
-	
-	
+
+	@Override
+	public void banUser(int userID, Date startDate, Time startTime, int length, String reason) throws DAOException {
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;	
+		try {
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(INSERT_BAN_RECORD);
+			st.setInt(1, userID);
+			st.setDate(2, startDate);
+			st.setTime(3, startTime);
+			st.setInt(4, length);
+			st.setString(5, reason);
+			st.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new DAOException(ExceptionMessages.SQL_INSERT_FAILURE, e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
+		} finally {
+			try {
+				if (st != null) { st.close(); }
+			} catch (SQLException e) {
+				throw new DAOException(ExceptionMessages.PREP_STATEMENT_NOT_CLOSED, e);
+			} finally {
+				if (con != null) { pool.closeConnection(con); }
+			}
+		}
+	}
+
+	@Override
+	public void unbanUser(int userID) throws DAOException {
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;	
+		try {
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(UNBAN_USER_BY_ID);
+			st.setInt(1, userID);
+			st.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new DAOException(ExceptionMessages.SQL_UPDATE_FAILURE, e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
+		} finally {
+			try {
+				if (st != null) { st.close(); }
+			} catch (SQLException e) {
+				throw new DAOException(ExceptionMessages.PREP_STATEMENT_NOT_CLOSED, e);
+			} finally {
+				if (con != null) { pool.closeConnection(con); }
+			}
+		}
+	}
 }

@@ -9,6 +9,10 @@ public final class RequestAndSessionAttributes {
 	public static final String AVAILABLE_COUNTRIES = "availableCountries";
 	public static final String AVAILABLE_GENRES = "availableGenres";
 	public static final String AVATAR = "avatar";
+	public static final String BAN_LENGTH = "banLength";
+	public static final String BAN_LIST = "banList";
+	public static final String BAN_REASON = "banReason";
+	public static final String BANNED = "banned";
 	public static final String BDATE = "birthDate";
 	public static final String CAST = "cast";
 	public static final String COMPOSER = "composer";

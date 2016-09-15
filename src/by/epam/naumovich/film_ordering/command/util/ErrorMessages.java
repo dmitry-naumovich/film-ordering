@@ -8,6 +8,7 @@ public final class ErrorMessages {
 	public static final String ADD_FILM_RESTRICTION = "Only administrator is able to add films";
 	public static final String ADD_ORDER_RESTRICTION = "Sign in to be able to order films";
 	public static final String ADMIN_CAN_NOT_ORDER = "Administrator is not able to order films.";
+	public static final String BAN_USER_RESTRICTION = "Only administrator is able to ban users!";
 	public static final String DELETE_FILM_RESTRICTION = "Only administrator is able to delete films";
 	public static final String DELETE_NEWS_RESTRICTION = "Only administrator is able to delete news";
 	public static final String DELETE_REVIEW_RESTRICTION = "Only administrator and review author is able to delete the review";
@@ -29,4 +30,5 @@ public final class ErrorMessages {
 	public static final String SIGN_IN_FOR_SINGLE_ORDER = "Sign in to be able to look through the order";
 	public static final String SIGN_IN_FOR_YOUR_ORDERS = "Sign in to see your orders";
 	public static final String SIGN_IN_FOR_YOUR_REVIEWS = "Sign in to see your reviews";	
+	public static final String UNBAN_USER_RESTRICTION = "Only administrator is able to unban users!";
 }

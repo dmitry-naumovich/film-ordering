@@ -18,7 +18,7 @@
 <fmt:message bundle="${loc}" key="local.addFilm.enterDirector" var="enterDirector" />
 <fmt:message bundle="${loc}" key="local.addFilm.enterCast" var="enterCast" />
 <fmt:message bundle="${loc}" key="local.addFilm.enterLength" var="enterLength" />
-<fmt:message bundle="${loc}" key="local.addFilm.enterPrice" var="enterPrice" />
+<fmt:message bundle="${loc}" key="local.addFilm.enterPrice"W2 var="enterPrice" />
 <fmt:message bundle="${loc}" key="local.addFilm.enterComposer" var="enterComposer" />
 <fmt:message bundle="${loc}" key="local.film.director" var="director" />
 <fmt:message bundle="${loc}" key="local.film.cast" var="cast" />
