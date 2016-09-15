@@ -71,7 +71,7 @@ public class OpenNewOrderPage implements Command {
 					
 					Film film = filmService.getFilmByID(filmID);
 					int userSessionId = (int)request.getSession().getAttribute(RequestAndSessionAttributes.USER_ID);
-					int discount = userService.getCurrentUserDiscountByID(userSessionId);
+					int discount = userService.getCurrentUserDiscountByID(userSessionId).getAmount();
 					float orderSum = film.getPrice() * (1.0f - discount/100f);   
 					
 					request.setAttribute(RequestAndSessionAttributes.FILM, film);

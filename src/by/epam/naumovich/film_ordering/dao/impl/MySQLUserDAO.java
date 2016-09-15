@@ -10,6 +10,7 @@ import java.sql.Types;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import by.epam.naumovich.film_ordering.bean.Discount;
 import by.epam.naumovich.film_ordering.bean.User;
 import by.epam.naumovich.film_ordering.dao.IUserDAO;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
@@ -31,7 +32,7 @@ public class MySQLUserDAO implements IUserDAO {
 	public static final String SELECT_USERS_IN_BAN = "SELECT Users.* FROM Users JOIN Bans ON users.u_id = bans.b_user WHERE b_active = 1 AND ((CURDATE() = b_stdate AND CURTIME() > b_sttime) OR (CURDATE() = DATE_ADD(b_stdate, INTERVAL b_length DAY) AND CURTIME() < b_sttime) OR (CURDATE() > b_stdate AND CURDATE() < DATE_ADD(b_stdate, INTERVAL b_length DAY)))";
 	public static final String SELECT_USER_IN_BAN_NOW_BY_ID = "SELECT * FROM Bans WHERE bans.b_user = ? AND b_active = 1 AND ((CURDATE() = b_stdate AND CURTIME() > b_sttime) OR (CURDATE() = DATE_ADD(b_stdate, INTERVAL b_length DAY) AND CURTIME() < b_sttime) OR (CURDATE() > b_stdate AND CURDATE() < DATE_ADD(b_stdate, INTERVAL b_length DAY)))";
 	public static final String SELECT_PASSWORD_BY_LOGIN = "SELECT u_passw FROM Users WHERE u_login = ?";
-	public static final String SELECT_CURRENT_DISCOUNT_BY_USER_ID = "SELECT d_amount FROM Discounts WHERE d_user = ? AND ((CURDATE() = d_stdate AND CURTIME() > d_sttime) OR (CURDATE() = d_endate AND CURTIME() < d_entime) OR (CURDATE() > d_stdate AND CURDATE() < d_endate))";
+	public static final String SELECT_CURRENT_DISCOUNT_BY_USER_ID = "SELECT * FROM Discounts WHERE d_user = ? AND ((CURDATE() = d_stdate AND CURTIME() > d_sttime) OR (CURDATE() = d_endate AND CURTIME() < d_entime) OR (CURDATE() > d_stdate AND CURDATE() < d_endate))";
 	
 	public static final String INSERT_BAN_RECORD = "INSERT INTO Bans (b_user, b_stdate, b_sttime, b_length, b_reason) VALUES (?, ?, ?, ?, ?)";
 	public static final String UNBAN_USER_BY_ID = "UPDATE Bans SET b_active = 0 WHERE b_user = ?";
@@ -450,7 +451,7 @@ public class MySQLUserDAO implements IUserDAO {
 	}
 
 	@Override
-	public int getCurrentUserDiscountByID(int id) throws DAOException {
+	public Discount getCurrentUserDiscountByID(int id) throws DAOException {
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -462,7 +463,15 @@ public class MySQLUserDAO implements IUserDAO {
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
-				return rs.getInt(1);
+				Discount discount = new Discount();
+				discount.setId(rs.getInt(1));
+				discount.setUserID(rs.getInt(2));
+				discount.setAmount(rs.getInt(3));
+				discount.setStDate(rs.getDate(4));
+				discount.setStTime(rs.getTime(5));
+				discount.setEnDate(rs.getDate(6));
+				discount.setEnTime(rs.getTime(7));
+				return discount;
 			}
 			
 		} catch (SQLException e) {
@@ -479,7 +488,7 @@ public class MySQLUserDAO implements IUserDAO {
 				if (con != null) { pool.closeConnection(con); }
 			}
 		}
-		return 0;
+		return null;
 	}
 
 	@Override

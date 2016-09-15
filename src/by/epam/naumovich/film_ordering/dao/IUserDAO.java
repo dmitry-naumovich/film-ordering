@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.Set;
 
+import by.epam.naumovich.film_ordering.bean.Discount;
 import by.epam.naumovich.film_ordering.bean.User;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 
@@ -20,7 +21,7 @@ public interface IUserDAO {
 	User getUserByLogin(String login) throws DAOException;
 	
 	String getPasswordByLogin(String login) throws DAOException;
-	int getCurrentUserDiscountByID(int id) throws DAOException;
+	Discount getCurrentUserDiscountByID(int id) throws DAOException;
 	
 	boolean userIsInBan(int id) throws DAOException;
 	void banUser(int userID, Date startDate, Time startTime, int length, String reason) throws DAOException;
