@@ -6,6 +6,7 @@ public final class ExceptionMessages {
 	
 	public static final String ALREADY_TAKEN_LOGIN = "This login is already taken! Please, choose another one.";
 	public static final String BIRTHDATE_RIGHT_FORMAT = "BirthDate must follow \"YYYY-MM-DD\" format";
+	public static final String CORRUPTED_FILM_ID = "Corrupted film ID! Please, try again.";
 	public static final String CORRUPTED_FILM_REQUIRED_FIELDS = "At least one of the next fields is corrupted: name, year, director, length, price";
 	public static final String CORRUPTED_INPUT_PARAMETERS = "Corrupted input parameters! Please, try again.";
 	public static final String CORRUPTED_LOGIN = "The login is corrupted. Sorry!";
@@ -20,7 +21,7 @@ public final class ExceptionMessages {
 	public static final String INVALID_BIRTHDATE = "The year must exceed %s and the date can not exceed today";
 	public static final String INVALID_EMAIL = "The e-mail you entered is not valid. Please, try again.";
 	public static final String INVALID_FILM_LENGTH = "The film length must be positive integer value. Please, try again!";
-	public static final String INVALID_FILM_PRICE = "The film price must be positive integer value. Please, try again!";
+	public static final String INVALID_FILM_PRICE = "The film price must be positive float or integer value. Please, try again!";
 	public static final String INVALID_FILM_YEAR = "The film year must contain 4 numbers. Please, try again!";
 	public static final String INVALID_LOGIN = "Login must start with the letter and consist at least 3 symbols (latin letters and numbers)";
 	public static final String INVALID_NEWS_TITLE_OR_TEXT = "Invalid news title or text! Please, try again.";

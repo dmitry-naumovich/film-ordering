@@ -8,6 +8,7 @@ public final class JavaServerPageNames {
 	public static final String ERROR_PAGE = "error.jsp";
 
 	public static final String ABOUT_US_PAGE = "jsp/about-us.jsp";
+	public static final String EDIT_FILM_JSP_PAGE = "jsp/edit-film.jsp";
 	public static final String EDIT_NEWS_JSP_PAGE = "jsp/edit-news.jsp";
 	public static final String FEEDBACK_PAGE = "jsp/feedback.jsp";
 	public static final String FILM_ADDING_PAGE = "jsp/film-adding.jsp";

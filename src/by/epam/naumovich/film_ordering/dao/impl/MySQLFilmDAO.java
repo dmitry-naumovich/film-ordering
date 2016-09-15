@@ -21,6 +21,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 	
 	public static final String INSERT_NEW_FILM = "INSERT INTO Films (f_name, f_year, f_direct, f_country, f_genre, f_actors, f_composer, f_description, f_length, f_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	public static final String DELETE_FILM = "DELETE FROM Films WHERE f_id = ?";
+	public static final String UPDATE_FILM_BY_ID = "UPDATE Films SET f_name = ?, f_year = ?, f_direct = ?, f_country = ?, f_genre = ?, f_actors = ?, f_composer = ?, f_description = ?, f_length = ?, f_price = ? WHERE f_id = ?";
 	
 	public static final String SELECT_FILM_BY_ID = "SELECT * FROM Films WHERE f_id = ?";
 	public static final String SELECT_FILM_NAME_BY_ID = "SELECT f_name FROM Films WHERE f_id = ?";
@@ -157,7 +158,74 @@ public class MySQLFilmDAO implements IFilmDAO {
 			}
 		}
 	}
-	
+
+	@Override
+	public void editFilm(int id, Film editedFilm) throws DAOException {
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;
+		try {
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(UPDATE_FILM_BY_ID);
+			st.setString(1, editedFilm.getName());
+			st.setInt(2, editedFilm.getYear());
+			st.setString(3, editedFilm.getDirector());
+			
+			if (editedFilm.getCountry() == null){
+				st.setNull(4, Types.VARCHAR);
+			}
+			else {
+				st.setString(4, editedFilm.getCountry());
+			}
+			
+			if (editedFilm.getGenre() == null){
+				st.setNull(5, Types.VARCHAR);
+			}
+			else {
+				st.setString(5, editedFilm.getGenre());
+			}
+			
+			if (editedFilm.getActors() == null){
+				st.setNull(6, Types.VARCHAR);
+			}
+			else {
+				st.setString(6, editedFilm.getActors());
+			}
+			
+			if (editedFilm.getComposer() == null){
+				st.setNull(7, Types.VARCHAR);
+			}
+			else {
+				st.setString(7, editedFilm.getComposer());
+			}
+			
+			if (editedFilm.getDescription() == null){
+				st.setNull(8, Types.VARCHAR);
+			}
+			else {
+				st.setString(8, editedFilm.getDescription());
+			}
+			
+			st.setInt(9, editedFilm.getLength());
+			st.setFloat(10, editedFilm.getPrice());
+			st.setInt(11, editedFilm.getId());
+			st.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new DAOException(ExceptionMessages.SQL_UPDATE_FAILURE, e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
+		} finally {
+			try {
+				if (st != null) { st.close(); }
+			} catch (SQLException e) {
+				throw new DAOException(ExceptionMessages.PREP_STATEMENT_NOT_CLOSED, e);
+			} finally {
+				if (con != null) { pool.closeConnection(con); }
+			}
+		}
+	}
 
 	@Override
 	public Set<Film> getAllFilms() throws DAOException {
@@ -209,7 +277,6 @@ public class MySQLFilmDAO implements IFilmDAO {
 	
 	@Override
 	public Film getFilmByID(int id) throws DAOException {
-		Film film = new Film();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -222,6 +289,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 			rs = st.executeQuery();
 			
 			if (rs.next()) {
+				Film film = new Film();
 				film.setId(rs.getInt(1));
 				film.setName(rs.getString(2));
 				film.setYear(rs.getInt(3));
@@ -234,6 +302,8 @@ public class MySQLFilmDAO implements IFilmDAO {
 				film.setLength(rs.getInt(10));
 				film.setRating(rs.getFloat(11));
 				film.setPrice(rs.getFloat(12));
+				
+				return film;
 			}
 			
 		} catch (SQLException e) {
@@ -250,7 +320,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 				if (con != null) { pool.closeConnection(con); }
 			}
 		}
-		return film;
+		return null;
 	}
 	
 	@Override

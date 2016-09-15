@@ -11,6 +11,7 @@ public final class ErrorMessages {
 	public static final String DELETE_FILM_RESTRICTION = "Only administrator is able to delete films";
 	public static final String DELETE_NEWS_RESTRICTION = "Only administrator is able to delete news";
 	public static final String DELETE_REVIEW_RESTRICTION = "Only administrator and review author is able to delete the review";
+	public static final String EDIT_FILM_RESTRICTION = "Only administrator is able to edit films";
 	public static final String EDIT_NEWS_RESTRICTION = "Only administrator is able to edit news";
 	public static final String FILM_ALREADY_ORDERED = "Sorry! You have already ordered this film.";
 	public static final String FILM_ORDERS_RESTRICTION = "Only administrator is able to view film orders";

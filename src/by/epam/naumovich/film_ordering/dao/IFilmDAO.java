@@ -9,6 +9,7 @@ public interface IFilmDAO {
 
 	int addFilm(Film film) throws DAOException;
 	void deleteFilm(int id) throws DAOException;
+	void editFilm(int id, Film editedFilm) throws DAOException;
 	
 	Film getFilmByID(int id) throws DAOException;
 	String getFilmNameByID(int id) throws DAOException;

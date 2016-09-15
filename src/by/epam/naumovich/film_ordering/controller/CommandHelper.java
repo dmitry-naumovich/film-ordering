@@ -27,6 +27,7 @@ public class CommandHelper {
 		commands.put(CommandName.DELETE_FILM, new DeleteFilm()); 
 		commands.put(CommandName.DELETE_NEWS, new DeleteNews());
 		commands.put(CommandName.DELETE_REVIEW, new DeleteReview());
+		commands.put(CommandName.EDIT_FILM, new EditFilm());
 		commands.put(CommandName.EDIT_NEWS, new EditNews());
 		commands.put(CommandName.GET_NOVELTY, new GetNovelty());
 		commands.put(CommandName.GET_SIDEBAR_NEWS, new GetSidebarNews());
@@ -39,6 +40,7 @@ public class CommandHelper {
 		commands.put(CommandName.OPEN_ALL_REVIEWS, new OpenAllReviews());
 		commands.put(CommandName.OPEN_ALL_USERS, new OpenAllUsers());
 		commands.put(CommandName.OPEN_FEEDBACK_PAGE, new OpenFeedbackPage());
+		commands.put(CommandName.OPEN_FILM_EDIT_PAGE, new OpenFilmEditPage());
 		commands.put(CommandName.OPEN_FILM_ORDERS, new OpenFilmOrders());
 		commands.put(CommandName.OPEN_HELP_PAGE, new OpenHelpPage());
 		commands.put(CommandName.OPEN_LOGINATION_PAGE, new OpenLoginationPage());

@@ -12,6 +12,9 @@ public interface IFilmService {
 	
 	void deleteFilm(int id) throws ServiceException; 
 	
+	void editFilm(int id, String name, String year, String director, String cast, String[] countries,
+			String composer, String[] genres, String length, String price, String description) throws ServiceException;
+	
 	Film getFilmByID(int id) throws ServiceException;
 	String getFilmNameByID(int id) throws ServiceException;
 	

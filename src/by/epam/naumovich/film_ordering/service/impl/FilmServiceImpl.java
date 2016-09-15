@@ -10,6 +10,7 @@ import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.service.IFilmService;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.film.AddFilmServiceException;
+import by.epam.naumovich.film_ordering.service.exception.film.EditFilmServiceException;
 import by.epam.naumovich.film_ordering.service.exception.film.GetFilmsServiceException;
 import by.epam.naumovich.film_ordering.service.util.ExceptionMessages;
 import by.epam.naumovich.film_ordering.service.util.Validator;
@@ -69,7 +70,7 @@ public class FilmServiceImpl implements IFilmService {
 		}
 		
 		try {
-			int fPrice = Integer.parseInt(price);
+			float fPrice = Float.parseFloat(price);
 			newFilm.setPrice(fPrice);
 		} catch (NumberFormatException e) {
 			throw new AddFilmServiceException(ExceptionMessages.INVALID_FILM_PRICE);
@@ -110,6 +111,77 @@ public class FilmServiceImpl implements IFilmService {
 		}	
 	}
 
+	@Override
+	public void editFilm(int id, String name, String year, String director, String cast, String[] countries,
+			String composer, String[] genres, String length, String price, String description) throws ServiceException {
+		if (!Validator.validateInt(id)) {
+			throw new EditFilmServiceException(ExceptionMessages.CORRUPTED_FILM_ID);
+		}
+		if (!Validator.validateStrings(name, year, director, length, price)) {
+			throw new EditFilmServiceException(ExceptionMessages.CORRUPTED_FILM_REQUIRED_FIELDS);
+		}
+		Film editedFilm = new Film();
+		editedFilm.setId(id);
+		editedFilm.setName(name);
+		
+		try {
+			int fYear = Integer.parseInt(year);
+			editedFilm.setYear(fYear);
+		} catch (NumberFormatException e) {
+			throw new EditFilmServiceException(ExceptionMessages.INVALID_FILM_YEAR);
+		}
+		
+		editedFilm.setDirector(director);
+		if (Validator.validateStrings(cast)) { 
+			 editedFilm.setActors(cast);
+		}
+		
+		if (Validator.validateObject(countries) && Validator.validateStringArray(countries)) {
+			StringBuilder countryBuilder = new StringBuilder();
+			for (String s : countries) {
+				countryBuilder.append(s + ",");
+			}
+			countryBuilder.deleteCharAt(countryBuilder.length() - 1);
+			editedFilm.setCountry(countryBuilder.toString());
+		}
+		if (Validator.validateStrings(composer)) {
+			editedFilm.setComposer(composer);
+		}
+		if (Validator.validateObject(genres) && Validator.validateStringArray(genres)) {
+			StringBuilder genresBuilder = new StringBuilder();
+			for (String g : genres) {
+				genresBuilder.append(g + ",");
+			}
+			genresBuilder.deleteCharAt(genresBuilder.length() - 1);
+			editedFilm.setGenre(genresBuilder.toString());
+		}
+		
+		try {
+			int fLength = Integer.parseInt(length);
+			editedFilm.setLength(fLength);
+		} catch (NumberFormatException e) {
+			throw new EditFilmServiceException(ExceptionMessages.INVALID_FILM_LENGTH);
+		}
+		
+		try {
+			float fPrice = Float.parseFloat(price);
+			editedFilm.setPrice(fPrice);
+		} catch (NumberFormatException e) {
+			throw new EditFilmServiceException(ExceptionMessages.INVALID_FILM_PRICE);
+		}
+	
+		if (Validator.validateStrings(description)) {
+			editedFilm.setDescription(description);
+		}
+		
+		try {
+			IFilmDAO filmDAO = DAOFactory.getDAOFactory(MYSQL).getFilmDAO();
+			filmDAO.editFilm(id, editedFilm);
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+	}
+	
 	@Override
 	public Set<Film> getTwelveLastAddedFilms() throws ServiceException {
 		Set<Film> filmSet = new LinkedHashSet<Film>();

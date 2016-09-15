@@ -94,7 +94,7 @@
 		              <p>
 		              	<c:choose> 
               				<c:when test="${sessionScope.isAdmin}">
-              					<a class="btn btn-info" href="<c:url value="/Controller?command=open_edit_film_page&filmID=${film.id}"/>" role="button">${editFilmBtn}</a>
+              					<a class="btn btn-info" href="<c:url value="/Controller?command=open_film_edit_page&filmID=${film.id}"/>" role="button">${editFilmBtn}</a>
               				</c:when>
               				<c:otherwise>
               					<c:choose>

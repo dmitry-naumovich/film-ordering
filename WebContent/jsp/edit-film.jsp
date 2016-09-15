@@ -3,23 +3,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<c:set var = "language" value = "${not empty sessionScope.language ? sessionScope.language : 'en' }" scope = "session"/>
+<c:set var="language" value="${not empty sessionScope.language ? sessionScope.language : 'en' }" scope="session"/>
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resources.local" var="loc" />
-<fmt:message bundle="${loc}" key="local.addFilm.pageTitle" var="pageTitle" />
-<fmt:message bundle="${loc}" key="local.addFilm.newFilm" var="newFilm" />
+<fmt:message bundle="${loc}" key="local.common.serviceName" var="serviceName" />
+<fmt:message bundle="${loc}" key="local.editFilm.pageTitle" var="pageTitle" />
+<fmt:message bundle="${loc}" key="local.editFilm.pageHeader" var="pageHeader" />
+<fmt:message bundle="${loc}" key="local.editFilm.editFilmBtn" var="editFilmBtn" />
 <fmt:message bundle="${loc}" key="local.addFilm.folder" var="folder" />
 <fmt:message bundle="${loc}" key="local.addFilm.name" var="name" />
-<fmt:message bundle="${loc}" key="local.addFilm.addFilmBtn" var="addFilmBtn" />
-<fmt:message bundle="${loc}" key="local.addFilm.enterName" var="enterName" />
-<fmt:message bundle="${loc}" key="local.addFilm.enterYear" var="enterYear" />
-<fmt:message bundle="${loc}" key="local.addFilm.enterGenre" var="enterGenre" />
-<fmt:message bundle="${loc}" key="local.addFilm.enterCountry" var="enterCountry" />
-<fmt:message bundle="${loc}" key="local.addFilm.enterDirector" var="enterDirector" />
-<fmt:message bundle="${loc}" key="local.addFilm.enterCast" var="enterCast" />
-<fmt:message bundle="${loc}" key="local.addFilm.enterLength" var="enterLength" />
-<fmt:message bundle="${loc}" key="local.addFilm.enterPrice" var="enterPrice" />
-<fmt:message bundle="${loc}" key="local.addFilm.enterComposer" var="enterComposer" />
 <fmt:message bundle="${loc}" key="local.film.director" var="director" />
 <fmt:message bundle="${loc}" key="local.film.cast" var="cast" />
 <fmt:message bundle="${loc}" key="local.film.genre" var="genre" />
@@ -37,7 +29,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${pageTitle}</title>
+  <title>${serviceName} - ${pageTitle}</title>
   <c:set var="url">${pageContext.request.requestURL}</c:set>
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
   <link rel="icon"  type="image/x-icon" href="img/tab-logo.png">
@@ -47,33 +39,33 @@
 	  function validateForm(event)
 	  {
 	      event.preventDefault(); // this will prevent the submit event
-	      if(document.newFilmForm.name.value=="") {
+	      if(document.editFilmForm.name.value=="") {
 		      alert("Film name can not be left blank");
-		      document.newFilmForm.name.focus();
+		      document.editFilmForm.name.focus();
 		      return false;
 			}
-	      else if (document.newFilmForm.year.value=="") {
+	      else if (document.editFilmForm.year.value=="") {
 	    	  alert("Film year can not be left blank");
-		      document.newFilmForm.year.focus();
+		      document.editFilmForm.year.focus();
 		      return false;
 	      }
-	      else if (document.newFilmForm.director.value=="") {
+	      else if (document.editFilmForm.director.value=="") {
 	    	  alert("Film director can not be left blank");
-		      document.newFilmForm.director.focus();
+		      document.editFilmForm.director.focus();
 		      return false;
 	      }
-	      else if (document.newFilmForm.length.value=="") {
+	      else if (document.editFilmForm.length.value=="") {
 	    	  alert("Film length can not be left blank");
-		      document.newFilmForm.length.focus();
+		      document.editFilmForm.length.focus();
 		      return false;
 	      }
-	      else if (document.newFilmForm.price.value=="") {
+	      else if (document.editFilmForm.price.value=="") {
 	    	  alert("Film price can not be left blank");
-		      document.newFilmForm.price.focus();
+		      document.editFilmForm.price.focus();
 		      return false;
 	      }
 	      else {
-	          document.newFilmForm.submit();
+	          document.editFilmForm.submit();
 	      }
 	  }
   </script>
@@ -88,53 +80,54 @@
 
   <jsp:include page="/WEB-INF/static/header.jsp"></jsp:include>
 
+<c:set var="film" value="${requestScope.film}" />
+
   <div class="container-fluid"> 
     <div class="row content ">
     
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
-
+      
       <div class="col-md-8 main content ">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
-          <h2 class=" text-left">${newFilm}</h2>
+          <h2 class=" text-left">${pageHeader} ${film.name} (${film.year})</h2>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12">
-            	<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
+				<c:if test="${errorMessage != null && !errorMessage.isEmpty()}" >
 					<div class="alert alert-danger fade in">
 					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
 					 ${errorMessage} 
 					</div>
 				</c:if>
-
-
-<form name="newFilmForm" class="form-horizontal" method="post" action="Controller" onSubmit="return validateForm(event);">
-    <div class="form-group">
-		 <input type="hidden" name="command" value="add_film" />
-	</div>
-    
-    <div class="form-group">
+				
+	<form  name="editFilmForm" class="form-horizontal" method="post" action="Controller" onSubmit="return validateForm(event);">
+	  	<div class="form-group">
+	    	<input type="hidden" name="command" value="edit_film"/>
+	    	<input type="hidden" name="filmID" value="${film.id}"/>
+	  	</div>
+	  	<div class="form-group">
       <label class="col-sm-3 control-label">${name}*:</label>
       <div class="col-sm-9">
-        <input class="form-control" name="name" type="text" placeholder="${enterName}" >
+        <input class="form-control" name="name" type="text" value="${film.name}" >
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-3 control-label">${year}*:</label>
       <div class="col-sm-9">
-        <input class="form-control" name="year" type="text" placeholder="${enterYear}" >
+        <input class="form-control" name="year" type="text" value="${film.year}" >
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-3 control-label">${director}*:</label>
       <div class="col-sm-9">
-        <input class="form-control" name="director" type="text" placeholder="${enterDirector}" >
+        <input class="form-control" name="director" type="text" value="${film.director}" >
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-3 control-label">${cast}:</label>
       <div class="col-sm-9">
-        <input class="form-control" name="cast" type="text" placeholder="${enterCast}">
+        <input class="form-control" name="cast" type="text" value="${film.actors}">
       </div>
     </div>
     <div class="form-group">
@@ -145,7 +138,14 @@
 	  <div class="col-sm-9">
 		  <select multiple class="form-control" name="country" id="sel2">
 		    <c:forEach items="${requestScope.availableCountries}" var="fCountry">
-		    	<option>${fCountry}</option>
+		    	<c:choose>
+		    		<c:when test="${film.country.contains(fCountry)}">
+		    			<option selected="selected">${fCountry}</option>
+		    		</c:when>
+		    		<c:otherwise>
+		    			<option>${fCountry}</option>
+		    		</c:otherwise>
+		    	</c:choose>
 		    </c:forEach>
 		  </select>
 	  </div>
@@ -153,7 +153,7 @@
     <div class="form-group">
       <label class="col-sm-3 control-label">${composer}:</label>
       <div class="col-sm-9">
-        <input class="form-control" name="composer" type="text" placeholder="${enterComposer}">
+        <input class="form-control" name="composer" type="text" value="${film.composer}">
       </div>
     </div>
     <div class="form-group">
@@ -164,7 +164,14 @@
 	  <div class="col-sm-9">
 		  <select multiple class="form-control" name="genre" id="sel1">
 		    <c:forEach items="${requestScope.availableGenres}" var="fGenre">
-		    	<option>${fGenre}</option>
+		    	<c:choose>
+		    		<c:when test="${film.genre.contains(fGenre)}">
+		    			<option selected>${fGenre}</option>
+		    		</c:when>
+		    		<c:otherwise>
+		    			<option>${fGenre}</option>
+		    		</c:otherwise>
+		    	</c:choose>
 		    </c:forEach>
 		  </select>
 	  </div>
@@ -172,40 +179,44 @@
      <div class="form-group">
       <label class="col-sm-3 control-label">${lengthmin}*:</label>
       <div class="col-sm-9">
-        <input class="form-control" name="length" type="text" placeholder="${enterLength}">
+        <input class="form-control" name="length" type="text" value="${film.length}">
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-3 control-label">${price}*:</label>
       <div class="col-sm-9">
-        <input class="form-control" name="price" type="text" placeholder="${enterPrice}">
+        <input class="form-control" name="price" type="text" value="${film.price}">
       </div>
     </div>
      <div class="form-group">
       <label class="col-sm-3 control-label">${folder}: </label>
-      <div class="col-sm-9">
+      <div class="col-sm-3">
             <input type="file" name="filmFolder">
+      </div>
+      <div class="col-sm-6">
+      	<figure>
+          <img src="img/films/${film.id}/folder.jpg" alt="$ {film.name}" class="img-thumbnail img-responsive center-block" width="80" height="140" style="margin-top: 30px;"/> 
+        </figure>
       </div>
     </div>    
     <div class="form-group">
       <label class="col-sm-3 control-label" for="comment">${description}:</label>
       <div class="col-sm-9">
-        <textarea class="form-control" name="description" rows="5"></textarea>
+        <textarea class="form-control" name="description" rows="5">${film.description}</textarea>
       </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-3 col-md-offset-2">
-      	<button type="submit" class="btn btn-primary">${addFilmBtn}</button>
-      </div>
-    </div>    
-</form>
+    </div>  
+	  <div class="col-sm-2 col-md-offset-2">
+	  	<button type="submit" class="btn btn-primary">${editFilmBtn}</button>
+	  </div>
+	</form>
+
           </div>
           </div>
       </div>
       </div>
       <jsp:include page="/WEB-INF/static/right-sidebar.jsp"></jsp:include>
-    </div>
-   </div>
+     </div>
+  </div>  
   <jsp:include page="/WEB-INF/static/footer.jsp"></jsp:include>
 </body>
 </html>
