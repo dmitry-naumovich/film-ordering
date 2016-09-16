@@ -5,6 +5,7 @@ public final class RequestAndSessionAttributes {
 	private RequestAndSessionAttributes() {	}
 	
 	public static final String ABOUT = "about";
+	public static final String AMOUNT = "amount";
 	public static final String AUTHORIZED_USER = "authUser";
 	public static final String AVAILABLE_COUNTRIES = "availableCountries";
 	public static final String AVAILABLE_GENRES = "availableGenres";
@@ -21,8 +22,12 @@ public final class RequestAndSessionAttributes {
 	public static final String DIRECTOR = "director";
 	public static final String DISCOUNT = "discount";
 	public static final String DISCOUNT_AMOUNT = "discountAmount";
+	public static final String DISCOUNT_ID = "discountID";
+	public static final String DISCOUNT_LIST = "discountList";
 	public static final String EMAIL = "email";
 	public static final String EMPTY_STRING = "";
+	public static final String END_DATE = "endDate";
+	public static final String END_TIME = "endTime";
 	public static final String ERROR_MESSAGE = "errorMessage";
 	public static final String FILM_ID = "filmID";
 	public static final String FILM_NAME = "filmName";

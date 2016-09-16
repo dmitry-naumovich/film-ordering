@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import by.epam.naumovich.film_ordering.bean.Discount;
 import by.epam.naumovich.film_ordering.bean.User;
 import by.epam.naumovich.film_ordering.command.Command;
 import by.epam.naumovich.film_ordering.command.util.ErrorMessages;
@@ -21,6 +22,7 @@ import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
 import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
+import by.epam.naumovich.film_ordering.service.exception.user.GetDiscountServiceException;
 import by.epam.naumovich.film_ordering.service.exception.user.GetUserServiceException;
 
 public class OpenAllUsers implements Command {
@@ -49,12 +51,21 @@ public class OpenAllUsers implements Command {
 				users = new LinkedHashSet<User>(list);
 
 				List<Boolean> banList = new ArrayList<Boolean>();
+				List<Discount> discountList = new ArrayList<Discount>();
 				for (User u : users) {
 					banList.add(userService.userIsInBan(u.getId()));
+					Discount discount = null;
+					try {
+						discount = userService.getCurrentUserDiscountByID(u.getId());
+						discountList.add(discount);
+					} catch (GetDiscountServiceException e) {
+						discountList.add(null);
+					}
 				}
 				
 				request.setAttribute(RequestAndSessionAttributes.USERS, users);
 				request.setAttribute(RequestAndSessionAttributes.BAN_LIST, banList);
+				request.setAttribute(RequestAndSessionAttributes.DISCOUNT_LIST, discountList);
 				request.getRequestDispatcher(JavaServerPageNames.USERS_PAGE).forward(request, response);
 				
 			} catch (GetUserServiceException e) {

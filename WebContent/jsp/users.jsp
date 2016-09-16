@@ -31,6 +31,16 @@
 <fmt:message bundle="${loc}" key="local.ban.userWord" var="userWord" />
 <fmt:message bundle="${loc}" key="local.ban.unbanBtn" var="unbanBtn" />
 <fmt:message bundle="${loc}" key="local.ban.isBanned" var="isBanned" />
+<fmt:message bundle="${loc}" key="local.discount.editDiscount" var="editDiscount" />
+<fmt:message bundle="${loc}" key="local.discount.setDiscountFor" var="setDiscountFor" />
+<fmt:message bundle="${loc}" key="local.discount.editDiscountFor" var="editDiscountFor" />
+<fmt:message bundle="${loc}" key="local.discount.amount" var="amount" />
+<fmt:message bundle="${loc}" key="local.discount.enterAmount" var="enterAmount" />
+<fmt:message bundle="${loc}" key="local.discount.endDate" var="endDate" />
+<fmt:message bundle="${loc}" key="local.discount.endTime" var="endTime" />
+<fmt:message bundle="${loc}" key="local.discount.dateFormat" var="dateFormat" />
+<fmt:message bundle="${loc}" key="local.discount.timeFormat" var="timeFormat" />
+<fmt:message bundle="${loc}" key="local.discount.deleteDiscountBtn" var="deleteDiscountBtn" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="${language}">
@@ -140,6 +150,14 @@
                         <td>${regDateTime}</td>
                         <td>${user.regDate} ${user.regTime}</td>
                       </tr>
+                      <c:if test="${requestScope.discountList[status.index] != null}">
+	                      
+		                      <tr>
+		                      	<td>${currentDiscount}</td>
+		                      	<td>${requestScope.discountList[status.index].amount} %</td>
+		                      </tr>
+	                      
+                      </c:if>
                    
                     </tbody>
                 </table>
@@ -152,7 +170,14 @@
                            	<c:when test="${sessionScope.isAdmin && user.id != sessionScope.userID}">
 	                          	<a href="<c:url value="/Controller?command=open_user_orders&userID=${user.id}"/>" class="btn btn-default" role="button">${userOrders}</a> 
 	                          	<a href="<c:url value="/Controller?command=open_user_reviews&userID=${user.id}"/>" class="btn btn-info" role="button">${userReviews}</a>
-	                          	<a href="jsp/discount.jsp" class="btn btn-warning" role="button">${setDiscount}</a>
+	                          	<c:choose>
+	                          		<c:when test="${requestScope.discountList[status.index] == null}">
+	                          			<a data-toggle="modal" data-target="#setDiscountModal" class="btn btn-warning" role="button">${setDiscount}</a>
+	                          		</c:when>
+	                          		<c:otherwise>
+	                          			<a data-toggle="modal" data-target="#editDiscountModal" class="btn btn-default" role="button">${editDiscount}</a>
+	                          		</c:otherwise>
+	                          	</c:choose>
 	                          	
 	                          	<c:choose>
 	                          		<c:when test="${!banList[status.index]}">
@@ -228,6 +253,112 @@
 							      </div>
 							    </div>
 							  </div>
+						  <c:if test="${requestScope.discountList[status.index] != null}">
+							  <div class="modal fade" id="setDiscountModal" role="dialog">
+							    <div class="modal-dialog">
+							      <div class="modal-content">
+							      	<form  name="setDiscountForm" class="form-horizontal" method="post" action="Controller">
+							        <div class="modal-header">
+							          <button type="button" class="close" data-dismiss="modal">&times;</button>
+							          <h4 class="modal-title">${setDiscountFor} ${user.login}</h4>
+							        </div>
+							        <div class="modal-body">
+							        	
+							          		<div class="form-group">
+										    	<input type="hidden" name="command" value="set_discount"/>
+										  	</div>
+										  	<div class="form-group">
+										    	<input type="hidden" name="userID" value="${user.id}"/>
+										  	</div>
+										  	
+							          		<div class="form-group">
+									      		<label class="col-sm-3 control-label">${amount}</label>
+									      		<div class="col-sm-9">
+									        		<input class="form-control" name="amount" type="text" placeholder="${enterAmount}">
+									      		</div>
+											</div>
+											<div class="form-group">
+									      		<label class="col-sm-3 control-label">${endDate}</label>
+									      		<div class="col-sm-9">
+									        		<input class="form-control" name="endDate" type="text" placeholder="${dateFormat}">
+									      		</div>
+											</div>
+											<div class="form-group">
+									      		<label class="col-sm-3 control-label">${endTime}</label>
+									      		<div class="col-sm-9">
+									        		<input class="form-control" name="endTime" type="text" placeholder="${timeFormat}">
+									      		</div>
+											</div>
+											
+							        	
+							        </div>
+							        <div class="modal-footer">
+							          <button type="submit" class="btn btn-danger">${setDiscount}</button>
+							          <button type="button" class="btn btn-default" data-dismiss="modal">${closeBtn}</button>
+							        </div>
+							        </form>
+							      </div>
+							      
+							    </div>
+							  </div>
+							
+							  
+							  <div class="modal fade" id="editDiscountModal" role="dialog">
+							  	<c:set var="discount" value="${requestScope.discountList[status.index]}" />
+							    <div class="modal-dialog">
+							      <div class="modal-content">
+							      	<form  name="editDiscountForm" class="form-horizontal" method="post" action="Controller">
+							        <div class="modal-header">
+							          <button type="button" class="close" data-dismiss="modal">&times;</button>
+							          <h4 class="modal-title">${editDiscountFor} ${user.login}</h4>
+							        </div>
+							        <div class="modal-body">
+							        		
+							          		<div class="form-group">
+										    	<input type="hidden" name="command" value="edit_discount"/>
+										  	</div>
+										  	<div class="form-group">
+										    	<input type="hidden" name="discountID" value="${discount.id}"/>
+										  	</div>
+										  	
+							          		<div class="form-group">
+									      		<label class="col-sm-3 control-label">${amount}</label>
+									      		<div class="col-sm-9">
+									        		<input class="form-control" name="amount" type="text" placeholder="${requestScope.discountList[status.index].amount}">
+									      		</div>
+											</div>
+											<div class="form-group">
+									      		<label class="col-sm-3 control-label">${endDate}</label>
+									      		<div class="col-sm-9">
+									        		<input class="form-control" name="endDate" type="text" placeholder="${discountList[status.index].enDate}">
+									      		</div>
+											</div>
+											<div class="form-group">
+									      		<label class="col-sm-3 control-label">${endTime}</label>
+									      		<div class="col-sm-9">
+									        		<input class="form-control" name="endTime" type="text" placeholder="${discount.enTime}">
+									      		</div>
+											</div>
+											
+							        	
+							        </div>
+							        <div class="modal-footer row">
+							        	<div class="text-left col-md-4">
+							          		<a href="<c:url value="/Controller?command=delete_discount&discountID=${discount.id}"/>" class="btn btn-danger" role="button">${deleteDiscountBtn}</a>
+							          	</div>
+							          	<div class="text-center col-md-4">
+							          		<button type="button" class="btn btn-default" data-dismiss="modal">${closeBtn}</button>
+							          	</div>
+							          	<div class="text-right col-md-4">
+							          		<button type="submit" class="btn btn-success">${editDiscount}</button>
+							          	</div>
+							        </div>
+							        </form>
+							      </div>
+							      
+							    </div>
+							  </div>
+							</c:if>
                     </c:forEach>
           </div>
           </div>

@@ -1,6 +1,7 @@
 package by.epam.naumovich.film_ordering.controller;
 
 public enum CommandName {
+	ADD_DISCOUNT,
 	ADD_FILM,
 	ADD_NEWS,
 	ADD_ORDER,
@@ -8,9 +9,11 @@ public enum CommandName {
 	BAN_USER,
 	CHANGE_LANGUAGE,
 	CHANGE_USER_SETTINGS,
+	DELETE_DISCOUNT,
 	DELETE_FILM,
 	DELETE_NEWS,
 	DELETE_REVIEW,
+	EDIT_DISCOUNT,
 	EDIT_FILM,
 	EDIT_NEWS,
 	GET_NOVELTY,

@@ -18,6 +18,7 @@ public class CommandHelper {
 	private Map<CommandName, Command> commands = new HashMap<>();
 	
 	public CommandHelper() {
+		commands.put(CommandName.ADD_DISCOUNT, new AddDiscount());
 		commands.put(CommandName.ADD_FILM, new AddFilm());
 		commands.put(CommandName.ADD_NEWS, new AddNews());
 		commands.put(CommandName.ADD_ORDER, new AddOrder());
@@ -25,9 +26,11 @@ public class CommandHelper {
 		commands.put(CommandName.BAN_USER, new BanUser());
 		commands.put(CommandName.CHANGE_LANGUAGE, new ChangeLanguage());
 		commands.put(CommandName.CHANGE_USER_SETTINGS, new ChangeUserSettings());
+		commands.put(CommandName.DELETE_DISCOUNT, new DeleteDiscount()); 
 		commands.put(CommandName.DELETE_FILM, new DeleteFilm()); 
 		commands.put(CommandName.DELETE_NEWS, new DeleteNews());
 		commands.put(CommandName.DELETE_REVIEW, new DeleteReview());
+		commands.put(CommandName.EDIT_DISCOUNT, new EditDiscount());
 		commands.put(CommandName.EDIT_FILM, new EditFilm());
 		commands.put(CommandName.EDIT_NEWS, new EditNews());
 		commands.put(CommandName.GET_NOVELTY, new GetNovelty());

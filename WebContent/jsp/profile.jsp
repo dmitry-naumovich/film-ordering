@@ -48,6 +48,7 @@
 <fmt:message bundle="${loc}" key="local.discount.endTime" var="endTime" />
 <fmt:message bundle="${loc}" key="local.discount.dateFormat" var="dateFormat" />
 <fmt:message bundle="${loc}" key="local.discount.timeFormat" var="timeFormat" />
+<fmt:message bundle="${loc}" key="local.discount.deleteDiscountBtn" var="deleteDiscountBtn" />
 
 <c:set var="user" value="${requestScope.user}" />
 
@@ -370,7 +371,7 @@
 			        <div class="modal-body">
 			        	
 			          		<div class="form-group">
-						    	<input type="hidden" name="command" value="set_discount"/>
+						    	<input type="hidden" name="command" value="add_discount"/>
 						  	</div>
 						  	<div class="form-group">
 						    	<input type="hidden" name="userID" value="${user.id}"/>
@@ -445,9 +446,16 @@
 							
 			        	
 			        </div>
-			        <div class="modal-footer">
-			          <button type="submit" class="btn btn-danger">${editDiscountFor}</button>
-			          <button type="button" class="btn btn-default" data-dismiss="modal">${closeBtn}</button>
+			        <div class="modal-footer row">
+			        	<div class="text-left col-md-4">
+			          		<a href="<c:url value="/Controller?command=delete_discount&discountID=${discount.id}"/>" class="btn btn-danger" role="button">${deleteDiscountBtn}</a>
+			          	</div>
+			          	<div class="text-center col-md-4">
+			          		<button type="button" class="btn btn-default" data-dismiss="modal">${closeBtn}</button>
+			          	</div>
+			          	<div class="text-right col-md-4">
+			          		<button type="submit" class="btn btn-success">${editDiscount}</button>
+			          	</div>
 			        </div>
 			        </form>
 			      </div>

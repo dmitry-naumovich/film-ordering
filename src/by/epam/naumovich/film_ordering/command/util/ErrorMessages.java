@@ -4,14 +4,17 @@ public final class ErrorMessages {
 
 	public ErrorMessages() {}
 	
+	public static final String ADD_DISCOUNT_RESTRICTION = "Only administrator is able to add discounts for users";
 	public static final String ADD_NEWS_RESTRICTION = "Only administrator is able to add news";
 	public static final String ADD_FILM_RESTRICTION = "Only administrator is able to add films";
 	public static final String ADD_ORDER_RESTRICTION = "Sign in to be able to order films";
 	public static final String ADMIN_CAN_NOT_ORDER = "Administrator is not able to order films.";
 	public static final String BAN_USER_RESTRICTION = "Only administrator is able to ban users!";
+	public static final String DELETE_DISCOUNT_RESTRICTION = "Only administrator is able to delete user discounts";
 	public static final String DELETE_FILM_RESTRICTION = "Only administrator is able to delete films";
 	public static final String DELETE_NEWS_RESTRICTION = "Only administrator is able to delete news";
 	public static final String DELETE_REVIEW_RESTRICTION = "Only administrator and review author is able to delete the review";
+	public static final String EDIT_DISCOUNT_RESTRICTION = "Only administrator is able to edit user discounts";
 	public static final String EDIT_FILM_RESTRICTION = "Only administrator is able to edit films";
 	public static final String EDIT_NEWS_RESTRICTION = "Only administrator is able to edit news";
 	public static final String FILM_ALREADY_ORDERED = "Sorry! You have already ordered this film.";
