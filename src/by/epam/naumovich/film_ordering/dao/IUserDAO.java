@@ -22,6 +22,9 @@ public interface IUserDAO {
 	
 	String getPasswordByLogin(String login) throws DAOException;
 	Discount getCurrentUserDiscountByID(int id) throws DAOException;
+	void addDiscount(Discount discount) throws DAOException;
+	void editDiscount(Discount editedDisc) throws DAOException;
+	void deleteDiscount(int discountID) throws DAOException;
 	
 	boolean userIsInBan(int id) throws DAOException;
 	void banUser(int userID, Date startDate, Time startTime, int length, String reason) throws DAOException;

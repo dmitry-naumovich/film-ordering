@@ -89,7 +89,7 @@ public class MySQLReviewDAO implements IReviewDAO {
 			stForRatingUpdate.executeUpdate();
 			
 		} catch (SQLException e) {
-			throw new DAOException(ExceptionMessages.SQL_DELETE_FAILTURE, e);
+			throw new DAOException(ExceptionMessages.SQL_DELETE_FAILURE, e);
 		} catch (ConnectionPoolException e) {
 			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
 		} finally {

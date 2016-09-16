@@ -15,7 +15,7 @@ import by.epam.naumovich.film_ordering.command.util.SuccessMessages;
 import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
-import by.epam.naumovich.film_ordering.service.exception.user.BanUserServiceException;
+import by.epam.naumovich.film_ordering.service.exception.user.DiscountServiceException;
 
 public class AddDiscount implements Command {
 
@@ -39,11 +39,11 @@ public class AddDiscount implements Command {
 			
 			try {
 				IUserService userService = ServiceFactory.getInstance().getUserService();
-				userService.banUser(userID, length, reason);
-				request.setAttribute(RequestAndSessionAttributes.SUCCESS_MESSAGE, SuccessMessages.USER_BANNED);
+				userService.addDiscount(userID, amount, endDate, endTime);
+				request.setAttribute(RequestAndSessionAttributes.SUCCESS_MESSAGE, SuccessMessages.DISCOUNT_ADDED);
 				Thread.sleep(1000);
 				request.getRequestDispatcher("/Controller?command=open_user_profile&userID=" + userID).forward(request, response);
-			} catch (BanUserServiceException e) {
+			} catch (DiscountServiceException e) {
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher("/Controller?command=open_user_profile&userID=" + userID).forward(request, response);
 			} catch (ServiceException | InterruptedException e) {

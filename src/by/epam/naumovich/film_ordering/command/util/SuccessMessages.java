@@ -4,6 +4,9 @@ public final class SuccessMessages {
 
 	private SuccessMessages() {}
 	
+	public static final String DISCOUNT_ADDED = "User discount was successfully added!";
+	public static final String DISCOUNT_DELETED = "User discount was successfully finished!";
+	public static final String DISCOUNT_EDITED = "User discount was successfully edited!";
 	public static final String FILM_ADDED = "The film was successfully added!";
 	public static final String FILM_DELETED = "The film was successfully deleted from the system!";
 	public static final String FILM_EDITED = "The film was successfully edited!";

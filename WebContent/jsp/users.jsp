@@ -172,19 +172,19 @@
 	                          	<a href="<c:url value="/Controller?command=open_user_reviews&userID=${user.id}"/>" class="btn btn-info" role="button">${userReviews}</a>
 	                          	<c:choose>
 	                          		<c:when test="${requestScope.discountList[status.index] == null}">
-	                          			<a data-toggle="modal" data-target="#setDiscountModal" class="btn btn-warning" role="button">${setDiscount}</a>
+	                          			<a data-toggle="modal" data-target="#setDiscountModal${user.id}" class="btn btn-warning" role="button">${setDiscount}</a>
 	                          		</c:when>
 	                          		<c:otherwise>
-	                          			<a data-toggle="modal" data-target="#editDiscountModal" class="btn btn-default" role="button">${editDiscount}</a>
+	                          			<a data-toggle="modal" data-target="#editDiscountModal${user.id}" class="btn btn-default" role="button">${editDiscount}</a>
 	                          		</c:otherwise>
 	                          	</c:choose>
 	                          	
 	                          	<c:choose>
 	                          		<c:when test="${!banList[status.index]}">
-	                          			<a data-toggle="modal" data-target="#banModal" class="btn btn-danger" role="button">${banUser}</a>
+	                          			<a data-toggle="modal" data-target="#banModal${user.id}" class="btn btn-danger" role="button">${banUser}</a>
 	                          		</c:when>
 	                          		<c:otherwise>
-	                          			<a data-toggle="modal" data-target="#unbanModal" class="btn btn-default" role="button">${banned}</a>
+	                          			<a data-toggle="modal" data-target="#unbanModal${user.id}" class="btn btn-default" role="button">${banned}</a>
 	                          		</c:otherwise>
 	                          	</c:choose>
 	                        </c:when>
@@ -197,7 +197,7 @@
                         </div>
                         </div>
                         
-                        	<div class="modal fade" id="banModal" role="dialog">
+                        	<div class="modal fade" id="banModal${user.id}" role="dialog">
 							    <div class="modal-dialog">
 							      <div class="modal-content">
 							      	<form  name="banForm" class="form-horizontal" method="post" action="Controller" >
@@ -238,7 +238,7 @@
 							    </div>
 							  </div>
 							  
-							  <div class="modal fade" id="unbanModal" role="dialog">
+							  <div class="modal fade" id="unbanModal${user.id}" role="dialog">
 							    <div class="modal-dialog">
 							      <div class="modal-content">
 							        <div class="modal-header">
@@ -253,8 +253,9 @@
 							      </div>
 							    </div>
 							  </div>
-						  <c:if test="${requestScope.discountList[status.index] != null}">
-							  <div class="modal fade" id="setDiscountModal" role="dialog">
+							  
+						  
+							  <div class="modal fade" id="setDiscountModal${user.id}" role="dialog">
 							    <div class="modal-dialog">
 							      <div class="modal-content">
 							      	<form  name="setDiscountForm" class="form-horizontal" method="post" action="Controller">
@@ -265,9 +266,7 @@
 							        <div class="modal-body">
 							        	
 							          		<div class="form-group">
-										    	<input type="hidden" name="command" value="set_discount"/>
-										  	</div>
-										  	<div class="form-group">
+										    	<input type="hidden" name="command" value="add_discount"/>
 										    	<input type="hidden" name="userID" value="${user.id}"/>
 										  	</div>
 										  	
@@ -302,8 +301,8 @@
 							    </div>
 							  </div>
 							
-							  
-							  <div class="modal fade" id="editDiscountModal" role="dialog">
+							  <c:if test="${requestScope.discountList[status.index] != null}">
+							  <div class="modal fade" id="editDiscountModal${user.id}" role="dialog">
 							  	<c:set var="discount" value="${requestScope.discountList[status.index]}" />
 							    <div class="modal-dialog">
 							      <div class="modal-content">
@@ -315,28 +314,27 @@
 							        <div class="modal-body">
 							        		
 							          		<div class="form-group">
-										    	<input type="hidden" name="command" value="edit_discount"/>
-										  	</div>
-										  	<div class="form-group">
-										    	<input type="hidden" name="discountID" value="${discount.id}"/>
+										    	<input type="hidden" name="command" value="edit_discount">
+										    	<input type="hidden" name="discountID" value="${discount.id}">
+										    	<input type="hidden" name="userID" value="${user.id}">
 										  	</div>
 										  	
 							          		<div class="form-group">
 									      		<label class="col-sm-3 control-label">${amount}</label>
 									      		<div class="col-sm-9">
-									        		<input class="form-control" name="amount" type="text" placeholder="${requestScope.discountList[status.index].amount}">
+									        		<input class="form-control" name="amount" type="text" value="${requestScope.discountList[status.index].amount}">
 									      		</div>
 											</div>
 											<div class="form-group">
 									      		<label class="col-sm-3 control-label">${endDate}</label>
 									      		<div class="col-sm-9">
-									        		<input class="form-control" name="endDate" type="text" placeholder="${discountList[status.index].enDate}">
+									        		<input class="form-control" name="endDate" type="text" value="${requestScope.discountList[status.index].enDate}">
 									      		</div>
 											</div>
 											<div class="form-group">
 									      		<label class="col-sm-3 control-label">${endTime}</label>
 									      		<div class="col-sm-9">
-									        		<input class="form-control" name="endTime" type="text" placeholder="${discount.enTime}">
+									        		<input class="form-control" name="endTime" type="text" value="${requestScope.discountList[status.index].enTime}">
 									      		</div>
 											</div>
 											
@@ -344,13 +342,13 @@
 							        </div>
 							        <div class="modal-footer row">
 							        	<div class="text-left col-md-4">
-							          		<a href="<c:url value="/Controller?command=delete_discount&discountID=${discount.id}"/>" class="btn btn-danger" role="button">${deleteDiscountBtn}</a>
+							          		<button type="submit" class="btn btn-success">${editDiscount}</button>
 							          	</div>
-							          	<div class="text-center col-md-4">
-							          		<button type="button" class="btn btn-default" data-dismiss="modal">${closeBtn}</button>
+							        	<div class="text-center col-md-4">
+							          		<a href="<c:url value="/Controller?command=delete_discount&discountID=${discount.id}&userID=${user.id}"/>" class="btn btn-danger" role="button">${deleteDiscountBtn}</a>
 							          	</div>
 							          	<div class="text-right col-md-4">
-							          		<button type="submit" class="btn btn-success">${editDiscount}</button>
+							          		<button type="button" class="btn btn-default" data-dismiss="modal">${closeBtn}</button>
 							          	</div>
 							        </div>
 							        </form>

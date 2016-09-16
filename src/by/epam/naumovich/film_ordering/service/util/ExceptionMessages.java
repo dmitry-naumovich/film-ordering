@@ -6,6 +6,7 @@ public final class ExceptionMessages {
 	
 	public static final String ALREADY_TAKEN_LOGIN = "This login is already taken! Please, choose another one.";
 	public static final String BIRTHDATE_RIGHT_FORMAT = "BirthDate must follow \"YYYY-MM-DD\" format";
+	public static final String CORRUPTED_DISCOUNT_ID = "Corrupted discount ID! Please, try again.";
 	public static final String CORRUPTED_FILM_ID = "Corrupted film ID! Please, try again.";
 	public static final String CORRUPTED_FILM_REQUIRED_FIELDS = "At least one of the next fields is corrupted: name, year, director, length, price";
 	public static final String CORRUPTED_INPUT_PARAMETERS = "Corrupted input parameters! Please, try again.";
@@ -16,12 +17,15 @@ public final class ExceptionMessages {
 	public static final String CORRUPTED_NEWS_ID = "Corrupted news ID! Please, try again.";
 	public static final String CORRUPTED_USER_ID = "Corrupted user ID! Please, try again.";
 	public static final String COUNTRIES_NOT_AVAILABLE = "No countries available in the database! Please, try again.";
+	public static final String DISCOUNT_DATE_TIME_RIGHT_FORMAT = "End date must follow \"YYYY-MM-DD\" format and end time must follow \"HH-MM-SS\" format";
 	public static final String DISCOUNT_NOT_FOUND = "This user has not current discount.";
 	public static final String FILM_NOT_ADDED = "The film was not added the database! Sorry! Please, try again";
 	public static final String FILM_NOT_PRESENT = "The film is not present in the database";
 	public static final String GENRES_NOT_AVAILABLE = "No genres available in the database! Please, try again.";
 	public static final String INVALID_BAN_LENGTH = "Ban length must be positive integer number. Please, try again.";
 	public static final String INVALID_BIRTHDATE = "The year must exceed %s and the date can not exceed today";
+	public static final String INVALID_DISCOUNT_AMOUNT = "Discount amount must be positive integer value between 0 and 100! Please, try again.";
+	public static final String INVALID_DISCOUNT_END = "Discount end date and time must exceed now! Please, try again.";
 	public static final String INVALID_EMAIL = "The e-mail you entered is not valid. Please, try again.";
 	public static final String INVALID_FILM_LENGTH = "The film length must be positive integer value. Please, try again!";
 	public static final String INVALID_FILM_PRICE = "The film price must be positive float or integer value. Please, try again!";

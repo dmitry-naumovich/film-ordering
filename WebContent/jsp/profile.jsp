@@ -88,11 +88,11 @@
 	  function validateSetDiscountForm(event)
 	  {
 	      event.preventDefault(); // this will prevent the submit event
-	      if(document.setDiscountForm.amount.value=="") {
+	      if (document.setDiscountForm.amount.value=="") {
 		      alert("Discount amount can not be left blank");
 		      document.setDiscountForm.amount.focus();
 		      return false;
-		  } else if(document.setDiscountForm.enDate.value=="") {
+		  } else if(document.setDiscountForm.endDate.value=="") {
 	          alert("Discount end date can not be left blank");
 	          document.setDiscountForm.endDate.focus();
 	          return false;
@@ -419,28 +419,27 @@
 			        <div class="modal-body">
 			        		<c:set var="discount" value="${requestScope.userDiscount}" />
 			          		<div class="form-group">
-						    	<input type="hidden" name="command" value="edit_discount"/>
-						  	</div>
-						  	<div class="form-group">
-						    	<input type="hidden" name="discountID" value="${discount.id}"/>
+						    	<input type="hidden" name="command" value="edit_discount">
+						    	<input type="hidden" name="discountID" value="${discount.id}">
+						    	<input type="hidden" name="userID" value="${user.id}">
 						  	</div>
 						  	
 			          		<div class="form-group">
 					      		<label class="col-sm-3 control-label">${amount}</label>
 					      		<div class="col-sm-9">
-					        		<input class="form-control" name="amount" type="text" placeholder="${discount.amount}">
+					        		<input class="form-control" name="amount" type="text" value="${discount.amount}">
 					      		</div>
 							</div>
 							<div class="form-group">
 					      		<label class="col-sm-3 control-label">${endDate}</label>
 					      		<div class="col-sm-9">
-					        		<input class="form-control" name="endDate" type="text" placeholder="${discount.enDate}">
+					        		<input class="form-control" name="endDate" type="text" value="${discount.enDate}">
 					      		</div>
 							</div>
 							<div class="form-group">
 					      		<label class="col-sm-3 control-label">${endTime}</label>
 					      		<div class="col-sm-9">
-					        		<input class="form-control" name="endTime" type="text" placeholder="${discount.enTime}">
+					        		<input class="form-control" name="endTime" type="text" value="${discount.enTime}">
 					      		</div>
 							</div>
 							
@@ -448,13 +447,13 @@
 			        </div>
 			        <div class="modal-footer row">
 			        	<div class="text-left col-md-4">
-			          		<a href="<c:url value="/Controller?command=delete_discount&discountID=${discount.id}"/>" class="btn btn-danger" role="button">${deleteDiscountBtn}</a>
+			          		<button type="submit" class="btn btn-success">${editDiscount}</button>
 			          	</div>
-			          	<div class="text-center col-md-4">
-			          		<button type="button" class="btn btn-default" data-dismiss="modal">${closeBtn}</button>
+			        	<div class="text-center col-md-4">
+			          		<a href="<c:url value="/Controller?command=delete_discount&discountID=${discount.id}&userID=${user.id}"/>" class="btn btn-danger" role="button">${deleteDiscountBtn}</a>
 			          	</div>
 			          	<div class="text-right col-md-4">
-			          		<button type="submit" class="btn btn-success">${editDiscount}</button>
+			          		<button type="button" class="btn btn-default" data-dismiss="modal">${closeBtn}</button>
 			          	</div>
 			        </div>
 			        </form>

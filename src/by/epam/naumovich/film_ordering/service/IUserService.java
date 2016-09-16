@@ -22,6 +22,9 @@ public interface IUserService {
 	String getLoginByID(int id) throws ServiceException;
 	
 	Discount getCurrentUserDiscountByID(int id) throws ServiceException;
+	void addDiscount(int userID, String amount, String endDate, String endTime) throws ServiceException;
+	void editDiscount(int discountID, String amount, String endDate, String endTime) throws ServiceException;
+	void deleteDiscount(int discountID) throws ServiceException;
 	
 	Set<User> getAllUsers() throws ServiceException;
 	Set<User> getUsersInBanNow() throws ServiceException;

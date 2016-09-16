@@ -16,6 +16,7 @@ import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.film.AddFilmServiceException;
 import by.epam.naumovich.film_ordering.service.exception.user.BanUserServiceException;
+import by.epam.naumovich.film_ordering.service.exception.user.DiscountServiceException;
 import by.epam.naumovich.film_ordering.service.exception.user.GetDiscountServiceException;
 import by.epam.naumovich.film_ordering.service.exception.user.GetUserServiceException;
 import by.epam.naumovich.film_ordering.service.exception.user.ServiceAuthException;
@@ -386,6 +387,116 @@ public class UserServiceImpl implements IUserService {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			IUserDAO userDAO = daoFactory.getUserDAO();
 			return userDAO.userIsInBan(id);
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+	}
+
+	@Override
+	public void addDiscount(int userID, String amount, String endDate, String endTime) throws ServiceException {
+		if (!Validator.validateInt(userID)) {
+			throw new DiscountServiceException(ExceptionMessages.CORRUPTED_USER_ID);
+		}
+		
+		if (!Validator.validateStrings(amount, endDate, endTime)) {
+			throw new DiscountServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
+		}
+		Discount discount = new Discount();
+		discount.setUserID(userID);
+		try {
+			int dAmount = Integer.parseInt(amount);
+			if (dAmount <= 0 || dAmount > 100) {
+				throw new DiscountServiceException(ExceptionMessages.INVALID_DISCOUNT_AMOUNT);
+			}
+			discount.setAmount(dAmount);
+			
+		} catch (NumberFormatException e) {
+			throw new DiscountServiceException(ExceptionMessages.INVALID_DISCOUNT_AMOUNT);
+		}
+		
+		try {
+			Date currentDate = Date.valueOf(LocalDate.now());
+			Date discountEndDate = Date.valueOf(endDate);	
+			Time currentTime = Time.valueOf(LocalTime.now());
+			Time discountEndTime = Time.valueOf(endTime);	
+				
+			if (currentDate.after(discountEndDate) || (currentDate.equals(discountEndDate) && currentTime.after(discountEndTime))) {
+				throw new DiscountServiceException(ExceptionMessages.INVALID_DISCOUNT_END);
+			}
+			discount.setEnDate(Date.valueOf(endDate));
+			discount.setEnTime(Time.valueOf(endTime));
+			discount.setStDate(currentDate);
+			discount.setStTime(currentTime);
+		} catch (IllegalArgumentException e) {
+			throw new DiscountServiceException(ExceptionMessages.DISCOUNT_DATE_TIME_RIGHT_FORMAT);
+		}
+		
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IUserDAO dao = daoFactory.getUserDAO();
+			dao.addDiscount(discount);
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+	}
+
+	@Override
+	public void editDiscount(int discountID, String amount, String endDate, String endTime) throws ServiceException {
+		if (!Validator.validateInt(discountID)) {
+			throw new DiscountServiceException(ExceptionMessages.CORRUPTED_DISCOUNT_ID);
+		}
+		
+		if (!Validator.validateStrings(amount, endDate, endTime)) {
+			throw new DiscountServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
+		}
+		Discount discount = new Discount();
+		discount.setId(discountID);
+		try {
+			int dAmount = Integer.parseInt(amount);
+			if (dAmount <= 0 || dAmount > 100) {
+				throw new DiscountServiceException(ExceptionMessages.INVALID_DISCOUNT_AMOUNT);
+			}
+			discount.setAmount(dAmount);
+			
+		} catch (NumberFormatException e) {
+			throw new DiscountServiceException(ExceptionMessages.INVALID_DISCOUNT_AMOUNT);
+		}
+		
+		try {
+			Date currentDate = Date.valueOf(LocalDate.now());
+			Date discountEndDate = Date.valueOf(endDate);	
+			Time currentTime = Time.valueOf(LocalTime.now());
+			Time discountEndTime = Time.valueOf(endTime);	
+				
+			if (currentDate.after(discountEndDate) || (currentDate.equals(discountEndDate) && currentTime.after(discountEndTime))) {
+				throw new DiscountServiceException(ExceptionMessages.INVALID_DISCOUNT_END);
+			}
+			discount.setEnDate(Date.valueOf(endDate));
+			discount.setEnTime(Time.valueOf(endTime));
+			discount.setStDate(currentDate);
+			discount.setStTime(currentTime);
+		} catch (IllegalArgumentException e) {
+			throw new DiscountServiceException(ExceptionMessages.DISCOUNT_DATE_TIME_RIGHT_FORMAT);
+		}
+		
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IUserDAO dao = daoFactory.getUserDAO();
+			dao.editDiscount(discount);
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+	}
+
+	@Override
+	public void deleteDiscount(int discountID) throws ServiceException {
+		if (!Validator.validateInt(discountID)) {
+			throw new DiscountServiceException(ExceptionMessages.CORRUPTED_DISCOUNT_ID);
+		}
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IUserDAO dao = daoFactory.getUserDAO();
+			dao.deleteDiscount(discountID);
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
