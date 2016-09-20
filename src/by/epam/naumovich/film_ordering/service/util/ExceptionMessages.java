@@ -1,5 +1,11 @@
 package by.epam.naumovich.film_ordering.service.util;
 
+/**
+ * Defines a set of String constants that describe occurred exceptions in the service layer classes
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public final class ExceptionMessages {
 
 	private ExceptionMessages() {}

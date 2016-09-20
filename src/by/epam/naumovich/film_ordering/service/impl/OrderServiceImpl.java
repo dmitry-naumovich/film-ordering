@@ -14,10 +14,16 @@ import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.service.IOrderService;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.order.AddOrderServiceException;
-import by.epam.naumovich.film_ordering.service.exception.order.GetOrdersServiceException;
+import by.epam.naumovich.film_ordering.service.exception.order.GetOrderServiceException;
 import by.epam.naumovich.film_ordering.service.util.ExceptionMessages;
 import by.epam.naumovich.film_ordering.service.util.Validator;
 
+/**
+ * IOrderService interface implementation that works with IOrderDAO implementation
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class OrderServiceImpl implements IOrderService {
 
 	private static final String MYSQL = "mysql";
@@ -88,7 +94,7 @@ public class OrderServiceImpl implements IOrderService {
 			IOrderDAO orderDAO = daoFactory.getOrderDAO();
 			Order order = orderDAO.getOrderByOrderNum(orderNum);
 			if (order == null) {
-				throw new GetOrdersServiceException(ExceptionMessages.ORDER_NOT_FOUND);
+				throw new GetOrderServiceException(ExceptionMessages.ORDER_NOT_FOUND);
 			}
 			return order;
 		} catch (DAOException e) {
@@ -108,7 +114,7 @@ public class OrderServiceImpl implements IOrderService {
 			IOrderDAO orderDAO = daoFactory.getOrderDAO();
 			Order order = orderDAO.getOrderByUserAndFilmId(userID, filmID);
 			if (order == null) {
-				throw new GetOrdersServiceException(ExceptionMessages.NO_FILM_USER_ORDER);
+				throw new GetOrderServiceException(ExceptionMessages.NO_FILM_USER_ORDER);
 			}
 			return order;
 		} catch (DAOException e) {
@@ -129,7 +135,7 @@ public class OrderServiceImpl implements IOrderService {
 			set = orderDAO.getOrdersByUserId(id);
 			
 			if (set.isEmpty()) {
-				throw new GetOrdersServiceException(ExceptionMessages.NO_USER_ORDERS_YET);
+				throw new GetOrderServiceException(ExceptionMessages.NO_USER_ORDERS_YET);
 			}
 			
 		} catch (DAOException e) {
@@ -152,7 +158,7 @@ public class OrderServiceImpl implements IOrderService {
 			set = orderDAO.getOrdersByFilmId(id);
 			
 			if (set.isEmpty()) {
-				throw new GetOrdersServiceException(ExceptionMessages.NO_FILM_ORDERS);
+				throw new GetOrderServiceException(ExceptionMessages.NO_FILM_ORDERS);
 			}
 			
 		} catch (DAOException e) {
@@ -171,7 +177,7 @@ public class OrderServiceImpl implements IOrderService {
 			set = orderDAO.getAllOrders();
 			
 			if (set.isEmpty()) {
-				throw new GetOrdersServiceException(ExceptionMessages.NO_ORDERS_IN_DB);
+				throw new GetOrderServiceException(ExceptionMessages.NO_ORDERS_IN_DB);
 			}
 			
 		} catch (DAOException e) {

@@ -25,6 +25,12 @@ import by.epam.naumovich.film_ordering.service.exception.user.UserUpdateServiceE
 import by.epam.naumovich.film_ordering.service.util.ExceptionMessages;
 import by.epam.naumovich.film_ordering.service.util.Validator;
 
+/**
+ * IUserService interface implementation that works with IUserDAO implementation
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class UserServiceImpl implements IUserService {
 
 	private static final String MYSQL = "mysql";

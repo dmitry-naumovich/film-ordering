@@ -1,5 +1,11 @@
 package by.epam.naumovich.film_ordering.service.exception;
 
+/**
+ * Describes superclass for all exceptions that may occur in service layer classes
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class ServiceException extends Exception {
 	
 	private static final long serialVersionUID = 1L;

@@ -13,11 +13,17 @@ import by.epam.naumovich.film_ordering.dao.IReviewDAO;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.service.IReviewService;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
-import by.epam.naumovich.film_ordering.service.exception.review.GetReviewsServiceException;
-import by.epam.naumovich.film_ordering.service.exception.review.SendReviewServiceException;
+import by.epam.naumovich.film_ordering.service.exception.review.GetReviewServiceException;
+import by.epam.naumovich.film_ordering.service.exception.review.AddReviewServiceException;
 import by.epam.naumovich.film_ordering.service.util.ExceptionMessages;
 import by.epam.naumovich.film_ordering.service.util.Validator;
 
+/**
+ * IReviewService interface implementation that works with IReviewDAO implementation
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class ReviewServiceImpl implements IReviewService {
 
 	private static final String MYSQL = "mysql";
@@ -29,18 +35,18 @@ public class ReviewServiceImpl implements IReviewService {
 	@Override
 	public void addReview(int userID, int filmID, String mark, String type, String text) throws ServiceException {
 		if (!Validator.validateInt(userID) || !Validator.validateInt(filmID) || !Validator.validateStrings(mark, type, text)) {
-			throw new SendReviewServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
+			throw new AddReviewServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
 		}
 		
 		int rMark = Integer.parseInt(mark);
 		if (rMark < 1 || rMark > 5) {
-			throw new SendReviewServiceException(ExceptionMessages.REVIEW_MARK_RANGE);
+			throw new AddReviewServiceException(ExceptionMessages.REVIEW_MARK_RANGE);
 		}
 		if (!type.equals(POSITIVE_REVIEW) && !type.equals(NEGATIVE_REVIEW) && !type.equals(NEUTRAL_REVIEW)) {
-			throw new SendReviewServiceException(ExceptionMessages.INVALID_REVIEW_TYPE);
+			throw new AddReviewServiceException(ExceptionMessages.INVALID_REVIEW_TYPE);
 		}
 		if (text.length() < REVIEW_MIN_LENGTH) {
-			throw new SendReviewServiceException(ExceptionMessages.REVIEW_TEXT_LENGTH);
+			throw new AddReviewServiceException(ExceptionMessages.REVIEW_TEXT_LENGTH);
 		}
 		
 		Review review = new Review();
@@ -87,7 +93,7 @@ public class ReviewServiceImpl implements IReviewService {
 			set = reviewDAO.getAllReviews();
 			
 			if (set.isEmpty()) {
-				throw new GetReviewsServiceException(ExceptionMessages.NO_REVIEWS_IN_DB);
+				throw new GetReviewServiceException(ExceptionMessages.NO_REVIEWS_IN_DB);
 			}
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
@@ -105,7 +111,7 @@ public class ReviewServiceImpl implements IReviewService {
 			set = reviewDAO.getReviewsByUserId(id);
 			
 			if (set.isEmpty()) {
-				throw new GetReviewsServiceException(ExceptionMessages.NO_USER_REVIEWS_YET);
+				throw new GetReviewServiceException(ExceptionMessages.NO_USER_REVIEWS_YET);
 			}
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
@@ -123,7 +129,7 @@ public class ReviewServiceImpl implements IReviewService {
 			set = reviewDAO.getReviewsByFilmId(id);
 			
 			if (set.isEmpty()) {
-				throw new GetReviewsServiceException(ExceptionMessages.NO_FILM_REVIEWS);
+				throw new GetReviewServiceException(ExceptionMessages.NO_FILM_REVIEWS);
 			}
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
@@ -141,7 +147,7 @@ public class ReviewServiceImpl implements IReviewService {
 			review = reviewDAO.getReviewByUserAndFilmId(userID, filmID);
 			
 			if (review == null) {
-				throw new GetReviewsServiceException(ExceptionMessages.NO_FILM_USER_REVIEW);
+				throw new GetReviewServiceException(ExceptionMessages.NO_FILM_USER_REVIEW);
 			}
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);

@@ -23,6 +23,12 @@ import by.epam.naumovich.film_ordering.service.exception.news.GetNewsServiceExce
 import by.epam.naumovich.film_ordering.service.util.ExceptionMessages;
 import by.epam.naumovich.film_ordering.service.util.Validator;
 
+/**
+ * INewsService interface implementation that works with INewsDAO implementation
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class NewsServiceImpl implements INewsService {
 
 	private static final String MYSQL = "mysql";

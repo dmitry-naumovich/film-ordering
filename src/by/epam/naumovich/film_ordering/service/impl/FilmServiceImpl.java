@@ -11,10 +11,16 @@ import by.epam.naumovich.film_ordering.service.IFilmService;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.film.AddFilmServiceException;
 import by.epam.naumovich.film_ordering.service.exception.film.EditFilmServiceException;
-import by.epam.naumovich.film_ordering.service.exception.film.GetFilmsServiceException;
+import by.epam.naumovich.film_ordering.service.exception.film.GetFilmServiceException;
 import by.epam.naumovich.film_ordering.service.util.ExceptionMessages;
 import by.epam.naumovich.film_ordering.service.util.Validator;
 
+/**
+ * IFilmService interface implementation that works with IFilmDAO implementation
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class FilmServiceImpl implements IFilmService {
 
 	private static final String MYSQL = "mysql";
@@ -209,7 +215,7 @@ public class FilmServiceImpl implements IFilmService {
 			filmSet = filmDAO.getTwelveLastAddedFilms();
 			
 			if (filmSet.isEmpty()) {
-				throw new GetFilmsServiceException(ExceptionMessages.NO_FILMS_IN_DB);
+				throw new GetFilmServiceException(ExceptionMessages.NO_FILMS_IN_DB);
 			}
 			
 		} catch (DAOException e) {
@@ -228,7 +234,7 @@ public class FilmServiceImpl implements IFilmService {
 			filmSet = filmDAO.getAllFilms();
 			
 			if (filmSet.isEmpty()) {
-				throw new GetFilmsServiceException(ExceptionMessages.NO_FILMS_IN_DB);
+				throw new GetFilmServiceException(ExceptionMessages.NO_FILMS_IN_DB);
 			}
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
@@ -245,7 +251,7 @@ public class FilmServiceImpl implements IFilmService {
 			IFilmDAO filmDAO = daoFactory.getFilmDAO();
 			film = filmDAO.getFilmByID(id);
 			if (film == null) {
-				throw new GetFilmsServiceException(ExceptionMessages.FILM_NOT_PRESENT);
+				throw new GetFilmServiceException(ExceptionMessages.FILM_NOT_PRESENT);
 			}
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
@@ -262,7 +268,7 @@ public class FilmServiceImpl implements IFilmService {
 			IFilmDAO filmDAO = daoFactory.getFilmDAO();
 			String name = filmDAO.getFilmNameByID(id);
 			if (name == null) {
-				throw new GetFilmsServiceException(ExceptionMessages.FILM_NOT_PRESENT);
+				throw new GetFilmServiceException(ExceptionMessages.FILM_NOT_PRESENT);
 			}
 			return name;
 		} catch (DAOException e) {
@@ -275,7 +281,7 @@ public class FilmServiceImpl implements IFilmService {
 	@Override
 	public Set<Film> searchByName(String text) throws ServiceException {
 		if (!Validator.validateStrings(text)) {
-			throw new GetFilmsServiceException(ExceptionMessages.NO_FILMS_FOUND);
+			throw new GetFilmServiceException(ExceptionMessages.NO_FILMS_FOUND);
 		}
 		
 		Set<Film> foundFilms = new LinkedHashSet<Film>();
@@ -308,7 +314,7 @@ public class FilmServiceImpl implements IFilmService {
 			}
 			
 			if (foundFilms.isEmpty()) {
-				throw new GetFilmsServiceException(ExceptionMessages.NO_FILMS_FOUND);
+				throw new GetFilmServiceException(ExceptionMessages.NO_FILMS_FOUND);
 			}
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
@@ -326,11 +332,11 @@ public class FilmServiceImpl implements IFilmService {
 			try {
 				fYearFrom = Integer.parseInt(yearFrom);
 				if (fYearFrom < 0) {
-					throw new GetFilmsServiceException(ExceptionMessages.INVALID_FILM_YEAR);
+					throw new GetFilmServiceException(ExceptionMessages.INVALID_FILM_YEAR);
 				}
 				
 			} catch (NumberFormatException e) {
-				throw new GetFilmsServiceException(ExceptionMessages.INVALID_FILM_YEAR, e);
+				throw new GetFilmServiceException(ExceptionMessages.INVALID_FILM_YEAR, e);
 			}
 		}
 		
@@ -338,11 +344,11 @@ public class FilmServiceImpl implements IFilmService {
 			try {
 				fYearTo = Integer.parseInt(yearTo);
 				if (fYearTo < 0) {
-					throw new GetFilmsServiceException(ExceptionMessages.INVALID_FILM_YEAR);
+					throw new GetFilmServiceException(ExceptionMessages.INVALID_FILM_YEAR);
 				}
 				
 			} catch (NumberFormatException e) {
-				throw new GetFilmsServiceException(ExceptionMessages.INVALID_FILM_YEAR, e);
+				throw new GetFilmServiceException(ExceptionMessages.INVALID_FILM_YEAR, e);
 			}
 		}
 		
@@ -373,12 +379,12 @@ public class FilmServiceImpl implements IFilmService {
 				try {
 					Set<Film> filmsByName = searchByName(name);
 					foundFilms.retainAll(filmsByName);
-				} catch (GetFilmsServiceException e) {
+				} catch (GetFilmServiceException e) {
 				}
 			}
 			
 			if (foundFilms.isEmpty()) {
-				throw new GetFilmsServiceException(ExceptionMessages.NO_FILMS_FOUND);
+				throw new GetFilmServiceException(ExceptionMessages.NO_FILMS_FOUND);
 			}
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
