@@ -12,11 +12,22 @@ import by.epam.naumovich.film_ordering.command.impl.order.*;
 import by.epam.naumovich.film_ordering.command.impl.review.*;
 import by.epam.naumovich.film_ordering.command.impl.user.*;
 
+/**
+ * Sets the accordance between command names performed in CommandName enumeration and Command implementation classes
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ * @see CommandName
+ * @see Command
+ */
 public class CommandHelper {
 
 	private static final CommandHelper instance = new CommandHelper();
 	private Map<CommandName, Command> commands = new HashMap<>();
 	
+	/**
+	 * Puts all existing commands to the map where the key is the CommandName enumeration object
+	 */
 	public CommandHelper() {
 		commands.put(CommandName.ADD_DISCOUNT, new AddDiscount());
 		commands.put(CommandName.ADD_FILM, new AddFilm());
@@ -69,6 +80,11 @@ public class CommandHelper {
 		commands.put(CommandName.UNBAN_USER, new UnbanUser());
 	}
 	
+	/**
+	 * Takes CommandName object by command name string and defines relevant Command interface implementation to be returned
+	 * @param name command name
+	 * @return Command interface implementation
+	 */
 	public Command getCommand(String name) {
 		CommandName commandName = CommandName.valueOf(name);
 		Command command = commands.get(commandName);

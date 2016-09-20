@@ -3,6 +3,12 @@ package by.epam.naumovich.film_ordering.bean;
 import java.sql.Date;
 import java.sql.Time;
 
+/**
+ * This bean class describes a discount entity
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class Discount {
 
 	private int id;

@@ -6,6 +6,12 @@ import javax.servlet.http.HttpSessionListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Logs HTTP session creating and destroying events and prints jsessionID
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class SimpleSessionListener implements HttpSessionListener {
 
 	private static final Logger logger = LogManager.getLogger(Logger.class.getName());

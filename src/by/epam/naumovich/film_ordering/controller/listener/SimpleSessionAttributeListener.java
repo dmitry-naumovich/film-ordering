@@ -6,6 +6,12 @@ import javax.servlet.http.HttpSessionBindingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Logs session attribute adding and removing events
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class SimpleSessionAttributeListener implements HttpSessionAttributeListener {
 
 	private static final Logger logger = LogManager.getLogger(Logger.class.getName());

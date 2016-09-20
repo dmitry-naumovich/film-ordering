@@ -3,6 +3,12 @@ package by.epam.naumovich.film_ordering.bean;
 import java.sql.Date;
 import java.sql.Time;
 
+/**
+ * This bean class describes news entity
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class News {
 
 	private int id;

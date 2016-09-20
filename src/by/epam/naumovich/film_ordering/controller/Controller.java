@@ -12,7 +12,11 @@ import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
 import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
 
 /**
- * Servlet implementation class Controller
+ * HttpServlet implementation class Controller which receives incoming HttpServletRequest, serves it by defining the necessary command and
+ * calls its method 'execute' and returns back to the client the HTTPServletResponse
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
  */
 public class Controller extends HttpServlet {
 	
@@ -20,11 +24,12 @@ public class Controller extends HttpServlet {
 	private static final String COMMAND = "command";
        
     /**
+     * Initializes Controller servlet object
+     * 
      * @see HttpServlet#HttpServlet()
      */
     public Controller() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -35,6 +40,8 @@ public class Controller extends HttpServlet {
 	}
 
 	/**
+	 * Takes the command name parameter from request, finds necessary Command implementation and calls its method 'execute'
+	 * 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,5 +54,4 @@ public class Controller extends HttpServlet {
 			request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 		}
 	}
-
 }

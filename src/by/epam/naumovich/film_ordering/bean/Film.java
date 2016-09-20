@@ -1,5 +1,11 @@
 package by.epam.naumovich.film_ordering.bean;
 
+/**
+ * This bean class describes a film entity
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class Film {
 
 	private int id;

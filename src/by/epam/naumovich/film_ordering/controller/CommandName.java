@@ -1,5 +1,11 @@
 package by.epam.naumovich.film_ordering.controller;
 
+/**
+ * An enumeration that contains all existing command names
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public enum CommandName {
 	ADD_DISCOUNT,
 	ADD_FILM,
