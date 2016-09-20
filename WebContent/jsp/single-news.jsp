@@ -64,7 +64,7 @@
 					</div>
 				</c:if>
             
-	            <img src="img/news/${news.id}/01.jpg" alt="News Img" class="img-thumbnail img-responsive" style="float:left; margin:20px;" width="210" height="140" />
+	            <img src="img/news/${news.id}/01.jpg" alt="No image" class="img-thumbnail img-responsive" style="float:left; margin:20px;" width="210" height="140" onError="this.onerror=null;this.src='img/no-img.jpg';"/>
 	            <br><p style="text-align:justify;"> ${news.text} </p>
           	</div>
           </div>

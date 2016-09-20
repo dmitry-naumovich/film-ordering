@@ -63,7 +63,7 @@
                 <c:set var="payment" value="${requestScope.orderSum}" />
                 <div class="col-md-4">
 	                <figure>
-	                	<img src="img/films/${film.id}/folder.jpg" alt="$ {film.name}" class="img-thumbnail img-responsive" width="210" height="140" /> 
+	                	<img src="img/films/${film.id}/folder.jpg" alt="No folder" class="img-thumbnail img-responsive" width="210" height="140" onError="this.onerror=null;this.src='img/no-img.jpg';"/> 
 	                </figure>
 	            </div>
                 <div class="col-md-8">

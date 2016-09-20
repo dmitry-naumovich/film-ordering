@@ -11,6 +11,7 @@
 <fmt:message bundle="${loc}" key="local.editFilm.pageHeader" var="pageHeader" />
 <fmt:message bundle="${loc}" key="local.editFilm.editFilmBtn" var="editFilmBtn" />
 <fmt:message bundle="${loc}" key="local.addFilm.folder" var="folder" />
+<fmt:message bundle="${loc}" key="local.addFilm.frame" var="frame" />
 <fmt:message bundle="${loc}" key="local.addFilm.name" var="name" />
 <fmt:message bundle="${loc}" key="local.film.director" var="director" />
 <fmt:message bundle="${loc}" key="local.film.cast" var="cast" />
@@ -101,11 +102,7 @@
 					</div>
 				</c:if>
 				
-	<form  name="editFilmForm" class="form-horizontal" method="post" action="Controller" onSubmit="return validateForm(event);">
-	  	<div class="form-group">
-	    	<input type="hidden" name="command" value="edit_film"/>
-	    	<input type="hidden" name="filmID" value="${film.id}"/>
-	  	</div>
+	<form  name="editFilmForm" class="form-horizontal" method="post" action="Controller?command=edit_film&filmID=${film.id}" enctype="multipart/form-data" onSubmit="return validateForm(event);">
 	  	<div class="form-group">
       <label class="col-sm-3 control-label">${name}*:</label>
       <div class="col-sm-9">
@@ -188,14 +185,25 @@
         <input class="form-control" name="price" type="text" value="${film.price}">
       </div>
     </div>
-     <div class="form-group">
+    <div class="form-group">
       <label class="col-sm-3 control-label">${folder}: </label>
       <div class="col-sm-3">
-            <input type="file" name="filmFolder">
+            <input type="file" name="folder" size="1" accept=".gif,.jpg,.jpeg,.png, image/png, image/gif, image/jpg, image/jpeg">
       </div>
       <div class="col-sm-6">
       	<figure>
-          <img src="img/films/${film.id}/folder.jpg" alt="$ {film.name}" class="img-thumbnail img-responsive center-block" width="80" height="140" style="margin-top: 30px;"/> 
+          <img src="img/films/${film.id}/folder.jpg" alt="$ {film.name}" class="img-thumbnail img-responsive center-block" width="80" height="140" style="margin-top: 30px;" onError="this.onerror=null;this.src='img/no-img.jpg';"/> 
+        </figure>
+      </div>
+    </div>   
+    <div class="form-group">
+      <label class="col-sm-3 control-label">${frame}: </label>
+      <div class="col-sm-3">
+            <input type="file" name="frame" size="1" accept=".gif,.jpg,.jpeg,.png, image/png, image/gif, image/jpg, image/jpeg">
+      </div>
+      <div class="col-sm-6">
+      	<figure>
+          <img src="img/films/${film.id}/01.jpg" alt="${film.name}" class="img-thumbnail img-responsive center-block" width="80" height="140" style="margin-top: 30px;" onError="this.onerror=null;this.src='img/no-img.jpg';"/> 
         </figure>
       </div>
     </div>    

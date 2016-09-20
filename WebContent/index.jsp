@@ -87,7 +87,7 @@
 	                  </c:choose>
 		             
 		              
-		              <img src="img/films/${film.id}/01.jpg" alt="${film.name}" class="img-rounded" style="width: 100%; height: auto;" />
+		              <img src="img/films/${film.id}/01.jpg" alt="No frame" class="img-rounded" style="width: 100%; height: auto;" onError="this.onerror=null;this.src='/img/no-img.jpg';"/>
 		              <c:if test="${film.description != null}">
 		              	<br><p>${film.description} </p>
 		              </c:if>

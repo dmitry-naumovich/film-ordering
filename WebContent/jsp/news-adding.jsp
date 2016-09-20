@@ -10,6 +10,7 @@
 <fmt:message bundle="${loc}" key="local.addNews.pageTitle" var="pageTitle" />
 <fmt:message bundle="${loc}" key="local.addNews.pageHeader" var="pageHeader" />
 <fmt:message bundle="${loc}" key="local.addNews.newsTitle" var="newsTitle" />
+<fmt:message bundle="${loc}" key="local.addNews.newsImg" var="newsImg" />
 <fmt:message bundle="${loc}" key="local.addNews.newsText" var="newsText" />
 <fmt:message bundle="${loc}" key="local.addNews.enterTitle" var="enterTitle" />
 <fmt:message bundle="${loc}" key="local.addNews.enterText" var="enterText" />
@@ -42,6 +43,8 @@
         return false;
       }
       else {
+    	  var text = $("#newsTextArea").val();
+          $("#hiddenText").val(text);
           document.newNewsForm.submit();
       }
   }
@@ -76,25 +79,33 @@
 					</div>
 				</c:if>
 
-<form  name="newNewsForm" class="form-horizontal" method="post"action="Controller" onSubmit="return validateForm(event);">
-  	<div class="form-group">
-    	<input type="hidden" name="command" value="add_news"/>
-  	</div>
+<form  name="newNewsForm" class="form-horizontal" method="post" action="Controller?command=add_news" enctype="multipart/form-data" onSubmit="return validateForm(event);">
   	<div class="form-group">
       <label class="col-sm-2 control-label">${newsTitle}</label>
       <div class="col-sm-10">
         <input class="form-control" name="newsTitle" type="text" placeholder="${enterTitle}">
       </div>
 	</div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">${newsText}</label>
-    <div class="col-sm-10"> 
-    	<textarea class="form-control" rows="10" name="newsText" id="newsTextArea" placeholder="${enterText}"></textarea>
+	<div class="form-group"> 
+    	<input type="hidden" name="newsText" id="hiddenText">
     </div>
-  </div>
-  <div class="col-sm-2 col-md-offset-2">
-  	<button type="submit" class="btn btn-primary">${addBtn}</button>
-  </div>
+  	<div class="form-group">
+		<div class="form-group">
+	      <label class="col-sm-2 control-label">${newsImg}: </label>
+	      <div class="col-sm-10">
+	            <input type="file" name="image" size="1" accept=".gif,.jpg,.jpeg,.png, image/png, image/gif, image/jpg, image/jpeg">
+	      </div>
+	    </div> 
+  	</div>
+	<div>
+    	<label class="col-sm-2 control-label">${newsText}</label>
+	    <div class="col-sm-10"> 
+	    	<textarea class="form-control" rows="10" id="newsTextArea" placeholder="${enterText}"></textarea>
+	    </div>
+	</div>
+	<div class="col-sm-2 col-md-offset-2">
+	 	<button type="submit" class="btn btn-primary">${addBtn}</button>
+	</div>
 </form>
 
           </div>

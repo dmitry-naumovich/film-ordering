@@ -115,7 +115,7 @@
                     <div class="row panel-body">
                         <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 text-center">
                           <div class="col-md-4">
-                            <figure><img src="img/avatars/avatars${user.id}.gif" alt="img/no-avatar.jpg" class="img-thumbnail img-responsive" width="150" height="150" /> </figure>
+                            <figure><img src="img/avatars/avatars${user.id}.gif" alt="No avatar" class="img-thumbnail img-responsive" width="150" height="150" onError="this.onerror=null;this.src='img/no-avatar.jpg';"/> </figure>
                           </div>
                           <div class="col-md-8">
                           

@@ -26,6 +26,7 @@ import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.film.GetFilmsServiceException;
 import by.epam.naumovich.film_ordering.service.exception.order.GetOrdersServiceException;
+import by.epam.naumovich.film_ordering.service.exception.user.GetDiscountServiceException;
 
 public class OpenNewOrderPage implements Command {
 
@@ -77,8 +78,12 @@ public class OpenNewOrderPage implements Command {
 					IUserService userService = sFactory.getUserService();
 					
 					Film film = filmService.getFilmByID(filmID);
-					int userSessionId = (int)request.getSession().getAttribute(RequestAndSessionAttributes.USER_ID);
-					int discount = userService.getCurrentUserDiscountByID(userSessionId).getAmount();
+					int discount = 0;
+					try {
+						discount = userService.getCurrentUserDiscountByID(userID).getAmount();
+					} catch (GetDiscountServiceException e) {
+						discount = 0;
+					}
 					float orderSum = film.getPrice() * (1.0f - discount/100f);   
 					
 					request.setAttribute(RequestAndSessionAttributes.FILM, film);

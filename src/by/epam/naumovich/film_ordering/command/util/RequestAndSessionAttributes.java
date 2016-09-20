@@ -34,7 +34,9 @@ public final class RequestAndSessionAttributes {
 	public static final String FILM_NAMES = "filmNames";
 	public static final String FILM = "film";
 	public static final String FILMS = "films";
+	public static final String FOLDER = "folder";
 	public static final String FOUND_FILMS = "foundFilms";
+	public static final String FRAME = "frame";
 	public static final String GENRE = "genre";
 	public static final String IS_ADMIN = "isAdmin";
 	public static final String LANGUAGE = "language";

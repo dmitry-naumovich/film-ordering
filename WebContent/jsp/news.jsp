@@ -75,7 +75,7 @@
                         <div class="col-md-12">
                           
                            <figure>
-                             <img src="img/news/${news.id}/01.jpg" alt="Img failed" class="img-thumbnail img-responsive" width="210" height="140" style="float:left; margin:20px;"/> 
+                             <img src="img/news/${news.id}/01.jpg" alt="No image" class="img-thumbnail img-responsive" width="210" height="140" style="float:left; margin:20px;" onError="this.onerror=null;this.src='img/no-img.jpg';"/> 
                            </figure>
                        		<br>
                            <p style="text-align:justify;"> ${news.text} </p>

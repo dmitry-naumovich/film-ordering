@@ -126,10 +126,7 @@
 					 ${errorMessage} 
 					</div>
 				</c:if>
-			<form name="signUpForm" class="form-horizontal" action="Controller" method="post" onSubmit="return validateForm(event);">
-			  	<div class="form-group">
-			    	<input type="hidden" name="command" value="sign_up" />
-			  	</div>
+			<form name="signUpForm" class="form-horizontal" action="Controller?command=sign_up" enctype="multipart/form-data" method="post" onSubmit="return validateForm(event);">
 			     <div class="form-group">
 			      <label class="col-sm-3 control-label">${login}*:</label>
 			      <div class="col-sm-9">
@@ -196,7 +193,7 @@
 			    <div class="form-group">
 			      <label class="col-sm-3 control-label">${avatar}: </label>
 			      <div class="col-sm-9">
-			            <input type="file" name="avatar">
+			            <input type="file" name="avatar" size="1" accept=".gif,.jpg,.jpeg,.png, image/png, image/gif, image/jpg, image/jpeg">
 			      </div>
 			    </div>  
 			    <div class="form-group">

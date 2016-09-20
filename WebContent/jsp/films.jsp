@@ -79,7 +79,7 @@
                         <div class="col-md-12">
                           <div class="col-md-4">
                               <figure>
-                                <img src="img/films/${film.id}/folder.jpg" alt="$ {film.name}" class="img-thumbnail img-responsive center-block"  style="margin-top: 30px;"/> 
+                                <img src="img/films/${film.id}/folder.jpg" alt="No avatar" class="img-thumbnail img-responsive center-block"  style="margin-top: 30px;" onError="this.onerror=null;this.src='img/no-img.jpg';"/> 
                               </figure>
                           </div>
                           <div class="col-md-8">

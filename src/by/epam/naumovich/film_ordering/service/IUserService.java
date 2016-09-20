@@ -9,10 +9,10 @@ import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 public interface IUserService {
 	
 	int addUser(String login, String name, String surname, String password, 
-			String sex, String bDate, String phone, String email, String about, String avatar) throws ServiceException;
+			String sex, String bDate, String phone, String email, String about) throws ServiceException;
 	
 	void updateUser(int id, String name, String surname, String password, 
-			String sex, String bDate, String phone, String email, String about, String avatar) throws ServiceException;
+			String sex, String bDate, String phone, String email, String about) throws ServiceException;
 	void deleteUser(int id) throws ServiceException;
 	
 	User authenticate(String login, String password) throws ServiceException;

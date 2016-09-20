@@ -80,7 +80,7 @@
 				</c:if>
             	<div class="col-md-4">
                   <figure>
-                    <img src="img/films/${film.id}/folder.jpg" alt="$ {film.name}" class="img-thumbnail img-responsive center-block" width="210" height="140" style="margin-top: 30px;"/> 
+                    <img src="img/films/${film.id}/folder.jpg" alt="No folder" class="img-thumbnail img-responsive center-block" width="210" height="140" style="margin-top: 30px;" onError="this.onerror=null;this.src='img/no-img.jpg';"/> 
                   </figure>
                   <br>
           			<c:choose> 

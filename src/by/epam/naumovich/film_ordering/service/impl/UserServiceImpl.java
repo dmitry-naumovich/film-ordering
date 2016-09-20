@@ -38,7 +38,7 @@ public class UserServiceImpl implements IUserService {
 	
 	@Override
 	public int addUser(String login, String name, String surname, String password, String sex, String bDate,
-			String phone, String email, String about, String avatar) throws ServiceException {
+			String phone, String email, String about) throws ServiceException {
 
 		try {
 			IUserDAO userDAO = DAOFactory.getDAOFactory(MYSQL).getUserDAO();
@@ -118,7 +118,7 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public void updateUser(int id, String name, String surname, String password, String sex, String bDate, String phone,
-			String email, String about, String avatar) throws ServiceException {
+			String email, String about) throws ServiceException {
 
 		if (!Validator.validateWithPattern(password, PASSWORD_PATTERN)) {
 			throw new UserUpdateServiceException(ExceptionMessages.INVALID_PASSWORD);

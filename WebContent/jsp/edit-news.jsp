@@ -10,6 +10,7 @@
 <fmt:message bundle="${loc}" key="local.editNews.pageTitle" var="pageTitle" />
 <fmt:message bundle="${loc}" key="local.editNews.pageHeader" var="pageHeader" />
 <fmt:message bundle="${loc}" key="local.addNews.newsTitle" var="newsTitle" />
+<fmt:message bundle="${loc}" key="local.addNews.newsImg" var="newsImg" />
 <fmt:message bundle="${loc}" key="local.addNews.newsText" var="newsText" />
 <fmt:message bundle="${loc}" key="local.editNews.editNewsBtn" var="editNewsBtn" />
 
@@ -41,6 +42,8 @@
         return false;
       }
       else {
+    	  var text = $("#newsTextArea").val();
+          $("#hiddenText").val(text);
           document.editNewsForm.submit();
       }
   }
@@ -78,21 +81,28 @@
 				
 <c:set var="news" value="${requestScope.news}" />
 
-	<form  name="editNewsForm" class="form-horizontal" method="post" action="Controller" onSubmit="return validateForm(event);">
-	  	<div class="form-group">
-	    	<input type="hidden" name="command" value="edit_news"/>
-	    	<input type="hidden" name="newsID" value="${news.id}"/>
-	  	</div>
+	<form  name="editNewsForm" class="form-horizontal" method="post" action="Controller?command=edit_news&newsID=${news.id}" enctype="multipart/form-data" onSubmit="return validateForm(event);">
 	  	<div class="form-group">
 	      <label class="col-sm-2 control-label">${newsTitle}</label>
 	      <div class="col-sm-10">
 	        <input class="form-control" name="newsTitle" type="text" value="${news.title}">
 	      </div>
 		</div>
+		<div class="form-group"> 
+    	<input type="hidden" name="newsText" id="hiddenText">
+    </div>
+    <div class="form-group">
+		<div class="form-group">
+	      <label class="col-sm-2 control-label">${newsImg}: </label>
+	      <div class="col-sm-10">
+	            <input type="file" name="image" size="1" accept=".gif,.jpg,.jpeg,.png, image/png, image/gif, image/jpg, image/jpeg">
+	      </div>
+	    </div> 
+  	</div>
 	  <div class="form-group">
 	    <label class="col-sm-2 control-label">${newsText}</label>
 	    <div class="col-sm-10"> 
-	    	<textarea class="form-control" rows="10" name="newsText" id="newsTextArea">${news.text}</textarea>
+	    	<textarea class="form-control" rows="10" id="newsTextArea">${news.text}</textarea>
 	    </div>
 	  </div>
 	  <div class="col-sm-2 col-md-offset-2">

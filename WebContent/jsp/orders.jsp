@@ -118,7 +118,7 @@
                           <div class="col-md-4">
                             <c:if test="${requestScope.orderViewType eq 'user' || requestScope.orderViewType eq 'all'}">
                               <figure>
-                                <img src="img/films/${order.filmId}/folder.jpg" alt="Img not loaded" class="img-thumbnail img-responsive" width="210" height="140" style="margin-top: 30px;"/> 
+                                <img src="img/films/${order.filmId}/folder.jpg" alt="No folder" class="img-thumbnail img-responsive" width="210" height="140" style="margin-top: 30px;" onError="this.onerror=null;this.src='img/no-img.jpg';"/> 
                               </figure>
                              </c:if>
                              <c:if test="${requestScope.orderViewType eq 'film'}" >

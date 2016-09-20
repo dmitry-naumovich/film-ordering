@@ -9,6 +9,7 @@
 <fmt:message bundle="${loc}" key="local.addFilm.pageTitle" var="pageTitle" />
 <fmt:message bundle="${loc}" key="local.addFilm.newFilm" var="newFilm" />
 <fmt:message bundle="${loc}" key="local.addFilm.folder" var="folder" />
+<fmt:message bundle="${loc}" key="local.addFilm.frame" var="frame" />
 <fmt:message bundle="${loc}" key="local.addFilm.name" var="name" />
 <fmt:message bundle="${loc}" key="local.addFilm.addFilmBtn" var="addFilmBtn" />
 <fmt:message bundle="${loc}" key="local.addFilm.enterName" var="enterName" />
@@ -108,11 +109,7 @@
 				</c:if>
 
 
-<form name="newFilmForm" class="form-horizontal" method="post" action="Controller" onSubmit="return validateForm(event);">
-    <div class="form-group">
-		 <input type="hidden" name="command" value="add_film" />
-	</div>
-    
+<form name="newFilmForm" class="form-horizontal" method="post" action="Controller?command=add_film" enctype="multipart/form-data" onSubmit="return validateForm(event);">    
     <div class="form-group">
       <label class="col-sm-3 control-label">${name}*:</label>
       <div class="col-sm-9">
@@ -122,7 +119,7 @@
     <div class="form-group">
       <label class="col-sm-3 control-label">${year}*:</label>
       <div class="col-sm-9">
-        <input class="form-control" name="year" type="text" placeholder="${enterYear}" >
+        <input class="form-control" name="year" type="number" placeholder="${enterYear}" >
       </div>
     </div>
     <div class="form-group">
@@ -172,19 +169,25 @@
      <div class="form-group">
       <label class="col-sm-3 control-label">${lengthmin}*:</label>
       <div class="col-sm-9">
-        <input class="form-control" name="length" type="text" placeholder="${enterLength}">
+        <input class="form-control" name="length" type="number" min="1" placeholder="${enterLength}">
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-3 control-label">${price}*:</label>
       <div class="col-sm-9">
-        <input class="form-control" name="price" type="text" placeholder="${enterPrice}">
+        <input class="form-control" name="price" type="number" min="0" placeholder="${enterPrice}">
       </div>
     </div>
      <div class="form-group">
       <label class="col-sm-3 control-label">${folder}: </label>
       <div class="col-sm-9">
-            <input type="file" name="filmFolder">
+            <input type="file" name="folder" size="1" accept=".gif,.jpg,.jpeg,.png, image/png, image/gif, image/jpg, image/jpeg">
+      </div>
+    </div> 
+    <div class="form-group">
+      <label class="col-sm-3 control-label">${frame}: </label>
+      <div class="col-sm-9">
+            <input type="file" name="frame" size="1" accept=".gif,.jpg,.jpeg,.png, image/png, image/gif, image/jpg, image/jpeg">
       </div>
     </div>    
     <div class="form-group">
