@@ -2,7 +2,7 @@
 <Configuration>
 
 	<Properties>
-		<Property name="log-path">D:/java-work/film-ordering</Property>
+		<Property name="log-path">D:/java-work/film-ordering/logs</Property>
 	</Properties>
 
 	<Appenders>
@@ -15,7 +15,7 @@
 				<pattern>%d{dd/MMM/yyyy HH:mm:ss,SSS}- %c{1}: %m%n</pattern>
 			</PatternLayout>
 			<Policies>
-				<SizeBasedTriggeringPolicy size="1 KB" />
+				<SizeBasedTriggeringPolicy size="1 MB" />
 			</Policies>
 			<DefaultRolloverStrategy max="10"/>
 		</RollingFile>
