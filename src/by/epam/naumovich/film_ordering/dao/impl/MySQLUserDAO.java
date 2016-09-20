@@ -18,10 +18,14 @@ import by.epam.naumovich.film_ordering.dao.util.ExceptionMessages;
 import by.epam.naumovich.task82.dao.pool.MySQLConnectionPool;
 import by.epam.naumovich.task82.dao.pool.exception.ConnectionPoolException;
 
+/**
+ * IUserDAO interface implementation that works with MySQL database
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class MySQLUserDAO implements IUserDAO {
 
-	private static final MySQLUserDAO instance = new MySQLUserDAO();
-	
 	public static final String INSERT_NEW_USER = "INSERT INTO Users (u_login, u_name, u_surname, u_passw, u_sex, u_type, u_regdate, u_regtime, u_bdate, u_phone, u_email, u_about) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	public static final String SELECT_NEW_USER_ID_BY_LOGIN = "SELECT u_id FROM Users WHERE u_login = ?";
 	public static final String UPDATE_USER_BY_ID = "UPDATE Users SET u_name = ?, u_surname = ?, u_passw = ?, u_sex = ?, u_bdate = ?, u_phone = ?, u_email = ?, u_about = ? WHERE u_id = ?";	
@@ -43,6 +47,15 @@ public class MySQLUserDAO implements IUserDAO {
 	public static final String SELECT_CURRENT_BAN_REASON_BY_ID = "SELECT b_reason FROM Bans WHERE b_user = ? AND ((CURDATE() = b_stdate AND CURTIME() > b_sttime) OR (CURDATE() = DATE_ADD(b_stdate, INTERVAL b_length DAY) AND CURTIME() < b_sttime) OR (CURDATE() > b_stdate AND CURDATE() < DATE_ADD(b_stdate, INTERVAL b_length DAY))) AND b_active = 1";
 	public static final String SELECT_CURRENT_BAN_END_BY_ID = "SELECT DATE_ADD(b_stdate, INTERVAL b_length DAY), b_sttime FROM Bans WHERE b_user = ?  AND b_active = 1 AND ((CURDATE() = b_stdate AND CURTIME() > b_sttime) OR (CURDATE() = DATE_ADD(b_stdate, INTERVAL b_length DAY) AND CURTIME() < b_sttime) OR (CURDATE() > b_stdate AND CURDATE() < DATE_ADD(b_stdate, INTERVAL b_length DAY)))";
 	
+	/**
+	 * Singleton MySQLUserDAO instance
+	 */
+	private static final MySQLUserDAO instance = new MySQLUserDAO();
+	
+	/**
+	 * Static method that returns singleton MySQLUserDAO instance
+	 * @return MySQLUserDAO object
+	 */
 	public static MySQLUserDAO getInstance() {
 		return instance; 
 	}

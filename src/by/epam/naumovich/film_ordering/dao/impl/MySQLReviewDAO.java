@@ -14,10 +14,14 @@ import by.epam.naumovich.film_ordering.dao.util.ExceptionMessages;
 import by.epam.naumovich.task82.dao.pool.MySQLConnectionPool;
 import by.epam.naumovich.task82.dao.pool.exception.ConnectionPoolException;
 
+/**
+ * IReviewDAO interface implementation that works with MySQL database
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class MySQLReviewDAO implements IReviewDAO {
 
-	private static final MySQLReviewDAO instance = new MySQLReviewDAO();
-	
 	public static final String INSERT_NEW_REVIEW = "INSERT INTO Reviews (r_author, r_film, r_date, r_time, r_type, r_mark, r_text) VALUES (?, ?, ?, ?, ?, ?, ?)";
 	public static final String DELETE_REVIEW = "DELETE FROM Reviews WHERE r_author = ? and r_film = ?";
 	public static final String SELECT_ALL_REVIEWS = "SELECT * FROM Reviews";
@@ -26,6 +30,15 @@ public class MySQLReviewDAO implements IReviewDAO {
 	public static final String SELECT_REVIEW_BY_FILM_AND_USER_ID = "SELECT * FROM Reviews WHERE r_author = ? AND r_film = ?";
 	public static final String UPDATE_FILM_RATING = "UPDATE Films SET f_rating = (SELECT AVG(r_mark) FROM Reviews WHERE r_film = ?) WHERE Films.f_id = ?";
 	
+	/**
+	 * Singleton MySQLReviewDAO instance
+	 */
+	private static final MySQLReviewDAO instance = new MySQLReviewDAO();
+	
+	/**
+	 * Static method that returns singleton MySQLReviewDAO instance
+	 * @return MySQLReviewDAO object
+	 */
 	public static MySQLReviewDAO getInstance() {
 		return instance;
 	}

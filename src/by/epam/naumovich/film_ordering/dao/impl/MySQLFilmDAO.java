@@ -15,9 +15,13 @@ import by.epam.naumovich.film_ordering.dao.util.ExceptionMessages;
 import by.epam.naumovich.task82.dao.pool.MySQLConnectionPool;
 import by.epam.naumovich.task82.dao.pool.exception.ConnectionPoolException;
 
+/**
+ * IFilmDAO interface implementation that works with MySQL database
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class MySQLFilmDAO implements IFilmDAO {
-
-	private static final MySQLFilmDAO instance = new MySQLFilmDAO();
 	
 	public static final String INSERT_NEW_FILM = "INSERT INTO Films (f_name, f_year, f_direct, f_country, f_genre, f_actors, f_composer, f_description, f_length, f_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	public static final String DELETE_FILM = "DELETE FROM Films WHERE f_id = ?";
@@ -45,10 +49,19 @@ public class MySQLFilmDAO implements IFilmDAO {
 	public static final String SHOW_ALL_GENRES = "SHOW COLUMNS FROM films LIKE 'f_genre'";
 	public static final String SHOW_ALL_COUNTRIES = "SHOW COLUMNS FROM films LIKE 'f_country'";
 	
+	/**
+	 * Singleton MySQLFilmDAO instance
+	 */
+	private static final MySQLFilmDAO instance = new MySQLFilmDAO();
+	
+	/**
+	 * Static method that returns singleton MySQLFilmDAO instance
+	 * @return MySQLFilmDAO object
+	 */
 	public static MySQLFilmDAO getInstance() {
 		return instance;
 	}
-	
+
 	@Override
 	public int addFilm(Film film) throws DAOException {
 		MySQLConnectionPool pool = null;

@@ -14,10 +14,14 @@ import by.epam.naumovich.film_ordering.dao.util.ExceptionMessages;
 import by.epam.naumovich.task82.dao.pool.MySQLConnectionPool;
 import by.epam.naumovich.task82.dao.pool.exception.ConnectionPoolException;
 
+/**
+ * IOrderDAO interface implementation that works with MySQL database
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class MySQLOrderDAO implements IOrderDAO {
 
-	private static final MySQLOrderDAO instance = new MySQLOrderDAO();
-	
 	public static final String INSERT_NEW_ORDER = "INSERT INTO Orders (o_user, o_film, o_date, o_time, o_fprice, o_discount, o_paym) VALUES (?, ?, ?, ?, ?, ?, ?)";
 	public static final String DELETE_ORDER = "DELETE FROM Orders WHERE o_num = ?";
 	public static final String SELECT_ALL_ORDERS = "SELECT * FROM Orders";
@@ -27,6 +31,15 @@ public class MySQLOrderDAO implements IOrderDAO {
 	public static final String SELECT_ORDER_BY_FILM_ID = "SELECT * FROM Orders WHERE o_film = ?";
 	public static final String SELECT_ORDER_NUM_BY_USER_AND_FILM_ID = "SELECT o_num FROM Orders WHERE o_user = ? AND o_film = ?";
 	
+	/**
+	 * Singleton MySQLOrderDAO instance
+	 */
+	private static final MySQLOrderDAO instance = new MySQLOrderDAO();
+	
+	/**
+	 * Static method that returns singleton MySQLOrderDAO instance
+	 * @return MySQLOrderDAO object
+	 */
 	public static MySQLOrderDAO getInstance() {
 		return instance;
 	}

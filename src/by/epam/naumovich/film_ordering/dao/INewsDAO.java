@@ -6,7 +6,7 @@ import by.epam.naumovich.film_ordering.bean.News;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 
 /**
- * Defines methods for implementing in the DAO layer for the News bean.
+ * Defines methods for implementing in the DAO layer for the News entity.
  *
  * @author Dmitry Naumovich
  * @version 1.0
@@ -17,7 +17,7 @@ public interface INewsDAO {
 	 * Adds new news to the data source
 	 * 
 	 * @param news new news entity
-	 * @return ID of the newly added news
+	 * @return ID of the newly added news or 0 if it was not added
 	 * @throws DAOException
 	 */
 	int addNews(News news) throws DAOException;
@@ -25,7 +25,7 @@ public interface INewsDAO {
 	/**
 	 * Deletes news from the data source
 	 * 
-	 * @param id ID of the news which will be deleted
+	 * @param id ID of the news that will be deleted
 	 * @throws DAOException
 	 */
 	void deleteNews(int id) throws DAOException;
@@ -33,7 +33,7 @@ public interface INewsDAO {
 	/**
 	 * Edits news in the data source
 	 * 
-	 * @param id ID of the news which will be edited
+	 * @param id ID of the news that will be edited
 	 * @param editedNews news entity with edited fields
 	 * @throws DAOException
 	 */
@@ -43,13 +43,13 @@ public interface INewsDAO {
 	 * Searches for the news in the data source by its ID
 	 * 
 	 * @param id ID of the news
-	 * @return the news from the data source
+	 * @return found news or null if it was not found
 	 * @throws DAOException
 	 */
 	News getNewsById(int id) throws DAOException;
 	
 	/**
-	 * Returns all news from the data source
+	 * Returns all news that a present in the data source
 	 * 
 	 * @return a set of all data source news
 	 * @throws DAOException

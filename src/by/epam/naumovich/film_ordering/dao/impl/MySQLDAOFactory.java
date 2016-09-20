@@ -7,8 +7,18 @@ import by.epam.naumovich.film_ordering.dao.IOrderDAO;
 import by.epam.naumovich.film_ordering.dao.IReviewDAO;
 import by.epam.naumovich.film_ordering.dao.IUserDAO;
 
+/**
+ * DAOFactory that works with the MySQL database as data source and overrides abstract methods from DAOFactory
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class MySQLDAOFactory extends DAOFactory {
 
+	/**
+	 * Singleton instance of MySQLDAOFactory that will be used by all concrete DAO classes
+	 * 
+	 */
 	private static final MySQLDAOFactory instance = new MySQLDAOFactory();
 	
 	private MySQLDAOFactory() { }

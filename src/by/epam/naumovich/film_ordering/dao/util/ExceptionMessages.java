@@ -1,5 +1,11 @@
 package by.epam.naumovich.film_ordering.dao.util;
 
+/**
+ * Defines a set of String constants that describe occurred exceptions in the DAO layer classes
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public final class ExceptionMessages {
 
 	private ExceptionMessages() {}
@@ -12,5 +18,6 @@ public final class ExceptionMessages {
 	public static final String SQL_SELECT_FAILURE = "Failure during the SQL select request execution";
 	public static final String SQL_SHOW_FAILURE = "Failure during the SQL show request execution";
 	public static final String SQL_UPDATE_FAILURE = "Failure during the SQL update request execution";
+	public static final String UNKNOWN_DATA_SOURCE = "Unknown data source type. Please, try again.";
 	
 }

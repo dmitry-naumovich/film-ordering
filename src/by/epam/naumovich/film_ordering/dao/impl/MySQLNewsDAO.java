@@ -14,6 +14,12 @@ import by.epam.naumovich.film_ordering.dao.util.ExceptionMessages;
 import by.epam.naumovich.task82.dao.pool.MySQLConnectionPool;
 import by.epam.naumovich.task82.dao.pool.exception.ConnectionPoolException;
 
+/**
+ * INewsDAO interface implementation that works with MySQL database
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class MySQLNewsDAO implements INewsDAO {
 
 	public static final String INSERT_NEW_NEWS = "INSERT INTO News (n_date, n_time, n_title, n_text) VALUES (?, ?, ?, ?)";
@@ -25,8 +31,15 @@ public class MySQLNewsDAO implements INewsDAO {
 	public static final String SELECT_NEWS_BY_MONTH_AND_YEAR = "SELECT * FROM News WHERE MONTH(n_date) = ? AND YEAR(n_date) = ?";
 	public static final String SELECT_NEW_NEWS_ID = "SELECT n_id FROM News WHERE n_title = ? AND n_text = ?";
 	
+	/**
+	 * Singleton MySQLNewsDAO instance
+	 */
 	private static final MySQLNewsDAO instance = new MySQLNewsDAO();
 	
+	/**
+	 * Static method that returns singleton MySQLNewsDAO instance
+	 * @return MySQLNewsdDAO object
+	 */
 	public static MySQLNewsDAO getInstance() {
 		return instance;
 	}
