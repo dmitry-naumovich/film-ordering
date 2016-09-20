@@ -52,4 +52,10 @@
   	<filter-name>CharsetFilter</filter-name>
   	<url-pattern>/Controller</url-pattern>
   </filter-mapping>
+  <listener>
+  	<listener-class>by.epam.naumovich.film_ordering.controller.listener.SimpleSessionListener</listener-class>
+  </listener>
+  <listener>
+  	<listener-class>by.epam.naumovich.film_ordering.controller.listener.SimpleSessionAttributeListener</listener-class>
+  </listener>
 </web-app>
