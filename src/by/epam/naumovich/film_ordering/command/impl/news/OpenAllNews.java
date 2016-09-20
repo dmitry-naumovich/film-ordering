@@ -1,8 +1,11 @@
 package by.epam.naumovich.film_ordering.command.impl.news;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -34,8 +37,10 @@ public class OpenAllNews implements Command {
 		
 		try {
 			INewsService newsService = ServiceFactory.getInstance().getNewsService();
-			List<News> news = newsService.getAllNews();
-			Collections.reverse(news); // reverse for showing most recent news first
+			Set<News> news = newsService.getAllNews();
+			List<News> newsList = new ArrayList<News>(news);
+			Collections.reverse(newsList);
+			news = new LinkedHashSet<News>(newsList);
 			request.setAttribute(RequestAndSessionAttributes.NEWS, news);
 			request.getRequestDispatcher(JavaServerPageNames.NEWS_JSP_PAGE).forward(request, response);
 		} catch (GetNewsServiceException e) {

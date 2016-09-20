@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import by.epam.naumovich.film_ordering.bean.Order;
 import by.epam.naumovich.film_ordering.dao.IOrderDAO;
@@ -190,8 +190,8 @@ public class MySQLOrderDAO implements IOrderDAO {
 	}
 
 	@Override
-	public List<Order> getOrdersByUserId(int id) throws DAOException {
-		List<Order> orderList = new ArrayList<Order>();
+	public Set<Order> getOrdersByUserId(int id) throws DAOException {
+		Set<Order> orderSet = new LinkedHashSet<Order>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -214,7 +214,7 @@ public class MySQLOrderDAO implements IOrderDAO {
 				order.setDiscount(rs.getInt(7));
 				order.setPayment(rs.getFloat(8));
 	
-				orderList.add(order);
+				orderSet.add(order);
 			}
 			
 		} catch (SQLException e) {
@@ -231,12 +231,12 @@ public class MySQLOrderDAO implements IOrderDAO {
 				if (con != null) { pool.closeConnection(con); }
 			}
 		}
-		return orderList;
+		return orderSet;
 	}
 
 	@Override
-	public List<Order> getOrdersByFilmId(int id) throws DAOException {
-		List<Order> orderList = new ArrayList<Order>();
+	public Set<Order> getOrdersByFilmId(int id) throws DAOException {
+		Set<Order> orderSet = new LinkedHashSet<Order>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -259,7 +259,7 @@ public class MySQLOrderDAO implements IOrderDAO {
 				order.setDiscount(rs.getInt(7));
 				order.setPayment(rs.getFloat(8));
 	
-				orderList.add(order);
+				orderSet.add(order);
 			}
 			
 		} catch (SQLException e) {
@@ -276,12 +276,12 @@ public class MySQLOrderDAO implements IOrderDAO {
 				if (con != null) { pool.closeConnection(con); }
 			}
 		}
-		return orderList;
+		return orderSet;
 	}
 
 	@Override
-	public List<Order> getAllOrders() throws DAOException {
-		List<Order> orderList = new ArrayList<Order>();
+	public Set<Order> getAllOrders() throws DAOException {
+		Set<Order> orderSet = new LinkedHashSet<Order>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -303,7 +303,7 @@ public class MySQLOrderDAO implements IOrderDAO {
 				order.setDiscount(rs.getInt(7));
 				order.setPayment(rs.getFloat(8));
 				
-				orderList.add(order);
+				orderSet.add(order);
 			}
 			
 		} catch (SQLException e) {
@@ -320,6 +320,6 @@ public class MySQLOrderDAO implements IOrderDAO {
 				if (con != null) { pool.closeConnection(con); }
 			}
 		}
-		return orderList;
+		return orderSet;
 	}
 }

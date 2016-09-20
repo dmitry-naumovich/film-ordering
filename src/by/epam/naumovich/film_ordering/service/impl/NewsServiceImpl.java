@@ -4,9 +4,11 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 
 
 import by.epam.naumovich.film_ordering.bean.News;
@@ -74,24 +76,27 @@ public class NewsServiceImpl implements INewsService {
 		else if (!Validator.validateStrings(title, text)) {
 			throw new EditNewsServiceException(ExceptionMessages.INVALID_NEWS_TITLE_OR_TEXT);
 		}
+		News news = new News();
+		news.setTitle(title);
+		news.setText(text);
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			INewsDAO newsDAO = daoFactory.getNewsDAO();
-			newsDAO.editNews(id, title, text);
+			newsDAO.editNews(id, news);
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
 	}
 	
 	@Override
-	public List<News> getAllNews() throws ServiceException {
-		List<News> list = new ArrayList<News>();
+	public Set<News> getAllNews() throws ServiceException {
+		Set<News> set = new LinkedHashSet<News>();
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			INewsDAO newsDAO = daoFactory.getNewsDAO();
-			list = newsDAO.getAllNews();
+			set = newsDAO.getAllNews();
 			
-			if (list.isEmpty()) {
+			if (set.isEmpty()) {
 				throw new GetNewsServiceException(ExceptionMessages.NO_NEWS_IN_DB);
 			}
 			
@@ -99,18 +104,18 @@ public class NewsServiceImpl implements INewsService {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
 		
-		return list;
+		return set;
 	}
 
 	@Override
-	public List<News> getNewsByYear(int year) throws ServiceException {
-		List<News> list = new ArrayList<News>();
+	public Set<News> getNewsByYear(int year) throws ServiceException {
+		Set<News> set = new LinkedHashSet<News>();
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			INewsDAO newsDAO = daoFactory.getNewsDAO();
-			list = newsDAO.getNewsByYear(year);
+			set = newsDAO.getNewsByYear(year);
 			
-			if (list.isEmpty()) {
+			if (set.isEmpty()) {
 				throw new GetNewsServiceException(String.format(ExceptionMessages.NO_NEWS_WITHIN_YEAR, year));
 			}
 			
@@ -118,18 +123,18 @@ public class NewsServiceImpl implements INewsService {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
 		
-		return list;
+		return set;
 	}
 
 	@Override
-	public List<News> getNewsByMonth(int month, int year) throws ServiceException {
-		List<News> list = new ArrayList<News>();
+	public Set<News> getNewsByMonth(int month, int year) throws ServiceException {
+		Set<News> set = new LinkedHashSet<News>();
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			INewsDAO newsDAO = daoFactory.getNewsDAO();
-			list = newsDAO.getNewsByMonthAndYear(month, year);
+			set = newsDAO.getNewsByMonthAndYear(month, year);
 			
-			if (list.isEmpty()) {
+			if (set.isEmpty()) {
 				throw new GetNewsServiceException(String.format(ExceptionMessages.NO_NEWS_WITHIN_MONTH, month, year));
 			}
 			
@@ -137,28 +142,29 @@ public class NewsServiceImpl implements INewsService {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
 		
-		return list;
+		return set;
 	}
 
 	@Override
-	public List<News> getFourLastNews() throws ServiceException {
-		List<News> list = new ArrayList<News>();
+	public Set<News> getFourLastNews() throws ServiceException {
+		Set<News> set = new LinkedHashSet<News>();
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			INewsDAO newsDAO = daoFactory.getNewsDAO();
-			list = newsDAO.getAllNews();
+			set = newsDAO.getAllNews();
 			
-			if (list.isEmpty()) {
+			if (set.isEmpty()) {
 				throw new GetNewsServiceException(ExceptionMessages.NO_NEWS_IN_DB);
 			}
-			
+			List<News> list = new ArrayList<News>(set);
 			Collections.reverse(list);
+			set = new LinkedHashSet<News>(list.subList(0, 4));
 			
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
 		
-		return list.subList(0, 4);
+		return set;
 	}
 
 	@Override

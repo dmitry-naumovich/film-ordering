@@ -4,8 +4,8 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import by.epam.naumovich.film_ordering.bean.Order;
 import by.epam.naumovich.film_ordering.dao.DAOFactory;
@@ -117,18 +117,18 @@ public class OrderServiceImpl implements IOrderService {
 	}
 	
 	@Override
-	public List<Order> getOrdersByUserId(int id) throws ServiceException {
+	public Set<Order> getOrdersByUserId(int id) throws ServiceException {
 		if (!Validator.validateInt(id)) {
 			throw new ServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
 		}
 		
-		List<Order> list = new ArrayList<Order>();
+		Set<Order> set = new LinkedHashSet<Order>();
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			IOrderDAO orderDAO = daoFactory.getOrderDAO();
-			list = orderDAO.getOrdersByUserId(id);
+			set = orderDAO.getOrdersByUserId(id);
 			
-			if (list.isEmpty()) {
+			if (set.isEmpty()) {
 				throw new GetOrdersServiceException(ExceptionMessages.NO_USER_ORDERS_YET);
 			}
 			
@@ -136,22 +136,22 @@ public class OrderServiceImpl implements IOrderService {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
 		
-		return list;
+		return set;
 	}
 
 	@Override
-	public List<Order> getOrdersByFilmId(int id) throws ServiceException {
+	public Set<Order> getOrdersByFilmId(int id) throws ServiceException {
 		if (!Validator.validateInt(id)) {
 			throw new ServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
 		}
 		
-		List<Order> list = new ArrayList<Order>();
+		Set<Order> set = new LinkedHashSet<Order>();
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			IOrderDAO orderDAO = daoFactory.getOrderDAO();
-			list = orderDAO.getOrdersByFilmId(id);
+			set = orderDAO.getOrdersByFilmId(id);
 			
-			if (list.isEmpty()) {
+			if (set.isEmpty()) {
 				throw new GetOrdersServiceException(ExceptionMessages.NO_FILM_ORDERS);
 			}
 			
@@ -159,18 +159,18 @@ public class OrderServiceImpl implements IOrderService {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
 		
-		return list;
+		return set;
 	}
 
 	@Override
-	public List<Order> getAllOrders() throws ServiceException {
-		List<Order> list = new ArrayList<Order>();
+	public Set<Order> getAllOrders() throws ServiceException {
+		Set<Order> set = new LinkedHashSet<Order>();
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			IOrderDAO orderDAO = daoFactory.getOrderDAO();
-			list = orderDAO.getAllOrders();
+			set = orderDAO.getAllOrders();
 			
-			if (list.isEmpty()) {
+			if (set.isEmpty()) {
 				throw new GetOrdersServiceException(ExceptionMessages.NO_ORDERS_IN_DB);
 			}
 			
@@ -178,6 +178,6 @@ public class OrderServiceImpl implements IOrderService {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
 		
-		return list;
+		return set;
 	}
 }

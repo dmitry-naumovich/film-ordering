@@ -3,7 +3,9 @@ package by.epam.naumovich.film_ordering.command.impl.review;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -48,8 +50,11 @@ public class OpenUserReviews implements Command {
 			IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 			
 			try {
-				List<Review> reviews = reviewService.getReviewsByUserId(userID);
-				Collections.reverse(reviews);
+				Set<Review> reviews = reviewService.getReviewsByUserId(userID);
+				
+				List<Review> reviewList = new ArrayList<Review>(reviews);
+				Collections.reverse(reviewList);
+				reviews = new LinkedHashSet<Review>(reviewList);
 				
 				List<String> reviewFilmNames = new ArrayList<String>();
 				for (Review r : reviews) {

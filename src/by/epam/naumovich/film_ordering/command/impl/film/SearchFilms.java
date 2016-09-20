@@ -56,7 +56,7 @@ public class SearchFilms implements Command {
 						int userID = Integer.parseInt(session.getAttribute(RequestAndSessionAttributes.USER_ID).toString());
 						try {
 							IOrderService orderService = ServiceFactory.getInstance().getOrderService();
-							List<Order> orders = orderService.getOrdersByUserId(userID);
+							Set<Order> orders = orderService.getOrdersByUserId(userID);
 							List<Integer> orderFilmIDs = new ArrayList<Integer>();
 							for (Order o : orders) {
 								orderFilmIDs.add(o.getFilmId());

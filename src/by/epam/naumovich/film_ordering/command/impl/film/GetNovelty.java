@@ -50,7 +50,7 @@ public class GetNovelty implements Command {
 				if (!Boolean.parseBoolean(session.getAttribute(RequestAndSessionAttributes.IS_ADMIN).toString())) {
 					int userID = Integer.parseInt(session.getAttribute(RequestAndSessionAttributes.USER_ID).toString());
 					try {
-						List<Order> orders = orderService.getOrdersByUserId(userID);
+						Set<Order> orders = orderService.getOrdersByUserId(userID);
 						List<Integer> orderFilmIDs = new ArrayList<Integer>();
 						for (Order o : orders) {
 							orderFilmIDs.add(o.getFilmId());

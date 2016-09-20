@@ -4,8 +4,8 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import by.epam.naumovich.film_ordering.bean.Review;
 import by.epam.naumovich.film_ordering.dao.DAOFactory;
@@ -79,57 +79,57 @@ public class ReviewServiceImpl implements IReviewService {
 	}
 
 	@Override
-	public List<Review> getAllReviews() throws ServiceException {
-		List<Review> list = new ArrayList<Review>();
+	public Set<Review> getAllReviews() throws ServiceException {
+		Set<Review> set = new LinkedHashSet<Review>();
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			IReviewDAO reviewDAO = daoFactory.getReviewDAO();
-			list = reviewDAO.getAllReviews();
+			set = reviewDAO.getAllReviews();
 			
-			if (list.isEmpty()) {
+			if (set.isEmpty()) {
 				throw new GetReviewsServiceException(ExceptionMessages.NO_REVIEWS_IN_DB);
 			}
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
 		
-		return list;
+		return set;
 	}
 
 	@Override
-	public List<Review> getReviewsByUserId(int id) throws ServiceException {
-		List<Review> list = new ArrayList<Review>();
+	public Set<Review> getReviewsByUserId(int id) throws ServiceException {
+		Set<Review> set = new LinkedHashSet<Review>();
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			IReviewDAO reviewDAO = daoFactory.getReviewDAO();
-			list = reviewDAO.getReviewsByUserId(id);
+			set = reviewDAO.getReviewsByUserId(id);
 			
-			if (list.isEmpty()) {
+			if (set.isEmpty()) {
 				throw new GetReviewsServiceException(ExceptionMessages.NO_USER_REVIEWS_YET);
 			}
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
 		
-		return list;
+		return set;
 	}
 
 	@Override
-	public List<Review> getReviewsByFilmId(int id) throws ServiceException {
-		List<Review> list = new ArrayList<Review>();
+	public Set<Review> getReviewsByFilmId(int id) throws ServiceException {
+		Set<Review> set = new LinkedHashSet<Review>();
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			IReviewDAO reviewDAO = daoFactory.getReviewDAO();
-			list = reviewDAO.getReviewsByFilmId(id);
+			set = reviewDAO.getReviewsByFilmId(id);
 			
-			if (list.isEmpty()) {
+			if (set.isEmpty()) {
 				throw new GetReviewsServiceException(ExceptionMessages.NO_FILM_REVIEWS);
 			}
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
 		
-		return list;
+		return set;
 	}
 
 	@Override

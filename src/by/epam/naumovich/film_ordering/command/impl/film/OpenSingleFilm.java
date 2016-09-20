@@ -3,6 +3,7 @@ package by.epam.naumovich.film_ordering.command.impl.film;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +52,7 @@ public class OpenSingleFilm implements Command {
 			Film film = filmService.getFilmByID(filmID);
 			request.setAttribute(RequestAndSessionAttributes.FILM, film);
 			
-			List<Review> reviews = reviewService.getReviewsByFilmId(filmID);
+			Set<Review> reviews = reviewService.getReviewsByFilmId(filmID);
 			request.setAttribute(RequestAndSessionAttributes.REVIEWS, reviews);
 			
 			List<String> reviewLogins = new ArrayList<String>();

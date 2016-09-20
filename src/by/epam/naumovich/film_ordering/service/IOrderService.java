@@ -1,6 +1,6 @@
 package by.epam.naumovich.film_ordering.service;
 
-import java.util.List;
+import java.util.Set;
 
 import by.epam.naumovich.film_ordering.bean.Order;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
@@ -12,7 +12,7 @@ public interface IOrderService {
 	
 	Order getOrderByOrderNum(int orderNum) throws ServiceException;
 	Order getOrderByUserAndFilmId(int userID, int filmID) throws ServiceException;
-	List<Order> getOrdersByUserId(int id) throws ServiceException;
-	List<Order> getOrdersByFilmId(int id) throws ServiceException;
-	List<Order> getAllOrders() throws ServiceException;
+	Set<Order> getOrdersByUserId(int id) throws ServiceException;
+	Set<Order> getOrdersByFilmId(int id) throws ServiceException;
+	Set<Order> getAllOrders() throws ServiceException;
 }

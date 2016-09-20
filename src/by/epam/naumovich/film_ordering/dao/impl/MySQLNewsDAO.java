@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import by.epam.naumovich.film_ordering.bean.News;
 import by.epam.naumovich.film_ordering.dao.INewsDAO;
@@ -103,7 +103,7 @@ public class MySQLNewsDAO implements INewsDAO {
 	}
 	
 	@Override
-	public void editNews(int id, String title, String text) throws DAOException {
+	public void editNews(int id, News news) throws DAOException {
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -111,8 +111,8 @@ public class MySQLNewsDAO implements INewsDAO {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(UPDATE_NEWS);
-			st.setString(1, title);
-			st.setString(2, text);
+			st.setString(1, news.getTitle());
+			st.setString(2, news.getText());
 			st.setInt(3, id);
 			st.executeUpdate();
 		} catch (SQLException e) {
@@ -131,8 +131,8 @@ public class MySQLNewsDAO implements INewsDAO {
 	}
 
 	@Override
-	public List<News> getAllNews() throws DAOException {
-		List<News> newsList = new ArrayList<News>();
+	public Set<News> getAllNews() throws DAOException {
+		Set<News> newsSet = new LinkedHashSet<News>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -150,7 +150,7 @@ public class MySQLNewsDAO implements INewsDAO {
 				news.setTime(rs.getTime(3));
 				news.setTitle(rs.getString(4));
 				news.setText(rs.getString(5));
-				newsList.add(news);
+				newsSet.add(news);
 			}
 			
 		} catch (SQLException e) {
@@ -168,12 +168,12 @@ public class MySQLNewsDAO implements INewsDAO {
 			}
 			
 		}
-		return newsList;
+		return newsSet;
 	}
 
 	@Override
-	public List<News> getNewsByYear(int year) throws DAOException {
-		List<News> newsList = new ArrayList<News>();
+	public Set<News> getNewsByYear(int year) throws DAOException {
+		Set<News> newsSet = new LinkedHashSet<News>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -193,7 +193,7 @@ public class MySQLNewsDAO implements INewsDAO {
 				news.setTitle(rs.getString(4));
 				news.setText(rs.getString(5));
 				
-				newsList.add(news);
+				newsSet.add(news);
 			}
 			
 		} catch (SQLException e) {
@@ -211,12 +211,12 @@ public class MySQLNewsDAO implements INewsDAO {
 			}
 			
 		}
-		return newsList;
+		return newsSet;
 	}
 
 	@Override
-	public List<News> getNewsByMonthAndYear(int month, int year) throws DAOException {
-		List<News> newsList = new ArrayList<News>();
+	public Set<News> getNewsByMonthAndYear(int month, int year) throws DAOException {
+		Set<News> newsSet = new LinkedHashSet<News>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -237,7 +237,7 @@ public class MySQLNewsDAO implements INewsDAO {
 				news.setTitle(rs.getString(4));
 				news.setText(rs.getString(5));
 				
-				newsList.add(news);
+				newsSet.add(news);
 			}
 			
 		} catch (SQLException e) {
@@ -255,7 +255,7 @@ public class MySQLNewsDAO implements INewsDAO {
 			}
 			
 		}
-		return newsList;
+		return newsSet;
 	}
 
 	@Override

@@ -3,7 +3,9 @@ package by.epam.naumovich.film_ordering.command.impl.order;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -51,8 +53,11 @@ public class OpenAllOrders implements Command {
 				IOrderService orderService = ServiceFactory.getInstance().getOrderService();
 				IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 				IUserService userService = ServiceFactory.getInstance().getUserService();
-				List<Order> orders = orderService.getAllOrders();
-				Collections.reverse(orders);
+				Set<Order> orders = orderService.getAllOrders();
+				
+				List<Order> orderList = new ArrayList<Order>(orders);
+				Collections.reverse(orderList);
+				orders = new LinkedHashSet<Order>(orderList);
 				
 				List<String> filmNames = new ArrayList<String>();
 				List<String> userLogins = new ArrayList<String>();
