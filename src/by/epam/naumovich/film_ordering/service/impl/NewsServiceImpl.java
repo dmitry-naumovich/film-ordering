@@ -32,7 +32,7 @@ import by.epam.naumovich.film_ordering.service.util.Validator;
 public class NewsServiceImpl implements INewsService {
 
 	private static final String MYSQL = "mysql";
-	
+
 	@Override
 	public int addNews(String title, String text) throws ServiceException {
 		if (!Validator.validateStrings(title, text)) {

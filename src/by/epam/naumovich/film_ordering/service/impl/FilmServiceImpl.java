@@ -25,7 +25,7 @@ public class FilmServiceImpl implements IFilmService {
 
 	private static final String MYSQL = "mysql";
 	private static final String SPACE = " ";
-	
+
 	@Override
 	public int addNewFilm(String name, String year, String director, String cast, String[] countries, String composer,
 			String[] genres, String length, String price, String description) throws ServiceException {
@@ -295,9 +295,9 @@ public class FilmServiceImpl implements IFilmService {
 			boolean moreThanOneWord = false;
 			String[] words = null;
 			
-			if (searchText.split(SPACE).length > 1) {
+			if (searchText.split(FilmServiceImpl.SPACE).length > 1) {
 				moreThanOneWord = true;
-				words = searchText.split(SPACE);
+				words = searchText.split(FilmServiceImpl.SPACE);
 			}
 			for (Film f : allFilms) {
 				String filmName = f.getName().toLowerCase();
