@@ -64,7 +64,9 @@
           	<h2 class=" text-left"> ${novelty} </h2>
           </div> 
           <div class="row panel-body">
-			<jsp:include page="/IndexPageServlet" />
+			<jsp:include page="/Controller"> 
+				<jsp:param name="command" value="get_novelty"/>
+			</jsp:include>
 				<c:forEach items="${requestScope.noveltyList}" var="film">
 		            <div class="col-sm-6 col-md-4 col-xs-12 col-lg-4" style="height:520px;">
 		              <h2 style="text-align:center">${film.name} (${film.year}) </h2>

@@ -19,26 +19,7 @@
     <servlet-name>Controller</servlet-name>
     <url-pattern>/Controller</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>IndexPageServlet</display-name>
-    <servlet-name>IndexPageServlet</servlet-name>
-    <servlet-class>by.epam.naumovich.film_ordering.controller.IndexPageServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>IndexPageServlet</servlet-name>
-    <url-pattern>/IndexPageServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>NewsSidebarServlet</display-name>
-    <servlet-name>NewsSidebarServlet</servlet-name>
-    <servlet-class>by.epam.naumovich.film_ordering.controller.NewsSidebarServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>NewsSidebarServlet</servlet-name>
-    <url-pattern>/NewsSidebarServlet</url-pattern>
-  </servlet-mapping>
+  
   <filter>
   	<display-name>CharsetFilter</display-name>
   	<filter-name>CharsetFilter</filter-name>

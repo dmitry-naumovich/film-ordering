@@ -4,13 +4,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <div class="col-md-2"> 
       <div id="right-sidebar">
-      	<jsp:include page="/NewsSidebarServlet" />
+      	<jsp:include page="/Controller"> 
+				<jsp:param name="command" value="get_sidebar_news"/>
+		</jsp:include>
       	<c:forEach items="${requestScope.sidebarNews}" var="news">
       		<figure>
       		<a href="<c:url value="/Controller?command=open_single_news&newsID=${news.id}"/>" >
       			<img src="img/news/${news.id}/01.jpg" alt="Sidebar News Img" class="img-thumbnail img-responsive" width="180" height="140" /> 
       				<figcaption>
-      					<a href="<c:url value="/Controller?command=open_single_news&newsID=${news.id}"/>" > ${news.title} </a>
+      					<a href="<c:url value="/Controller?command=open_single_news&newsID=${news.id}" />" > ${news.title} </a>
       				</figcaption> 
       				</a>
       		</figure>
