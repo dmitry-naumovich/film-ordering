@@ -20,6 +20,13 @@ import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
+/**
+ * Performs the command that reads user ID parameter from the JSP and sends them to the relevant service class.
+ * Checks the access rights of the user who is performing this action.
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class UnbanUser implements Command {
 
 	private static final Logger logger = LogManager.getLogger(Logger.class.getName());

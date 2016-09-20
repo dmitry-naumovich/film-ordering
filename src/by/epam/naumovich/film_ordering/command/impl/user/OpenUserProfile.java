@@ -24,6 +24,13 @@ import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.user.GetDiscountServiceException;
 import by.epam.naumovich.film_ordering.service.exception.user.GetUserServiceException;
 
+/**
+ * Performs the command that gets a single user from the service layer and passes it to the relevant JSP.
+ * Checks the access rights of the user who is performing this action.
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class OpenUserProfile implements Command {
 
 	private static final Logger logger = LogManager.getLogger(Logger.class.getName());

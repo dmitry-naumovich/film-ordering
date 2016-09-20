@@ -21,6 +21,13 @@ import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.user.DiscountServiceException;
 
+/**
+ * Performs the command that reads new discount parameters from the JSP and sends them to the relevant service class.
+ * Checks the access rights of the user who is performing this action.
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class AddDiscount implements Command {
 
 	private static final Logger logger = LogManager.getLogger(Logger.class.getName());

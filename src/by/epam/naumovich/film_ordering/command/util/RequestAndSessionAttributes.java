@@ -1,5 +1,11 @@
 package by.epam.naumovich.film_ordering.command.util;
 
+/**
+ * Defines a set of String constants that describe all used request and session parameters and attributes in the Command implementation classes.
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public final class RequestAndSessionAttributes {
 
 	private RequestAndSessionAttributes() {	}

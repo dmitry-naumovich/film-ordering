@@ -21,6 +21,13 @@ import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.user.ServiceAuthException;
 
+/**
+ * Performs the command that authorize user reading the parameters from the JSP and sending them to the relevant service class.
+ * Checks the access rights of the user who is performing this action.
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class Login implements Command {
 
 	private static final Logger logger = LogManager.getLogger(Logger.class.getName());

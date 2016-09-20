@@ -28,6 +28,12 @@ import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.review.GetReviewServiceException;
 
+/**
+ * Performs the command that gets all reviews from the service layer and passes it to the relevant JSP.
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class OpenAllReviews implements Command {
 
 	private static final Logger logger = LogManager.getLogger(Logger.class.getName());

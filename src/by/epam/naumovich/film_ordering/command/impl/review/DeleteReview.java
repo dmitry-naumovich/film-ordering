@@ -20,6 +20,13 @@ import by.epam.naumovich.film_ordering.service.IReviewService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
+/**
+ * Performs the command that reads review user and film IDs parameters from the JSP and sends them to the relevant service class.
+ * Checks the access rights of the user who is performing this action.
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class DeleteReview implements Command {
 
 	private static final Logger logger = LogManager.getLogger(Logger.class.getName());

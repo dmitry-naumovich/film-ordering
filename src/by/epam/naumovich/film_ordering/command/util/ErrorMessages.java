@@ -1,5 +1,12 @@
 package by.epam.naumovich.film_ordering.command.util;
 
+/**
+ * Defines a set of String constants that describe occurred exceptions in the Command implementation classes.
+ * Each of these messages will be shown to the user in case relevant exception occurs.
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public final class ErrorMessages {
 
 	public ErrorMessages() {}

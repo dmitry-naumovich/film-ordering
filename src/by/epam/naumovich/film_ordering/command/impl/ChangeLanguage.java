@@ -10,6 +10,12 @@ import by.epam.naumovich.film_ordering.command.Command;
 import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
 import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
 
+/**
+ * Performs the command that changes the current session language to another one
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class ChangeLanguage implements Command {
 
 	@Override

@@ -19,6 +19,12 @@ import by.epam.naumovich.film_ordering.service.INewsService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
+/**
+ * Performs the command that gets four last added news from the service layer and passes it to the relevant JSP.
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class GetSidebarNews implements Command {
 
 	private static final Logger logger = LogManager.getLogger(Logger.class.getName());

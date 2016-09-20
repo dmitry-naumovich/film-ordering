@@ -11,6 +11,12 @@ import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
 import by.epam.naumovich.film_ordering.command.util.QueryUtil;
 import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
 
+/**
+ * Performs the command that forwards request and response to the relevant JSP.
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class OpenHelpPage implements Command {
 
 	@Override

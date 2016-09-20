@@ -29,6 +29,13 @@ import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.order.GetOrderServiceException;
 
+/**
+ * Performs the command that gets all orders from the service layer and passes it to the relevant JSP.
+ * Checks the access rights of the user who is performing this action.
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class OpenAllOrders implements Command {
 	
 	private static final Logger logger = LogManager.getLogger(Logger.class.getName());

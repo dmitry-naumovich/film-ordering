@@ -15,6 +15,12 @@ import by.epam.naumovich.film_ordering.command.util.JavaServerPageNames;
 import by.epam.naumovich.film_ordering.command.util.LogMessages;
 import by.epam.naumovich.film_ordering.command.util.RequestAndSessionAttributes;
 
+/**
+ * Performs the command that invalidates current user session.
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class Logout implements Command {
 	
 	private static final Logger logger = LogManager.getLogger(Logger.class.getName());

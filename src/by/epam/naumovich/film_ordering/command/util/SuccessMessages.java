@@ -1,5 +1,12 @@
 package by.epam.naumovich.film_ordering.command.util;
 
+/**
+ * Defines a set of String constants that describe success messages shown to the user on JSP pages.
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
+
 public final class SuccessMessages {
 
 	private SuccessMessages() {}

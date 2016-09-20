@@ -19,6 +19,12 @@ import by.epam.naumovich.film_ordering.service.IFilmService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 
+/**
+ * Performs the command that gets genres and countries arrays from the service layer and then forwards request and response to the relevant JSP.
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class OpenWidenedSearchPage implements Command {
 
 	private static final Logger logger = LogManager.getLogger(Logger.class.getName());

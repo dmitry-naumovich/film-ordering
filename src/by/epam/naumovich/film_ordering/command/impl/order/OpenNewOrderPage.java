@@ -28,6 +28,14 @@ import by.epam.naumovich.film_ordering.service.exception.film.GetFilmServiceExce
 import by.epam.naumovich.film_ordering.service.exception.order.GetOrderServiceException;
 import by.epam.naumovich.film_ordering.service.exception.user.GetDiscountServiceException;
 
+/**
+ * Performs the command that forwards request and response from the service layer and passes it to the relevant JSP.
+ * Checks the access rights of the user who is performing this action.
+ * Checks if user has not ordered this film yet.
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class OpenNewOrderPage implements Command {
 
 	private static final Logger logger = LogManager.getLogger(Logger.class.getName());

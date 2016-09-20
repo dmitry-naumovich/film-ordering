@@ -1,5 +1,11 @@
 package by.epam.naumovich.film_ordering.command.util;
 
+/**
+ * Defines a set of String constants which are the relative paths of the project java server pages.
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public final class JavaServerPageNames {
 
 	private JavaServerPageNames() {}

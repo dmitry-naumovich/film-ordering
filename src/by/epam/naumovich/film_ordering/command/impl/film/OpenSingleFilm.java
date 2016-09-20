@@ -30,6 +30,12 @@ import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.order.GetOrderServiceException;
 import by.epam.naumovich.film_ordering.service.exception.review.GetReviewServiceException;
 
+/**
+ * Performs the command that gets a single film from the service layer and passes it to the relevant JSP.
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class OpenSingleFilm implements Command {
 
 	private static final Logger logger = LogManager.getLogger(Logger.class.getName());

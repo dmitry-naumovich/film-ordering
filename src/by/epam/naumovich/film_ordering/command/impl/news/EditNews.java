@@ -29,6 +29,14 @@ import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.news.EditNewsServiceException;
 
+/**
+ * Performs the command that reads updated news parameters from the JSP and sends them to the relevant service class.
+ * Uploads updated images to the required directories.
+ * Checks the access rights of the user who is performing this action.
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class EditNews implements Command {
 
 	private static final Logger logger = LogManager.getLogger(Logger.class.getName());

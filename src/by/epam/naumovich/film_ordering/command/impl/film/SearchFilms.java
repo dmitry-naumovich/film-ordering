@@ -30,6 +30,12 @@ import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.film.GetFilmServiceException;
 import by.epam.naumovich.film_ordering.service.exception.order.GetOrderServiceException;
 
+/**
+ * Performs the command that gets all films that satisfies search criterion from the service layer and passes it to the relevant JSP.
+ * 
+ * @author Dmitry Naumovich
+ * @version 1.0
+ */
 public class SearchFilms implements Command {
 
 	private static final Logger logger = LogManager.getLogger(Logger.class.getName());
