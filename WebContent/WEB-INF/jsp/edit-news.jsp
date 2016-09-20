@@ -93,7 +93,7 @@
     </div>
     <div class="form-group">
 		<div class="form-group">
-	      <label class="col-sm-2 control-label">${newsImg}: </label>
+	      <label class="col-sm-2 control-label">${newsImg}</label>
 	      <div class="col-sm-10">
 	            <input type="file" name="image" size="1" accept=".gif,.jpg,.jpeg,.png, image/png, image/gif, image/jpg, image/jpeg">
 	      </div>

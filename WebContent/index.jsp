@@ -88,9 +88,11 @@
 		             
 		              
 		              <img src="img/films/${film.id}/01.jpg" alt="No frame" class="img-rounded" style="width: 100%; height: auto;" onError="this.onerror=null;this.src='/img/no-img.jpg';"/>
+		              <br> <br>
 		              <c:if test="${film.description != null}">
-		              	<br><p>${film.description} </p>
+		              	<p>${film.description} </p>
 		              </c:if>
+		              
 		              <p>
 		              	<c:choose> 
               				<c:when test="${sessionScope.isAdmin}">
