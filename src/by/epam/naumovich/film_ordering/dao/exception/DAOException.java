@@ -1,7 +1,7 @@
 package by.epam.naumovich.film_ordering.dao.exception;
 
 /**
- * An exception that may occur in the DAO layer
+ * Describes an exception that may occur in the DAO layer
  * 
  * @author Dmitry
  * @version 1.0

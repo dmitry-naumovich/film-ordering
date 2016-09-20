@@ -27,8 +27,8 @@ import by.epam.naumovich.film_ordering.service.IReviewService;
 import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
-import by.epam.naumovich.film_ordering.service.exception.order.GetOrdersServiceException;
-import by.epam.naumovich.film_ordering.service.exception.review.GetReviewsServiceException;
+import by.epam.naumovich.film_ordering.service.exception.order.GetOrderServiceException;
+import by.epam.naumovich.film_ordering.service.exception.review.GetReviewServiceException;
 
 public class OpenSingleFilm implements Command {
 
@@ -67,7 +67,7 @@ public class OpenSingleFilm implements Command {
 					try {
 						reviewService.getReviewByUserAndFilmId(userID, filmID);
 						request.setAttribute(RequestAndSessionAttributes.OWN_REVIEW_EXISTS, true);
-					} catch (GetReviewsServiceException e) {
+					} catch (GetReviewServiceException e) {
 						request.setAttribute(RequestAndSessionAttributes.OWN_REVIEW_EXISTS, false);
 					}
 					
@@ -75,7 +75,7 @@ public class OpenSingleFilm implements Command {
 						Order order = orderService.getOrderByUserAndFilmId(userID, filmID);
 						request.setAttribute(RequestAndSessionAttributes.OWN_ORDER_EXISTS, true);
 						request.setAttribute(RequestAndSessionAttributes.ORDER_NUM, order.getOrdNum());
-					} catch (GetOrdersServiceException e) {
+					} catch (GetOrderServiceException e) {
 						request.setAttribute(RequestAndSessionAttributes.OWN_ORDER_EXISTS, false);
 					}
 					
@@ -84,7 +84,7 @@ public class OpenSingleFilm implements Command {
 			
 			request.getRequestDispatcher(JavaServerPageNames.SINGLE_FILM_PAGE).forward(request, response);
 		
-		} catch (GetReviewsServiceException e) {
+		} catch (GetReviewServiceException e) {
 			request.getRequestDispatcher(JavaServerPageNames.SINGLE_FILM_PAGE).forward(request, response);
 		}
 		catch (ServiceException e) {

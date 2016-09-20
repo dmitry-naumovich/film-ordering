@@ -24,8 +24,8 @@ import by.epam.naumovich.film_ordering.service.IOrderService;
 import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
-import by.epam.naumovich.film_ordering.service.exception.film.GetFilmsServiceException;
-import by.epam.naumovich.film_ordering.service.exception.order.GetOrdersServiceException;
+import by.epam.naumovich.film_ordering.service.exception.film.GetFilmServiceException;
+import by.epam.naumovich.film_ordering.service.exception.order.GetOrderServiceException;
 import by.epam.naumovich.film_ordering.service.exception.user.GetDiscountServiceException;
 
 public class OpenNewOrderPage implements Command {
@@ -63,7 +63,7 @@ public class OpenNewOrderPage implements Command {
 						request.getRequestDispatcher("/Controller?command=open_single_order&orderNum=" + o.getOrdNum()).forward(request, response);
 					}
 				}
-			} catch (GetOrdersServiceException e) {
+			} catch (GetOrderServiceException e) {
 				
 			} catch (ServiceException e) {
 				already = true;
@@ -92,7 +92,7 @@ public class OpenNewOrderPage implements Command {
 			
 					request.getRequestDispatcher(JavaServerPageNames.FILM_ORDERING_PAGE).forward(request, response);
 					
-				} catch (GetFilmsServiceException e) {
+				} catch (GetFilmServiceException e) {
 					logger.error(String.format(LogMessages.EXCEPTION_IN_COMMAND, e.getClass().getSimpleName(), this.getClass().getSimpleName(), e.getMessage()));
 					request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 					request.getRequestDispatcher(JavaServerPageNames.FILM_ORDERING_PAGE).forward(request, response);

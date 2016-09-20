@@ -25,8 +25,8 @@ import by.epam.naumovich.film_ordering.service.IFilmService;
 import by.epam.naumovich.film_ordering.service.IOrderService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
-import by.epam.naumovich.film_ordering.service.exception.film.GetFilmsServiceException;
-import by.epam.naumovich.film_ordering.service.exception.order.GetOrdersServiceException;
+import by.epam.naumovich.film_ordering.service.exception.film.GetFilmServiceException;
+import by.epam.naumovich.film_ordering.service.exception.order.GetOrderServiceException;
 
 public class OpenAllFilms implements Command {
 
@@ -56,7 +56,7 @@ public class OpenAllFilms implements Command {
 							orderFilmIDs.add(o.getFilmId());
 						}
 						request.setAttribute(RequestAndSessionAttributes.USER_ORDER_FILM_IDS, orderFilmIDs);
-					} catch (GetOrdersServiceException e) {
+					} catch (GetOrderServiceException e) {
 						request.setAttribute(RequestAndSessionAttributes.USER_ORDER_FILM_IDS, Collections.emptyList());
 					}
 				}
@@ -64,7 +64,7 @@ public class OpenAllFilms implements Command {
 			
 			request.getRequestDispatcher(JavaServerPageNames.FILMS_JSP_PAGE).forward(request, response);
 			
-		} catch (GetFilmsServiceException e) {
+		} catch (GetFilmServiceException e) {
 			logger.error(String.format(LogMessages.EXCEPTION_IN_COMMAND, e.getClass().getSimpleName(), this.getClass().getSimpleName(), e.getMessage()));
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 			request.getRequestDispatcher(JavaServerPageNames.FILMS_JSP_PAGE).forward(request, response);

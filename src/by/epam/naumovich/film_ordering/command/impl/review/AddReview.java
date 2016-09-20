@@ -19,7 +19,7 @@ import by.epam.naumovich.film_ordering.command.util.SuccessMessages;
 import by.epam.naumovich.film_ordering.service.IReviewService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
-import by.epam.naumovich.film_ordering.service.exception.review.SendReviewServiceException;
+import by.epam.naumovich.film_ordering.service.exception.review.AddReviewServiceException;
 
 public class AddReview implements Command {
 
@@ -46,7 +46,7 @@ public class AddReview implements Command {
 				logger.debug(String.format(LogMessages.REVIEW_ADDED, userID, filmID));
 				request.setAttribute(RequestAndSessionAttributes.SUCCESS_MESSAGE, SuccessMessages.REVIEW_ADDED);
 				request.getRequestDispatcher("/Controller?command=open_single_review&userID=" + userID + "&filmID=" + filmID).forward(request, response);
-			} catch (SendReviewServiceException e) {
+			} catch (AddReviewServiceException e) {
 				logger.error(String.format(LogMessages.EXCEPTION_IN_COMMAND, e.getClass().getSimpleName(), this.getClass().getSimpleName(), e.getMessage()));
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher("/Controller?command=open_new_review_page&filmID=" + filmID).forward(request, response);

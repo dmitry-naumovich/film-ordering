@@ -21,8 +21,8 @@ import by.epam.naumovich.film_ordering.service.IFilmService;
 import by.epam.naumovich.film_ordering.service.IReviewService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
-import by.epam.naumovich.film_ordering.service.exception.film.GetFilmsServiceException;
-import by.epam.naumovich.film_ordering.service.exception.review.GetReviewsServiceException;
+import by.epam.naumovich.film_ordering.service.exception.film.GetFilmServiceException;
+import by.epam.naumovich.film_ordering.service.exception.review.GetReviewServiceException;
 
 public class OpenNewReviewPage implements Command {
 
@@ -50,11 +50,11 @@ public class OpenNewReviewPage implements Command {
 				reviewService.getReviewByUserAndFilmId(userID, filmID);
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.REVIEW_AMOUNT_RESTRICTION);
 				request.getRequestDispatcher("/Controller?command=open_single_review&userID=" + userID + "&filmID=" + filmID).forward(request, response);;
-			} catch (GetFilmsServiceException e) {
+			} catch (GetFilmServiceException e) {
 				logger.error(String.format(LogMessages.EXCEPTION_IN_COMMAND, e.getClass().getSimpleName(), this.getClass().getSimpleName(), e.getMessage()));
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
-			} catch (GetReviewsServiceException e) {
+			} catch (GetReviewServiceException e) {
 				request.setAttribute(RequestAndSessionAttributes.FILM, film);
 				request.getRequestDispatcher(JavaServerPageNames.NEW_REVIEW_PAGE).forward(request, response);
 			} catch (ServiceException e) {

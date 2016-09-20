@@ -27,7 +27,7 @@ import by.epam.naumovich.film_ordering.service.IOrderService;
 import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
-import by.epam.naumovich.film_ordering.service.exception.order.GetOrdersServiceException;
+import by.epam.naumovich.film_ordering.service.exception.order.GetOrderServiceException;
 
 public class OpenUserOrders implements Command {
 	
@@ -80,7 +80,7 @@ public class OpenUserOrders implements Command {
 				request.setAttribute(RequestAndSessionAttributes.ORDER_VIEW_TYPE, RequestAndSessionAttributes.VIEW_TYPE_USER);
 				request.getRequestDispatcher(JavaServerPageNames.ORDERS_PAGE).forward(request, response);
 				
-			} catch (GetOrdersServiceException e) {
+			} catch (GetOrderServiceException e) {
 				logger.error(String.format(LogMessages.EXCEPTION_IN_COMMAND, e.getClass().getSimpleName(), this.getClass().getSimpleName(), e.getMessage()));
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher("/Controller?command=open_user_profile&userID=" + userID).forward(request, response);

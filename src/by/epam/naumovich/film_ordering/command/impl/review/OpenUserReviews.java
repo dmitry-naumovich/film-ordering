@@ -26,7 +26,7 @@ import by.epam.naumovich.film_ordering.service.IFilmService;
 import by.epam.naumovich.film_ordering.service.IReviewService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
-import by.epam.naumovich.film_ordering.service.exception.review.GetReviewsServiceException;
+import by.epam.naumovich.film_ordering.service.exception.review.GetReviewServiceException;
 
 public class OpenUserReviews implements Command {
 
@@ -64,7 +64,7 @@ public class OpenUserReviews implements Command {
 				request.setAttribute(RequestAndSessionAttributes.REVIEWS, reviews);
 				request.setAttribute(RequestAndSessionAttributes.FILM_NAMES, reviewFilmNames);
 				request.getRequestDispatcher(JavaServerPageNames.REVIEWS_PAGE).forward(request, response);
-			} catch (GetReviewsServiceException e) {
+			} catch (GetReviewServiceException e) {
 				logger.error(String.format(LogMessages.EXCEPTION_IN_COMMAND, e.getClass().getSimpleName(), this.getClass().getSimpleName(), e.getMessage()));
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher("/Controller?command=open_user_profile&userID=" + userID).forward(request, response);;

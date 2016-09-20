@@ -26,7 +26,7 @@ import by.epam.naumovich.film_ordering.service.IReviewService;
 import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
-import by.epam.naumovich.film_ordering.service.exception.review.GetReviewsServiceException;
+import by.epam.naumovich.film_ordering.service.exception.review.GetReviewServiceException;
 
 public class OpenAllReviews implements Command {
 
@@ -62,7 +62,7 @@ public class OpenAllReviews implements Command {
 			request.setAttribute(RequestAndSessionAttributes.FILM_NAMES, reviewFilmNames);
 			request.getRequestDispatcher(JavaServerPageNames.REVIEWS_PAGE).forward(request, response);
 			
-		} catch (GetReviewsServiceException e) {
+		} catch (GetReviewServiceException e) {
 			logger.error(String.format(LogMessages.EXCEPTION_IN_COMMAND, e.getClass().getSimpleName(), this.getClass().getSimpleName(), e.getMessage()));
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 			request.getRequestDispatcher(JavaServerPageNames.REVIEWS_PAGE).forward(request, response);
