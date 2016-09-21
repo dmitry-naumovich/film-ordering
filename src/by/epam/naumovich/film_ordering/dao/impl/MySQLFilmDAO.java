@@ -185,7 +185,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 			st.setInt(2, editedFilm.getYear());
 			st.setString(3, editedFilm.getDirector());
 			
-			if (editedFilm.getCountry() == null){
+			if (editedFilm.getCountry() == null) {
 				st.setNull(4, Types.VARCHAR);
 			}
 			else {

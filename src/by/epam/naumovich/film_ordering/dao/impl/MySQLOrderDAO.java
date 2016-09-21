@@ -118,7 +118,7 @@ public class MySQLOrderDAO implements IOrderDAO {
 	
 	@Override
 	public Order getOrderByOrderNum(int orderNum) throws DAOException {
-		Order order = new Order();
+		
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -131,6 +131,7 @@ public class MySQLOrderDAO implements IOrderDAO {
 			rs = st.executeQuery();
 			
 			if (rs.next()) {
+				Order order = new Order();
 				order.setOrdNum(rs.getInt(1));
 				order.setUserId(rs.getInt(2));
 				order.setFilmId(rs.getInt(3));
@@ -139,6 +140,8 @@ public class MySQLOrderDAO implements IOrderDAO {
 				order.setPrice(rs.getFloat(6));
 				order.setDiscount(rs.getInt(7));
 				order.setPayment(rs.getFloat(8));
+				
+				return order;
 			}
 			
 		} catch (SQLException e) {
@@ -155,7 +158,7 @@ public class MySQLOrderDAO implements IOrderDAO {
 				if (con != null) { pool.closeConnection(con); }
 			}
 		}
-		return order;
+		return null;
 	}
 	
 	@Override
