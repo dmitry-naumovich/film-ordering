@@ -52,7 +52,7 @@ public class MySQLNewsDAOTest {
 	
 	/**
 	 * Adds expectedNews to the data source via DAO layer, gets it back and compares two results.
-	 * Tests if the news was really added.
+	 * Tests if the news was correctly added.
 	 * 
 	 * @throws DAOException
 	 */
@@ -73,7 +73,7 @@ public class MySQLNewsDAOTest {
 	
 	/**
 	 * Adds expectedNews to the data source via DAO layer, deletes it and then tries to get it back expecting the null result.
-	 * Tests if the news was really deleted.
+	 * Tests if the news was correctly deleted.
 	 * 
 	 * @throws DAOException
 	 */
@@ -91,7 +91,7 @@ public class MySQLNewsDAOTest {
 	
 	/**
 	 * Adds expectedNews to the data source via DAO layer, edits it, gets it back and compares two results.
-	 * Tests if the news was really edited.
+	 * Tests if the news was correctly edited.
 	 * 
 	 * @throws DAOException
 	 */
@@ -195,7 +195,6 @@ public class MySQLNewsDAOTest {
 		for (News n : allNews) {
 			
 			calendar.setTime(n.getDate());
-			System.out.println(calendar.get(Calendar.MONTH));
 			if (calendar.get(Calendar.YEAR) == 2016 && calendar.get(Calendar.MONTH) == 8) {
 				yearNews.remove(n);				
 			}

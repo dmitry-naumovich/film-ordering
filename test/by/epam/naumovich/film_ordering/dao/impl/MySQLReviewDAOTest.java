@@ -54,7 +54,7 @@ public class MySQLReviewDAOTest {
 	
 	/**
 	 * Adds expectedReview to the data source via DAO layer, gets it back and compares two results.
-	 * Tests if the review was really added.
+	 * Tests if the review was correctly added.
 	 * 
 	 * @throws DAOException
 	 */
@@ -78,7 +78,7 @@ public class MySQLReviewDAOTest {
 	
 	/**
 	 * Adds expectedFilm to the data source via DAO layer, deletes it and then tries to get it back expecting the null result.
-	 * Tests if the film was really deleted.
+	 * Tests if the film was correctly deleted.
 	 * 
 	 * @throws DAOException
 	 */
@@ -137,7 +137,7 @@ public class MySQLReviewDAOTest {
 	}
 	
 	/**
-	 * Adds expectedReview to the data source via DAO layer, gets it back by ID and compares two results.
+	 * Adds expectedReview to the data source via DAO layer, gets it back by user and film IDs and compares two results.
 	 * Tests if the valid review entity is returned by user and film IDs.
 	 * Then tests if null object is returned again by same IDs after it deletion.
 	 * 

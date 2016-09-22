@@ -55,7 +55,7 @@ public class MySQLOrderDAOTest {
 	
 	/**
 	 * Adds expectedOrder to the data source via DAO layer, gets it back and compares two results.
-	 * Tests if the order was really added.
+	 * Tests if the order was correctly added.
 	 * 
 	 * @throws DAOException
 	 */
@@ -79,7 +79,7 @@ public class MySQLOrderDAOTest {
 	
 	/**
 	 * Adds expectedOrder to the data source via DAO layer, deletes it and then tries to get it back expecting the null result.
-	 * Tests if the order was really deleted.
+	 * Tests if the order was correctly deleted.
 	 * 
 	 * @throws DAOException
 	 */

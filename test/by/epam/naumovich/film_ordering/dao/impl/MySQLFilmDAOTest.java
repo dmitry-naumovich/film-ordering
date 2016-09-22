@@ -55,7 +55,7 @@ public class MySQLFilmDAOTest {
 	
 	/**
 	 * Adds expectedFilm to the data source via DAO layer, gets it back and compares two results.
-	 * Tests if the film was really added.
+	 * Tests if the film was correctly added.
 	 * 
 	 * @throws DAOException
 	 */
@@ -82,7 +82,7 @@ public class MySQLFilmDAOTest {
 
 	/**
 	 * Adds expectedFilm to the data source via DAO layer, deletes it and then tries to get it back expecting the null result.
-	 * Tests if the film was really deleted.
+	 * Tests if the film was correctly deleted.
 	 * 
 	 * @throws DAOException
 	 */
@@ -100,12 +100,13 @@ public class MySQLFilmDAOTest {
 
 	/**
 	 * Adds expectedFilm to the data source via DAO layer, edits it, gets it back and compares two results.
-	 * Tests if the film was really edited.
+	 * Tests if the film was correctly edited.
 	 * 
 	 * @throws DAOException
+	 * @throws InterruptedException 
 	 */
 	@Test
-	public void editFilm() throws DAOException {
+	public void editFilm() throws DAOException, InterruptedException {
 		DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 		IFilmDAO filmDAO = daoFactory.getFilmDAO();
 		
@@ -114,7 +115,6 @@ public class MySQLFilmDAOTest {
 		expectedFilm.setActors("test actors 1");
 		expectedFilm.setPrice(12);
 		filmDAO.editFilm(filmID, expectedFilm);
-		
 		Film actualFilm = filmDAO.getFilmByID(filmID);
         filmDAO.deleteFilm(filmID);
 	    
