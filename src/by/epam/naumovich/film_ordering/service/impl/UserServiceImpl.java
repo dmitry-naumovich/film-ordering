@@ -14,7 +14,6 @@ import by.epam.naumovich.film_ordering.dao.IUserDAO;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.service.IUserService;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
-import by.epam.naumovich.film_ordering.service.exception.film.AddFilmServiceException;
 import by.epam.naumovich.film_ordering.service.exception.user.BanUserServiceException;
 import by.epam.naumovich.film_ordering.service.exception.user.DiscountServiceException;
 import by.epam.naumovich.film_ordering.service.exception.user.GetDiscountServiceException;
@@ -126,6 +125,9 @@ public class UserServiceImpl implements IUserService {
 	public void updateUser(int id, String name, String surname, String password, String sex, String bDate, String phone,
 			String email, String about) throws ServiceException {
 
+		if (!Validator.validateInt(id)) {
+			throw new UserUpdateServiceException(ExceptionMessages.CORRUPTED_USER_ID);
+		}
 		if (!Validator.validateWithPattern(password, PASSWORD_PATTERN)) {
 			throw new UserUpdateServiceException(ExceptionMessages.INVALID_PASSWORD);
 		}
@@ -270,7 +272,6 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public String getLoginByID(int id) throws ServiceException {
-		
 		if(!Validator.validateInt(id)){
 			throw new ServiceException(ExceptionMessages.CORRUPTED_USER_ID);
 		}
@@ -291,7 +292,7 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public Discount getCurrentUserDiscountByID(int id) throws ServiceException {
-		if(!Validator.validateObject(id)){
+		if (!Validator.validateObject(id)){
 			throw new ServiceException(ExceptionMessages.CORRUPTED_USER_ID);
 		}
 		
@@ -350,10 +351,10 @@ public class UserServiceImpl implements IUserService {
 		try {
 			bLength = Integer.parseInt(length);
 		} catch (NumberFormatException e) {
-			throw new AddFilmServiceException(ExceptionMessages.INVALID_BAN_LENGTH);
+			throw new BanUserServiceException(ExceptionMessages.INVALID_BAN_LENGTH);
 		}
 		if (bLength < 0) {
-			throw new AddFilmServiceException(ExceptionMessages.INVALID_BAN_LENGTH);
+			throw new BanUserServiceException(ExceptionMessages.INVALID_BAN_LENGTH);
 		}
 		
 		Date startDate = Date.valueOf(LocalDate.now());

@@ -222,7 +222,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 			
 			st.setInt(9, editedFilm.getLength());
 			st.setFloat(10, editedFilm.getPrice());
-			st.setInt(11, editedFilm.getId());
+			st.setInt(11, id);
 			st.executeUpdate();
 			
 		} catch (SQLException e) {

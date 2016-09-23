@@ -104,6 +104,9 @@ public class ReviewServiceImpl implements IReviewService {
 
 	@Override
 	public Set<Review> getReviewsByUserId(int id) throws ServiceException {
+		if (!Validator.validateInt(id)) {
+			throw new GetReviewServiceException(ExceptionMessages.CORRUPTED_USER_ID);
+		}
 		Set<Review> set = new LinkedHashSet<Review>();
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
@@ -122,6 +125,9 @@ public class ReviewServiceImpl implements IReviewService {
 
 	@Override
 	public Set<Review> getReviewsByFilmId(int id) throws ServiceException {
+		if (!Validator.validateInt(id)) {
+			throw new GetReviewServiceException(ExceptionMessages.CORRUPTED_FILM_ID);
+		}
 		Set<Review> set = new LinkedHashSet<Review>();
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
@@ -140,19 +146,23 @@ public class ReviewServiceImpl implements IReviewService {
 
 	@Override
 	public Review getReviewByUserAndFilmId(int userID, int filmID) throws ServiceException {
-		Review review = null;
+		if (!Validator.validateInt(userID) || !Validator.validateInt(filmID)) {
+			throw new GetReviewServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
+		}
+		
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			IReviewDAO reviewDAO = daoFactory.getReviewDAO();
-			review = reviewDAO.getReviewByUserAndFilmId(userID, filmID);
+			Review review = reviewDAO.getReviewByUserAndFilmId(userID, filmID);
 			
 			if (review == null) {
 				throw new GetReviewServiceException(ExceptionMessages.NO_FILM_USER_REVIEW);
 			}
+			return review;
+			
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}
-		return review;
 	}
 
 }

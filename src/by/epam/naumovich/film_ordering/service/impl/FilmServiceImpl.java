@@ -245,6 +245,9 @@ public class FilmServiceImpl implements IFilmService {
 
 	@Override
 	public Film getFilmByID(int id) throws ServiceException {
+		if (!Validator.validateInt(id)) {
+			throw new ServiceException(ExceptionMessages.CORRUPTED_FILM_ID);
+		}
 		Film film = null;
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
@@ -263,6 +266,9 @@ public class FilmServiceImpl implements IFilmService {
 
 	@Override
 	public String getFilmNameByID(int id) throws ServiceException {
+		if (!Validator.validateInt(id)) {
+			throw new ServiceException(ExceptionMessages.CORRUPTED_FILM_ID);
+		}
 		try {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			IFilmDAO filmDAO = daoFactory.getFilmDAO();

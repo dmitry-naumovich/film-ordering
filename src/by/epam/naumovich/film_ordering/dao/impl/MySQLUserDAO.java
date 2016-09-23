@@ -39,7 +39,9 @@ public class MySQLUserDAO implements IUserDAO {
 	public static final String SELECT_CURRENT_DISCOUNT_BY_USER_ID = "SELECT * FROM Discounts WHERE d_user = ? AND ((CURDATE() = d_stdate AND CURTIME() > d_sttime) OR (CURDATE() = d_endate AND CURTIME() < d_entime) OR (CURDATE() > d_stdate AND CURDATE() < d_endate))";
 	public static final String INSERT_NEW_DISCOUNT = "INSERT INTO Discounts (d_user, d_amount, d_stdate, d_sttime, d_endate, d_entime) VALUES (?, ?, ?, ?, ?, ?)";
 	public static final String UPDATE_DISCOUNT = "UPDATE Discounts SET d_amount = ?, d_endate = ?, d_entime = ? WHERE d_id = ?";
-	public static final String DELETE_DISCOUNT = "UPDATE Discounts SET d_endate = CURDATE() AND d_entime = CURTIME() WHERE d_id = ?";
+	public static final String DELETE_DISCOUNT = "DELETE FROM Discounts WHERE d_id = ?";
+	public static final String SELECT_NEW_DISCOUNT_ID = "SELECT d_id FROM Discounts WHERE d_user = ? AND d_amount = ? AND d_stdate = ? AND d_sttime = ?";
+	public static final String SELECT_DISCOUNT_BY_ID = "SELECT * FROM Discounts WHERE d_id = ?";
 	
 	public static final String INSERT_BAN_RECORD = "INSERT INTO Bans (b_user, b_stdate, b_sttime, b_length, b_reason) VALUES (?, ?, ?, ?, ?)";
 	public static final String UNBAN_USER_BY_ID = "UPDATE Bans SET b_active = 0 WHERE b_user = ?";
@@ -632,10 +634,12 @@ public class MySQLUserDAO implements IUserDAO {
 	}
 
 	@Override
-	public void addDiscount(Discount discount) throws DAOException {
+	public int addDiscount(Discount discount) throws DAOException {
 		MySQLConnectionPool pool = null;
 		Connection con = null;
-		PreparedStatement st = null;	
+		PreparedStatement st = null;
+		PreparedStatement st2 = null;
+		ResultSet rs = null;
 		try {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
@@ -648,6 +652,15 @@ public class MySQLUserDAO implements IUserDAO {
 			st.setTime(6, discount.getEnTime());
 			st.executeUpdate();
 			
+			st2 = con.prepareStatement(SELECT_NEW_DISCOUNT_ID);
+			st2.setInt(1, discount.getUserID());
+			st2.setInt(2, discount.getAmount());
+			st2.setDate(3, discount.getStDate());
+			st2.setTime(4, discount.getStTime());
+			rs = st2.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
 		} catch (SQLException e) {
 			throw new DAOException(ExceptionMessages.SQL_INSERT_FAILURE, e);
 		} catch (ConnectionPoolException e) {
@@ -655,12 +668,15 @@ public class MySQLUserDAO implements IUserDAO {
 		} finally {
 			try {
 				if (st != null) { st.close(); }
+				if (st2 != null) { st2.close(); }
+				if (rs != null) { rs.close(); }
 			} catch (SQLException e) {
-				throw new DAOException(ExceptionMessages.PREP_STATEMENT_NOT_CLOSED, e);
+				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED, e);
 			} finally {
 				if (con != null) { pool.closeConnection(con); }
 			}
 		}
+		return 0;
 	}
 
 	@Override
@@ -718,5 +734,48 @@ public class MySQLUserDAO implements IUserDAO {
 				if (con != null) { pool.closeConnection(con); }
 			}
 		}
+	}
+
+	@Override
+	public Discount getDiscountByID(int discountID) throws DAOException {
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(SELECT_DISCOUNT_BY_ID);
+			
+			st.setInt(1, discountID);
+			rs = st.executeQuery();
+			if (rs.next()) {
+				Discount discount = new Discount();
+				discount.setId(rs.getInt(1));
+				discount.setUserID(rs.getInt(2));
+				discount.setAmount(rs.getInt(3));
+				discount.setStDate(rs.getDate(4));
+				discount.setStTime(rs.getTime(5));
+				discount.setEnDate(rs.getDate(6));
+				discount.setEnTime(rs.getTime(7));
+				return discount;
+			}
+			
+		} catch (SQLException e) {
+			throw new DAOException(ExceptionMessages.SQL_SELECT_FAILURE, e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
+		} finally {
+			try {
+				if (rs != null) { rs.close(); }
+				if (st != null) { st.close(); }
+			} catch (SQLException e) {
+				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED);
+			} finally {
+				if (con != null) { pool.closeConnection(con); }
+			}
+		}
+		return null;
 	}
 }

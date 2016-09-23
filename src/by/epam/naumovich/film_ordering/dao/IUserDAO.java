@@ -95,12 +95,20 @@ public interface IUserDAO {
 	Discount getCurrentUserDiscountByID(int id) throws DAOException;
 	
 	/**
+	 * Searches for the discount in the data source by its ID
+	 * 
+	 * @param discountID discount ID
+	 * @return found discount entity
+	 * @throws DAOException
+	 */
+	Discount getDiscountByID(int discountID) throws DAOException;
+	/**
 	 * Adds new user discount to the data source
 	 * 
 	 * @param discount new discount entity
 	 * @throws DAOException
 	 */
-	void addDiscount(Discount discount) throws DAOException;
+	int addDiscount(Discount discount) throws DAOException;
 	
 	/**
 	 * Edits the discount in the data source
