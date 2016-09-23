@@ -6,6 +6,7 @@ import by.epam.naumovich.film_ordering.service.IReviewService;
 import by.epam.naumovich.film_ordering.service.ServiceFactory;
 import by.epam.naumovich.film_ordering.service.exception.ServiceException;
 import by.epam.naumovich.film_ordering.service.exception.review.AddReviewServiceException;
+import by.epam.naumovich.film_ordering.service.exception.review.GetReviewServiceException;
 
 /**
  * Tests service layer methods overridden in ReviewServiceImpl class in a way of passing invalid parameters into service methods
@@ -57,7 +58,40 @@ public class ReviewServiceImplTest {
 	@Test(expected=ServiceException.class)
 	public void deleteReview() throws ServiceException {
 		IReviewService service = ServiceFactory.getInstance().getReviewService();
-		service.deleteReview(-1, -1);
+		service.deleteReview(0, -1);
 	}
-
+	
+	/**
+	 * Tries to get reviews by invalid user ID value and expects for the exception.
+	 * 
+	 * @throws ServiceException
+	 */
+	@Test(expected=GetReviewServiceException.class)
+	public void getReviewsByUserId() throws ServiceException {
+		IReviewService service = ServiceFactory.getInstance().getReviewService();
+		service.getReviewsByUserId(-1);
+	}
+	
+	/**
+	 * Tries to get reviews by invalid film ID value and expects for the exception.
+	 * 
+	 * @throws ServiceException
+	 */
+	@Test(expected=GetReviewServiceException.class)
+	public void getReviewsByFilmId() throws ServiceException {
+		IReviewService service = ServiceFactory.getInstance().getReviewService();
+		service.getReviewsByFilmId(-1);
+	}
+	
+	/**
+	 * Tries to get reviews by invalid film and user ID values and expects for the exception.
+	 * 
+	 * @throws ServiceException
+	 */
+	@Test(expected=GetReviewServiceException.class)
+	public void getReviewByUserAndFilmId()  throws ServiceException {
+		IReviewService service = ServiceFactory.getInstance().getReviewService();
+		service.getReviewByUserAndFilmId(0, -1);
+	}
+	
 }

@@ -43,7 +43,7 @@ public class MySQLReviewDAOTest {
 	@Before
 	public void initTestReview() {
 		expectedReview = new Review();
-		expectedReview.setAuthor(1);
+		expectedReview.setAuthor(5);
 		expectedReview.setFilmId(1);
 		expectedReview.setDate(Date.valueOf(LocalDate.now()));
 		expectedReview.setTime(Time.valueOf(LocalTime.now()));
@@ -125,7 +125,7 @@ public class MySQLReviewDAOTest {
 		DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 		IReviewDAO dao = daoFactory.getReviewDAO();
 		
-		Set<Review> filmReviews1 = dao.getReviewsByUserId(1);
+		Set<Review> filmReviews1 = dao.getReviewsByFilmId(1);
 		Set<Review> filmReviews2 = new LinkedHashSet<Review>();
 		for (Review r : dao.getAllReviews()) {
 			if (r.getFilmId() == 1) {
