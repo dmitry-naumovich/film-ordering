@@ -115,7 +115,7 @@
                       <c:if test="${film.country != null}">
 	                      <tr>
 	                        <td><b>${country}</b></td>
-	                        <td>${film.country}</td>
+	                        <td>${film.country.replace(",", ", ")}</td>
 	                      </tr>
                       </c:if>
                       <c:if test="${film.director != null}">
@@ -132,7 +132,7 @@
                       </c:if>
                       <tr>
                         <td><b>${genre}</b></td>
-                        <td>${film.genre}</td>
+                        <td>${film.genre.replace(",", ", ")}</td>
                       </tr>
                       <tr>
                         <td><b>${filmRating}</b></td>

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -68,7 +68,7 @@
 				<jsp:param name="command" value="get_novelty"/>
 			</jsp:include>
 				<c:forEach items="${requestScope.noveltyList}" var="film">
-		            <div class="col-sm-6 col-md-4 col-xs-12 col-lg-4" style="height:520px;">
+		            <div class="col-sm-6 col-md-4 col-xs-12 col-lg-4" >
 		              <h2 style="text-align:center">${film.name} (${film.year}) </h2>
 		              <p><b>${director}:</b> ${film.director} </p>
 		              <c:choose>
@@ -81,7 +81,7 @@
 	                  </c:choose>
 	                  <c:choose>
 	                  <c:when test="${film.genre != null}">
-		                       <p><b>${genre}:</b> ${film.genre} </p>
+		                       <p><b>${genre}:</b> ${film.genre.replace(",", ", ")} </p>
 	                      </c:when>
 	                      <c:otherwise>
 	                      <p><b>${genre}:</b> — </p>
@@ -92,7 +92,9 @@
 		              <img src="img/films/${film.id}/01.jpg" alt="No frame" class="img-rounded" style="width: 100%; height: auto;" onError="this.onerror=null;this.src='/img/no-img.jpg';"/>
 		              <br> <br>
 		              <c:if test="${film.description != null}">
-		              	<p>${film.description} </p>
+		              	<p style="text-align:justify">${film.description.substring(0,60)}... 
+		              	<a class="btn btn-link" href="<c:url value="/Controller?command=open_single_film&filmID=${film.id}"/>" role="button"> ${readMore} &raquo;</a>
+		              	</p>
 		              </c:if>
 		              
 		              <p>
@@ -113,7 +115,7 @@
               				</c:otherwise>
 		              	</c:choose> 
 		                
-		                <a class="btn btn-link" href="<c:url value="/Controller?command=open_single_film&filmID=${film.id}"/>" role="button"> ${readMore} &raquo;</a> 
+		                 
 		              </p>
 		            </div>
            		</c:forEach>

@@ -130,13 +130,13 @@
 	                    </thead>
 	                    <tbody>
 	                    
-	                    <c:if test="${sessionScope.language != 'en'}">
+	                    <%-- <c:if test="${sessionScope.language != 'en'}">
 		                    <tr>
 		                        <td><b>${originName}</b></td>
 		                        <td>${film.name}</td>
 		                    </tr>
 	                      
-	                    </c:if>
+	                    </c:if> --%>
 	                    
 	                      <tr>
 	                        <td><b>${year}</b></td>
@@ -146,7 +146,7 @@
 	                    <c:if test="${film.country != null}">
 	                      <tr>
 	                        <td><b>${country}</b></td>
-	                        <td>${film.country}</td>
+	                        <td>${film.country.replace(",", ", ")}</td>
 	                      </tr>
 	                    </c:if>
 	                      <tr>
@@ -169,7 +169,7 @@
 	                       <c:if test="${film.genre != null}">
 		                      <tr>
 		                        <td><b>${genre}</b></td>
-		                        <td>${film.genre}</td>
+		                        <td>${film.genre.replace(",", ", ")}</td>
 		                      </tr>
 	                      </c:if>
 	                      <tr>
