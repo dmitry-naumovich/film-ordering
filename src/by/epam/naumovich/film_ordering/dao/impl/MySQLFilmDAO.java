@@ -27,27 +27,25 @@ public class MySQLFilmDAO implements IFilmDAO {
 	public static final String DELETE_FILM = "DELETE FROM Films WHERE f_id = ?";
 	public static final String UPDATE_FILM_BY_ID = "UPDATE Films SET f_name = ?, f_year = ?, f_direct = ?, f_country = ?, f_genre = ?, f_actors = ?, f_composer = ?, f_description = ?, f_length = ?, f_price = ? WHERE f_id = ?";
 	
-	public static final String SELECT_FILM_BY_ID = "SELECT * FROM Films WHERE f_id = ?";
-	public static final String SELECT_FILM_NAME_BY_ID = "SELECT f_name FROM Films WHERE f_id = ?";
+	public static final String SELECT_FILM_BY_ID = "SELECT f.f_id, COALESCE(lf.loc_name, f.f_name) AS fname, f.f_year as year, COALESCE(lf.loc_direct, f.f_direct) AS director, COALESCE(lf.loc_country, f.f_country) AS country, COALESCE(lf.loc_genre, f.f_genre) AS genre, COALESCE(lf.loc_actors, f.f_actors) AS actors, COALESCE(lf.loc_composer, f.f_composer) AS composer, COALESCE(lf.loc_description, f.f_description) AS description, f.f_length, f.f_rating, f.f_price FROM Films AS f LEFT JOIN (SELECT * FROM Films_local WHERE loc_lang = ?) AS lf ON f.f_id = lf.loc_id	WHERE f.f_id = ?";
+	public static final String SELECT_FILM_NAME_BY_ID = "SELECT COALESCE(lf.loc_name, f.f_name) FROM Films AS f LEFT JOIN (SELECT * FROM Films_local WHERE loc_lang = ?) AS lf ON f.f_id = lf.loc_id WHERE f.f_id = ?";
 	public static final String SELECT_NEW_FILM_ID = "SELECT f_id FROM Films WHERE f_name = ? AND f_year = ? AND f_direct = ? AND f_length = ?";
 	
-	public static final String SELECT_TWELVE_LAST_ADDED_FILMS = "SELECT * FROM Films ORDER BY f_id DESC LIMIT 12";
-	public static final String SELECT_ALL_FILMS = "SELECT * FROM Films ORDER BY f_rating DESC";
+	public static final String SELECT_ALL_FILMS_ORDERED_BY_RATING = "SELECT f.f_id, COALESCE(lf.loc_name, f.f_name) AS fname, f.f_year as year, COALESCE(lf.loc_direct, f.f_direct) AS director, COALESCE(lf.loc_country, f.f_country) AS country, COALESCE(lf.loc_genre, f.f_genre) AS genre, COALESCE(lf.loc_actors, f.f_actors) AS actors, COALESCE(lf.loc_composer, f.f_composer) AS composer, COALESCE(lf.loc_description, f.f_description) AS description, f.f_length, f.f_rating AS rating, f.f_price FROM Films AS f LEFT JOIN (SELECT * FROM Films_local WHERE loc_lang = ?) AS lf ON f.f_id = lf.loc_id ORDER BY rating DESC";
+	public static final String SELECT_TWELVE_LAST_ADDED_FILMS = "SELECT f.f_id, COALESCE(lf.loc_name, f.f_name) AS fname, f.f_year as year, COALESCE(lf.loc_direct, f.f_direct) AS director, COALESCE(lf.loc_country, f.f_country) AS country, COALESCE(lf.loc_genre, f.f_genre) AS genre, COALESCE(lf.loc_actors, f.f_actors) AS actors, COALESCE(lf.loc_composer, f.f_composer) AS composer, COALESCE(lf.loc_description, f.f_description) AS description, f.f_length, f.f_rating AS rating, f.f_price FROM Films AS f LEFT JOIN (SELECT * FROM Films_local WHERE loc_lang = ?) AS lf ON f.f_id = lf.loc_id ORDER BY f.f_id DESC LIMIT 12";
 	
-	public static final String SELECT_FILMS_BY_NAME = "SELECT * FROM Films WHERE f_name = ?";
-	public static final String SELECT_FILMS_BY_YEAR = "SELECT * FROM Films WHERE f_year = ?";
-	public static final String SELECT_FILMS_BY_GENRE = "SELECT * FROM Films WHERE FIND_IN_SET(?, f_genre) > 0";
-	public static final String SELECT_FILMS_BY_COUNTRY = "SELECT * FROM Films WHERE FIND_IN_SET(?, f_country) > 0";
+	public static final String SELECT_FILMS_BY_NAME = "SELECT f.f_id, COALESCE(lf.loc_name, f.f_name) AS fname, f.f_year as year, COALESCE(lf.loc_direct, f.f_direct) AS director, COALESCE(lf.loc_country, f.f_country) AS country, COALESCE(lf.loc_genre, f.f_genre) AS genre, COALESCE(lf.loc_actors, f.f_actors) AS actors, COALESCE(lf.loc_composer, f.f_composer) AS composer, COALESCE(lf.loc_description, f.f_description) AS description, f.f_length, f.f_rating AS rating, f.f_price FROM Films AS f LEFT JOIN (SELECT * FROM Films_local WHERE loc_lang = ?) AS lf ON f.f_id = lf.loc_id WHERE f.f_name = ? OR lf.loc_name = ?";
+	public static final String SELECT_FILMS_BY_YEAR = "SELECT f.f_id, COALESCE(lf.loc_name, f.f_name) AS fname, f.f_year as year, COALESCE(lf.loc_direct, f.f_direct) AS director, COALESCE(lf.loc_country, f.f_country) AS country, COALESCE(lf.loc_genre, f.f_genre) AS genre, COALESCE(lf.loc_actors, f.f_actors) AS actors, COALESCE(lf.loc_composer, f.f_composer) AS composer, COALESCE(lf.loc_description, f.f_description) AS description, f.f_length, f.f_rating AS rating, f.f_price FROM Films AS f LEFT JOIN (SELECT * FROM Films_local WHERE loc_lang = ?) AS lf ON f.f_id = lf.loc_id WHERE f.f_year = ?";
 	
-	public static final String SELECT_FILMS_BY_NAME_YEAR = "SELECT * FROM Films WHERE f_name = ? AND f_year = ?";
-	public static final String SELECT_FILMS_BY_NAME_GENRE = "SELECT * FROM Films WHERE f_name = ? AND FIND_IN_SET(?, f_genre) > 0";
-	public static final String SELECT_FILMS_BY_YEAR_GENRE = "SELECT * FROM Films WHERE f_year = ? AND FIND_IN_SET(?, f_genre) > 0";
+	public static final String SELECT_FILMS_BY_GENRE = "SELECT f.f_id, COALESCE(lf.loc_name, f.f_name) AS fname, f.f_year as year, COALESCE(lf.loc_direct, f.f_direct) AS director, COALESCE(lf.loc_country, f.f_country) AS country, COALESCE(lf.loc_genre, f.f_genre) AS genre, COALESCE(lf.loc_actors, f.f_actors) AS actors, COALESCE(lf.loc_composer, f.f_composer) AS composer, COALESCE(lf.loc_description, f.f_description) AS description, f.f_length, f.f_rating AS rating, f.f_price FROM Films AS f LEFT JOIN (SELECT * FROM Films_local WHERE loc_lang = ?) AS lf ON f.f_id = lf.loc_id WHERE FIND_IN_SET(?, f.f_genre) > 0 OR FIND_IN_SET(?, lf.loc_genre) > 0";
+	public static final String SELECT_FILMS_BY_COUNTRY = "SELECT f.f_id, COALESCE(lf.loc_name, f.f_name) AS fname, f.f_year as year, COALESCE(lf.loc_direct, f.f_direct) AS director, COALESCE(lf.loc_country, f.f_country) AS country, COALESCE(lf.loc_genre, f.f_genre) AS genre, COALESCE(lf.loc_actors, f.f_actors) AS actors, COALESCE(lf.loc_composer, f.f_composer) AS composer, COALESCE(lf.loc_description, f.f_description) AS description, f.f_length, f.f_rating AS rating, f.f_price FROM Films AS f LEFT JOIN (SELECT * FROM Films_local WHERE loc_lang = ?) AS lf ON f.f_id = lf.loc_id WHERE FIND_IN_SET(?, f.f_country) > 0 OR FIND_IN_SET(?, lf.loc_country) > 0";
+	public static final String SELECT_FILMS_BETWEEN_YEARS = "SELECT f.f_id, COALESCE(lf.loc_name, f.f_name) AS fname, f.f_year as year, COALESCE(lf.loc_direct, f.f_direct) AS director, COALESCE(lf.loc_country, f.f_country) AS country, COALESCE(lf.loc_genre, f.f_genre) AS genre, COALESCE(lf.loc_actors, f.f_actors) AS actors, COALESCE(lf.loc_composer, f.f_composer) AS composer, COALESCE(lf.loc_description, f.f_description) AS description, f.f_length, f.f_rating AS rating, f.f_price FROM Films AS f LEFT JOIN (SELECT * FROM Films_local WHERE loc_lang = ?) AS lf ON f.f_id = lf.loc_id WHERE f.f_year >= ? AND f.f_year <= ?";
+		
+	public static final String SHOW_ALL_GENRES_EN = "SHOW COLUMNS FROM Films LIKE 'f_genre'";
+	public static final String SHOW_ALL_COUNTRIES_EN = "SHOW COLUMNS FROM Films LIKE 'f_country'";
 	
-	public static final String SELECT_FILMS_BY_NAME_YEAR_GENRE = "SELECT * FROM Films WHERE f_name = ? AND f_year = ? AND FIND_IN_SET(?, f_genre) > 0";
-	public static final String SELECT_FILMS_BETWEEN_YEARS = "SELECT * FROM Films WHERE f_year >= ? AND f_year <= ?";
-	
-	public static final String SHOW_ALL_GENRES = "SHOW COLUMNS FROM films LIKE 'f_genre'";
-	public static final String SHOW_ALL_COUNTRIES = "SHOW COLUMNS FROM films LIKE 'f_country'";
+	public static final String SHOW_ALL_GENRES_RU = "SHOW COLUMNS FROM Films_local LIKE 'loc_genre'";
+	public static final String SHOW_ALL_COUNTRIES_RU = "SHOW COLUMNS FROM Films_local LIKE 'loc_country'";
 	
 	/**
 	 * Singleton MySQLFilmDAO instance
@@ -241,7 +239,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 	}
 
 	@Override
-	public Set<Film> getAllFilms() throws DAOException {
+	public Set<Film> getAllFilms(String lang) throws DAOException {
 		Set<Film> filmSet = new LinkedHashSet<Film>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
@@ -250,7 +248,8 @@ public class MySQLFilmDAO implements IFilmDAO {
 		try {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
-			st = con.prepareStatement(SELECT_ALL_FILMS);
+			st = con.prepareStatement(SELECT_ALL_FILMS_ORDERED_BY_RATING);
+			st.setString(1, lang);
 			rs = st.executeQuery();
 			
 			while (rs.next()) {
@@ -289,7 +288,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 	}
 	
 	@Override
-	public Film getFilmByID(int id) throws DAOException {
+	public Film getFilmByID(int id, String lang) throws DAOException {
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -298,7 +297,8 @@ public class MySQLFilmDAO implements IFilmDAO {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_FILM_BY_ID);
-			st.setInt(1, id);
+			st.setString(1, lang);
+			st.setInt(2, id);
 			rs = st.executeQuery();
 			
 			if (rs.next()) {
@@ -337,7 +337,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 	}
 	
 	@Override
-	public String getFilmNameByID(int id) throws DAOException {
+	public String getFilmNameByID(int id, String lang) throws DAOException {
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -346,7 +346,8 @@ public class MySQLFilmDAO implements IFilmDAO {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_FILM_NAME_BY_ID);
-			st.setInt(1, id);
+			st.setString(1, lang);
+			st.setInt(2, id);
 			rs = st.executeQuery();
 			
 			if (rs.next()) {
@@ -371,7 +372,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 	}
 
 	@Override
-	public Set<Film> getFilmsByName(String name) throws DAOException {
+	public Set<Film> getFilmsByName(String name, String lang) throws DAOException {
 		Set<Film> filmSet = new LinkedHashSet<Film>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
@@ -381,7 +382,9 @@ public class MySQLFilmDAO implements IFilmDAO {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_FILMS_BY_NAME);
-			st.setString(1, name);
+			st.setString(1, lang);
+			st.setString(2, name);
+			st.setString(3, name);
 			rs = st.executeQuery();
 			
 			while (rs.next()) {
@@ -421,7 +424,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 
 
 	@Override
-	public Set<Film> getFilmsByYear(int year) throws DAOException {
+	public Set<Film> getFilmsByYear(int year, String lang) throws DAOException {
 		Set<Film> filmSet = new LinkedHashSet<Film>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
@@ -431,7 +434,8 @@ public class MySQLFilmDAO implements IFilmDAO {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_FILMS_BY_YEAR);
-			st.setInt(1, year);
+			st.setString(1, lang);
+			st.setInt(2, year);
 			rs = st.executeQuery();
 			
 			while (rs.next()) {
@@ -470,7 +474,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 	}
 
 	@Override
-	public Set<Film> getFilmsByGenre(String genre) throws DAOException {
+	public Set<Film> getFilmsByGenre(String genre, String lang) throws DAOException {
 		Set<Film> filmSet = new LinkedHashSet<Film>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
@@ -480,7 +484,9 @@ public class MySQLFilmDAO implements IFilmDAO {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_FILMS_BY_GENRE);
-			st.setString(1, genre);
+			st.setString(1, lang);
+			st.setString(2, genre);
+			st.setString(3, genre);
 			rs = st.executeQuery();
 			
 			while (rs.next()) {
@@ -519,7 +525,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 	}
 	
 	@Override
-	public Set<Film> getFilmsByCountry(String country) throws DAOException {
+	public Set<Film> getFilmsByCountry(String country, String lang) throws DAOException {
 		Set<Film> filmSet = new LinkedHashSet<Film>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
@@ -529,107 +535,9 @@ public class MySQLFilmDAO implements IFilmDAO {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_FILMS_BY_COUNTRY);
-			st.setString(1, country);
-			rs = st.executeQuery();
-			
-			while (rs.next()) {
-				Film film = new Film();
-				film.setId(rs.getInt(1));
-				film.setName(rs.getString(2));
-				film.setYear(rs.getInt(3));
-				film.setDirector(rs.getString(4));
-				film.setCountry(rs.getString(5));
-				film.setGenre(rs.getString(6));
-				film.setActors(rs.getString(7));
-				film.setComposer(rs.getString(8));
-				film.setDescription(rs.getString(9));
-				film.setLength(rs.getInt(10));
-				film.setRating(rs.getFloat(11));
-				film.setPrice(rs.getFloat(12));
-				
-				filmSet.add(film);
-			}
-			
-		} catch (SQLException e) {
-			throw new DAOException(ExceptionMessages.SQL_SELECT_FAILURE, e);
-		} catch (ConnectionPoolException e) {
-			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
-		} finally {
-			try {
-				if (rs != null) { rs.close(); }
-				if (st != null) { st.close(); }
-			} catch (SQLException e) {
-				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED, e);
-			} finally {
-				if (con != null) { pool.closeConnection(con); }
-			}
-		}
-		return filmSet;
-	}
-
-
-	@Override
-	public Set<Film> getFilmsByYearGenre(int year, String genre) throws DAOException {
-		Set<Film> filmSet = new LinkedHashSet<Film>();
-		MySQLConnectionPool pool = null;
-		Connection con = null;
-		PreparedStatement st = null;
-		ResultSet rs = null;
-		try {
-			pool = MySQLConnectionPool.getInstance();
-			con = pool.getConnection();
-			st = con.prepareStatement(SELECT_FILMS_BY_YEAR_GENRE);
-			st.setInt(1, year);
-			st.setString(2, genre);
-			rs = st.executeQuery();
-			while (rs.next()) {
-				Film film = new Film();
-				film.setId(rs.getInt(1));
-				film.setName(rs.getString(2));
-				film.setYear(rs.getInt(3));
-				film.setDirector(rs.getString(4));
-				film.setCountry(rs.getString(5));
-				film.setGenre(rs.getString(6));
-				film.setActors(rs.getString(7));
-				film.setComposer(rs.getString(8));
-				film.setDescription(rs.getString(9));
-				film.setLength(rs.getInt(10));
-				film.setRating(rs.getFloat(11));
-				film.setPrice(rs.getFloat(12));
-				
-				filmSet.add(film);
-			}
-			
-		} catch (SQLException e) {
-			throw new DAOException(ExceptionMessages.SQL_SELECT_FAILURE, e);
-		} catch (ConnectionPoolException e) {
-			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
-		} finally {
-			try {
-				if (rs != null) { rs.close(); }
-				if (st != null) { st.close(); }
-			} catch (SQLException e) {
-				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED, e);
-			} finally {
-				if (con != null) { pool.closeConnection(con); }
-			}
-		}
-		return filmSet;
-	}
-
-	@Override
-	public Set<Film> getFilmsByNameYear(String name, int year) throws DAOException {
-		Set<Film> filmSet = new LinkedHashSet<Film>();
-		MySQLConnectionPool pool = null;
-		Connection con = null;
-		PreparedStatement st = null;
-		ResultSet rs = null;
-		try {
-			pool = MySQLConnectionPool.getInstance();
-			con = pool.getConnection();
-			st = con.prepareStatement(SELECT_FILMS_BY_NAME_YEAR);
-			st.setString(1, name);
-			st.setInt(2, year);
+			st.setString(1, lang);
+			st.setString(2, country);
+			st.setString(3, country);
 			rs = st.executeQuery();
 			
 			while (rs.next()) {
@@ -668,108 +576,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 	}
 
 	@Override
-	public Set<Film> getFilmsByNameGenre(String name, String genre) throws DAOException {
-		Set<Film> filmSet = new LinkedHashSet<Film>();
-		MySQLConnectionPool pool = null;
-		Connection con = null;
-		PreparedStatement st = null;
-		ResultSet rs = null;
-		try {
-			pool = MySQLConnectionPool.getInstance();
-			con = pool.getConnection();
-			st = con.prepareStatement(SELECT_FILMS_BY_NAME_GENRE);
-			st.setString(1, name);
-			st.setString(2, genre);
-			rs = st.executeQuery();
-			
-			while (rs.next()) {
-				Film film = new Film();
-				film.setId(rs.getInt(1));
-				film.setName(rs.getString(2));
-				film.setYear(rs.getInt(3));
-				film.setDirector(rs.getString(4));
-				film.setCountry(rs.getString(5));
-				film.setGenre(rs.getString(6));
-				film.setActors(rs.getString(7));
-				film.setComposer(rs.getString(8));
-				film.setDescription(rs.getString(9));
-				film.setLength(rs.getInt(10));
-				film.setRating(rs.getFloat(11));
-				film.setPrice(rs.getFloat(12));
-				
-				filmSet.add(film);
-			}
-			
-		} catch (SQLException e) {
-			throw new DAOException(ExceptionMessages.SQL_SELECT_FAILURE, e);
-		} catch (ConnectionPoolException e) {
-			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
-		} finally {
-			try {
-				if (rs != null) { rs.close(); }
-				if (st != null) { st.close(); }
-			} catch (SQLException e) {
-				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED, e);
-			} finally {
-				if (con != null) { pool.closeConnection(con); }
-			}
-		}
-		return filmSet;
-	}
-
-	@Override
-	public Set<Film> getFilmsByNameYearGenre(String name, int year, String genre) throws DAOException {
-		Set<Film> filmSet = new LinkedHashSet<Film>();
-		MySQLConnectionPool pool = null;
-		Connection con = null;
-		PreparedStatement st = null;
-		ResultSet rs = null;
-		try {
-			pool = MySQLConnectionPool.getInstance();
-			con = pool.getConnection();
-			st = con.prepareStatement(SELECT_FILMS_BY_NAME_YEAR_GENRE);
-			st.setString(1, name);
-			st.setInt(2, year);
-			st.setString(3, genre);
-			rs = st.executeQuery();
-			
-			while (rs.next()) {
-				Film film = new Film();
-				film.setId(rs.getInt(1));
-				film.setName(rs.getString(2));
-				film.setYear(rs.getInt(3));
-				film.setDirector(rs.getString(4));
-				film.setCountry(rs.getString(5));
-				film.setGenre(rs.getString(6));
-				film.setActors(rs.getString(7));
-				film.setComposer(rs.getString(8));
-				film.setDescription(rs.getString(9));
-				film.setLength(rs.getInt(10));
-				film.setRating(rs.getFloat(11));
-				film.setPrice(rs.getFloat(12));
-				
-				filmSet.add(film);
-			}
-			
-		} catch (SQLException e) {
-			throw new DAOException(ExceptionMessages.SQL_SELECT_FAILURE, e);
-		} catch (ConnectionPoolException e) {
-			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
-		} finally {
-			try {
-				if (rs != null) { rs.close(); }
-				if (st != null) { st.close(); }
-			} catch (SQLException e) {
-				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED, e);
-			} finally {
-				if (con != null) { pool.closeConnection(con); }
-			}
-		}
-		return filmSet;
-	}
-
-	@Override
-	public Set<Film> getTwelveLastAddedFilms() throws DAOException {
+	public Set<Film> getTwelveLastAddedFilms(String lang) throws DAOException {
 		Set<Film> filmSet = new LinkedHashSet<Film>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
@@ -779,6 +586,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_TWELVE_LAST_ADDED_FILMS);
+			st.setString(1, lang);
 			rs = st.executeQuery();
 			
 			while (rs.next()) {
@@ -817,7 +625,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 	}
 
 	@Override
-	public Set<Film> getFilmsBetweenYears(int yearFrom, int yearTo) throws DAOException {
+	public Set<Film> getFilmsBetweenYears(int yearFrom, int yearTo, String lang) throws DAOException {
 		Set<Film> filmSet = new LinkedHashSet<Film>();
 		MySQLConnectionPool pool = null;
 		Connection con = null;
@@ -827,8 +635,9 @@ public class MySQLFilmDAO implements IFilmDAO {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_FILMS_BETWEEN_YEARS);
-			st.setInt(1, yearFrom);
-			st.setInt(2, yearTo);
+			st.setString(1, lang);
+			st.setInt(2, yearFrom);
+			st.setInt(3, yearTo);
 			rs = st.executeQuery();
 			
 			while (rs.next()) {
@@ -867,7 +676,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 	}
 
 	@Override
-	public String[] getAvailableGenres() throws DAOException {
+	public String[] getAvailableGenres(String lang) throws DAOException {
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -875,7 +684,15 @@ public class MySQLFilmDAO implements IFilmDAO {
 		try {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
-			st = con.prepareStatement(SHOW_ALL_GENRES);
+			switch (lang) {
+				case "ru":
+					st = con.prepareStatement(SHOW_ALL_GENRES_RU);
+					break;
+				default:
+					st = con.prepareStatement(SHOW_ALL_GENRES_EN);
+					break;
+			}
+			
 			rs = st.executeQuery();
 			if (rs.next()) {
 				String s = rs.getString(2);
@@ -901,7 +718,7 @@ public class MySQLFilmDAO implements IFilmDAO {
 	}
 
 	@Override
-	public String[] getAvailableCountries() throws DAOException {
+	public String[] getAvailableCountries(String lang) throws DAOException {
 		MySQLConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -909,7 +726,13 @@ public class MySQLFilmDAO implements IFilmDAO {
 		try {
 			pool = MySQLConnectionPool.getInstance();
 			con = pool.getConnection();
-			st = con.prepareStatement(SHOW_ALL_COUNTRIES);
+			switch (lang) {
+			case "ru":
+				st = con.prepareStatement(SHOW_ALL_COUNTRIES_RU);
+				break;
+			default:
+				st = con.prepareStatement(SHOW_ALL_COUNTRIES_EN);
+			}
 			rs = st.executeQuery();
 			if (rs.next()) {
 				String s = rs.getString(2);

@@ -46,6 +46,7 @@ public class SearchFilmsWidened implements Command {
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
+		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
 		String name = request.getParameter(RequestAndSessionAttributes.NAME);
 		String yearFrom = request.getParameter(RequestAndSessionAttributes.YEAR_FROM);
 		String yearTo = request.getParameter(RequestAndSessionAttributes.YEAR_TO);
@@ -54,7 +55,7 @@ public class SearchFilmsWidened implements Command {
 		
 		try {
 			IFilmService filmService = ServiceFactory.getInstance().getFilmService();
-			Set<Film> foundFilms = filmService.searchWidened(name, yearFrom, yearTo, genres, countries);
+			Set<Film> foundFilms = filmService.searchWidened(name, yearFrom, yearTo, genres, countries, lang);
 			request.setAttribute(RequestAndSessionAttributes.SUCCESS_MESSAGE, SuccessMessages.FILMS_FOUND);
 			request.setAttribute(RequestAndSessionAttributes.FILMS, foundFilms);
 			if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) != null) {

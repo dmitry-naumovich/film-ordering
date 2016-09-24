@@ -37,7 +37,7 @@ public class OpenNewFilmPage implements Command {
 		String query = QueryUtil.createHttpQueryString(request);
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
-		
+		String lang = "en";
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.ADD_FILM_RESTRICTION);
 			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
@@ -49,8 +49,8 @@ public class OpenNewFilmPage implements Command {
 		else {
 			try {
 				IFilmService filmService = ServiceFactory.getInstance().getFilmService();
-				String[] genres = filmService.getAvailableGenres();
-				String[] countries = filmService.getAvailableCountries();
+				String[] genres = filmService.getAvailableGenres(lang);
+				String[] countries = filmService.getAvailableCountries(lang);
 				request.setAttribute(RequestAndSessionAttributes.AVAILABLE_GENRES, genres);
 				request.setAttribute(RequestAndSessionAttributes.AVAILABLE_COUNTRIES, countries);
 				request.getRequestDispatcher(JavaServerPageNames.FILM_ADDING_PAGE).forward(request, response);

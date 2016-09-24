@@ -45,11 +45,12 @@ public class OpenAllFilms implements Command {
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
+		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
 		try {
 			IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 			IOrderService orderService = ServiceFactory.getInstance().getOrderService();
 			
-			Set<Film> films = filmService.getAllFilms();
+			Set<Film> films = filmService.getAllFilms(lang);
 			request.setAttribute(RequestAndSessionAttributes.FILMS, films);
 			
 			if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) != null) {

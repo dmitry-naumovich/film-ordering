@@ -46,6 +46,7 @@ public class OpenUserReviews implements Command {
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
+		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
 		if (request.getParameter(RequestAndSessionAttributes.USER_ID).equals(RequestAndSessionAttributes.EMPTY_STRING)) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.SIGN_IN_FOR_YOUR_REVIEWS);
 			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
@@ -65,7 +66,7 @@ public class OpenUserReviews implements Command {
 				
 				List<String> reviewFilmNames = new ArrayList<String>();
 				for (Review r : reviews) {
-					reviewFilmNames.add(filmService.getFilmNameByID(r.getFilmId()));
+					reviewFilmNames.add(filmService.getFilmNameByID(r.getFilmId(), lang));
 				}
 				
 				request.setAttribute(RequestAndSessionAttributes.REVIEWS, reviews);

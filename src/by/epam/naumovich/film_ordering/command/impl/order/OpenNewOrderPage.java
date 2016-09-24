@@ -46,7 +46,7 @@ public class OpenNewOrderPage implements Command {
 		String query = QueryUtil.createHttpQueryString(request);
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
-		
+		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
 		int filmID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));
 		
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
@@ -85,7 +85,7 @@ public class OpenNewOrderPage implements Command {
 					IFilmService filmService = sFactory.getFilmService();
 					IUserService userService = sFactory.getUserService();
 					
-					Film film = filmService.getFilmByID(filmID);
+					Film film = filmService.getFilmByID(filmID, lang);
 					int discount = 0;
 					try {
 						discount = userService.getCurrentUserDiscountByID(userID).getAmount();

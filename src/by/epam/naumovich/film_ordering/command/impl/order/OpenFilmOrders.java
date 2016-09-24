@@ -47,6 +47,7 @@ public class OpenFilmOrders implements Command {
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
+		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
 		int filmID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));
 		
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
@@ -74,7 +75,7 @@ public class OpenFilmOrders implements Command {
 					String userLogin = userService.getLoginByID(o.getUserId());
 					userLogins.add(userLogin);
 				}
-				String filmName = filmService.getFilmNameByID(filmID);
+				String filmName = filmService.getFilmNameByID(filmID, lang);
 				
 				request.setAttribute(RequestAndSessionAttributes.ORDERS, orders);
 				request.setAttribute(RequestAndSessionAttributes.FILM_NAME, filmName);

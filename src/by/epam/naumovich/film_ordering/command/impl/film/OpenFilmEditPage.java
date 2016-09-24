@@ -38,7 +38,7 @@ public class OpenFilmEditPage implements Command {
 		String query = QueryUtil.createHttpQueryString(request);
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
-		
+		String lang = "en";
 		int filmID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null |
 				!Boolean.parseBoolean(session.getAttribute(RequestAndSessionAttributes.IS_ADMIN).toString())) {
@@ -48,9 +48,9 @@ public class OpenFilmEditPage implements Command {
 		else {
 			try {
 				IFilmService filmService = ServiceFactory.getInstance().getFilmService();
-				Film film = filmService.getFilmByID(filmID);
-				String[] genres = filmService.getAvailableGenres();
-				String[] countries = filmService.getAvailableCountries();
+				Film film = filmService.getFilmByID(filmID, lang);
+				String[] genres = filmService.getAvailableGenres(lang);
+				String[] countries = filmService.getAvailableCountries(lang);
 				
 				request.setAttribute(RequestAndSessionAttributes.AVAILABLE_GENRES, genres);
 				request.setAttribute(RequestAndSessionAttributes.AVAILABLE_COUNTRIES, countries);

@@ -36,10 +36,11 @@ public class OpenWidenedSearchPage implements Command {
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
+		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
 		try {
 			IFilmService filmService = ServiceFactory.getInstance().getFilmService();
-			String[] genres = filmService.getAvailableGenres();
-			String[] countries = filmService.getAvailableCountries();
+			String[] genres = filmService.getAvailableGenres(lang);
+			String[] countries = filmService.getAvailableCountries(lang);
 			request.setAttribute(RequestAndSessionAttributes.AVAILABLE_GENRES, genres);
 			request.setAttribute(RequestAndSessionAttributes.AVAILABLE_COUNTRIES, countries);
 			request.getRequestDispatcher(JavaServerPageNames.WIDEN_SEARCH_PAGE).forward(request, response);

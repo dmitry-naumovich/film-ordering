@@ -12,12 +12,19 @@ import by.epam.naumovich.film_ordering.service.exception.film.GetFilmServiceExce
 /**
  * Tests service layer methods overridden in FilmServiceImpl class in a way of passing invalid parameters into service methods
  * and expecting exceptions on the output with the help of JUnit 4 framework.
+ * Database localization functionality is not tested here, so default language is passed as an arguments to all methods where it is required.
  * 
  * @author Dmitry Naumovich
  * @version 1.0
  */
 public class FilmServiceImplTest {
 
+	/**
+	 * Language constant for passing to the service methods.
+	 * 
+	 */
+	private static final String EN_LANG = "en";
+	
 	/**
 	 * Tries to add new film with invalid length value and expects for the exception.
 	 * 
@@ -82,7 +89,7 @@ public class FilmServiceImplTest {
 	@Test(expected=GetFilmServiceException.class)
 	public void getFilmByID() throws ServiceException {
 		IFilmService service = ServiceFactory.getInstance().getFilmService();
-		service.getFilmByID(-1);
+		service.getFilmByID(-1, EN_LANG);
 	}
 	
 	/**
@@ -93,7 +100,7 @@ public class FilmServiceImplTest {
 	@Test(expected=ServiceException.class)
 	public void getFilmNameByID() throws ServiceException {
 		IFilmService service = ServiceFactory.getInstance().getFilmService();
-		service.getFilmNameByID(0);
+		service.getFilmNameByID(0, EN_LANG);
 	}
 	
 	/**
@@ -104,7 +111,7 @@ public class FilmServiceImplTest {
 	@Test(expected=GetFilmServiceException.class)
 	public void searchByNullName() throws ServiceException {
 		IFilmService service = ServiceFactory.getInstance().getFilmService();
-		service.searchByName(null);
+		service.searchByName(null, EN_LANG);
 	}
 	
 	/**
@@ -115,7 +122,7 @@ public class FilmServiceImplTest {
 	@Test(expected=GetFilmServiceException.class)
 	public void searchBySenselessName() throws ServiceException {
 		IFilmService service = ServiceFactory.getInstance().getFilmService();
-		service.searchByName("adasdasd;lfsdfmw;lefw;emfw;;");
+		service.searchByName("adasdasd;lfsdfmw;lefw;emfw;;", EN_LANG);
 	}
 	
 	/**
@@ -126,6 +133,6 @@ public class FilmServiceImplTest {
 	@Test(expected=GetFilmServiceException.class)
 	public void searchWidened() throws ServiceException {
 		IFilmService service = ServiceFactory.getInstance().getFilmService();
-		service.searchWidened("The", "1600", "1700", null, null);
+		service.searchWidened("The", "1600", "1700", null, null, EN_LANG);
 	}
 }

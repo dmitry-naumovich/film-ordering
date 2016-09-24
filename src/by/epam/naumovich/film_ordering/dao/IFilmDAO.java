@@ -46,133 +46,102 @@ public interface IFilmDAO {
 	 * @return found film or null if it was not found
 	 * @throws DAOException
 	 */
-	Film getFilmByID(int id) throws DAOException;
+	Film getFilmByID(int id, String lang) throws DAOException;
 	
 	/**
 	 * Returns film name by its ID
 	 * 
 	 * @param id ID of a film
+	 * @param lang language of the source data to be returned
 	 * @return the name of the film or null if it was not found
 	 * @throws DAOException
 	 */
-	String getFilmNameByID(int id) throws DAOException;
+	String getFilmNameByID(int id, String lang) throws DAOException;
 	
 	/**
 	 * Returns twelve last added to the data source films
 	 * 
+	 * @param lang language of the source data to be returned
 	 * @return a set of films
 	 * @throws DAOException
 	 */
-	Set<Film> getTwelveLastAddedFilms() throws DAOException;
+	Set<Film> getTwelveLastAddedFilms(String lang) throws DAOException;
 	
 	/**
 	 * Returns all films that a present in the data source
 	 * 
+	 * @param lang language of the source data to be returned
 	 * @return a set of all films
 	 * @throws DAOException
 	 */
-	Set<Film> getAllFilms() throws DAOException;
+	Set<Film> getAllFilms(String lang) throws DAOException;
 	
 	/**
 	 * Searches for films in the data source by name 
 	 * 
 	 * @param name film name
+	 * @param lang language of the source data to be returned
 	 * @return a set of found films
 	 * @throws DAOException
 	 */
-	Set<Film> getFilmsByName(String name) throws DAOException;
+	Set<Film> getFilmsByName(String name, String lang) throws DAOException;
 	
 	/**
 	 * Searches for films in the data source by year
 	 * 
 	 * @param year film year
+	 * @param lang language of the source data to be returned
 	 * @return a set of found films
 	 * @throws DAOException
 	 */
-	Set<Film> getFilmsByYear(int year) throws DAOException;
+	Set<Film> getFilmsByYear(int year, String lang) throws DAOException;
 	
 	/**
 	 * Searches for films in the data source by genre
 	 * 
 	 * @param genre film genre
+	 * @param lang language of the source data to be returned
 	 * @return a set of found films
 	 * @throws DAOException
 	 */
-	Set<Film> getFilmsByGenre(String genre) throws DAOException;
+	Set<Film> getFilmsByGenre(String genre, String lang) throws DAOException;
 	
 	/**
 	 * Searches for films in the data source by country
 	 * 
 	 * @param country film country
+	 * @param lang language of the source data to be returned
 	 * @return a set of found films
 	 * @throws DAOException
 	 */
-	Set<Film> getFilmsByCountry(String country) throws DAOException;
+	Set<Film> getFilmsByCountry(String country, String lang) throws DAOException;
 	
 	/**
 	 * Searches for films in the data source by year range
 	 * 
 	 * @param yearFrom left border of the range (including)
 	 * @param yearTo right border of the range (including)
+	 * @param lang language of the source data to be returned
 	 * @return a set of found films
 	 * @throws DAOException
 	 */
-	Set<Film> getFilmsBetweenYears(int yearFrom, int yearTo) throws DAOException;
-	
-	/**
-	 * Searches for films in the data source by name and year
-	 * 
-	 * @param name film name
-	 * @param year film year
-	 * @return a set of found films
-	 * @throws DAOException
-	 */
-	Set<Film> getFilmsByNameYear(String name, int year) throws DAOException;
-	
-	/**
-	 * Searches for films in the data source by name and genre
-	 * 
-	 * @param name film name
-	 * @param genre film genre
-	 * @return a set of found films
-	 * @throws DAOException
-	 */
-	Set<Film> getFilmsByNameGenre(String name, String genre) throws DAOException;
-	
-	/**
-	 * Searches for films in the data source by year and genre
-	 * 
-	 * @param year film year
-	 * @param genre film genre
-	 * @return a set of found films
-	 * @throws DAOException
-	 */
-	Set<Film> getFilmsByYearGenre(int year, String genre) throws DAOException;
-	
-	/**
-	 * Searches for films in the data source by name, year and genre
-	 * 
-	 * @param name film name
-	 * @param year film year
-	 * @param genre film genre
-	 * @return a set of found films
-	 * @throws DAOException
-	 */
-	Set<Film> getFilmsByNameYearGenre(String name, int year, String genre) throws DAOException;
+	Set<Film> getFilmsBetweenYears(int yearFrom, int yearTo, String lang) throws DAOException;
 	
 	/**
 	 * Returns all film genres that are present in the data source
 	 * 
 	 * @return an array of available genres
+	 * @param lang language of the source data to be returned
 	 * @throws DAOException
 	 */
-	String[] getAvailableGenres() throws DAOException;
+	String[] getAvailableGenres(String lang) throws DAOException;
 	
 	/**
 	 * Returns all film countries that are present in the data source
 	 * 
 	 * @return an array of available countries
+	 * @param lang language of the source data to be returned
 	 * @throws DAOException
 	 */
-	String[] getAvailableCountries() throws DAOException;
+	String[] getAvailableCountries(String lang) throws DAOException;
 }

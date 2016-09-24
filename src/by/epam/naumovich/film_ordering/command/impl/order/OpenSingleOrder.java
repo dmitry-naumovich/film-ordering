@@ -41,6 +41,7 @@ public class OpenSingleOrder implements Command {
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
+		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.SIGN_IN_FOR_SINGLE_ORDER);
 			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
@@ -52,7 +53,7 @@ public class OpenSingleOrder implements Command {
 				IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 				IUserService userService = ServiceFactory.getInstance().getUserService();
 				Order order = orderService.getOrderByOrderNum(orderNum);
-				String filmName = filmService.getFilmNameByID(order.getFilmId());
+				String filmName = filmService.getFilmNameByID(order.getFilmId(), lang);
 				String userLogin = userService.getLoginByID(order.getUserId());
 				
 				request.setAttribute(RequestAndSessionAttributes.ORDER, order);

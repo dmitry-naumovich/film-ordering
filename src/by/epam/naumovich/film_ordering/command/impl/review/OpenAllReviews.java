@@ -44,7 +44,7 @@ public class OpenAllReviews implements Command {
 		String query = QueryUtil.createHttpQueryString(request);
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
-		
+		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
 		try {
 			IReviewService reviewService = ServiceFactory.getInstance().getReviewService();
 			IFilmService filmService = ServiceFactory.getInstance().getFilmService();
@@ -60,7 +60,7 @@ public class OpenAllReviews implements Command {
 			List<String> reviewFilmNames = new ArrayList<String>();
 			for (Review r : reviews) {
 				reviewLogins.add(userService.getLoginByID(r.getAuthor()));
-				reviewFilmNames.add(filmService.getFilmByID(r.getFilmId()).getName());
+				reviewFilmNames.add(filmService.getFilmByID(r.getFilmId(), lang).getName());
 			}
 			
 			request.setAttribute(RequestAndSessionAttributes.REVIEWS, reviews);

@@ -71,43 +71,47 @@ public interface IFilmService {
 	 * @return found film entity
 	 * @throws ServiceException
 	 */
-	Film getFilmByID(int id) throws ServiceException;
+	Film getFilmByID(int id, String lang) throws ServiceException;
 	
 	/**
 	 * Verifies the input parameter and passes it to the DAO layer, receives the String name of the film back and passes it to the Controller
 	 * or throws an exception if it equals null
 	 * 
 	 * @param id film ID
+	 * @param lang language of the current user session
 	 * @return String object : film name
 	 * @throws ServiceException
 	 */
-	String getFilmNameByID(int id) throws ServiceException;
+	String getFilmNameByID(int id, String lang) throws ServiceException;
 	
 	/**
 	 * Receives a set of twelve last added films from the DAO layer and passes it back to the Controller layer or throws an exception if it is empty
 	 * 
+	 * @param lang language of the current user session
 	 * @return a set of films
 	 * @throws ServiceException
 	 */
-	Set<Film> getTwelveLastAddedFilms() throws ServiceException;
+	Set<Film> getTwelveLastAddedFilms(String lang) throws ServiceException;
 	
 	/**
 	 * Receives a set of all present films from the DAO layer and passes it back to the Controller layer or throws an exception if it is empty
 	 * 
+	 * @param lang language of the current user session
 	 * @return a set of films
 	 * @throws ServiceException
 	 */
-	Set<Film> getAllFilms() throws ServiceException;
+	Set<Film> getAllFilms(String lang) throws ServiceException;
 	
 	/**
 	 * Verifies input parameter and passes it to the DAO layer, received a set of found films back and returns it to the Controller layer
 	 * or throws an exception if it is empty
 	 * 
 	 * @param text the name of the film that user is searching for
+	 * @param lang language of the current user session
 	 * @return a set of found films
 	 * @throws ServiceException
 	 */
-	Set<Film> searchByName(String text) throws ServiceException;
+	Set<Film> searchByName(String text, String lang) throws ServiceException;
 	
 	/**
 	 * Performs the logic of searching films by several criteria, verifies input parameters and requests necessary sets of films from the DAO layer,
@@ -118,26 +122,27 @@ public interface IFilmService {
 	 * @param yearTo the right border of the year searching range
 	 * @param genres film genres array
 	 * @param countries film countries array
+	 * @param lang language of the current user session
 	 * @return a set of found films or throws an exception if it is empty
 	 * @throws ServiceException
 	 */
-	Set<Film> searchWidened(String name, String yearFrom, String yearTo, String[] genres, String[] countries) throws ServiceException;
+	Set<Film> searchWidened(String name, String yearFrom, String yearTo, String[] genres, String[] countries, String lang) throws ServiceException;
 	
 	/**
 	 * Receives the String array of all available genres from the DAO layer and passes them to the Controller layer
 	 * 
-	 * 
+	 * @param lang language of the current user session
 	 * @return String array of available film genres
 	 * @throws ServiceException if no genres found
 	 */
-	String[] getAvailableGenres() throws ServiceException;
+	String[] getAvailableGenres(String lang) throws ServiceException;
 
 	/**
 	 * Receives the String array of all available countries from the DAO layer and passes them to the Controller layer
 	 * 
-	 * 
+	 * @param lang language of the current user session
 	 * @return String array of available film countries
 	 * @throws ServiceException if no countries found
 	 */
-	String[] getAvailableCountries() throws ServiceException;
+	String[] getAvailableCountries(String lang) throws ServiceException;
 }

@@ -39,7 +39,7 @@ public class OpenSingleReview implements Command {
 		String query = QueryUtil.createHttpQueryString(request);
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
-		
+		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
 		int userID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.USER_ID));
 		int filmID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));
 		
@@ -51,7 +51,7 @@ public class OpenSingleReview implements Command {
 			String userLogin = userService.getLoginByID(userID);
 			
 			IFilmService filmService = ServiceFactory.getInstance().getFilmService();
-			String filmName = filmService.getFilmByID(filmID).getName();
+			String filmName = filmService.getFilmByID(filmID, lang).getName();
 			
 			request.setAttribute(RequestAndSessionAttributes.REVIEW, rev);
 			request.setAttribute(RequestAndSessionAttributes.LOGIN, userLogin);

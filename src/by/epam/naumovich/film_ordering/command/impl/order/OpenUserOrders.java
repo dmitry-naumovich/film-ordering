@@ -47,6 +47,7 @@ public class OpenUserOrders implements Command {
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
+		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
 			if (request.getParameter(RequestAndSessionAttributes.USER_ID).isEmpty() || request.getParameter(RequestAndSessionAttributes.USER_ID) == null) {
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.SIGN_IN_FOR_YOUR_ORDERS);
@@ -75,7 +76,7 @@ public class OpenUserOrders implements Command {
 				
 				List<String> filmNames = new ArrayList<String>();
 				for (Order o : orders) {
-					String filmName = filmService.getFilmNameByID(o.getFilmId());
+					String filmName = filmService.getFilmNameByID(o.getFilmId(), lang);
 					filmNames.add(filmName);
 				}
 				String userLogin = userService.getLoginByID(userID);

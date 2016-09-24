@@ -47,6 +47,7 @@ public class OpenAllOrders implements Command {
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
+		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.OPEN_ALL_ORDERS_RESTRICTION);
 			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
@@ -69,7 +70,7 @@ public class OpenAllOrders implements Command {
 				List<String> filmNames = new ArrayList<String>();
 				List<String> userLogins = new ArrayList<String>();
 				for (Order o : orders) {
-					String filmName = filmService.getFilmNameByID(o.getFilmId());
+					String filmName = filmService.getFilmNameByID(o.getFilmId(), lang);
 					filmNames.add(filmName);
 					
 					String userLogin = userService.getLoginByID(o.getUserId());

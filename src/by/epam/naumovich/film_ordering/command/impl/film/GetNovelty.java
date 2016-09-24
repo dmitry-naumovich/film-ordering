@@ -45,11 +45,12 @@ public class GetNovelty implements Command {
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
+		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
 		try {
 			IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 			IOrderService orderService = ServiceFactory.getInstance().getOrderService();
 			
-			Set<Film> filmSet = filmService.getTwelveLastAddedFilms();
+			Set<Film> filmSet = filmService.getTwelveLastAddedFilms(lang);
 			request.setAttribute(RequestAndSessionAttributes.NOVELTY_LIST, filmSet);
 			
 			if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) != null) {

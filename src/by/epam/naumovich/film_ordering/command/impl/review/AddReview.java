@@ -62,9 +62,6 @@ public class AddReview implements Command {
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
 				request.getRequestDispatcher(JavaServerPageNames.ERROR_PAGE).forward(request, response);
 			}
-			
-			
 		}
 	}
-
 }

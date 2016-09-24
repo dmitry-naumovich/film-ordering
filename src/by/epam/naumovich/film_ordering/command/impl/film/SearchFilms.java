@@ -47,13 +47,14 @@ public class SearchFilms implements Command {
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
-		String text = request.getParameter(RequestAndSessionAttributes.SEARCH_TEXT);
+		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
+		String text = request.getParameter(RequestAndSessionAttributes.SEARCH_TEXT); 
 		if (text.length() == 0) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.NOTHING_FOUND);
 		} else {
 			try {
 				IFilmService filmService = ServiceFactory.getInstance().getFilmService();
-				Set<Film> foundFilms = filmService.searchByName(text);
+				Set<Film> foundFilms = filmService.searchByName(text, lang);
 				request.setAttribute(RequestAndSessionAttributes.SUCCESS_MESSAGE, SuccessMessages.FILMS_FOUND);
 				request.setAttribute(RequestAndSessionAttributes.FILMS, foundFilms);
 				

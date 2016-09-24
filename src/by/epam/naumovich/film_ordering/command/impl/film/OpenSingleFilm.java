@@ -47,6 +47,7 @@ public class OpenSingleFilm implements Command {
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
+		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
 		int filmID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));
 		try {
 			ServiceFactory sFactory = ServiceFactory.getInstance();
@@ -55,7 +56,7 @@ public class OpenSingleFilm implements Command {
 			IUserService userService = sFactory.getUserService();
 			IOrderService orderService = sFactory.getOrderService();
 			
-			Film film = filmService.getFilmByID(filmID);
+			Film film = filmService.getFilmByID(filmID, lang);
 			request.setAttribute(RequestAndSessionAttributes.FILM, film);
 			
 			Set<Review> reviews = reviewService.getReviewsByFilmId(filmID);

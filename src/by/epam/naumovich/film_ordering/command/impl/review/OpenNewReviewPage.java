@@ -41,7 +41,7 @@ public class OpenNewReviewPage implements Command {
 		String query = QueryUtil.createHttpQueryString(request);
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
-		
+		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.SIGN_IN_FOR_REVIEWING);
 			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
@@ -53,7 +53,7 @@ public class OpenNewReviewPage implements Command {
 			IReviewService reviewService = ServiceFactory.getInstance().getReviewService();
 			Film film = null;
 			try {
-				film = filmService.getFilmByID(filmID);
+				film = filmService.getFilmByID(filmID, lang);
 				reviewService.getReviewByUserAndFilmId(userID, filmID);
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.REVIEW_AMOUNT_RESTRICTION);
 				request.getRequestDispatcher("/Controller?command=open_single_review&userID=" + userID + "&filmID=" + filmID).forward(request, response);;
