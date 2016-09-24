@@ -36,7 +36,7 @@
     
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 
-      <div class="col-md-10 main content ">
+      <div class="col-md-10 col-sm-10 col-lg-10 col-xs-10 main content">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
           	<h2 class=" text-left"> ${pageHeader} </h2>

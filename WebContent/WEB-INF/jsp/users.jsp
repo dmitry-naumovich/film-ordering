@@ -10,7 +10,7 @@
 <fmt:message bundle="${loc}" key="local.users.pageTitle" var="pageTitle" />
 <fmt:message bundle="${loc}" key="local.users.pageHeader" var="pageHeader" />
 <fmt:message bundle="${loc}" key="local.profile.editProfile" var="editProfile" />
-<fmt:message bundle="${loc}" key="local.orders.userProfile" var="userProfile" />
+<fmt:message bundle="${loc}" key="local.leftMenu.profilePage" var="userProfile" />
 <fmt:message bundle="${loc}" key="local.profile.userReviews" var="userReviews" />
 <fmt:message bundle="${loc}" key="local.profile.userOrders" var="userOrders" />
 <fmt:message bundle="${loc}" key="local.profile.banUser" var="banUser" />
@@ -89,7 +89,7 @@
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 	  
 	  
-      <div class="col-md-8 main content ">
+      <div class="col-md-8 col-sm-8 col-lg-8 col-xs-8 main content">
         <div class="panel panel-primary container-fluid">
           <div class="panel-heading row" >
           		<h4 class="text-left">${pageHeader}</h4>
@@ -114,12 +114,14 @@
                     <div class="panel panel-default container-fluid">
                     <div class="row panel-body">
                         <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 text-center">
-                          <div class="col-md-4">
+                          <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                             <figure><img src="img/avatars/avatars${user.id}.gif" alt="No avatar" class="img-thumbnail img-responsive" width="150" height="150" onError="this.onerror=null;this.src='img/no-avatar.jpg';"/> </figure>
                           </div>
-                          <div class="col-md-8">
+                          <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8">
                           
                           <table class="table table-striped">
+                          <col width="40%">
+  						  <col width="60%">
                     <thead>
                       <tr>
                         <th>

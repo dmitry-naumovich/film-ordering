@@ -57,7 +57,7 @@
 	         		</c:otherwise>
 	          </c:choose>
               
-         <div class="col-md-8 main content ">     
+         <div class="col-md-8 col-sm-8 col-lg-8 col-xs-8 main content">   
           <div class="panel panel-default container-fluid">
               <div class="row panel-heading" style="background-color:${rColor}">
 	              <div class="col-md-6">

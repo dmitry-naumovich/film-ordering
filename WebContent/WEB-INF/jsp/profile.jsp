@@ -140,7 +140,7 @@
     <div class="row content ">
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
       
-      <div class="col-md-8 main content ">
+      <div class="col-md-8 col-sm-8 col-lg-8 col-xs-8 main content">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
           <h3 class=" text-left">${pageHeader}: ${user.login} </h3>

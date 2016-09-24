@@ -45,7 +45,7 @@
     
      <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 
-      <div class="col-md-8 main content " style="text-align:justify;">
+      <div class="col-md-8 col-sm-10 col-lg-8 col-xs-10 main content" style="text-align:justify;">
       			<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
 					<div class="alert alert-danger fade in">
 					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
@@ -68,7 +68,7 @@
 				<jsp:param name="command" value="get_novelty"/>
 			</jsp:include>
 				<c:forEach items="${requestScope.noveltyList}" var="film">
-		            <div class="col-sm-6 col-md-4 col-xs-12 col-lg-4" >
+		            <div class="col-sm-6 col-md-4 col-xs-12 col-lg-4" style="display:inline-block">
 		              <h2 style="text-align:center">${film.name} (${film.year}) </h2>
 		              <p><b>${director}:</b> ${film.director} </p>
 		              <c:choose>

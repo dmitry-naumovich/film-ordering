@@ -49,7 +49,7 @@
     
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 
-      <div class="col-md-8 main content ">
+      <div class="col-md-8 col-sm-8 col-lg-8 col-xs-8 main content">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
           <h2 class=" text-left">${mainHeader}</h2>
@@ -77,13 +77,15 @@
                         </div> 
                     <div class="row panel-body">
                         <div class="col-md-12">
-                          <div class="col-md-4">
+                          <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                               <figure>
-                                <img src="img/films/${film.id}/folder.jpg" alt="No avatar" class="img-thumbnail img-responsive center-block"  style="margin-top: 30px;" onError="this.onerror=null;this.src='img/no-img.jpg';"/> 
+                                <img src="img/films/${film.id}/folder.jpg" alt="No avatar" class="img-thumbnail img-responsive center-block" width="210" height="140" style="margin-top: 30px;" onError="this.onerror=null;this.src='img/no-img.jpg';"/> 
                               </figure>
                           </div>
-                          <div class="col-md-8">
+                          <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8">
                               <table class="table table-striped">
+                              	<col width="40%">
+  								<col width="60%">
                     			<thead>
                     				<br>
                       	<tr>
