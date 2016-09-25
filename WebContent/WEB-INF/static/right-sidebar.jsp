@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<div class="col-md-2 col-lg-2 col-xs-0 col-sm-0"> 
+<div class="col-md-2 col-lg-2"> 
       <div id="right-sidebar">
       	<jsp:include page="/Controller"> 
 				<jsp:param name="command" value="get_sidebar_news"/>

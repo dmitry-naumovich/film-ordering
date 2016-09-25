@@ -140,13 +140,13 @@
     <div class="row content ">
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
       
-      <div class="col-md-8 col-sm-8 col-lg-8 col-xs-8 main content">
+      <div class="col-md-8 col-sm-10 col-lg-8 col-xs-10 main content">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
           <h3 class=" text-left">${pageHeader}: ${user.login} </h3>
           </div> 
           <div class="row panel-body">
-            <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
             	<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
 					<div class="alert alert-danger fade in">
 					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>

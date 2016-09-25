@@ -84,13 +84,13 @@
     
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 	  <c:set var="film" value="${requestScope.film}" />
-       <div class="col-md-8 col-sm-8 col-lg-8 col-xs-8 main content">
+       <div class="col-md-8 col-sm-10 col-lg-8 col-xs-10 main content">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
           <h2 class=" text-left">${pageHeader} ${film.name}</h2>
           </div> 
           <div class="row panel-body">
-            <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
 				<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
 					<div class="alert alert-danger fade in">
 					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
@@ -106,8 +106,8 @@
   	</div>
   	
   <div class="form-group">
-      <label class="col-sm-2 control-label">${yourMark}</label>
-      <div class="col-sm-10">
+      <label class="col-md-2 col-sm-2 col-xs-2 col-lg-2 control-label">${yourMark}</label>
+      <div class="col-md-10 col-sm-10 col-xs-10 col-lg-10">
       <label class="radio-inline"><input type="radio" name="mark" value="1">1</label>
       <label class="radio-inline"><input type="radio" name="mark" value="2">2</label>
       <label class="radio-inline"><input type="radio" name="mark" value="3">3</label>
@@ -116,20 +116,20 @@
       </div>
     </div>
   <div class="form-group">
-      <label class="col-sm-2 control-label">${chooseType} </label>
-      <div class="col-sm-10">
+      <label class="col-md-2 col-sm-2 col-xs-2 col-lg-2 control-label">${chooseType} </label>
+      <div class="col-md-10 col-sm-10 col-xs-10 col-lg-10">
       <label class="radio-inline"><input type="radio" name="type" value="ps">${positive}</label>
       <label class="radio-inline"><input type="radio" name="type" value="nt">${neutral}</label>
       <label class="radio-inline"><input type="radio" name="type" value="ng">${negative}</label>
       </div>
     </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">${reviewText}</label>
-    <div class="col-sm-10"> 
+    <label class="col-md-2 col-sm-2 col-xs-2 col-lg-2 control-label">${reviewText}</label>
+    <div class="col-md-10 col-sm-10 col-xs-10 col-lg-10"> 
     	<textarea class="form-control" rows="10" name="reviewText" id="reviewTextArea"></textarea>
     </div>
   </div>
-   <div class="col-sm-2 col-md-offset-2">
+   <div class="col-md-2 col-sm-2 col-xs-2 col-lg-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2 col-lg-offset-2">
 		<button type="submit" class="btn btn-primary">${sendBtn}</button>
 	</div>
 </form>

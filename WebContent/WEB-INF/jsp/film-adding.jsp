@@ -94,13 +94,13 @@
     
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 
-      <div class="col-md-8 col-sm-8 col-lg-8 col-xs-8 main content ">
+      <div class="col-md-8 col-sm-10 col-lg-8 col-xs-10 main content">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
           <h2 class=" text-left">${newFilm}</h2>
           </div> 
           <div class="row panel-body">
-            <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
             	<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
 					<div class="alert alert-danger fade in">
 					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
@@ -111,35 +111,35 @@
 
 <form name="newFilmForm" class="form-horizontal" method="post" action="Controller?command=add_film" enctype="multipart/form-data" onSubmit="return validateForm(event);">    
     <div class="form-group">
-      <label class="col-sm-3 control-label">${name}*:</label>
-      <div class="col-sm-9">
+      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${name}*:</label>
+      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
         <input class="form-control" name="name" type="text" placeholder="${enterName}" >
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-3 control-label">${year}*:</label>
-      <div class="col-sm-9">
+      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${year}*:</label>
+      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
         <input class="form-control" name="year" type="number" placeholder="${enterYear}" >
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-3 control-label">${director}*:</label>
-      <div class="col-sm-9">
+      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${director}*:</label>
+      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
         <input class="form-control" name="director" type="text" placeholder="${enterDirector}" >
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-3 control-label">${cast}:</label>
-      <div class="col-sm-9">
+      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${cast}:</label>
+      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
         <input class="form-control" name="cast" type="text" placeholder="${enterCast}">
       </div>
     </div>
     <div class="form-group">
-    	<div class="col-sm-3 text-right">
+    	<div class="col-md-3 col-sm-3 col-xs-3 col-lg-3 text-right">
 	  		<label class="control-label" for="sel2">${country}:</label>
 	  		<div class="text-right"> ${multilpleChoice}</div>
 	  	</div>
-	  <div class="col-sm-9">
+	  <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
 		  <select multiple class="form-control" name="country" id="sel2">
 		    <c:forEach items="${requestScope.availableCountries}" var="fCountry">
 		    	<option>${fCountry}</option>
@@ -148,17 +148,17 @@
 	  </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-3 control-label">${composer}:</label>
-      <div class="col-sm-9">
+      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${composer}:</label>
+      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
         <input class="form-control" name="composer" type="text" placeholder="${enterComposer}">
       </div>
     </div>
     <div class="form-group">
-    	<div class="col-sm-3 text-right">
+    	<div class="col-md-3 col-sm-3 col-xs-3 col-lg-3 text-right">
 	  		<label class="control-label" for="sel1">${genre}:</label>
 	    	<div class="text-right"> ${multilpleChoice}</div>
 	   </div>
-	  <div class="col-sm-9">
+	  <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
 		  <select multiple class="form-control" name="genre" id="sel1">
 		    <c:forEach items="${requestScope.availableGenres}" var="fGenre">
 		    	<option>${fGenre}</option>
@@ -167,37 +167,37 @@
 	  </div>
     </div>
      <div class="form-group">
-      <label class="col-sm-3 control-label">${lengthmin}*:</label>
-      <div class="col-sm-9">
+      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${lengthmin}*:</label>
+      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
         <input class="form-control" name="length" type="number" min="1" placeholder="${enterLength}">
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-3 control-label">${price}*:</label>
-      <div class="col-sm-9">
+      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${price}*:</label>
+      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
         <input class="form-control" name="price" type="number" min="0" placeholder="${enterPrice}">
       </div>
     </div>
      <div class="form-group">
-      <label class="col-sm-3 control-label">${folder}: </label>
-      <div class="col-sm-9">
+      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${folder}: </label>
+      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
             <input type="file" name="folder" size="1" accept=".gif,.jpg,.jpeg,.png, image/png, image/gif, image/jpg, image/jpeg">
       </div>
     </div> 
     <div class="form-group">
-      <label class="col-sm-3 control-label">${frame}: </label>
-      <div class="col-sm-9">
+      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${frame}: </label>
+      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
             <input type="file" name="frame" size="1" accept=".gif,.jpg,.jpeg,.png, image/png, image/gif, image/jpg, image/jpeg">
       </div>
     </div>    
     <div class="form-group">
-      <label class="col-sm-3 control-label" for="comment">${description}:</label>
-      <div class="col-sm-9">
+      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label" for="comment">${description}:</label>
+      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
         <textarea class="form-control" name="description" rows="5"></textarea>
       </div>
     </div>
     <div class="form-group">
-      <div class="col-sm-3 col-md-offset-2">
+      <div class="col-md-3 col-sm-3 col-xs-3 col-lg-3 col-md-offset-2 col-sm-offset-2 col-xs-offset-2 col-lg-offset-2">
       	<button type="submit" class="btn btn-primary">${addFilmBtn}</button>
       </div>
     </div>    

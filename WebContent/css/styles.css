@@ -116,7 +116,7 @@ section a:active
         float:none;
     }
 }
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 992px) {
     /* .main  {
         margin-left: 200px;
     }

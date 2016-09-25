@@ -38,13 +38,13 @@
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 
 
-      <div class="col-md-8 col-sm-8 col-lg-8 col-xs-8 main content ">
+      <div class="col-md-8 col-sm-10 col-lg-8 col-xs-10 main content">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
           <h2 class=" text-left"> ${helpHeader}</h2>
           </div> 
           <div class="row panel-body">
-            <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
               <p>  Id probo mutat est. Qui ut prompta philosophia. Sea eu tritani sapientem suscipiantur, ad recteque ocurreret reformidans nam. Putant diceret his ne, nam quidam option id, primis numquam no cum.
 
                   Ne volumus qualisque eloquentiam sit, eius patrioque at usu. Sit odio clita inciderint ea, per ignota menandri inciderint et. No eum nisl mutat corpora. Vel assum percipitur ne, modus dolorem signiferumque per ne.

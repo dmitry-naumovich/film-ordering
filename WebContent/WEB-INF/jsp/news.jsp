@@ -42,7 +42,7 @@
           	<h2 class=" text-left"> ${pageHeader} </h2>
           </div> 
           <div class="row panel-body">
-            <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                 <c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
 					<div class="alert alert-danger fade in">
 					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
@@ -58,12 +58,12 @@
                 <c:forEach var="news" items="${requestScope.news}">
                     <div class="panel panel-default container-fluid">
                         <div class="row panel-heading" >
-                        	<div class="col-md-10">
+                        	<div class="col-md-10 col-sm-10 col-xs-10 col-lg-10">
                         		<h4 class="text-left">
                         			<a href="<c:url value="/Controller?command=open_single_news&newsID=${news.id}"/>" > ${news.title} </a>
                         		</h4>
                         	</div>
-                        	<div class="col-md-2">
+                        	<div class="col-md-2 col-sm-2 col-xs-2 col-lg-2">
                         		<h4 class="text-right">${news.date} ${news.time}</h4>
                         	</div>
                         </div> 
@@ -72,7 +72,7 @@
                     		<p class="text-justify" style="margin:10px;"></p>
                     	 </div>
                     
-                        <div class="col-md-12">
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                           
                            <figure>
                              <img src="img/news/${news.id}/01.jpg" alt="No image" class="img-thumbnail img-responsive" width="210" height="140" style="float:left; margin:20px;" onError="this.onerror=null;this.src='img/no-img.jpg';"/> 

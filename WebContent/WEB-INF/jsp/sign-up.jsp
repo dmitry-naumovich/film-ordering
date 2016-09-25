@@ -113,13 +113,13 @@
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 
 
-      <div class="col-md-8 col-sm-8 col-lg-8 col-xs-8 main content">
+      <div class="col-md-8 col-sm-10 col-lg-8 col-xs-10 main content">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
           <h2 class=" text-left">${pageHeader}</h2>
           </div> 
           <div class="row panel-body">
-            <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
 				<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
 					<div class="alert alert-danger fade in">
 					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
@@ -128,76 +128,76 @@
 				</c:if>
 			<form name="signUpForm" class="form-horizontal" action="Controller?command=sign_up" enctype="multipart/form-data" method="post" onSubmit="return validateForm(event);">
 			     <div class="form-group">
-			      <label class="col-sm-3 control-label">${login}*:</label>
-			      <div class="col-sm-9">
+			      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${login}*:</label>
+			      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
 			        <input class="form-control" name="login" type="text" placeholder="${enterLogin}">
 			      </div>
 			    </div>
 			    <div class="form-group">
-			      <label class="col-sm-3 control-label">${name}*:</label>
-			      <div class="col-sm-9">
+			      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${name}*:</label>
+			      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
 			        <input class="form-control" name="name" type="text" placeholder="${enterName}">
 			      </div>
 			    </div>
 			    <div class="form-group">
-			      <label class="col-sm-3 control-label">${surname}*:</label>
-			      <div class="col-sm-9">
+			      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${surname}*:</label>
+			      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
 			        <input class="form-control" name="surname" type="text" placeholder="${enterSurname}">
 			      </div>
 			    </div>
 			    <div class="form-group">
-			      <label for="pwd" class="col-sm-3 control-label">${enterPass}*:</label>
-			      <div class="col-sm-9">
+			      <label for="pwd" class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${enterPass}*:</label>
+			      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
 			        <input class="form-control" name="password" id="pwd" type="password" placeholder="${enterPass}">
 			      </div>
 			    </div>
 			    <div class="form-group">
-			      <label for="pwd-again" class="col-sm-3 control-label">${repeatPass}*:</label>
-			      <div class="col-sm-9">
+			      <label for="pwd-again" class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${repeatPass}*:</label>
+			      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
 			        <input class="form-control" name="passwordRepeated" id="pwdRep" type="password" placeholder="${enterPass}">
 			      </div>
 			    </div>
 			    <div class="form-group">
-			      <label class="col-sm-3 control-label">${sex}*: </label>
-			      <div class="col-sm-9">
+			      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${sex}*: </label>
+			      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
 			      <label class="radio-inline"><input type="radio" name="sex" value="m">${male}</label>
 			      <label class="radio-inline"><input type="radio" name="sex" value="f">${female}</label>
 			      <label class="radio-inline"><input type="radio" name="sex" value="u" checked>${unknown}</label>
 			      </div>
 			    </div>
 			    <div class="form-group">
-			      <label class="col-sm-3 control-label">${chooseBDate}:</label>
-			      <div class="col-sm-9">
+			      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${chooseBDate}:</label>
+			      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
 			        <input class="form-control datepicker" name="birthDate" type="date" placeholder="${bDateFormat}">
 			      </div>
 			    </div>
 			    
 			     <div class="form-group">
-			      <label class="col-sm-3 control-label">${phoneNum} (+375): </label>
-			      <div class="col-sm-9">
+			      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${phoneNum} (+375): </label>
+			      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
 			        <input class="form-control" name="phone" type="text" placeholder="${enterPhone}">
 			      </div>
 			    </div>
 			     <div class="form-group">
-			      <label class="col-sm-3 control-label">${email}*: </label>
-			      <div class="col-sm-9">
+			      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${email}*: </label>
+			      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
 			        <input class="form-control" name="email" type="email" placeholder="${enterEmail}">
 			      </div> 
 			    </div>
 			    <div class="form-group">
-			      <label class="col-sm-3 control-label" for="comment">${tellAbout}:</label>
-			      <div class="col-sm-9">
+			      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label" for="comment">${tellAbout}:</label>
+			      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
 			        <textarea class="form-control" rows="5" name="about"></textarea>
 			      </div>
 			    </div>
 			    <div class="form-group">
-			      <label class="col-sm-3 control-label">${avatar}: </label>
-			      <div class="col-sm-9">
+			      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${avatar}: </label>
+			      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
 			            <input type="file" name="avatar" size="1" accept=".gif,.jpg,.jpeg,.png, image/png, image/gif, image/jpg, image/jpeg">
 			      </div>
 			    </div>  
 			    <div class="form-group">
-			      <div class="col-sm-2 col-md-offset-2">
+			      <div class="col-md-2 col-sm-2 col-xs-2 col-lg-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2 col-lg-offset-2">
 			      	<button type="submit" class="btn btn-primary">${signUpBtn}</button>
 			      </div>
 			      <div class="col-sm-4 col-md-6 col-xs-12 col-lg-4 col-md-offset-4 control-label">${alreadySigned}

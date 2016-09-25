@@ -32,7 +32,7 @@
 
     <h2 id="sitemap-header">${siteMapHeader}</h2>
     <div class="row">
-      <div class="col-md-2 col-md-offset-3">
+      <div class="col-md-2 col-sm-4 col-xs-4 col-lg-2 col-md-offset-3 col-xs-0 col-sm-offset-0 col-lg-offset-3" margin-right: 0">
         <ul>
           <li><a href="index.jsp">${main}</a></li>
           <li><a href="<c:url value="/Controller?command=open_all_news"/>" > ${news} </a></li>
@@ -40,7 +40,7 @@
           <li><a href="<c:url value="/Controller?command=open_widened_search_page"/>"> ${widenedSearch} </a></li>
         </ul>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-2 col-sm-4 col-xs-4 col-lg-2" style="margin-left: 0; margin-right: 0">
         <ul>
       		<c:choose> 
       			<c:when test="${sessionScope.isAdmin}">
@@ -58,7 +58,7 @@
       		</c:choose> 
         </ul>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-2 col-sm-4 col-xs-4 col-lg-2" style="margin-left: 0">
         <ul>
           <li><a href="<c:url value="/Controller?command=open_sign_up_page"/>">${signUp}</a></li> 
           <li><a href="<c:url value="/Controller?command=open_feedback_page"/>">${feedback}</a></li>

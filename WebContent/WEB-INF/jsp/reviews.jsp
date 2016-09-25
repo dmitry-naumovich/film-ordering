@@ -42,13 +42,13 @@
       
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 
-      <div class="col-md-8 col-sm-8 col-lg-8 col-xs-8 main content">
+      <div class="col-md-8 col-sm-10 col-lg-8 col-xs-10 main content">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
           	<h2 class=" text-left"> ${pageHeader} </h2>
           </div> 
           <div class="row panel-body">
-            <div class="col-md-12">  
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">  
             
             	<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
 					<div class="alert alert-danger fade in">
@@ -81,12 +81,12 @@
                         
                     <div class="panel panel-default container-fluid">
                         <div class="row panel-heading" style="background-color:${rColor}">
-                        	<div class="col-md-6">
+                        	<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
                         		<h4 class=" text-left"> 
 			                    	<a href="<c:url value="/Controller?command=open_single_film&filmID=${review.filmId}" />" >${filmName} </a>
 			                    </h4>
                         	</div>
-                        	<div class="col-md-6">
+                        	<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
                         		<c:if test="${sessionScope.isAdmin && authorLogin != null}">
 	                        			<h4 class=" text-right">
 	                        			${author}:  
@@ -96,7 +96,7 @@
                         	</div>
                         </div> 
                     	<div class="row panel-body">
-	                        <div class="col-md-12">
+	                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
 	                          <p> <br>
 	                              ${review.text}
 	                          </p>
@@ -104,15 +104,15 @@
                         </div>
                         
                         <div class="row panel-footer" style="background-color:${rColor}">
-                        	<div class="col-md-4">
+                        	<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                         		<h5 class="text-left">${mark}: ${review.mark}/5</h5>
                         	</div>
-                        	<div class="col-md-4">
+                        	<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                         		<h5 class="text-center">
                         			<a href="<c:url value="/Controller?command=open_single_review&userID=${review.author}&filmID=${review.filmId}" />"  >${openSingleReviewBtn}</a>
                         		</h5>
                         	</div>
-                        	<div class="col-md-4">
+                        	<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                         		<h5 class="text-right"> ${date}: ${review.date} ${review.time} </h5>
                         	</div>
                         </div>                        

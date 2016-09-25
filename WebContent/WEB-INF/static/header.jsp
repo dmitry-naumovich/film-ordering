@@ -4,26 +4,24 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-	<c:set var = "language" value = "${not empty sessionScope.language ? sessionScope.language : 'en' }" scope = "session"/>
-	<fmt:setLocale value="${language}" />
-   	<fmt:setBundle basename="resources.local" var="loc" />
-   	<fmt:message bundle="${loc}" key="local.header.serviceName" var="serviceName" />
-   	<fmt:message bundle="${loc}" key="local.header.search" var="search" />
-   	<fmt:message bundle="${loc}" key="local.header.ruLanguage" var="ru_lang" />
-   	<fmt:message bundle="${loc}" key="local.header.enLanguage" var="en_lang" />
-   	<fmt:message bundle="${loc}" key="local.header.login" var="login" />
-   	<fmt:message bundle="${loc}" key="local.header.logout" var="logout" />
-   	<fmt:message bundle="${loc}" key="local.header.password" var="password" />
-   	<fmt:message bundle="${loc}" key="local.header.signIn" var="signIn" />
-   	<fmt:message bundle="${loc}" key="local.header.signUp" var="signUp" />
-   	<fmt:message bundle="${loc}" key="local.header.profilePage" var="profile" />
-   	<fmt:message bundle="${loc}" key="local.header.myReviews" var="myReviews" />
-   	<fmt:message bundle="${loc}" key="local.header.myOrders" var="myOrders" />
-   	<fmt:message bundle="${loc}" key="local.header.settings" var="settings" />
-   	<fmt:message bundle="${loc}" key="local.header.addAFilm" var="addAFilm" />
-	<fmt:message bundle="${loc}" key="local.header.addNews" var="addNews" />
-	
-	<jsp:useBean id="errorMessage" class="java.lang.String" scope="request" />
+<c:set var = "language" value = "${not empty sessionScope.language ? sessionScope.language : 'en' }" scope = "session"/>
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="resources.local" var="loc" />
+<fmt:message bundle="${loc}" key="local.header.serviceName" var="serviceName" />
+<fmt:message bundle="${loc}" key="local.header.search" var="search" />
+<fmt:message bundle="${loc}" key="local.header.ruLanguage" var="ru_lang" />
+<fmt:message bundle="${loc}" key="local.header.enLanguage" var="en_lang" />
+<fmt:message bundle="${loc}" key="local.header.login" var="login" />
+<fmt:message bundle="${loc}" key="local.header.logout" var="logout" />
+<fmt:message bundle="${loc}" key="local.header.password" var="password" />
+<fmt:message bundle="${loc}" key="local.header.signIn" var="signIn" />
+<fmt:message bundle="${loc}" key="local.header.signUp" var="signUp" />
+<fmt:message bundle="${loc}" key="local.header.profilePage" var="profile" />
+<fmt:message bundle="${loc}" key="local.header.myReviews" var="myReviews" />
+<fmt:message bundle="${loc}" key="local.header.myOrders" var="myOrders" />
+<fmt:message bundle="${loc}" key="local.header.settings" var="settings" />
+<fmt:message bundle="${loc}" key="local.header.addAFilm" var="addAFilm" />
+<fmt:message bundle="${loc}" key="local.header.addNews" var="addNews" />
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">

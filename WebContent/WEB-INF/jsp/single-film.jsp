@@ -59,13 +59,13 @@
       
 		<jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 	
-      <div class="col-md-8 col-sm-8 col-lg-8 col-xs-8 main content">
+      <div class="col-md-8 col-sm-10 col-lg-8 col-xs-10 main content">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
           	<h2 class=" text-left">${film.name}</h2>
           </div> 
           <div class="row panel-body">
-            <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
             	<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
 					<div class="alert alert-danger fade in">
 					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
@@ -130,14 +130,6 @@
 	                    </thead>
 	                    <tbody>
 	                    
-	                    <%-- <c:if test="${sessionScope.language != 'en'}">
-		                    <tr>
-		                        <td><b>${originName}</b></td>
-		                        <td>${film.name}</td>
-		                    </tr>
-	                      
-	                    </c:if> --%>
-	                    
 	                      <tr>
 	                        <td><b>${year}</b></td>
 	                        <td>${film.year}</td>
@@ -201,7 +193,7 @@
 	                </table>
 				</div>
 				</div>
-				<div class="col-md-12">
+				<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                 <div class="panel-group">
 						<c:forEach items="${requestScope.reviews}" var="review" varStatus="status">
 							<c:set var="authorLogin" value="${requestScope.logins[status.index]}" />
@@ -226,7 +218,7 @@
 					                </h4>
 		                        </div> 
 		                    	<div class="row panel-body">
-			                        <div class="col-md-12">
+			                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
 			                          <p> <br>
 			                              ${review.text}
 			                          </p>
@@ -234,15 +226,15 @@
 		                        </div>
 		                        		                        
 		                        <div class="row panel-footer" style="background-color:${rColor}">
-		                        	<div class="col-md-4">
+		                        	<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
 		                        		<h5 class="text-left">${mark}: ${review.mark}/5</h5>
 		                        	</div>
-		                        	<div class="col-md-4">
+		                        	<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
 		                        		<h5 class="text-center">
 		                        			<a href="<c:url value="/Controller?command=open_single_review&userID=${review.author}&filmID=${review.filmId}" />"  >${openSingleReviewBtn}</a>
 		                        		</h5>
 		                        	</div>
-		                        	<div class="col-md-4">
+		                        	<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
 		                        		<h5 class="text-right"> ${date}: ${review.date} ${review.time} </h5>
 		                        	</div>
 		                        </div>

@@ -89,13 +89,13 @@
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 	  
 	  
-      <div class="col-md-8 col-sm-8 col-lg-8 col-xs-8 main content">
+      <div class="col-md-8 col-sm-10 col-lg-8 col-xs-10 main content">
         <div class="panel panel-primary container-fluid">
           <div class="panel-heading row" >
           		<h4 class="text-left">${pageHeader}</h4>
           </div> 
           <div class="row panel-body">
-            <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
             <c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
 					<div class="alert alert-danger fade in">
 					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
@@ -113,7 +113,7 @@
                 
                     <div class="panel panel-default container-fluid">
                     <div class="row panel-body">
-                        <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 text-center">
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 text-center">
                           <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                             <figure><img src="img/avatars/avatars${user.id}.gif" alt="No avatar" class="img-thumbnail img-responsive" width="150" height="150" onError="this.onerror=null;this.src='img/no-avatar.jpg';"/> </figure>
                           </div>
@@ -166,7 +166,7 @@
                           </div>
                           
                         </div>
-                        <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 text-center">
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 text-center">
                         	<a href="<c:url value="/Controller?command=open_user_profile&userID=${user.id}"/>" class="btn btn-primary" role="button">${userProfile}</a>
                           <c:choose>
                            	<c:when test="${sessionScope.isAdmin && user.id != sessionScope.userID}">

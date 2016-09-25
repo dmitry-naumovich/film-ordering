@@ -57,15 +57,15 @@
 	         		</c:otherwise>
 	          </c:choose>
               
-         <div class="col-md-8 col-sm-8 col-lg-8 col-xs-8 main content">   
+         <div class="col-md-8 col-sm-10 col-lg-8 col-xs-10 main content">   
           <div class="panel panel-default container-fluid">
               <div class="row panel-heading" style="background-color:${rColor}">
-	              <div class="col-md-6">
+	              <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
 	              	<h4 class=" text-left"> 
 	             		<a href="<c:url value="/Controller?command=open_single_film&filmID=${review.filmId}" />" >${filmName} </a>
 	             	</h4>
 	              </div>
-	              <div class="col-md-6">
+	              <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
 	              	<c:if test="${sessionScope.isAdmin}">
 	               		<h4 class=" text-right">
 	               			${author}:  
@@ -75,7 +75,7 @@
 	              </div>
               </div> 
           	<div class="row panel-body">
-               <div class="col-md-12">
+               <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                  <p> <br>
                      ${review.text}
                  </p>
@@ -84,23 +84,23 @@
               <div class="row panel-footer" style="background-color:${rColor}">
               	<c:choose>
                	<c:when test="${sessionScope.isAdmin || sessionScope.userID eq review.author}">
-	               	<div class="col-md-4">
+	               	<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
 	               		<h5 class="text-left">${mark}: ${review.mark}/5</h5>
 	               	</div>
-		            <div class="col-md-4">
+		            <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
 	               		<h5 class="text-center">
 	               			<a href="<c:url value="/Controller?command=delete_review&userID=${review.author}&filmID=${review.filmId}" />" >${deleteReview}</a>
 	               		</h5>
 	               	</div>
-	               	<div class="col-md-4">
+	               	<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                			<h5 class="text-right"> ${date}: ${review.date} ${review.time} </h5>
                 	</div>
                	</c:when>
                	<c:otherwise>
-               		<div class="col-md-6">
+               		<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
 	               		<h5 class="text-left">${mark}: ${review.mark}/5</h5>
 	               	</div>
-	               	<div class="col-md-6">
+	               	<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
                			<h5 class="text-right"> ${date}: ${review.date} ${review.time} </h5>
                 	</div>
                	</c:otherwise>

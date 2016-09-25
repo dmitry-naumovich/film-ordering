@@ -101,13 +101,13 @@
     
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 
-      <div class="col-md-8 col-sm-8 col-lg-8 col-xs-8 main content">
+      <div class="col-md-8 col-sm-10 col-lg-8 col-xs-10 main content">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
           <h2 class=" text-left"> ${pageHeader}</h2>
           </div> 
           <div class="row panel-body">
-            <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
 
 			<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
 				<div class="alert alert-danger fade in">
@@ -124,32 +124,32 @@
 
 <form name="updSettingsForm" class="form-horizontal" action="Controller?command=change_user_settings" method="post"  enctype="multipart/form-data" onSubmit="return validateForm(event);">
     <div class="form-group">
-      <label class="col-sm-3 control-label">${name}:</label>
-      <div class="col-sm-9">
+      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${name}:</label>
+      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
         <input class="form-control" name="name" type="text" value="${user.name}" > 
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-3 control-label">${surname}:</label>
-      <div class="col-sm-9">
+      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${surname}:</label>
+      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
         <input class="form-control" name="surname" type="text" value="${user.surname}">
       </div>
     </div>
     <div class="form-group">
-      <label for="pwd" class="col-sm-3 control-label">${changePass}:</label>
-      <div class="col-sm-9">
+      <label for="pwd" class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${changePass}:</label>
+      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
         <input class="form-control" name="password" type="password" id="pwd" value="${user.password}">
       </div>
     </div>
     <div class="form-group">
-      <label for="pwd-again" class="col-sm-3 control-label">${repeatPass}:</label>
-      <div class="col-sm-9">
+      <label for="pwd-again" class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${repeatPass}:</label>
+      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
         <input class="form-control" name="passwordRepeated" type="password" id="pwdRep" value="${user.password}">
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-3 control-label">${sex}: </label>
-      <div class="col-sm-9">
+      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${sex}: </label>
+      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
       	  <c:choose> 
       	  	<c:when test="${user.sex eq 'm'.charAt(0)}"> 
       	  		<label class="radio-inline"><input type="radio" name="sex" value="m" checked="">${male}</label>
@@ -171,38 +171,38 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-3 control-label">${birthDate} <br> (${bDateFormat}):</label>
-      <div class="col-sm-9">
+      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${birthDate} <br> (${bDateFormat}):</label>
+      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
         <input class="form-control datepicker" name="birthDate" type="date" value="${user.birthDate}">
       </div>
     </div>
      <div class="form-group">
-      <label class="col-sm-3 control-label">${phoneNum}: (+375)</label>
-      <div class="col-sm-9">
+      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${phoneNum}: (+375)</label>
+      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
         <input class="form-control" name="phone" type="text" value="${user.phone}">
       </div>
     </div>
 	<div class="form-group">
-      <label class="col-sm-3 control-label">${email}: </label>
-      <div class="col-sm-9">
+      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${email}: </label>
+      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
         <input class="form-control" name="email" type="email" value="${user.email}">
       </div> 
     </div>
      <div class="form-group">
-      <label class="col-sm-3 control-label">${avatar}: </label>
-      <div class="col-sm-9">
+      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${avatar}: </label>
+      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
             <input type="file" name="avatar" size="1" accept=".gif,.jpg,.jpeg,.png, image/png, image/gif, image/jpg, image/jpeg">
       </div>
     </div>    
 
     <div class="form-group">
-      <label class="col-sm-3 control-label" for="comment">${tellAbout}:</label>
-      <div class="col-sm-9">
+      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label" for="comment">${tellAbout}:</label>
+      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
         <textarea class="form-control" rows="5" name="about">${user.about}</textarea>
       </div>
     </div>
     <div class="form-group">
-      <div class="col-sm-3 col-md-offset-2">
+      <div class="col-md-3 col-sm-3 col-xs-3 col-lg-3 col-md-offset-2 col-sm-offset-2 col-xs-offset-2 col-lg-offset-2">
       <button type="submit" class="btn btn-primary">${changeSettingsBtn}</button>
       </div>
 

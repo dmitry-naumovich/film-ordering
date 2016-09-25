@@ -77,13 +77,13 @@
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 
 
-      <div class="col-md-8 col-sm-8 col-lg-8 col-xs-8 main content">
+      <div class="col-md-8 col-sm-10 col-lg-8 col-xs-10 main content">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
           <h2 class=" text-left">${pageHeader}</h2>
           </div> 
           <div class="row panel-body">
-            <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
 				<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
 					<div class="alert alert-danger fade in">
 					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
@@ -96,28 +96,28 @@
     	<input type="hidden" name="command" value="search_films_widened" />
   	</div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${filmName}:</label>
-      <div class="col-sm-10">
+      <label class="col-md-2 col-sm-2 col-xs-2 col-lg-2 control-label">${filmName}:</label>
+      <div class="col-md-10 col-sm-10 col-xs-10 col-lg-10">
         <input class="form-control" name="name" type="text" placeholder="${enterName}">
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">${filmYear}: </label>
-      <p class="col-sm-1 control-label">${yearFrom}</p>
-      <div class="col-sm-2"> 
+      <label class="col-md-2 col-sm-2 col-xs-2 col-lg-2 control-label">${filmYear}: </label>
+      <p class="col-md-1 col-sm-1 col-xs-1 col-lg-1 control-label">${yearFrom}</p>
+      <div class="col-md-2 col-sm-2 col-xs-2 col-lg-2"> 
         <input class="form-control" name="yearFrom" type="number">
       </div>
-      <p class="col-sm-1 control-label">${yearTo}</p> 
-      <div class="col-sm-2"> 
+      <p class="col-md-1 col-sm-1 col-xs-1 col-lg-1 control-label">${yearTo}</p> 
+      <div class="col-md-2 col-sm-2 col-xs-2 col-lg-2"> 
         <input class="form-control" name="yearTo" type="number">
       </div>
     </div>
     <div class="form-group">
-    	<div class="col-sm-2">
+    	<div class="col-md-2 col-sm-2 col-xs-2 col-lg-2">
 	  		<label class="control-label" for="sel1">${filmGenre}:</label>
 	    	<div class="text-center"> ${multilpleChoice}</div>
 	   </div>
-	  <div class="col-sm-10">
+	  <div class="col-md-10 col-sm-10 col-xs-10 col-lg-10">
 		  <select multiple class="form-control" name="genre" id="sel1">
 		    <c:forEach items="${requestScope.availableGenres}" var="fGenre">
 		    	<option>${fGenre}</option>
@@ -126,11 +126,11 @@
 	  </div>
     </div>
     <div class="form-group">
-    	<div class="col-sm-2">
+    	<div class="col-md-2 col-sm-2 col-xs-2 col-lg-2">
 	  		<label class="control-label" for="sel2">${filmCountry}:</label>
 	  		<div class="text-center"> ${multilpleChoice}</div>
 	  	</div>
-	  <div class="col-sm-10">
+	  <div class="col-md-10 col-sm-10 col-xs-10 col-lg-10">
 		  <select multiple class="form-control" name="country" id="sel2">
 		    <c:forEach items="${requestScope.availableCountries}" var="fCountry">
 		    	<option>${fCountry}</option>
@@ -140,7 +140,7 @@
     </div>
     
     <div class="form-group">
-      	<div class="col-sm-2 col-md-offset-2">
+      	<div class="col-md-2 col-sm-2 col-xs-2 col-lg-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2 col-lg-offset-2">
       		<button type="submit" class="btn btn-primary">${searchBtn}</button>
     	</div>
     </div>    

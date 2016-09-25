@@ -39,18 +39,18 @@
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 	  
 	  
-      <div class="col-md-8 col-sm-8 col-lg-8 col-xs-8 main content">
+      <div class="col-md-8 col-sm-10 col-lg-8 col-xs-10 main content">
         <div class="panel panel-primary container-fluid">
           <div class="panel-heading row" style="margin-top: 0px;padding-top:0px">
-	          <div class="col-md-8" >
+	          <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8" >
 	          	<h4 class="text-left"> ${news.title} </h4>
 	          </div>
-	          <div class="col-md-4" >
+	          <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4" >
 	          	<h4 class="text-right"> ${news.date} ${news.time}</h4>
 	          </div>
           </div> 
           <div class="row panel-body ">
-            <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
             	<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
 					<div class="alert alert-danger fade in">
 					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
@@ -70,12 +70,7 @@
           </div>
           <c:if test="${sessionScope.isAdmin}">
           <div class="row panel-footer">
-          	<%-- <div class="col-md-6">
-          		<h5 class="text-left">
-            		<a href="<c:url value="/Controller?command=edit_news&newsID=${news.id}" />" >${editNewsBtn}</a>
-	            </h5>
-          	</div> --%>
-          	<div class="col-md-12">
+          	<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
           		<h5 class="text-right">
           		<a href="<c:url value="/Controller?command=open_news_edit_page&newsID=${news.id}" />" >${editNewsBtn}</a> |
             		<a href="<c:url value="/Controller?command=delete_news&newsID=${news.id}" />" >${deleteNewsBtn}</a>

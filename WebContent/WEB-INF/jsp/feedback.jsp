@@ -53,36 +53,36 @@
     
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 
-      <div class="col-md-8 col-sm-8 col-lg-8 col-xs-8 main content ">
+      <div class="col-md-8 col-sm-10 col-lg-8 col-xs-10 main content">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
           <h2 class="text-left"> ${writeToUs} </h2>
           </div> 
           <div class="row panel-body">
-            <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                 
   <form>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
         <div class="form-group">
           <label for="first">${name}</label>
           <input type="text" class="form-control" placeholder="" id="first" required>
         </div>
       </div>
-      <!--  col-md-6   -->
+      <!--  col-md-6 col-sm-6 col-xs-6 col-lg-6   -->
 
-      <div class="col-md-6">
+      <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
         <div class="form-group">
           <label for="last">${surname}</label>
           <input type="text" class="form-control" placeholder="" id="last" required>
         </div>
       </div>
-      <!--  col-md-6   -->
+      <!--  col-md-6 col-sm-6 col-xs-6 col-lg-6   -->
     </div>
 
 
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
         <div class="form-group">
           <label for="company">${company}</label>
           <input type="text" class="form-control" placeholder="" id="company">
@@ -90,38 +90,38 @@
 
 
       </div>
-      <!--  col-md-6   -->
+      <!--  col-md-6 col-sm-6 col-xs-6 col-lg-6   -->
 
-      <div class="col-md-6">
+      <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
 
         <div class="form-group">
           <label for="phone">${phoneNumber}</label>
           <input type="tel" class="form-control" id="phone">
         </div>
       </div>
-      <!--  col-md-6   -->
+      <!--  col-md-6 col-sm-6 col-xs-6 col-lg-6   -->
     </div>
     <!--  row   -->
 
 
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
 
         <div class="form-group">
           <label for="email">${emailAdress}</label>
           <input type="email" class="form-control" id="email">
         </div>
       </div>
-      <!--  col-md-6   -->
+      <!--  col-md-6 col-sm-6 col-xs-6 col-lg-6   -->
 
-      <div class="col-md-6">
+      <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
         <div class="form-group">
           <label for="url">${yourWebSite}<small> (${startWithHttp})</small></label>
           <input type="url" class="form-control" id="url">
         </div>
 
       </div>
-      <!--  col-md-6   -->
+      <!--  col-md-6 col-sm-6 col-xs-6 col-lg-6   -->
     </div>
     <!--  row   -->
 
@@ -154,25 +154,15 @@
         <input type="checkbox" value="Sure!" id="newsletter"> ${ofCourse}
       </label>
     </div>
-
-
     <button type="submit" class="btn btn-primary">${sendBtn}</button>
   </form>
-
-
           </div>
           </div>
-
       </div>
       </div>
-
-
       <jsp:include page="/WEB-INF/static/right-sidebar.jsp"></jsp:include>
      </div>
-
   </div>  
-  
-
   <jsp:include page="/WEB-INF/static/footer.jsp"></jsp:include>
 </body>
 </html>
