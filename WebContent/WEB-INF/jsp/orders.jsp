@@ -53,7 +53,7 @@
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 	  
 	  
-      <div class="col-md-8 col-sm-10 col-lg-8 col-xs-10 main content">
+      <div class="col-md-8 col-sm-9 col-lg-8 col-xs-9 main content">
         <div class="panel panel-primary container-fluid">
           <div class="panel-heading row" >
           	<c:choose> 
@@ -82,7 +82,7 @@
 	          				</div>
 	          				<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
 	          				<h4 class="text-right">
-	          					<a class="btn btn-default" href="<c:url value="/Controller?command=open_single_film&filmID=${order.filmId}"/>" role="button" >${openFilmPage}</a>
+	          					<a class="btn btn-default" href="<c:url value="/Controller?command=open_single_film&filmID=${filmID}"/>" role="button" >${openFilmPage}</a>
 	          				</h4>
 	          				</div>
 	          			</c:when>

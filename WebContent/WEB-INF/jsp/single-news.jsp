@@ -39,7 +39,7 @@
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 	  
 	  
-      <div class="col-md-8 col-sm-10 col-lg-8 col-xs-10 main content">
+      <div class="col-md-8 col-sm-9 col-lg-8 col-xs-9 main content">
         <div class="panel panel-primary container-fluid">
           <div class="panel-heading row" style="margin-top: 0px;padding-top:0px">
 	          <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8" >

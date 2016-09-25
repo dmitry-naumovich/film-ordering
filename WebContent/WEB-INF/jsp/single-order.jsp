@@ -51,7 +51,7 @@
       <c:set var="orderFilmName" value="${requestScope.filmName}" />
       <c:set var="orderUserLogin" value="${requestScope.userLogin}" />
       
-      <div class="col-md-8 col-sm-10 col-lg-8 col-xs-10 main content">
+      <div class="col-md-8 col-sm-9 col-lg-8 col-xs-9 main content">
         <div class="panel panel-primary container-fluid">
           <div class="row panel-body">
           	<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">

@@ -36,7 +36,7 @@
     
       <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 
-      <div class="col-md-10 col-sm-10 col-lg-10 col-xs-10 main content">
+      <div class="col-md-10 col-sm-9 col-lg-10 col-xs-9 main content">
         <div class="panel panel-primary">
           <div class=" panel-heading" >
           	<h2 class=" text-left"> ${pageHeader} </h2>
@@ -58,12 +58,12 @@
                 <c:forEach var="news" items="${requestScope.news}">
                     <div class="panel panel-default container-fluid">
                         <div class="row panel-heading" >
-                        	<div class="col-md-10 col-sm-10 col-xs-10 col-lg-10">
+                        	<div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
                         		<h4 class="text-left">
                         			<a href="<c:url value="/Controller?command=open_single_news&newsID=${news.id}"/>" > ${news.title} </a>
                         		</h4>
                         	</div>
-                        	<div class="col-md-2 col-sm-2 col-xs-2 col-lg-2">
+                        	<div class="col-md-3 col-sm-3 col-xs-3 col-lg-3">
                         		<h4 class="text-right">${news.date} ${news.time}</h4>
                         	</div>
                         </div> 

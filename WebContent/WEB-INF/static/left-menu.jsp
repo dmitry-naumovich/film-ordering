@@ -14,7 +14,7 @@
    	<fmt:message bundle="${loc}" key="local.leftMenu.newsPage" var="newsPage" />
    	<fmt:message bundle="${loc}" key="local.leftMenu.widenedSearchPage" var="widenedSearchPage" />
    	
-<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2"> 
+<div class="col-md-2 col-sm-3 col-lg-2 col-xs-3"> 
       <div class="left-sidebar" id="myScrollspy">
         <ul id='left-menu' class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="0" data-offset-bottom="240">
           <li><a href="index.jsp"> ${mainPage} </a></li>
