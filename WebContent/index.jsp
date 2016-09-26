@@ -31,6 +31,7 @@
   <link rel="stylesheet" href="css/bootstrap.min.css" >
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/scripts.js"></script>
+  <script src="js/masonry.pkgd.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="http://mybootstrap.ru/wp-content/themes/clear-theme/js/bootstrap-affix.js"></script>
@@ -45,7 +46,7 @@
     
      <jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 
-      <div class="col-md-8 col-sm-10 col-lg-8 col-xs-10 main content" style="text-align:justify;">
+      <div class="col-md-8 col-sm-9 col-lg-8 col-xs-9 main content" style="text-align:justify;">
       			<c:if test="${errorMessage != null && !errorMessage.isEmpty()}">
 					<div class="alert alert-danger fade in">
 					  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
@@ -59,16 +60,13 @@
 					</div>
 				</c:if>
       
-        <div class="panel panel-primary">
-          <div class=" panel-heading" >
-          	<h2 class=" text-left"> ${novelty} </h2>
-          </div> 
-          <div class="row panel-body">
+         
+          <div class="row panel-body row grid masonry-container masonry js-masonry" style="padding:0px; margin:0px">
 			<jsp:include page="/Controller"> 
 				<jsp:param name="command" value="get_novelty"/>
 			</jsp:include>
 				<c:forEach items="${requestScope.noveltyList}" var="film">
-		            <div class="col-sm-6 col-md-4 col-xs-12 col-lg-4" style="display:inline-block">
+		            <div class="col-sm-6 col-md-4 col-xs-12 col-lg-4 grid-item" style="display:inline-block; padding:10px; margin:0px;">
 		              <h2 style="text-align:center">${film.name} (${film.year}) </h2>
 		              <p><b>${director}:</b> ${film.director} </p>
 		              <c:choose>
@@ -120,7 +118,6 @@
 		            </div>
            		</c:forEach>
           </div>
-        </div>
     </div>
 		<jsp:include page="/WEB-INF/static/right-sidebar.jsp"></jsp:include>
      </div>

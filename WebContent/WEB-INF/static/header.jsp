@@ -33,9 +33,7 @@
               <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">${serviceName}</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-	        <form name="searchForm" class="navbar-form navbar-left" action="Controller" role="search">
+            <form name="searchForm" class="navbar-form navbar-left search-form" action="Controller" role="search">
 	          <div class="form-group">
 			    	<input type="hidden" name="command" value="search_films" />
 			  	</div>
@@ -46,10 +44,14 @@
 	              </div>
 	          </div>
 	        </form>
+        </div>
+        
+        <div id="navbar" class="navbar-collapse collapse">
+	        
 	        
                 <c:choose>
               <c:when test="${sessionScope.authUser!=null}"> 
-              		<form class=" navbar-form nav navbar-right">
+              		<form class="navbar-form nav navbar-right">
               		
               		<div class="form-group">
                               		<c:choose>
@@ -128,13 +130,8 @@
 											 <a href="#" class="active">${ru_lang}</a>
 										</c:otherwise>
 									</c:choose>
-			          			</div>
-			                	
-			                
-
-                                            
+			          			</div>                     
               </form>
-              
                </c:otherwise>
               </c:choose>
           

@@ -1,5 +1,7 @@
 * {
 	box-sizing: border-box;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 }
 
 html {
@@ -7,15 +9,42 @@ html {
 }
 body {
 	margin-top: 50px;
-	/* position: relative; */
+	 /* position: relative; */
 }
 
 .panel-body div {
 	margin-top:0px; padding-top:0px;
+	
 }
-
 .affix {
       top: 64px;
+}
+
+/* grid {
+  background: #EEE;
+  max-width: 1200px;
+}*/
+
+/* clearfix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ---- grid-item ---- */
+
+/* .grid-sizer,
+.grid-item {
+  width: 20%;
+}
+
+.grid-item {
+  /* height: 120px; */
+  /* float: left; */
+  /* border: 2px solid #333;
+  border-color: hsla(0, 0%, 0%, 0.5);
+  border-radius: 5px; */
 }
 
 .active {
@@ -35,9 +64,9 @@ body {
       border-radius: 12;
 }
 
-.row.content {
+/* .row.content {
 	height: 450px
-}
+} */
 
 .row::after {
     content: "";
@@ -46,7 +75,7 @@ body {
 }
 [class*="col-"] {
     float: left;
-    padding: 15px;
+    padding-top: 15px;
 }
 
 footer {
@@ -58,19 +87,11 @@ footer {
 #sitemap-header {
 	color:white;
 }
-section {
-  margin-top: 1em;
-}
-section .col-md-3:first-child {
-  border: none;
-
-}
 section a {
 	font-family: "Lucida Sans"
 	font: 20px/30px, serif;
 	color:white;
 }
-
 .panel-heading h2, .panel-heading h3, .panel-heading h4, .panel-heading h5, .panel-heading h6,
 .panel-footer h2, .panel-footer h3, .panel-footer h4, .panel-footer h5, .panel-footer h6 {
 	margin: 0px; 
@@ -82,27 +103,10 @@ section a {
 	color:black;
 	
 }
-/* section a:visited
-{
-	text-decoration:none;
-	color:white;
-	outline-style:none;
-	border-style:dotted;
-}
 
-section a:hover {
-	color:white;
-	text-decoration: underline;
-}
-section a:active 
-{
-	text-decoration:none;
-	color:white;
-	outline-style:none;
-	border-style:none;
-} */
 
-@media screen and (max-width: 1100px) { /*instead of screen here was -> (min-width: 768px) */
+
+@media screen and (max-width: 1010px) {
     .navbar-collapse.collapse {
         display: none !important;
     }
@@ -114,8 +118,18 @@ section a:active
     }
     .navbar-header {
         float:none;
-    }
+    }/* 
+    .collapse {
+       display: none !important;
+   } */
+   
 }
+@media  (max-width: 768px) {
+	.search-form {
+	margin:0px; padding:0px;
+	}
+}
+
 @media screen and (max-width: 992px) {
     /* .main  {
         margin-left: 200px;
@@ -123,6 +137,9 @@ section a:active
     .left-sidebar {
       width: 100%;
     } */
+    .main {
+		padding-right: 40px;
+	}
     #right-sidebar {
       display: none;
     }
