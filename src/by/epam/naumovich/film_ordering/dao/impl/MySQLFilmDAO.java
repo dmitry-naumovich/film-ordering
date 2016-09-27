@@ -32,7 +32,9 @@ public class MySQLFilmDAO implements IFilmDAO {
 	public static final String SELECT_NEW_FILM_ID = "SELECT f_id FROM Films WHERE f_name = ? AND f_year = ? AND f_direct = ? AND f_length = ?";
 	
 	public static final String SELECT_ALL_FILMS_ORDERED_BY_RATING = "SELECT f.f_id, COALESCE(lf.loc_name, f.f_name) AS fname, f.f_year as year, COALESCE(lf.loc_direct, f.f_direct) AS director, COALESCE(lf.loc_country, f.f_country) AS country, COALESCE(lf.loc_genre, f.f_genre) AS genre, COALESCE(lf.loc_actors, f.f_actors) AS actors, COALESCE(lf.loc_composer, f.f_composer) AS composer, COALESCE(lf.loc_description, f.f_description) AS description, f.f_length, f.f_rating AS rating, f.f_price FROM Films AS f LEFT JOIN (SELECT * FROM Films_local WHERE loc_lang = ?) AS lf ON f.f_id = lf.loc_id ORDER BY rating DESC";
+	public static final String SELECT_ALL_FILMS_PART_ORDERED_BY_RATING = "SELECT f.f_id, COALESCE(lf.loc_name, f.f_name) AS fname, f.f_year as year, COALESCE(lf.loc_direct, f.f_direct) AS director, COALESCE(lf.loc_country, f.f_country) AS country, COALESCE(lf.loc_genre, f.f_genre) AS genre, COALESCE(lf.loc_actors, f.f_actors) AS actors, COALESCE(lf.loc_composer, f.f_composer) AS composer, COALESCE(lf.loc_description, f.f_description) AS description, f.f_length, f.f_rating AS rating, f.f_price FROM Films AS f LEFT JOIN (SELECT * FROM Films_local WHERE loc_lang = ?) AS lf ON f.f_id = lf.loc_id ORDER BY rating DESC LIMIT ?, ?";
 	public static final String SELECT_TWELVE_LAST_ADDED_FILMS = "SELECT f.f_id, COALESCE(lf.loc_name, f.f_name) AS fname, f.f_year as year, COALESCE(lf.loc_direct, f.f_direct) AS director, COALESCE(lf.loc_country, f.f_country) AS country, COALESCE(lf.loc_genre, f.f_genre) AS genre, COALESCE(lf.loc_actors, f.f_actors) AS actors, COALESCE(lf.loc_composer, f.f_composer) AS composer, COALESCE(lf.loc_description, f.f_description) AS description, f.f_length, f.f_rating AS rating, f.f_price FROM Films AS f LEFT JOIN (SELECT * FROM Films_local WHERE loc_lang = ?) AS lf ON f.f_id = lf.loc_id ORDER BY f.f_id DESC LIMIT 12";
+	public static final String SELECT_ALL_FILMS_COUNT = "SELECT COUNT(*) FROM Films";
 	
 	public static final String SELECT_FILMS_BY_NAME = "SELECT f.f_id, COALESCE(lf.loc_name, f.f_name) AS fname, f.f_year as year, COALESCE(lf.loc_direct, f.f_direct) AS director, COALESCE(lf.loc_country, f.f_country) AS country, COALESCE(lf.loc_genre, f.f_genre) AS genre, COALESCE(lf.loc_actors, f.f_actors) AS actors, COALESCE(lf.loc_composer, f.f_composer) AS composer, COALESCE(lf.loc_description, f.f_description) AS description, f.f_length, f.f_rating AS rating, f.f_price FROM Films AS f LEFT JOIN (SELECT * FROM Films_local WHERE loc_lang = ?) AS lf ON f.f_id = lf.loc_id WHERE f.f_name = ? OR lf.loc_name = ?";
 	public static final String SELECT_FILMS_BY_YEAR = "SELECT f.f_id, COALESCE(lf.loc_name, f.f_name) AS fname, f.f_year as year, COALESCE(lf.loc_direct, f.f_direct) AS director, COALESCE(lf.loc_country, f.f_country) AS country, COALESCE(lf.loc_genre, f.f_genre) AS genre, COALESCE(lf.loc_actors, f.f_actors) AS actors, COALESCE(lf.loc_composer, f.f_composer) AS composer, COALESCE(lf.loc_description, f.f_description) AS description, f.f_length, f.f_rating AS rating, f.f_price FROM Films AS f LEFT JOIN (SELECT * FROM Films_local WHERE loc_lang = ?) AS lf ON f.f_id = lf.loc_id WHERE f.f_year = ?";
@@ -755,5 +757,87 @@ public class MySQLFilmDAO implements IFilmDAO {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public Set<Film> getAllFilmsPart(int start, int amount, String lang) throws DAOException {
+		Set<Film> filmSet = new LinkedHashSet<Film>();
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(SELECT_ALL_FILMS_PART_ORDERED_BY_RATING);
+			st.setString(1, lang);
+			st.setInt(2, start);
+			st.setInt(3, amount);
+			rs = st.executeQuery();
+			
+			while (rs.next()) {
+				Film film = new Film();
+				film.setId(rs.getInt(1));
+				film.setName(rs.getString(2));
+				film.setYear(rs.getInt(3));
+				film.setDirector(rs.getString(4));
+				film.setCountry(rs.getString(5));
+				film.setGenre(rs.getString(6));
+				film.setActors(rs.getString(7));
+				film.setComposer(rs.getString(8));
+				film.setDescription(rs.getString(9));
+				film.setLength(rs.getInt(10));
+				film.setRating(rs.getFloat(11));
+				film.setPrice(rs.getFloat(12));
+				
+				filmSet.add(film);
+			}
+			
+		} catch (SQLException e) {
+			throw new DAOException(ExceptionMessages.SQL_SELECT_FAILURE, e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
+		} finally {
+			try {
+				if (rs != null) { rs.close(); }
+				if (st != null) { st.close(); }
+			} catch (SQLException e) {
+				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED, e);
+			} finally {
+				if (con != null) { pool.closeConnection(con); }
+			}
+		}
+		return filmSet;
+	}
+
+	@Override
+	public int getNumberOfFilms() throws DAOException {
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(SELECT_ALL_FILMS_COUNT);
+			rs = st.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new DAOException(ExceptionMessages.SQL_SELECT_FAILURE, e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
+		} finally {
+			try {
+				if (rs != null) { rs.close(); }
+				if (st != null) { st.close(); }
+			} catch (SQLException e) {
+				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED, e);
+			} finally {
+				if (con != null) { pool.closeConnection(con); }
+			}
+		}
+		return 0;
 	}
 }

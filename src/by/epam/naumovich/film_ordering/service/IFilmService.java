@@ -103,6 +103,16 @@ public interface IFilmService {
 	Set<Film> getAllFilms(String lang) throws ServiceException;
 	
 	/**
+	 * Receives a particular set of all present films from the DAO layer depending on the page and passes it back to the Controller layer or throws an exception if it is empty
+	 * 
+	 * @param pageNum number of current page which user is opening
+	 * @param lang language of the current user session
+	 * @return a set of films
+	 * @throws ServiceException
+	 */
+	Set<Film> getAllFilmsPart(int pageNum, String lang) throws ServiceException;
+	
+	/**
 	 * Verifies input parameter and passes it to the DAO layer, received a set of found films back and returns it to the Controller layer
 	 * or throws an exception if it is empty
 	 * 
@@ -145,4 +155,12 @@ public interface IFilmService {
 	 * @throws ServiceException if no countries found
 	 */
 	String[] getAvailableCountries(String lang) throws ServiceException;
+	
+	/**
+	 * Counts the number of pages needed to locate all films within the several pagination pages.
+	 * 
+	 * @return number of pages
+	 * @throws ServiceException
+	 */
+	int getNumberOfAllFilmsPages() throws ServiceException;
 }

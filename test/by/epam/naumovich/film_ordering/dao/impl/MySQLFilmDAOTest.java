@@ -1,6 +1,8 @@
 package by.epam.naumovich.film_ordering.dao.impl;
 
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Assert;
@@ -298,5 +300,40 @@ public class MySQLFilmDAOTest {
 			}
 		}
 		Assert.assertEquals(filmsByYears1, filmsByYears2);
+	}
+	
+	/**
+	 * Gets the amount of films in the data source in two different ways and compares the results which must be equal.
+	 * 
+	 * @throws DAOException
+	 */
+	@Test
+	public void getNumberOfFilms() throws DAOException {
+		DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+		IFilmDAO filmDAO = daoFactory.getFilmDAO();
+		
+		int filmsNum1 = filmDAO.getNumberOfFilms();
+		Set<Film> allFilms = filmDAO.getAllFilms(EN_LANG);
+		int filmsNum2 = allFilms.size();
+		
+		Assert.assertEquals(filmsNum1, filmsNum2);
+	}
+	
+	/**
+	 * Gets the part of all films from the data source in two different ways and compares the results which must be equal.
+	 * 
+	 * @throws DAOException
+	 */
+	@Test
+	public void getAllFilmsPart() throws DAOException {
+		DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+		IFilmDAO filmDAO = daoFactory.getFilmDAO();
+		
+		Set<Film> particularFilms1 = filmDAO.getAllFilmsPart(0, 6, EN_LANG);
+		List<Film> allFilms = new LinkedList<Film>(filmDAO.getAllFilms(EN_LANG));
+		Set<Film> particularFilms2 = new LinkedHashSet<Film>(allFilms.subList(0, 6));
+		
+		Assert.assertEquals(particularFilms1, particularFilms2);
+		
 	}
 }

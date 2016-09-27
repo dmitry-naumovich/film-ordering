@@ -135,4 +135,15 @@ public class FilmServiceImplTest {
 		IFilmService service = ServiceFactory.getInstance().getFilmService();
 		service.searchWidened("The", "1600", "1700", null, null, EN_LANG);
 	}
+	
+	/**
+	 * Tries to get films from the DAO layer by the invalid page number.
+	 * 
+	 * @throws ServiceException
+	 */
+	@Test(expected=GetFilmServiceException.class)
+	public void getAllFilmsPart() throws ServiceException {
+		IFilmService service = ServiceFactory.getInstance().getFilmService();
+		service.getAllFilmsPart(0, EN_LANG);
+	}
 }

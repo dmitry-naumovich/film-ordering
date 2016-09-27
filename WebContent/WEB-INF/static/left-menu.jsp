@@ -18,7 +18,7 @@
       <div class="left-sidebar" id="myScrollspy">
         <ul id='left-menu' class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="0" data-offset-bottom="240">
           <li><a href="index.jsp"> ${mainPage} </a></li>
-          <li><a href="<c:url value="/Controller?command=open_all_films"/>" > ${filmsPage} </a></li>
+          <li><a href="<c:url value="/Controller?command=open_all_films&pageNum=1"/>" > ${filmsPage} </a></li>
           <li><a href="<c:url value="/Controller?command=open_user_profile&userID=${sessionScope.userID}"/>"> ${profilePage} </a></li> 
           <li><a href="<c:url value="/Controller?command=open_about_us_page"/>"> ${aboutUsPage} </a></li>
           <li><a href="<c:url value="/Controller?command=open_all_news"/>"> ${newsPage} </a></li>

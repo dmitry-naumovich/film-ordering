@@ -25,6 +25,7 @@ public class FilmServiceImpl implements IFilmService {
 
 	private static final String MYSQL = "mysql";
 	private static final String SPACE = " ";
+	private static final int FILMS_AMOUNT_ON_PAGE = 10;
 
 	@Override
 	public int addNewFilm(String name, String year, String director, String cast, String[] countries, String composer,
@@ -424,6 +425,48 @@ public class FilmServiceImpl implements IFilmService {
 				throw new ServiceException(ExceptionMessages.COUNTRIES_NOT_AVAILABLE);
 			}
 			return countries;
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+	}
+
+	@Override
+	public Set<Film> getAllFilmsPart(int pageNum, String lang) throws ServiceException {
+		if (!Validator.validateInt(pageNum)) {
+			throw new GetFilmServiceException(ExceptionMessages.CORRUPTED_PAGE_NUM);
+		}
+		int start = (pageNum - 1) * FILMS_AMOUNT_ON_PAGE;
+		
+		Set<Film> filmSet = new LinkedHashSet<Film>();		
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IFilmDAO filmDAO = daoFactory.getFilmDAO();
+			filmSet = filmDAO.getAllFilmsPart(start, FILMS_AMOUNT_ON_PAGE, lang);
+			
+			if (filmSet.isEmpty()) {
+				throw new GetFilmServiceException(ExceptionMessages.NO_FILMS_IN_DB);
+			}
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+		
+		return filmSet;
+	}
+
+	@Override
+	public int getNumberOfAllFilmsPages() throws ServiceException {
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IFilmDAO filmDAO = daoFactory.getFilmDAO();
+			int numOfFilms = filmDAO.getNumberOfFilms();
+			if (numOfFilms % FILMS_AMOUNT_ON_PAGE == 0) {
+				return numOfFilms / FILMS_AMOUNT_ON_PAGE;
+			}
+			else {
+				return numOfFilms / FILMS_AMOUNT_ON_PAGE + 1;
+			}
+			
+			
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}

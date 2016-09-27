@@ -24,6 +24,7 @@ public final class RequestAndSessionAttributes {
 	public static final String CAST = "cast";
 	public static final String COMPOSER = "composer";
 	public static final String COUNTRY = "country";
+	public static final String CURRENT_PAGE = "curPage";
 	public static final String DESCRIPTION = "description";
 	public static final String DIRECTOR = "director";
 	public static final String DISCOUNT = "discount";
@@ -55,6 +56,7 @@ public final class RequestAndSessionAttributes {
 	public static final String NEWS_TITLE = "newsTitle";
 	public static final String NEWS_TEXT = "newsText";
 	public static final String NOVELTY_LIST = "noveltyList";
+	public static final String NUMBER_OF_PAGES = "numOfPages";
 	public static final String ORDER_NUM = "orderNum";
 	public static final String ORDER_SUM = "orderSum";
 	public static final String ORDER_VIEW_TYPE = "orderViewType";
@@ -62,6 +64,7 @@ public final class RequestAndSessionAttributes {
 	public static final String ORDERS = "orders";
 	public static final String OWN_ORDER_EXISTS = "ownOrderExists";
 	public static final String OWN_REVIEW_EXISTS = "ownReviewExists";
+	public static final String PAGE_NUM = "pageNum";
 	public static final String PASSWORD = "password";
 	public static final String PASSWORD_REPEATED = "passwordRepeated";
 	public static final String PAYMENT = "payment";

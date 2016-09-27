@@ -77,6 +77,17 @@ public interface IFilmDAO {
 	Set<Film> getAllFilms(String lang) throws DAOException;
 	
 	/**
+	 * Returns a necessary part of all films from the data source
+	 * 
+	 * @param start start index of necessary film part
+	 * @param amount amount of films to be returned
+	 * @param lang language of the source data to be returned
+	 * @return a part of the set of all films
+	 * @throws DAOException
+	 */
+	Set<Film> getAllFilmsPart(int start, int amount, String lang) throws DAOException;
+	
+	/**
 	 * Searches for films in the data source by name 
 	 * 
 	 * @param name film name
@@ -144,4 +155,12 @@ public interface IFilmDAO {
 	 * @throws DAOException
 	 */
 	String[] getAvailableCountries(String lang) throws DAOException;
+	
+	/**
+	 * Counts the number of all films in the data source
+	 * 
+	 * @return the number of all films
+	 * @throws DAOException
+	 */
+	int getNumberOfFilms() throws DAOException;
 }

@@ -46,12 +46,17 @@ public class OpenAllFilms implements Command {
 		System.out.println(query);
 		
 		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
+		int pageNum = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.PAGE_NUM));
 		try {
 			IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 			IOrderService orderService = ServiceFactory.getInstance().getOrderService();
 			
-			Set<Film> films = filmService.getAllFilms(lang);
+			Set<Film> films = filmService.getAllFilmsPart(pageNum, lang);
 			request.setAttribute(RequestAndSessionAttributes.FILMS, films);
+			
+			int totalPageAmount = filmService.getNumberOfAllFilmsPages();
+			request.setAttribute(RequestAndSessionAttributes.NUMBER_OF_PAGES, totalPageAmount);
+			request.setAttribute(RequestAndSessionAttributes.CURRENT_PAGE, pageNum);
 			
 			if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) != null) {
 				if (!Boolean.parseBoolean(session.getAttribute(RequestAndSessionAttributes.IS_ADMIN).toString())) {

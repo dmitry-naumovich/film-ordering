@@ -36,7 +36,7 @@
         <ul>
           <li><a href="index.jsp">${main}</a></li>
           <li><a href="<c:url value="/Controller?command=open_all_news"/>" > ${news} </a></li>
-          <li><a href="<c:url value="/Controller?command=open_all_films"/>" >${films}</a></li>
+          <li><a href="<c:url value="/Controller?command=open_all_films&pageNum=1"/>" >${films}</a></li>
           <li><a href="<c:url value="/Controller?command=open_widened_search_page"/>"> ${widenedSearch} </a></li>
         </ul>
       </div>
