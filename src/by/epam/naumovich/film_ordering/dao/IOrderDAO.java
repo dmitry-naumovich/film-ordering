@@ -75,4 +75,21 @@ public interface IOrderDAO {
 	 */
 	Set<Order> getAllOrders() throws DAOException;
 	
+	/**
+	 * Returns a necessary part of all orders from the data source
+	 * 
+	 * @param start start index of necessary orders part
+	 * @param amount amount of orders to be returned
+	 * @return a part of the set of all orders
+	 * @throws DAOException
+	 */
+	Set<Order> getAllOrdersPart(int start, int amount) throws DAOException;
+	
+	/**
+	 * Counts the number of all orders in the data source
+	 * 
+	 * @return total order amount
+	 * @throws DAOException
+	 */
+	int getNumberOfOrders() throws DAOException;
 }

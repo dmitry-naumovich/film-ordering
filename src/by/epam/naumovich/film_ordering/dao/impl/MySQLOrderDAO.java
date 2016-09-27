@@ -25,6 +25,8 @@ public class MySQLOrderDAO implements IOrderDAO {
 	public static final String INSERT_NEW_ORDER = "INSERT INTO Orders (o_user, o_film, o_date, o_time, o_fprice, o_discount, o_paym) VALUES (?, ?, ?, ?, ?, ?, ?)";
 	public static final String DELETE_ORDER = "DELETE FROM Orders WHERE o_num = ?";
 	public static final String SELECT_ALL_ORDERS = "SELECT * FROM Orders ORDER BY o_date DESC, o_time DESC";
+	public static final String SELECT_ALL_ORDERS_PART = "SELECT * FROM Orders ORDER BY o_date DESC, o_time DESC LIMIT ?, ?";
+	public static final String SELECT_ALL_ORDERS_COUNT = "SELECT COUNT(*) FROM Orders";
 	public static final String SELECT_ORDER_BY_ORDER_NUM = "SELECT * FROM Orders WHERE o_num = ?";
 	public static final String SELECT_ORDER_BY_USER_AND_FILM_ID = "SELECT * FROM Orders WHERE o_user = ? AND o_film = ?";
 	public static final String SELECT_ORDER_BY_USER_ID = "SELECT * FROM Orders WHERE o_user = ? ORDER BY o_date DESC, o_time DESC";
@@ -337,5 +339,84 @@ public class MySQLOrderDAO implements IOrderDAO {
 			}
 		}
 		return orderSet;
+	}
+
+	@Override
+	public Set<Order> getAllOrdersPart(int start, int amount) throws DAOException {
+		Set<Order> orderSet = new LinkedHashSet<Order>();
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(SELECT_ALL_ORDERS_PART);
+			st.setInt(1, start);
+			st.setInt(2, amount);
+			rs = st.executeQuery();
+			
+			while (rs.next()) {
+				Order order = new Order();
+				order.setOrdNum(rs.getInt(1));
+				order.setUserId(rs.getInt(2));
+				order.setFilmId(rs.getInt(3));
+				order.setDate(rs.getDate(4));
+				order.setTime(rs.getTime(5));
+				order.setPrice(rs.getFloat(6));
+				order.setDiscount(rs.getInt(7));
+				order.setPayment(rs.getFloat(8));
+				
+				orderSet.add(order);
+			}
+			
+		} catch (SQLException e) {
+			throw new DAOException(ExceptionMessages.SQL_SELECT_FAILURE, e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
+		} finally {
+			try {
+				if (rs != null) { rs.close(); }
+				if (st != null) { st.close(); }
+			} catch (SQLException e) {
+				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED);
+			} finally {
+				if (con != null) { pool.closeConnection(con); }
+			}
+		}
+		return orderSet;
+	}
+
+	@Override
+	public int getNumberOfOrders() throws DAOException {
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(SELECT_ALL_ORDERS_COUNT);
+			rs = st.executeQuery();
+			
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			throw new DAOException(ExceptionMessages.SQL_SELECT_FAILURE, e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
+		} finally {
+			try {
+				if (rs != null) { rs.close(); }
+				if (st != null) { st.close(); }
+			} catch (SQLException e) {
+				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED);
+			} finally {
+				if (con != null) { pool.closeConnection(con); }
+			}
+		}
+		return 0;
 	}
 }

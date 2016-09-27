@@ -55,7 +55,6 @@ public interface IUserDAO {
 	 * 
 	 * @param start start index of necessary users part
 	 * @param amount amount of users to be returned
-	 * @param lang language of the source data to be returned
 	 * @return a part of the set of all users
 	 * @throws DAOException
 	 */

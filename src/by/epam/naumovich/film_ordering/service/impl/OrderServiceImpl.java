@@ -27,6 +27,7 @@ import by.epam.naumovich.film_ordering.service.util.Validator;
 public class OrderServiceImpl implements IOrderService {
 
 	private static final String MYSQL = "mysql";
+	private static final int ORDERS_AMOUNT_ON_PAGE = 10;
 
 	@Override
 	public int addOrder(int filmID, int userID, String price, String discount, String payment) throws ServiceException {
@@ -185,5 +186,47 @@ public class OrderServiceImpl implements IOrderService {
 		}
 		
 		return set;
+	}
+
+	@Override
+	public Set<Order> getAllOrdersPart(int pageNum) throws ServiceException {
+		if (!Validator.validateInt(pageNum)) {
+			throw new GetOrderServiceException(ExceptionMessages.CORRUPTED_PAGE_NUM);
+		}
+		
+		int start = (pageNum - 1) * ORDERS_AMOUNT_ON_PAGE;
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IOrderDAO orderDAO = daoFactory.getOrderDAO();
+			Set<Order> set = orderDAO.getAllOrdersPart(start, ORDERS_AMOUNT_ON_PAGE);
+			
+			if (set.isEmpty() || set == null) {
+				throw new GetOrderServiceException(ExceptionMessages.NO_ORDERS_IN_DB);
+			}
+			
+			return set;
+			
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+	}
+
+	@Override
+	public int getNumberOfAllOrdersPages() throws ServiceException {
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IOrderDAO orderDAO = daoFactory.getOrderDAO();
+			int numOfOrders = orderDAO.getNumberOfOrders();
+			if (numOfOrders % ORDERS_AMOUNT_ON_PAGE == 0) {
+				return numOfOrders / ORDERS_AMOUNT_ON_PAGE;
+			}
+			else {
+				return numOfOrders / ORDERS_AMOUNT_ON_PAGE + 1;
+			}
+			
+			
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
 	}
 }

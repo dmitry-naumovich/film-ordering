@@ -85,4 +85,21 @@ public interface IOrderService {
 	 * @throws ServiceException
 	 */
 	Set<Order> getAllOrders() throws ServiceException;
+	
+	/**
+	 * Receives a particular set of all orders from the DAO layer depending on the current page
+	 * and passes it back to the Controller layer or throws an exception if it is empty
+	 * 
+	 * @return a set of orders
+	 * @throws ServiceException
+	 */
+	Set<Order> getAllOrdersPart(int pageNum) throws ServiceException;
+	
+	/**
+	 * Counts the number of pages needed to locate all orders within the pagination.
+	 * 
+	 * @return number of pages
+	 * @throws ServiceException
+	 */
+	int getNumberOfAllOrdersPages() throws ServiceException;
 }

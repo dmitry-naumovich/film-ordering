@@ -46,6 +46,7 @@ public class OpenAllOrders implements Command {
 		System.out.println(query);
 		
 		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
+		int pageNum = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.PAGE_NUM));
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.OPEN_ALL_ORDERS_RESTRICTION);
 			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
@@ -59,7 +60,7 @@ public class OpenAllOrders implements Command {
 				IOrderService orderService = ServiceFactory.getInstance().getOrderService();
 				IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 				IUserService userService = ServiceFactory.getInstance().getUserService();
-				Set<Order> orders = orderService.getAllOrders();
+				Set<Order> orders = orderService.getAllOrdersPart(pageNum);
 				
 				List<String> filmNames = new ArrayList<String>();
 				List<String> userLogins = new ArrayList<String>();
@@ -70,6 +71,10 @@ public class OpenAllOrders implements Command {
 					String userLogin = userService.getLoginByID(o.getUserId());
 					userLogins.add(userLogin);
 				}
+				
+				int totalPageAmount = orderService.getNumberOfAllOrdersPages();
+				request.setAttribute(RequestAndSessionAttributes.NUMBER_OF_PAGES, totalPageAmount);
+				request.setAttribute(RequestAndSessionAttributes.CURRENT_PAGE, pageNum);
 				
 				request.setAttribute(RequestAndSessionAttributes.ORDERS, orders);
 				request.setAttribute(RequestAndSessionAttributes.FILM_NAMES, filmNames);
