@@ -30,10 +30,12 @@ public class MySQLUserDAO implements IUserDAO {
 	public static final String SELECT_NEW_USER_ID_BY_LOGIN = "SELECT u_id FROM Users WHERE u_login = ?";
 	public static final String UPDATE_USER_BY_ID = "UPDATE Users SET u_name = ?, u_surname = ?, u_passw = ?, u_sex = ?, u_bdate = ?, u_phone = ?, u_email = ?, u_about = ? WHERE u_id = ?";	
 	public static final String DELETE_USER = "DELETE FROM Users WHERE u_id = ?";
-	public static final String SELECT_ALL_USERS = "SELECT * FROM Users";
+	public static final String SELECT_ALL_USERS = "SELECT * FROM Users ORDER BY u_regdate DESC, u_regtime DESC";
+	public static final String SELECT_ALL_USERS_PART = "SELECT * FROM Users ORDER BY u_regdate DESC, u_regtime DESC LIMIT ?, ?";
+	public static final String SELECT_ALL_USERS_COUNT = "SELECT COUNT(*) FROM Users";
 	public static final String SELECT_USER_BY_LOGIN = "SELECT * FROM Users WHERE u_login = ?";
 	public static final String SELECT_USER_BY_ID = "SELECT * FROM Users WHERE u_id = ?";
-	public static final String SELECT_USERS_IN_BAN = "SELECT Users.* FROM Users JOIN Bans ON users.u_id = bans.b_user WHERE b_active = 1 AND ((CURDATE() = b_stdate AND CURTIME() > b_sttime) OR (CURDATE() = DATE_ADD(b_stdate, INTERVAL b_length DAY) AND CURTIME() < b_sttime) OR (CURDATE() > b_stdate AND CURDATE() < DATE_ADD(b_stdate, INTERVAL b_length DAY)))";
+	public static final String SELECT_USERS_IN_BAN = "SELECT Users.* FROM Users JOIN Bans ON users.u_id = bans.b_user WHERE b_active = 1 AND ((CURDATE() = b_stdate AND CURTIME() > b_sttime) OR (CURDATE() = DATE_ADD(b_stdate, INTERVAL b_length DAY) AND CURTIME() < b_sttime) OR (CURDATE() > b_stdate AND CURDATE() < DATE_ADD(b_stdate, INTERVAL b_length DAY))) ORDER BY Bans.b_stdate DESC, Bans.b_sttime DESC";
 	public static final String SELECT_USER_IN_BAN_NOW_BY_ID = "SELECT * FROM Bans WHERE bans.b_user = ? AND b_active = 1 AND ((CURDATE() = b_stdate AND CURTIME() > b_sttime) OR (CURDATE() = DATE_ADD(b_stdate, INTERVAL b_length DAY) AND CURTIME() < b_sttime) OR (CURDATE() > b_stdate AND CURDATE() < DATE_ADD(b_stdate, INTERVAL b_length DAY)))";
 	public static final String SELECT_PASSWORD_BY_LOGIN = "SELECT u_passw FROM Users WHERE u_login = ?";
 	public static final String SELECT_CURRENT_DISCOUNT_BY_USER_ID = "SELECT * FROM Discounts WHERE d_user = ? AND ((CURDATE() = d_stdate AND CURTIME() > d_sttime) OR (CURDATE() = d_endate AND CURTIME() < d_entime) OR (CURDATE() > d_stdate AND CURDATE() < d_endate))";
@@ -777,5 +779,88 @@ public class MySQLUserDAO implements IUserDAO {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public Set<User> getAllUsersPart(int start, int amount) throws DAOException {
+		Set<User> userSet = new LinkedHashSet<User>();
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(SELECT_ALL_USERS_PART);
+			st.setInt(1, start);
+			st.setInt(2, amount);
+			rs = st.executeQuery();
+			
+			while (rs.next()) {
+				User user = new User();
+				user.setId(rs.getInt(1));
+				user.setLogin(rs.getString(2));
+				user.setName(rs.getString(3));
+				user.setSurname(rs.getString(4));
+				user.setPassword(rs.getString(5));
+				user.setSex(rs.getString(6).charAt(0));
+				user.setType(rs.getString(7).charAt(0));
+				user.setRegDate(rs.getDate(8));
+				user.setRegTime(rs.getTime(9));
+				user.setBirthDate(rs.getDate(10));
+				user.setPhone(rs.getString(11));
+				user.setEmail(rs.getString(12));
+				user.setAbout(rs.getString(13));
+				
+				userSet.add(user);
+			}
+		} catch (SQLException e) {
+			throw new DAOException(ExceptionMessages.SQL_SELECT_FAILURE, e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
+		} finally {
+			try {
+				if (rs != null) { rs.close(); }
+				if (st != null) { st.close(); }
+			} catch (SQLException e) {
+				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED);
+			} finally {
+				if (con != null) { pool.closeConnection(con); }
+			}
+		}
+		return userSet;
+	}
+
+	@Override
+	public int getNumberOfUsers() throws DAOException {
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(SELECT_ALL_USERS_COUNT);
+			
+			rs = st.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			throw new DAOException(ExceptionMessages.SQL_SELECT_FAILURE, e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
+		} finally {
+			try {
+				if (rs != null) { rs.close(); }
+				if (st != null) { st.close(); }
+			} catch (SQLException e) {
+				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED);
+			} finally {
+				if (con != null) { pool.closeConnection(con); }
+			}
+		}
+		return 0;
 	}
 }

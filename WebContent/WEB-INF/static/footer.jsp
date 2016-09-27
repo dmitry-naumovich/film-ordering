@@ -47,7 +47,7 @@
       				 <li><a href="<c:url value="/Controller?command=open_user_profile&userID=${sessionScope.userID}"/>" >${profile}</a></li>
       				 <li><a href="<c:url value="/Controller?command=open_all_reviews"/>">${reviews}</a></li>
       				 <li><a href="<c:url value="/Controller?command=open_all_orders"/>">${orders}</a></li>
-      				 <li><a href="<c:url value="/Controller?command=open_all_users"/>">${userList}</a></li>
+      				 <li><a href="<c:url value="/Controller?command=open_all_users&pageNum=1"/>">${userList}</a></li>
       			</c:when>
       			<c:otherwise> 
       				 <li><a href="<c:url value="/Controller?command=open_user_profile&userID=${sessionScope.userID}"/>" >${profile}</a></li>

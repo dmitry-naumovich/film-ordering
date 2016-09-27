@@ -55,17 +55,17 @@
           <h2 class="text-left col-md-8 col-sm-8 col-lg-8 col-xs-8">${mainHeader}</h2>
           <h5 class="text-right col-md-4 col-sm-4 col-lg-4 col-xs-4">
           	<ul class="pagination" style="margin:0px;padding:0px">
-				  <c:forEach begin="1" end="${requestScope.numOfPages}" step="1" var="pageNum">
-				  	<c:choose> 
-				  		<c:when test="${pageNum eq requestScope.curPage}">
-				  			 <li class="active"><a href="<c:url value="/Controller?command=open_all_films&pageNum=${pageNum}" />" >${pageNum}</a></li>
-				  		</c:when>
-				  		<c:otherwise>
-				  			<li><a href="<c:url value="/Controller?command=open_all_films&pageNum=${pageNum}" />" >${pageNum}</a></li>
-				  		</c:otherwise>
-				  	</c:choose>
-				  </c:forEach>
-				</ul>
+			  <c:forEach begin="1" end="${requestScope.numOfPages}" step="1" var="pageNum">
+			  	<c:choose> 
+			  		<c:when test="${pageNum eq requestScope.curPage}">
+			  			 <li class="active"><a href="<c:url value="/Controller?command=open_all_films&pageNum=${pageNum}" />" >${pageNum}</a></li>
+			  		</c:when>
+			  		<c:otherwise>
+			  			<li><a href="<c:url value="/Controller?command=open_all_films&pageNum=${pageNum}" />" >${pageNum}</a></li>
+			  		</c:otherwise>
+			  	</c:choose>
+			  </c:forEach>
+			</ul>
           </h5>
           </div> 
           <div class="row panel-body">

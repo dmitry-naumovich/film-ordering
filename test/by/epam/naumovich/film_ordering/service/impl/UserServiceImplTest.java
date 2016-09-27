@@ -278,4 +278,15 @@ public class UserServiceImplTest {
 		IUserService service = ServiceFactory.getInstance().getUserService();
 		service.unbanUser(0);
 	}
+	
+	/**
+	 * Tries to get users from the DAO layer by the invalid page number.
+	 * 
+	 * @throws ServiceException
+	 */
+	@Test(expected=GetUserServiceException.class)
+	public void getAllUsersPart() throws ServiceException {
+		IUserService service = ServiceFactory.getInstance().getUserService();
+		service.getAllUsersPart(0);
+	}
 }

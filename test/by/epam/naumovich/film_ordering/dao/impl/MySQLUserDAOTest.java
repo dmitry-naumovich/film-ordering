@@ -4,6 +4,9 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Assert;
@@ -425,5 +428,39 @@ public class MySQLUserDAOTest {
 		dao.unbanUser(testUserID);
 		
 		Assert.assertEquals(expectedBanReason, actualBanReason);	
+	}
+	
+	/**
+	 * Gets the amount of users in the data source in two different ways and compares the results which must be equal.
+	 * 
+	 * @throws DAOException
+	 */
+	@Test
+	public void getNumberOfUsers() throws DAOException {
+		DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+		IUserDAO userDAO = daoFactory.getUserDAO();
+		
+		int usersNum1 = userDAO.getNumberOfUsers();
+		Set<User> allUsers = userDAO.getAllUsers();
+		int usersNum2 = allUsers.size();
+		
+		Assert.assertEquals(usersNum1, usersNum2);
+	}
+	
+	/**
+	 * Gets the part of all users from the data source in two different ways and compares the results which must be equal.
+	 * 
+	 * @throws DAOException
+	 */
+	@Test
+	public void getAllUsersPart() throws DAOException {
+		DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+		IUserDAO userDAO = daoFactory.getUserDAO();
+		
+		Set<User> particularUsers1 = userDAO.getAllUsersPart(0, 6);
+		List<User> allUsers = new LinkedList<User>(userDAO.getAllUsers());
+		Set<User> particularUsers2 = new LinkedHashSet<User>(allUsers.subList(0, 6));
+		
+		Assert.assertEquals(particularUsers1, particularUsers2);	
 	}
 }

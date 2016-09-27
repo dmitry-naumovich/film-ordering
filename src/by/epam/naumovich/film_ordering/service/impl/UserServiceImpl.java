@@ -36,10 +36,11 @@ public class UserServiceImpl implements IUserService {
 	private static final int MIN_YEAR = 1920;
 	private static final int PHONE_NUM_LENGTH = 9;
 	private static final char USER_TYPE_CLIENT = 'c';
+	private static final int USERS_AMOUNT_ON_PAGE = 10;
 	
 	private static final String EMAIL_PATTERN = "^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[a-zA-Z]{2,4}$";
 	private static final String LOGIN_PATTERN = "(^[a-zA-Z]{3,})[a-zA-Z0-9]*";
-	private static final String PASSWORD_PATTERN = "^[a-zA-Zà-ÿÀ-ß0-9_-]{4,30}$";
+	private static final String PASSWORD_PATTERN = "^[a-zA-Zï¿½-ï¿½ï¿½-ï¿½0-9_-]{4,30}$";
 	
 	@Override
 	public int addUser(String login, String name, String surname, String password, String sex, String bDate,
@@ -504,6 +505,45 @@ public class UserServiceImpl implements IUserService {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			IUserDAO dao = daoFactory.getUserDAO();
 			dao.deleteDiscount(discountID);
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+	}
+
+	@Override
+	public Set<User> getAllUsersPart(int pageNum) throws ServiceException {
+		if (!Validator.validateInt(pageNum)) {
+			throw new GetUserServiceException(ExceptionMessages.CORRUPTED_PAGE_NUM);
+		}
+		int start = (pageNum - 1) * USERS_AMOUNT_ON_PAGE;
+		
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IUserDAO dao = daoFactory.getUserDAO();
+			Set<User> users = dao.getAllUsersPart(start, USERS_AMOUNT_ON_PAGE);
+			if (users == null) {
+				throw new GetUserServiceException(ExceptionMessages.NO_USERS_IN_DB);
+			}
+			return users;
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);	
+		}	
+	}
+
+	@Override
+	public int getNumberOfAllUsersPages() throws ServiceException {
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IUserDAO dao = daoFactory.getUserDAO();
+			int numOfUsers = dao.getNumberOfUsers();
+			if (numOfUsers % USERS_AMOUNT_ON_PAGE == 0) {
+				return numOfUsers / USERS_AMOUNT_ON_PAGE;
+			}
+			else {
+				return numOfUsers / USERS_AMOUNT_ON_PAGE + 1;
+			}
+			
+			
 		} catch (DAOException e) {
 			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
 		}

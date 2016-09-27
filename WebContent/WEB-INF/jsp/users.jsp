@@ -92,7 +92,21 @@
       <div class="col-md-8 col-sm-9 col-lg-8 col-xs-9 main content">
         <div class="panel panel-primary container-fluid">
           <div class="panel-heading row" >
-          		<h4 class="text-left">${pageHeader}</h4>
+          		<h2 class="text-left col-md-8 col-sm-8 col-lg-8 col-xs-8">${pageHeader}</h2>
+          		<h5 class="text-right col-md-4 col-sm-4 col-lg-4 col-xs-4">
+	          	<ul class="pagination" style="margin:0px;padding:0px">
+				  <c:forEach begin="1" end="${requestScope.numOfPages}" step="1" var="pageNum">
+				  	<c:choose> 
+				  		<c:when test="${pageNum eq requestScope.curPage}">
+				  			 <li class="active"><a href="<c:url value="/Controller?command=open_all_users&pageNum=${pageNum}" />" >${pageNum}</a></li>
+				  		</c:when>
+				  		<c:otherwise>
+				  			<li><a href="<c:url value="/Controller?command=open_all_users&pageNum=${pageNum}" />" >${pageNum}</a></li>
+				  		</c:otherwise>
+				  	</c:choose>
+				  </c:forEach>
+				</ul>
+          </h5>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">

@@ -157,7 +157,7 @@ public interface IFilmService {
 	String[] getAvailableCountries(String lang) throws ServiceException;
 	
 	/**
-	 * Counts the number of pages needed to locate all films within the several pagination pages.
+	 * Counts the number of pages needed to locate all films within the pagination.
 	 * 
 	 * @return number of pages
 	 * @throws ServiceException

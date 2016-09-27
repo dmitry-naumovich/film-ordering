@@ -51,6 +51,17 @@ public interface IUserDAO {
 	Set<User> getAllUsers() throws DAOException;
 	
 	/**
+	 * Returns a necessary part of all users from the data source
+	 * 
+	 * @param start start index of necessary users part
+	 * @param amount amount of users to be returned
+	 * @param lang language of the source data to be returned
+	 * @return a part of the set of all users
+	 * @throws DAOException
+	 */
+	Set<User> getAllUsersPart(int start, int amount) throws DAOException;
+	
+	/**
 	 * Searches for users that are banned at the moment
 	 * 
 	 * @return a set of found users
@@ -172,5 +183,13 @@ public interface IUserDAO {
 	 * @throws DAOException
 	 */
 	String getCurrentBanReason(int userID) throws DAOException;
+	
+	/**
+	 * Counts the number of all users in the data source
+	 * 
+	 * @return total user amount
+	 * @throws DAOException
+	 */
+	int getNumberOfUsers() throws DAOException;
 	
 }

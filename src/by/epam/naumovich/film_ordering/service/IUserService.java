@@ -154,6 +154,15 @@ public interface IUserService {
 	Set<User> getAllUsers() throws ServiceException;
 	
 	/**
+	 * Receives a particular set of all users from the DAO layer depending on the current page
+	 * and passes it back to the Controller layer or throws an exception if it is empty
+	 * 
+	 * @return a set of users
+	 * @throws ServiceException
+	 */
+	Set<User> getAllUsersPart(int pageNum) throws ServiceException;
+	
+	/**
 	 * Receives a set of all users who are banned at the moment from the DAO layer and passes it back to the Controller layer 
 	 * or throws an exception if it is empty
 	 * 
@@ -189,4 +198,12 @@ public interface IUserService {
 	 * @throws ServiceException
 	 */
 	void unbanUser(int userID) throws ServiceException;
+	
+	/**
+	 * Counts the number of pages needed to locate all users within the pagination.
+	 * 
+	 * @return number of pages
+	 * @throws ServiceException
+	 */
+	int getNumberOfAllUsersPages() throws ServiceException;
 }

@@ -2,8 +2,6 @@ package by.epam.naumovich.film_ordering.command.impl.order;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -69,10 +67,6 @@ public class OpenUserOrders implements Command {
 				IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 				IUserService userService = ServiceFactory.getInstance().getUserService();
 				Set<Order> orders = orderService.getOrdersByUserId(userID);
-				
-				List<Order> orderList = new ArrayList<Order>(orders);
-				Collections.reverse(orderList);
-				orders = new LinkedHashSet<Order>(orderList);
 				
 				List<String> filmNames = new ArrayList<String>();
 				for (Order o : orders) {

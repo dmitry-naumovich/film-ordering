@@ -2,8 +2,6 @@ package by.epam.naumovich.film_ordering.command.impl.user;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -47,6 +45,8 @@ public class OpenAllUsers implements Command {
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
+		int pageNum = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.PAGE_NUM));
+		
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.OPEN_ALL_USERS_RESTRICTION);
 			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
@@ -58,10 +58,7 @@ public class OpenAllUsers implements Command {
 		else {
 			try {
 				IUserService userService = ServiceFactory.getInstance().getUserService();
-				Set<User> users = userService.getAllUsers();
-				List<User> list = new ArrayList<User>(users);
-				Collections.reverse(list);
-				users = new LinkedHashSet<User>(list);
+				Set<User> users = userService.getAllUsersPart(pageNum);
 
 				List<Boolean> banList = new ArrayList<Boolean>();
 				List<Discount> discountList = new ArrayList<Discount>();
@@ -75,6 +72,10 @@ public class OpenAllUsers implements Command {
 						discountList.add(null);
 					}
 				}
+				
+				int totalPageAmount = userService.getNumberOfAllUsersPages();
+				request.setAttribute(RequestAndSessionAttributes.NUMBER_OF_PAGES, totalPageAmount);
+				request.setAttribute(RequestAndSessionAttributes.CURRENT_PAGE, pageNum);
 				
 				request.setAttribute(RequestAndSessionAttributes.USERS, users);
 				request.setAttribute(RequestAndSessionAttributes.BAN_LIST, banList);

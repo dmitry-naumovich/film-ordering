@@ -159,7 +159,7 @@ public interface IFilmDAO {
 	/**
 	 * Counts the number of all films in the data source
 	 * 
-	 * @return the number of all films
+	 * @return total film amount
 	 * @throws DAOException
 	 */
 	int getNumberOfFilms() throws DAOException;

@@ -24,11 +24,11 @@ public class MySQLOrderDAO implements IOrderDAO {
 
 	public static final String INSERT_NEW_ORDER = "INSERT INTO Orders (o_user, o_film, o_date, o_time, o_fprice, o_discount, o_paym) VALUES (?, ?, ?, ?, ?, ?, ?)";
 	public static final String DELETE_ORDER = "DELETE FROM Orders WHERE o_num = ?";
-	public static final String SELECT_ALL_ORDERS = "SELECT * FROM Orders";
+	public static final String SELECT_ALL_ORDERS = "SELECT * FROM Orders ORDER BY o_date DESC, o_time DESC";
 	public static final String SELECT_ORDER_BY_ORDER_NUM = "SELECT * FROM Orders WHERE o_num = ?";
 	public static final String SELECT_ORDER_BY_USER_AND_FILM_ID = "SELECT * FROM Orders WHERE o_user = ? AND o_film = ?";
-	public static final String SELECT_ORDER_BY_USER_ID = "SELECT * FROM Orders WHERE o_user = ?";
-	public static final String SELECT_ORDER_BY_FILM_ID = "SELECT * FROM Orders WHERE o_film = ?";
+	public static final String SELECT_ORDER_BY_USER_ID = "SELECT * FROM Orders WHERE o_user = ? ORDER BY o_date DESC, o_time DESC";
+	public static final String SELECT_ORDER_BY_FILM_ID = "SELECT * FROM Orders WHERE o_film = ? ORDER BY o_date DESC, o_time DESC";
 	public static final String SELECT_ORDER_NUM_BY_USER_AND_FILM_ID = "SELECT o_num FROM Orders WHERE o_user = ? AND o_film = ?";
 	
 	/**
