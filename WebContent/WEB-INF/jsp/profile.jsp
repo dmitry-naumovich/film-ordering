@@ -171,8 +171,8 @@
 	  							<c:when test="${sessionScope.authUser != null}">
 		                           <c:choose>
 			                           	<c:when test="${sessionScope.isAdmin && user.id != sessionScope.userID}">
-				                          	<a href="<c:url value="/Controller?command=open_user_orders&userID=${user.id}"/>" class="btn btn-primary" role="button">${userOrders}</a> 
-				                          	<a href="<c:url value="/Controller?command=open_user_reviews&userID=${user.id}"/>" class="btn btn-default" role="button">${userReviews}</a>
+				                          	<a href="<c:url value="/Controller?command=open_user_orders&userID=${user.id}&pageNum=1"/>" class="btn btn-primary" role="button">${userOrders}</a> 
+				                          	<a href="<c:url value="/Controller?command=open_user_reviews&userID=${user.id}&pageNum=1"/>" class="btn btn-default" role="button">${userReviews}</a>
 				                          	<c:choose>
 				                          		<c:when test="${requestScope.userDiscount == null}">
 				                          			<a data-toggle="modal" data-target="#setDiscountModal" class="btn btn-danger" role="button">${setDiscount}</a>
@@ -193,20 +193,20 @@
 				                          	
 				                        </c:when>
 				                        <c:when test="${!sessionScope.isAdmin && user.id != sessionScope.userID}">
-				                        	<a href="<c:url value="/Controller?command=open_user_reviews&userID=${user.id}"/>" class="btn btn-default" role="button">${userReviews}</a>
+				                        	<a href="<c:url value="/Controller?command=open_user_reviews&userID=${user.id}&pageNum=1"/>" class="btn btn-default" role="button">${userReviews}</a>
 				                        </c:when>
 				                        <c:when test="${sessionScope.isAdmin && user.id == sessionScope.userID}"> 
 				                        	<a href="<c:url value="/Controller?command=open_user_settings&userID=${sessionScope.userID}"/>" class="btn btn-default" role="button">${editProfile}</a>
 				                        </c:when>
 				                        <c:otherwise>
-				                        	<a href="<c:url value="/Controller?command=open_user_orders&userID=${sessionScope.userID}"/>" class="btn btn-primary" role="button">${myOrders}</a> 
-				                            <a href="<c:url value="/Controller?command=open_user_reviews&userID=${sessionScope.userID}"/>" class="btn btn-default" role="button">${myReviews}</a>
+				                        	<a href="<c:url value="/Controller?command=open_user_orders&userID=${sessionScope.userID}&pageNum=1"/>" class="btn btn-primary" role="button">${myOrders}</a> 
+				                            <a href="<c:url value="/Controller?command=open_user_reviews&userID=${sessionScope.userID}&pageNum=1"/>" class="btn btn-default" role="button">${myReviews}</a>
 				                            <a href="<c:url value="/Controller?command=open_user_settings&userID=${sessionScope.userID}"/>" class="btn btn-danger" role="button">${editProfile}</a>
 				                        </c:otherwise>
 			                       </c:choose>
 			                     </c:when>
 			                     <c:otherwise> 
-			                     	<a href="<c:url value="/Controller?command=open_user_reviews&userID=${user.id}" />" class="btn btn-warning" role="button">${userReviews}</a>
+			                     	<a href="<c:url value="/Controller?command=open_user_reviews&userID=${user.id}&pageNum=1" />" class="btn btn-warning" role="button">${userReviews}</a>
 			                     </c:otherwise>
 		                     </c:choose>
 	                        

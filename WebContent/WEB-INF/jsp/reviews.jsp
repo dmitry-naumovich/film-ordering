@@ -96,7 +96,7 @@
                     </c:choose>
                         
                     <div class="panel panel-default container-fluid">
-                        <div class="row panel-heading" style="background-color:${rColor}">
+                        <div class="row panel-heading review-heading" style="background-color:${rColor}">
                         	<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
                         		<h4 class=" text-left"> 
 			                    	<a href="<c:url value="/Controller?command=open_single_film&filmID=${review.filmId}" />" >${filmName} </a>

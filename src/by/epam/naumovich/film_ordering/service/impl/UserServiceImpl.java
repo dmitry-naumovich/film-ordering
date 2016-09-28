@@ -274,7 +274,7 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public String getLoginByID(int id) throws ServiceException {
 		if(!Validator.validateInt(id)){
-			throw new ServiceException(ExceptionMessages.CORRUPTED_USER_ID);
+			throw new GetUserServiceException(ExceptionMessages.CORRUPTED_USER_ID);
 		}
 		
 		try {

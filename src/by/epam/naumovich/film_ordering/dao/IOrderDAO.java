@@ -57,6 +57,17 @@ public interface IOrderDAO {
 	 * @throws DAOException
 	 */
 	Set<Order> getOrdersByUserId(int id) throws DAOException;
+
+	/**
+	 * Searches for the orders in the data source by user ID and returns the necessary part of them
+	 * 
+	 * @param id user ID
+	 * @param start start index of necessary part
+	 * @param amount amount of orders to be returned
+	 * @return a set of found orders
+	 * @throws DAOException
+	 */
+	Set<Order> getOrdersPartByUserId(int id, int start, int amount) throws DAOException;
 	
 	/**
 	 * Searches for the orders in the data source by film ID
@@ -66,6 +77,17 @@ public interface IOrderDAO {
 	 * @throws DAOException
 	 */
 	Set<Order> getOrdersByFilmId(int id) throws DAOException;
+	
+	/**
+	 * Searches for the orders in the data source by film ID
+	 * 
+	 * @param id film ID
+	 * @param start start index of necessary part
+	 * @param amount amount of orders to be returned
+	 * @return a set of found orders
+	 * @throws DAOException
+	 */
+	Set<Order> getOrdersPartByFilmId(int id, int start, int amount) throws DAOException;
 	
 	/**
 	 * Returns all orders that are present in the data source
@@ -92,4 +114,22 @@ public interface IOrderDAO {
 	 * @throws DAOException
 	 */
 	int getNumberOfOrders() throws DAOException;
+	
+	/**
+	 * Counts the number of user orders in the data source
+	 * 
+	 * @param userID ID of the user whose orders are counted
+	 * @return total user orders amount
+	 * @throws DAOException
+	 */
+	int getNumberOfUserOrders(int userID) throws DAOException;
+	
+	/**
+	 * Counts the number of film orders in the data source
+	 * 
+	 * @param filmID ID of the film which orders are counted
+	 * @return total film orders amount
+	 * @throws DAOException
+	 */
+	int getNumberOfFilmOrders(int filmID) throws DAOException;
 }

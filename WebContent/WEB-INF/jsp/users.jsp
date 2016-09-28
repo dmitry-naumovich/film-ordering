@@ -186,8 +186,8 @@
                         	<a href="<c:url value="/Controller?command=open_user_profile&userID=${user.id}"/>" class="btn btn-primary" role="button">${userProfile}</a>
                           <c:choose>
                            	<c:when test="${sessionScope.isAdmin && user.id != sessionScope.userID}">
-	                          	<a href="<c:url value="/Controller?command=open_user_orders&userID=${user.id}"/>" class="btn btn-default" role="button">${userOrders}</a> 
-	                          	<a href="<c:url value="/Controller?command=open_user_reviews&userID=${user.id}"/>" class="btn btn-info" role="button">${userReviews}</a>
+	                          	<a href="<c:url value="/Controller?command=open_user_orders&userID=${user.id}&pageNum=1"/>" class="btn btn-default" role="button">${userOrders}</a> 
+	                          	<a href="<c:url value="/Controller?command=open_user_reviews&userID=${user.id}&pageNum=1"/>" class="btn btn-info" role="button">${userReviews}</a>
 	                          	<c:choose>
 	                          		<c:when test="${requestScope.discountList[status.index] == null}">
 	                          			<a data-toggle="modal" data-target="#setDiscountModal${user.id}" class="btn btn-warning" role="button">${setDiscount}</a>

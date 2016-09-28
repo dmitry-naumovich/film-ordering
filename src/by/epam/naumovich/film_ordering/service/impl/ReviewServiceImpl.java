@@ -31,7 +31,7 @@ public class ReviewServiceImpl implements IReviewService {
 	public static final String NEGATIVE_REVIEW = "ng";
 	public static final String NEUTRAL_REVIEW = "nt";
 	public static final int REVIEW_MIN_LENGTH = 50;
-	private static final int REVIEWS_AMOUNT_ON_PAGE = 8;
+	private static final int REVIEWS_AMOUNT_ON_PAGE = 10;
 	
 	@Override
 	public void addReview(int userID, int filmID, String mark, String type, String text) throws ServiceException {

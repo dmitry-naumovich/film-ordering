@@ -57,13 +57,13 @@ public final class Validator {
 	}
 	
 	/**
-	 * Validates int value
+	 * Validates integer value which must have positive value
 	 * 
-	 * @param i int value
-	 * @return true if value is not equal to 0, false otherwise
+	 * @param i integer value
+	 * @return true if the value is positive, false otherwise
 	 */
 	public static boolean validateInt(int i) {
-		return i != 0;
+		return i > 0;
 	}
 	
 	/**

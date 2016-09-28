@@ -47,6 +47,7 @@ public class OpenFilmOrders implements Command {
 		
 		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
 		int filmID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));
+		int pageNum = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.PAGE_NUM));
 		
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.FILM_ORDERS_RESTRICTION);
@@ -71,6 +72,10 @@ public class OpenFilmOrders implements Command {
 					userLogins.add(userLogin);
 				}
 				String filmName = filmService.getFilmNameByID(filmID, lang);
+				
+				int totalPageAmount = orderService.getNumberOfFilmOrdersPages(filmID);
+				request.setAttribute(RequestAndSessionAttributes.NUMBER_OF_PAGES, totalPageAmount);
+				request.setAttribute(RequestAndSessionAttributes.CURRENT_PAGE, pageNum);
 				
 				request.setAttribute(RequestAndSessionAttributes.ORDERS, orders);
 				request.setAttribute(RequestAndSessionAttributes.FILM_NAME, filmName);

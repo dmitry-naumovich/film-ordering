@@ -51,8 +51,8 @@
       			</c:when>
       			<c:otherwise> 
       				 <li><a href="<c:url value="/Controller?command=open_user_profile&userID=${sessionScope.userID}"/>" >${profile}</a></li>
-      				 <li><a href="<c:url value="/Controller?command=open_user_reviews&userID=${sessionScope.userID}"/>">${myReviews}</a></li>
-      				 <li><a href="<c:url value="/Controller?command=open_user_orders&userID=${sessionScope.userID}"/>">${myOrders}</a></li>
+      				 <li><a href="<c:url value="/Controller?command=open_user_reviews&userID=${sessionScope.userID}&pageNum=1"/>">${myReviews}</a></li>
+      				 <li><a href="<c:url value="/Controller?command=open_user_orders&userID=${sessionScope.userID}&pageNum=1"/>">${myOrders}</a></li>
       				 <li><a href="<c:url value="/Controller?command=open_user_settings&userID=${sessionScope.userID}"/>">${settings}</a></li>
       			</c:otherwise>
       		</c:choose> 

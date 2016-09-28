@@ -46,6 +46,8 @@ public class OpenUserOrders implements Command {
 		System.out.println(query);
 		
 		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
+		int pageNum = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.PAGE_NUM));
+		
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
 			if (request.getParameter(RequestAndSessionAttributes.USER_ID).isEmpty() || request.getParameter(RequestAndSessionAttributes.USER_ID) == null) {
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.SIGN_IN_FOR_YOUR_ORDERS);
@@ -66,7 +68,7 @@ public class OpenUserOrders implements Command {
 				IOrderService orderService = ServiceFactory.getInstance().getOrderService();
 				IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 				IUserService userService = ServiceFactory.getInstance().getUserService();
-				Set<Order> orders = orderService.getOrdersByUserId(userID);
+				Set<Order> orders = orderService.getOrdersPartByUserId(userID, pageNum);
 				
 				List<String> filmNames = new ArrayList<String>();
 				for (Order o : orders) {
@@ -74,6 +76,10 @@ public class OpenUserOrders implements Command {
 					filmNames.add(filmName);
 				}
 				String userLogin = userService.getLoginByID(userID);
+				
+				int totalPageAmount = orderService.getNumberOfUserOrdersPages(userID);
+				request.setAttribute(RequestAndSessionAttributes.NUMBER_OF_PAGES, totalPageAmount);
+				request.setAttribute(RequestAndSessionAttributes.CURRENT_PAGE, pageNum);
 				
 				request.setAttribute(RequestAndSessionAttributes.ORDERS, orders);
 				request.setAttribute(RequestAndSessionAttributes.FILM_NAMES, filmNames);

@@ -115,7 +115,7 @@ public class FilmServiceImpl implements IFilmService {
 	@Override
 	public void deleteFilm(int id) throws ServiceException {
 		if (!Validator.validateInt(id)) {
-			throw new ServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
+			throw new ServiceException(ExceptionMessages.CORRUPTED_FILM_ID);
 		}
 		
 		try {
@@ -247,7 +247,7 @@ public class FilmServiceImpl implements IFilmService {
 	@Override
 	public Film getFilmByID(int id, String lang) throws ServiceException {
 		if (!Validator.validateInt(id)) {
-			throw new ServiceException(ExceptionMessages.CORRUPTED_FILM_ID);
+			throw new GetFilmServiceException(ExceptionMessages.CORRUPTED_FILM_ID);
 		}
 		Film film = null;
 		try {

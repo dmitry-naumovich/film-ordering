@@ -87,7 +87,7 @@
           				<c:when test="${sessionScope.isAdmin}">
           					<a class="btn btn-primary center-block" href="<c:url value="/Controller?command=open_film_edit_page&filmID=${film.id}"/>" role="button">${editFilmBtn}</a>
           					<br>
-             				<a class="btn btn-warning center-block" href="<c:url value="/Controller?command=open_film_orders&filmID=${film.id}"/>" role="button">${openFilmOrdersBtn}</a>
+             				<a class="btn btn-warning center-block" href="<c:url value="/Controller?command=open_film_orders&filmID=${film.id}&pageNum=1"/>" role="button">${openFilmOrdersBtn}</a>
              				<br>
              				<a class="btn btn-danger center-block" href="<c:url value="/Controller?command=delete_film&filmID=${film.id}"/>" role="button">${deleteFilmBtn}</a>
           				</c:when>
@@ -211,7 +211,7 @@
 		                    </c:choose>
 			                        
 		                    <div class="panel panel-default container-fluid">
-		                        <div class="row panel-heading" style="background-color:${rColor}">
+		                        <div class="row panel-heading review-heading" style="background-color:${rColor}">
 		                        	<h4 class=" text-left"> 
 					                	${reviewBy} 
 					                	<a href="<c:url value="/Controller?command=open_user_profile&userID=${review.author}" />" > ${authorLogin} </a>

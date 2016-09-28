@@ -116,9 +116,13 @@ section a {
 	vertical-align: middle;
 }
 
-.panel-heading h4 > a, .panel-heading h5 > a {
+.panel-heading h4 > a {
+	color: white;
+}
+.review-heading h4 > a, .panel-heading h5 > a {
 	color:black;
 }
+
 
 @media screen and (max-width: 1060px) {
     .navbar-collapse.collapse {

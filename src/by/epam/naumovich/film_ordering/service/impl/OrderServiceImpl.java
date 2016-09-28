@@ -126,7 +126,7 @@ public class OrderServiceImpl implements IOrderService {
 	@Override
 	public Set<Order> getOrdersByUserId(int id) throws ServiceException {
 		if (!Validator.validateInt(id)) {
-			throw new ServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
+			throw new ServiceException(ExceptionMessages.CORRUPTED_USER_ID);
 		}
 		
 		Set<Order> set = new LinkedHashSet<Order>();
@@ -149,7 +149,7 @@ public class OrderServiceImpl implements IOrderService {
 	@Override
 	public Set<Order> getOrdersByFilmId(int id) throws ServiceException {
 		if (!Validator.validateInt(id)) {
-			throw new ServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
+			throw new ServiceException(ExceptionMessages.CORRUPTED_FILM_ID);
 		}
 		
 		Set<Order> set = new LinkedHashSet<Order>();
@@ -217,6 +217,97 @@ public class OrderServiceImpl implements IOrderService {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			IOrderDAO orderDAO = daoFactory.getOrderDAO();
 			int numOfOrders = orderDAO.getNumberOfOrders();
+			if (numOfOrders % ORDERS_AMOUNT_ON_PAGE == 0) {
+				return numOfOrders / ORDERS_AMOUNT_ON_PAGE;
+			}
+			else {
+				return numOfOrders / ORDERS_AMOUNT_ON_PAGE + 1;
+			}
+			
+			
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+	}
+
+	@Override
+	public Set<Order> getOrdersPartByUserId(int id, int pageNum) throws ServiceException {
+		if (!Validator.validateInt(pageNum) || !Validator.validateInt(id)) {
+			throw new GetOrderServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
+		}
+		
+		int start = (pageNum - 1) * ORDERS_AMOUNT_ON_PAGE;
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IOrderDAO orderDAO = daoFactory.getOrderDAO();
+			Set<Order> set = orderDAO.getOrdersPartByUserId(id, start, ORDERS_AMOUNT_ON_PAGE);
+			
+			if (set.isEmpty() || set == null) {
+				throw new GetOrderServiceException(ExceptionMessages.NO_ORDERS_IN_DB);
+			}
+			
+			return set;
+			
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+	}
+
+	@Override
+	public Set<Order> getOrdersPartByFilmId(int id, int pageNum) throws ServiceException {
+		if (!Validator.validateInt(pageNum) || !Validator.validateInt(id)) {
+			throw new GetOrderServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
+		}
+		
+		int start = (pageNum - 1) * ORDERS_AMOUNT_ON_PAGE;
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IOrderDAO orderDAO = daoFactory.getOrderDAO();
+			Set<Order> set = orderDAO.getOrdersPartByFilmId(id, start, ORDERS_AMOUNT_ON_PAGE);
+			
+			if (set.isEmpty() || set == null) {
+				throw new GetOrderServiceException(ExceptionMessages.NO_ORDERS_IN_DB);
+			}
+			
+			return set;
+			
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+	}
+
+	@Override
+	public int getNumberOfUserOrdersPages(int userID) throws ServiceException {
+		if (!Validator.validateInt(userID)) {
+			throw new ServiceException(ExceptionMessages.CORRUPTED_USER_ID);
+		}
+		
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IOrderDAO orderDAO = daoFactory.getOrderDAO();
+			int numOfOrders = orderDAO.getNumberOfUserOrders(userID);
+			if (numOfOrders % ORDERS_AMOUNT_ON_PAGE == 0) {
+				return numOfOrders / ORDERS_AMOUNT_ON_PAGE;
+			}
+			else {
+				return numOfOrders / ORDERS_AMOUNT_ON_PAGE + 1;
+			}
+			
+			
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+	}
+
+	@Override
+	public int getNumberOfFilmOrdersPages(int filmID) throws ServiceException {
+		if (!Validator.validateInt(filmID)) {
+			throw new ServiceException(ExceptionMessages.CORRUPTED_FILM_ID);
+		}
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IOrderDAO orderDAO = daoFactory.getOrderDAO();
+			int numOfOrders = orderDAO.getNumberOfFilmOrders(filmID);
 			if (numOfOrders % ORDERS_AMOUNT_ON_PAGE == 0) {
 				return numOfOrders / ORDERS_AMOUNT_ON_PAGE;
 			}

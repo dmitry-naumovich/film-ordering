@@ -69,6 +69,17 @@ public interface IOrderService {
 	Set<Order> getOrdersByUserId(int id) throws ServiceException;
 	
 	/**
+	 * Verifies input parameter and passes it to the DAO layer, received a particular set of found orders back and returns it to the Controller layer
+	 * or throws an exception if it is empty
+	 * 
+	 * @param id ID of the user whose orders are searched
+	 * @param pageNum number of page
+	 * @return a set of found orders
+	 * @throws ServiceException
+	 */
+	Set<Order> getOrdersPartByUserId(int id, int pageNum) throws ServiceException;
+	
+	/**
 	 * Verifies input parameter and passes it to the DAO layer, received a set of found orders back and returns it to the Controller layer
 	 * or throws an exception if it is empty
 	 * 
@@ -77,6 +88,17 @@ public interface IOrderService {
 	 * @throws ServiceException
 	 */
 	Set<Order> getOrdersByFilmId(int id) throws ServiceException;
+	
+	/**
+	 * Verifies input parameter and passes it to the DAO layer, received a particular set of found orders back and returns it to the Controller layer
+	 * or throws an exception if it is empty
+	 * 
+	 * @param id ID of the film which orders are searched
+	 * @param pageNum number of page
+	 * @return a set of found orders
+	 * @throws ServiceException
+	 */
+	Set<Order> getOrdersPartByFilmId(int id, int pageNum) throws ServiceException;
 	
 	/**
 	 * Receives a set of all present orders from the DAO layer and passes it back to the Controller layer or throws an exception if it is empty
@@ -102,4 +124,22 @@ public interface IOrderService {
 	 * @throws ServiceException
 	 */
 	int getNumberOfAllOrdersPages() throws ServiceException;
+	
+	/**
+	 * Counts the number of pages needed to locate all user orders within the pagination.
+	 * 
+	 * @param userID ID of the user whose orders are searched
+	 * @return number of pages
+	 * @throws ServiceException
+	 */
+	int getNumberOfUserOrdersPages(int userID) throws ServiceException;
+	
+	/**
+	 * Counts the number of pages needed to locate all film orders within the pagination.
+	 * 
+	 * @param filmID ID of the film which orders are searched
+	 * @return number of pages
+	 * @throws ServiceException
+	 */
+	int getNumberOfFilmOrdersPages(int filmID) throws ServiceException;
 }

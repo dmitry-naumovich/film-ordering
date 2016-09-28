@@ -83,8 +83,8 @@
                                 	<c:otherwise> 
 		                                <ul class="dropdown-menu" role="menu">
 		                                  <li><a href="<c:url value="/Controller?command=open_user_profile&userID=${sessionScope.userID}"/>" role="menuItem">${profile}</a></li>
-		                                  <li><a href="<c:url value="/Controller?command=open_user_reviews&userID=${sessionScope.userID}"/>" role="menuItem">${myReviews}</a></li>
-		                                  <li><a href="<c:url value="/Controller?command=open_user_orders&userID=${sessionScope.userID}"/>" role="menuItem">${myOrders}</a></li>
+		                                  <li><a href="<c:url value="/Controller?command=open_user_reviews&userID=${sessionScope.userID}&pageNum=1"/>" role="menuItem">${myReviews}</a></li>
+		                                  <li><a href="<c:url value="/Controller?command=open_user_orders&userID=${sessionScope.userID}&pageNum=1"/>" role="menuItem">${myOrders}</a></li>
 		                                  <li><a href="<c:url value="/Controller?command=open_user_settings&userID=${sessionScope.userID}"/>" role="menuItem">${settings}</a></li>
 		                                  <li class="divider"></li>
 		                                  <li><a href="<c:url value="/Controller?command=logout" />" role="menuItem">${logout}</a></li>

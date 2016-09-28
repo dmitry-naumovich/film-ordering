@@ -171,6 +171,29 @@ public class MySQLOrderDAOTest {
 	}
 	
 	/**
+	 * Gets orders part by user ID in two different ways and compares results which must be equal.
+	 * 
+	 * @throws DAOException
+	 */
+	@Test
+	public void getOrdersPartByUserId() throws DAOException {
+		DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+		IOrderDAO dao = daoFactory.getOrderDAO();
+		
+		Set<Order> userOrders1 = dao.getOrdersPartByUserId(1, 0, 3);
+		Set<Order> userOrders2 = new LinkedHashSet<Order>();
+		for (Order o : dao.getAllOrders()) {
+			if (o.getUserId() == 1) {
+				userOrders2.add(o);
+			}
+		}
+		List<Order> list = new LinkedList<Order>(userOrders2);
+		userOrders2 = new LinkedHashSet<Order>(list.subList(0, 3));
+		
+		Assert.assertEquals(userOrders1, userOrders2);	
+	}
+	
+	/**
 	 * Gets orders by film ID in two different ways and compares results which must be equal.
 	 * 
 	 * @throws DAOException
@@ -187,6 +210,29 @@ public class MySQLOrderDAOTest {
 				filmOrders2.add(o);
 			}
 		}
+		
+		Assert.assertEquals(filmOrders1, filmOrders2);	
+	}
+	
+	/**
+	 * Gets orders part by film ID in two different ways and compares results which must be equal.
+	 * 
+	 * @throws DAOException
+	 */
+	@Test
+	public void getOrdersPartByFilmId() throws DAOException {
+		DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+		IOrderDAO dao = daoFactory.getOrderDAO();
+		
+		Set<Order> filmOrders1 = dao.getOrdersPartByFilmId(1, 0, 3);
+		Set<Order> filmOrders2 = new LinkedHashSet<Order>();
+		for (Order o : dao.getAllOrders()) {
+			if (o.getFilmId() == 1) {
+				filmOrders2.add(o);
+			}
+		}
+		List<Order> list = new LinkedList<Order>(filmOrders2);
+		filmOrders2 = new LinkedHashSet<Order>(list.subList(0, 3));
 		
 		Assert.assertEquals(filmOrders1, filmOrders2);	
 	}
@@ -224,4 +270,49 @@ public class MySQLOrderDAOTest {
 		
 		Assert.assertEquals(particularOrders1, particularOrders2);	
 	}
+	
+	/**
+	 * Gets the amount of user orders in the data source in two different ways and compares the results which must be equal.
+	 * 
+	 * @throws DAOException
+	 */
+	@Test
+	public void getNumberOfUserOrders() throws DAOException {
+		DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+		IOrderDAO orderDAO = daoFactory.getOrderDAO();
+		
+		int ordersNum1 = orderDAO.getNumberOfUserOrders(1);
+		Set<Order> userOrders = new LinkedHashSet<Order>();
+		for (Order o : orderDAO.getAllOrders()) {
+			if (o.getUserId() == 1) {
+				userOrders.add(o);
+			}
+		}
+		int ordersNum2 = userOrders.size();
+		
+		Assert.assertEquals(ordersNum1, ordersNum2);
+	}
+	
+	/**
+	 * Gets the amount of film orders in the data source in two different ways and compares the results which must be equal.
+	 * 
+	 * @throws DAOException
+	 */
+	@Test
+	public void getNumberOfFilmOrders() throws DAOException {
+		DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+		IOrderDAO orderDAO = daoFactory.getOrderDAO();
+		
+		int ordersNum1 = orderDAO.getNumberOfFilmOrders(1);
+		Set<Order> filmOrders = new LinkedHashSet<Order>();
+		for (Order o : orderDAO.getAllOrders()) {
+			if (o.getFilmId() == 1) {
+				filmOrders.add(o);
+			}
+		}
+		int ordersNum2 = filmOrders.size();
+		
+		Assert.assertEquals(ordersNum1, ordersNum2);
+	}
+	
 }

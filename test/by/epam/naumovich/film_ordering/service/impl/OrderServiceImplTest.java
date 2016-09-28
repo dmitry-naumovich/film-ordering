@@ -55,10 +55,10 @@ public class OrderServiceImplTest {
 	 * 
 	 * @throws ServiceException
 	 */
-	@Test(expected=GetOrderServiceException.class)
+	@Test(expected=ServiceException.class)
 	public void getOrderByOrderNum() throws ServiceException {
 		IOrderService service = ServiceFactory.getInstance().getOrderService();
-		service.getOrderByOrderNum(-1);
+		service.getOrderByOrderNum(0);
 	}
 	
 	/**
@@ -80,7 +80,7 @@ public class OrderServiceImplTest {
 	@Test(expected=ServiceException.class)
 	public void getOrdersByUserId() throws ServiceException {
 		IOrderService service = ServiceFactory.getInstance().getOrderService();
-		service.getOrdersByUserId(0);
+		service.getOrdersByUserId(-1);
 	}
 	
 	/**
@@ -102,7 +102,51 @@ public class OrderServiceImplTest {
 	@Test(expected=GetOrderServiceException.class)
 	public void getAllOrdersPart() throws ServiceException {
 		IOrderService service = ServiceFactory.getInstance().getOrderService();
-		service.getAllOrdersPart(0);
+		service.getAllOrdersPart(-1);
+	}
+	
+	/**
+	 * Tries to get order from the DAO layer by the invalid page number and user ID.
+	 * 
+	 * @throws ServiceException
+	 */
+	@Test(expected=GetOrderServiceException.class)
+	public void getOrdersPartByUserId() throws ServiceException {
+		IOrderService service = ServiceFactory.getInstance().getOrderService();
+		service.getOrdersPartByUserId(-1, 0);
 	}
 
+	/**
+	 * Tries to get order from the DAO layer by the invalid page number and film ID.
+	 * 
+	 * @throws ServiceException
+	 */
+	@Test(expected=GetOrderServiceException.class)
+	public void getOrdersPartByFilmId() throws ServiceException {
+		IOrderService service = ServiceFactory.getInstance().getOrderService();
+		service.getOrdersPartByFilmId(-1, 0);
+	}
+	
+	/**
+	 * Tries to get user orders amount from the DAO layer by the invalid user ID.
+	 * 
+	 * @throws ServiceException
+	 */
+	@Test(expected=ServiceException.class)
+	public void getNumberOfUserOrdersPages() throws ServiceException {
+		IOrderService service = ServiceFactory.getInstance().getOrderService();
+		service.getNumberOfUserOrdersPages(-1);
+	}
+	
+	/**
+	 * Tries to get film orders amount from the DAO layer by the invalid film ID.
+	 * 
+	 * @throws ServiceException
+	 */
+	@Test(expected=ServiceException.class)
+	public void getNumberOfFilmOrdersPages() throws ServiceException {
+		IOrderService service = ServiceFactory.getInstance().getOrderService();
+		service.getNumberOfFilmOrdersPages(0);
+	}
+	
 }

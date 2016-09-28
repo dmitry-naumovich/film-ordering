@@ -60,8 +60,8 @@
           		<c:when test="${sessionScope.isAdmin}">
           			<c:choose>
 	          			<c:when test="${requestScope.orderViewType eq 'all'}"> 
-	          				  <h2 class="text-left col-md-8 col-sm-8 col-lg-8 col-xs-8">${orders}</h2>
-					          <h5 class="text-right col-md-4 col-sm-4 col-lg-4 col-xs-4">
+	          				  <h4 class="text-left col-md-5 col-sm-5 col-lg-5 col-xs-5">${orders}</h4>
+					          <h5 class="text-right col-md-7 col-sm-7 col-lg-7 col-xs-7">
 					          	<c:if test="${requestScope.numOfPages > 1}">
 						          	<ul class="pagination">
 									  <c:forEach begin="1" end="${requestScope.numOfPages}" step="1" var="pageNum">
@@ -79,34 +79,70 @@
 					          </h5>
 	          			</c:when>
 	          			<c:when test="${requestScope.orderViewType eq 'user'}"> 
-	          				<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
-	          				<h4 class="text-left"> ${userOrder}
-	          				 	${requestScope.userLogin}
+	          				<h4 class="text-left col-md-4 col-sm-4 col-lg-4 col-xs-4">
+	          					${userOrder} <a href="<c:url value="/Controller?command=open_user_profile&userID=${requestScope.userID}"/>" >${requestScope.userLogin}</a>
 	          				</h4>
-	          				</div>
-	          				<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
-	          				<h4 class="text-right">
-	          					<a class="btn btn-default" href="<c:url value="/Controller?command=open_user_profile&userID=${requestScope.userID}"/>" role="button" >${userProfile}</a>
-	          				</h4>
-	          				</div>
+	          				<h5 class="text-right col-md-8 col-sm-8 col-lg-8 col-xs-8">
+				          		<c:if test="${requestScope.numOfPages > 1}">
+						          	<ul class="pagination">
+									  <c:forEach begin="1" end="${requestScope.numOfPages}" step="1" var="pageNum">
+									  	<c:choose> 
+									  		<c:when test="${pageNum eq requestScope.curPage}">
+									  			 <li class="active"><a href="<c:url value="/Controller?command=open_user_orders&userID=${requestScope.userID}&pageNum=${pageNum}" />" >${pageNum}</a></li>
+									  		</c:when>
+									  		<c:otherwise>
+									  			<li><a href="<c:url value="/Controller?command=open_user_orders&userID=${requestScope.userID}&pageNum=${pageNum}" />" >${pageNum}</a></li>
+									  		</c:otherwise>
+									  	</c:choose>
+									  </c:forEach>
+									</ul>
+								</c:if>
+				          	</h5>
+	          				
 	          			</c:when>
 	          			<c:when test="${requestScope.orderViewType eq 'film'}">
-	          				<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
-	          				<h4 class="text-left"> 
-	          					${filmOrders} ${requestScope.filmName}
+	          				<h4 class="text-left col-md-4 col-sm-4 col-lg-4 col-xs-4">
+	          					${filmOrders} <a href="<c:url value="/Controller?command=open_single_film&filmID=${filmID}"/>" > ${requestScope.filmName}</a>
 	          				</h4>
-	          				</div>
-	          				<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
-	          				<h4 class="text-right">
-	          					<a class="btn btn-default" href="<c:url value="/Controller?command=open_single_film&filmID=${filmID}"/>" role="button" >${openFilmPage}</a>
-	          				</h4>
-	          				</div>
+	          				<h5 class="text-right col-md-8 col-sm-8 col-lg-8 col-xs-8">
+				          		<c:if test="${requestScope.numOfPages > 1}">
+						          	<ul class="pagination">
+									  <c:forEach begin="1" end="${requestScope.numOfPages}" step="1" var="pageNum">
+									  	<c:choose> 
+									  		<c:when test="${pageNum eq requestScope.curPage}">
+									  			 <li class="active"><a href="<c:url value="/Controller?command=open_film_orders&filmID=${requestScope.filmID}&pageNum=${pageNum}" />" >${pageNum}</a></li>
+									  		</c:when>
+									  		<c:otherwise>
+									  			<li><a href="<c:url value="/Controller?command=open_film_orders&filmID=${requestScope.filmID}&pageNum=${pageNum}" />" >${pageNum}</a></li>
+									  		</c:otherwise>
+									  	</c:choose>
+									  </c:forEach>
+									</ul>
+								</c:if>
+				          	</h5>
+	          				
 	          			</c:when>
           			</c:choose> 
           			
           		</c:when>
           		<c:otherwise>
-          			<h4 class="text-left"> ${myOrders} </h4>
+          			<h4 class="text-left col-md-4 col-sm-4 col-lg-4 col-xs-4 "> ${myOrders} </h4>
+          			<h5 class="text-right col-md-8 col-sm-8 col-lg-8 col-xs-8">
+				          		<c:if test="${requestScope.numOfPages > 1}">
+						          	<ul class="pagination">
+									  <c:forEach begin="1" end="${requestScope.numOfPages}" step="1" var="pageNum">
+									  	<c:choose> 
+									  		<c:when test="${pageNum eq requestScope.curPage}">
+									  			 <li class="active"><a href="<c:url value="/Controller?command=open_user_orders&userID=${requestScope.userID}&pageNum=${pageNum}" />" >${pageNum}</a></li>
+									  		</c:when>
+									  		<c:otherwise>
+									  			<li><a href="<c:url value="/Controller?command=open_user_orders&userID=${requestScope.userID}&pageNum=${pageNum}" />" >${pageNum}</a></li>
+									  		</c:otherwise>
+									  	</c:choose>
+									  </c:forEach>
+									</ul>
+								</c:if>
+				          	</h5>
           		</c:otherwise>
           	</c:choose>
           	
