@@ -11,11 +11,13 @@
       		<figure>
       		<a href="<c:url value="/Controller?command=open_single_news&newsID=${news.id}"/>" >
       			<img src="img/news/${news.id}/01.jpg" alt="Sidebar News Img" class="img-thumbnail img-responsive" width="180" height="140" /> 
-      				<figcaption>
+      				<figcaption style="padding: 1px 5px 1px 5px;">
       					<a href="<c:url value="/Controller?command=open_single_news&newsID=${news.id}" />" > ${news.title} </a>
       				</figcaption> 
       				</a>
       		</figure>
+      		
+		            <br>
         </c:forEach>
       </div>
     </div>

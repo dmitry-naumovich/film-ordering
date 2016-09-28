@@ -193,7 +193,7 @@
 			    <div class="form-group">
 			      <label class="col-md-3 col-sm-3 col-xs-3 col-lg-3 control-label">${avatar}: </label>
 			      <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
-			            <input type="file" name="avatar" size="1" accept=".gif,.jpg,.jpeg,.png, image/png, image/gif, image/jpg, image/jpeg">
+			            <input type="file" name="avatar" size="10" accept=".gif,.jpg,.jpeg,.png, image/png, image/gif, image/jpg, image/jpeg">
 			      </div>
 			    </div>  
 			    <div class="form-group">

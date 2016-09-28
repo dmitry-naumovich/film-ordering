@@ -51,28 +51,24 @@
 	        
                 <c:choose>
               <c:when test="${sessionScope.authUser!=null}"> 
-              		<form class="navbar-form nav navbar-right">
+              		<form class="navbar-form nav navbar-right profileMenuBar">
               		
-              		<div class="form-group">
+              		<div class="form-group lang-group">
                               		<c:choose>
 										<c:when test="${language eq 'en'}">
-											 <a href="#" class="disabled">${en_lang}</a>
-											<a  href = "<c:url value="/Controller?command=change_language">
+											 <span style="color:white">${en_lang}</span>
+											 <a href = "<c:url value="/Controller?command=change_language">
 												<c:param name="language" value="ru" ></c:param> </c:url>">${ru_lang}</a>
 										</c:when>
 										<c:otherwise>
 											<a href = "<c:url value="/Controller?command=change_language">
 												<c:param name="language" value="en" ></c:param> </c:url>">${en_lang}</a>
-											
-											 <a href="#" class="disabled">${ru_lang}</a>
+											 <span style="color:white">${ru_lang}</span>
 										</c:otherwise>
 									</c:choose>
 			          </div>
-			             	   
 						<div class="form-group dropdown">
-                                <a href="jsp/profile.jsp" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white">
-                                ${sessionScope.authUser }
-                                <span class="caret"></span></a>
+                                <a href="<c:url value="/Controller?command=open_user_profile&userID=${sessionScope.userID}"/>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white;">${sessionScope.authUser}<span class="caret"></span></a>
                                 <c:choose>
 	                                <c:when test="${sessionScope.isAdmin}">
 	                                	<ul class="dropdown-menu" role="menu">
@@ -116,18 +112,17 @@
                               <a href="<c:url value="/Controller?command=open_sign_up_page" />" class="btn btn-primary" role="button">${signUp}</a>
                               <span class="divider-vertical"> </span>
                               
-                              <div class="form-group" style="padding-right:10px">
+                              <div class="form-group lang-group" style="margin-right:10px">
                               		<c:choose>
 										<c:when test="${language eq 'en'}">
-											 <a href="#" class="active">${en_lang}</a>
-											<a  href = "<c:url value="/Controller?command=change_language">
+											 <span style="color:white">${en_lang}</span>
+											 <a href = "<c:url value="/Controller?command=change_language">
 												<c:param name="language" value="ru" ></c:param> </c:url>">${ru_lang}</a>
 										</c:when>
 										<c:otherwise>
 											<a href = "<c:url value="/Controller?command=change_language">
 												<c:param name="language" value="en" ></c:param> </c:url>">${en_lang}</a>
-											
-											 <a href="#" class="active">${ru_lang}</a>
+											 <span style="color:white">${ru_lang}</span>
 										</c:otherwise>
 									</c:choose>
 			          			</div>                     

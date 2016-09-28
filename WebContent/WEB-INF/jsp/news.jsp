@@ -41,6 +41,7 @@
           <div class="row panel-heading" >
           	 <h2 class="text-left col-md-8 col-sm-8 col-lg-8 col-xs-8">${pageHeader}</h2>
 	          <h5 class="text-right col-md-4 col-sm-4 col-lg-4 col-xs-4">
+	          	<c:if test="${requestScope.numOfPages > 1}">
 	          	<ul class="pagination">
 				  <c:forEach begin="1" end="${requestScope.numOfPages}" step="1" var="pageNum">
 				  	<c:choose> 
@@ -53,6 +54,7 @@
 				  	</c:choose>
 				  </c:forEach>
 				</ul>
+				</c:if>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
@@ -106,6 +108,24 @@
 
           </div>
           </div>
+          <c:if test="${requestScope.numOfPages > 1}">
+          <div class="row panel-footer" >
+          <h5 class="text-right">
+          	<ul class="pagination">
+			  <c:forEach begin="1" end="${requestScope.numOfPages}" step="1" var="pageNum">
+			  	<c:choose> 
+			  		<c:when test="${pageNum eq requestScope.curPage}">
+			  			 <li class="active"><a href="<c:url value="/Controller?command=open_all_news&pageNum=${pageNum}" />" >${pageNum}</a></li>
+			  		</c:when>
+			  		<c:otherwise>
+			  			<li><a href="<c:url value="/Controller?command=open_all_news&pageNum=${pageNum}" />" >${pageNum}</a></li>
+			  		</c:otherwise>
+			  	</c:choose>
+			  </c:forEach>
+			</ul>
+          </h5>
+          </div> 
+          </c:if>
 
       </div>
       </div>      

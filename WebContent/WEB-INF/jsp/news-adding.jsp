@@ -81,29 +81,28 @@
 
 <form  name="newNewsForm" class="form-horizontal" method="post" action="Controller?command=add_news" enctype="multipart/form-data" onSubmit="return validateForm(event);">
   	<div class="form-group">
-      <label class="col-md-2 col-sm-2 col-xs-2 col-lg-2 control-label">${newsTitle}</label>
+      <label for="newsTitle" class="col-md-2 col-sm-2 col-xs-2 col-lg-2 control-label">${newsTitle}</label>
       <div class="col-md-10 col-sm-10 col-xs-10 col-lg-10">
-        <input class="form-control" name="newsTitle" type="text" placeholder="${enterTitle}">
+        <input class="form-control" name="newsTitle" id="newsTitle" type="text" placeholder="${enterTitle}">
       </div>
 	</div>
 	<div class="form-group"> 
     	<input type="hidden" name="newsText" id="hiddenText">
     </div>
-  	<div class="form-group">
-		<div class="form-group">
-	      <label class="col-md-2 col-sm-2 col-xs-2 col-lg-2 control-label">${newsImg}: </label>
-	      <div class="col-md-10 col-sm-10 col-xs-10 col-lg-10">
-	            <input type="file" name="image" size="1" accept=".gif,.jpg,.jpeg,.png, image/png, image/gif, image/jpg, image/jpeg">
-	      </div>
-	    </div> 
-  	</div>
-	<div>
-    	<label class="col-md-2 col-sm-2 col-xs-2 col-lg-2 control-label">${newsText}</label>
+	<div class="form-group">
+      <label for="newsImg" class="col-md-2 col-sm-2 col-xs-2 col-lg-2 control-label"  style="float:left;">${newsImg}: </label>
+      <div class="col-md-10 col-sm-10 col-xs-10 col-lg-10">
+            <input type="file" name="image" id="newsImg" size="10" accept=".gif,.jpg,.jpeg,.png, image/png, image/gif, image/jpg, image/jpeg"s>
+      </div>
+    </div> 
+	<div class="form-group">
+    	<label for="newsTextArea" class="col-md-2 col-sm-2 col-xs-2 col-lg-2 control-label">${newsText}</label>
 	    <div class="col-md-10 col-sm-10 col-xs-10 col-lg-10"> 
 	    	<textarea class="form-control" rows="10" id="newsTextArea" placeholder="${enterText}"></textarea>
 	    </div>
 	</div>
 	<div class="col-md-2 col-sm-2 col-xs-2 col-lg-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2 col-lg-offset-2">
+	 	<br>
 	 	<button type="submit" class="btn btn-primary">${addBtn}</button>
 	</div>
 </form>

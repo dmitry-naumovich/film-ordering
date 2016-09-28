@@ -85,8 +85,20 @@ footer {
 }
 
 .pagination {
-	margin:0px;
-	padding:0px;
+	margin: 0px;
+	padding: 0px;
+	border: 1px solid;
+}
+
+.profileMenuBar {
+	padding-top: 10px;
+	margin: 0px;
+	font-size: 16px;
+}
+
+.lang-group {
+  border: 3px solid #428bca;
+  padding: 3px;
 }
 
 #sitemap-header {
@@ -106,32 +118,30 @@ section a {
 
 .panel-heading h4 > a, .panel-heading h5 > a {
 	color:black;
-	
 }
 
-
-
-@media screen and (max-width: 1010px) {
+@media screen and (max-width: 1060px) {
     .navbar-collapse.collapse {
         display: none !important;
     }
     .navbar-collapse.collapse.in {
-        display: blockimportant;
+        display: block !important;
     }
     .navbar-header .collapse, .navbar-toggle {
-        display:block !important;
+        display: block !important;
     }
     .navbar-header {
         float:none;
-    }/* 
-    .collapse {
+    }
+    /* .collapse {
        display: none !important;
    } */
    
 }
 @media  (max-width: 768px) {
 	.search-form {
-	margin:0px; padding:0px;
+		margin:0px; 
+		padding:0px;
 	}
 }
 
