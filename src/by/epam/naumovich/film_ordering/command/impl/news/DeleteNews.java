@@ -47,7 +47,7 @@ public class DeleteNews implements Command {
 				newsService.deleteNews(newsID);
 				logger.debug(String.format(LogMessages.NEWS_DELETED, newsID));
 				request.setAttribute(RequestAndSessionAttributes.SUCCESS_MESSAGE, SuccessMessages.NEWS_DELETED);
-				request.getRequestDispatcher("/Controller?command=open_all_news").forward(request, response);
+				request.getRequestDispatcher("/Controller?command=open_all_news&pageNum=1").forward(request, response);
 			} catch (ServiceException e) {
 				logger.error(String.format(LogMessages.EXCEPTION_IN_COMMAND, e.getClass().getSimpleName(), this.getClass().getSimpleName(), e.getMessage()));
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());

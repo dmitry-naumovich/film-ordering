@@ -51,7 +51,7 @@ public class DeleteFilm implements Command {
 				
 				logger.debug(String.format(LogMessages.FILM_DELETED, filmID));
 				request.setAttribute(RequestAndSessionAttributes.SUCCESS_MESSAGE, SuccessMessages.FILM_DELETED);
-				request.getRequestDispatcher("/Controller?command=open_all_films").forward(request, response);
+				request.getRequestDispatcher("/Controller?command=open_all_films&pageNum=1").forward(request, response);
 			} catch (ServiceException e) {
 				logger.error(String.format(LogMessages.EXCEPTION_IN_COMMAND, e.getClass().getSimpleName(), this.getClass().getSimpleName(), e.getMessage()));
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
