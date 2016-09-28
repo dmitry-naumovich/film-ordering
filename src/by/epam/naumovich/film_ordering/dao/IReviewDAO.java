@@ -39,6 +39,16 @@ public interface IReviewDAO {
 	Set<Review> getAllReviews() throws DAOException;
 
 	/**
+	 * Returns a necessary part of all reviews from the data source
+	 * 
+	 * @param start start index of necessary reviews part
+	 * @param amount amount of reviews to be returned
+	 * @return a part of the set of all reviews
+	 * @throws DAOException
+	 */
+	Set<Review> getAllReviewsPart(int start, int amount) throws DAOException;
+	
+	/**
 	 * Searches for reviews in the data source by user ID
 	 * 
 	 * @param id user ID
@@ -65,4 +75,12 @@ public interface IReviewDAO {
 	 * @throws DAOException
 	 */
 	Review getReviewByUserAndFilmId(int userID, int filmID) throws DAOException;
+	
+	/**
+	 * Counts the number of all reviews in the data source
+	 * 
+	 * @return total review amount
+	 * @throws DAOException
+	 */
+	int getNumberOfReviews() throws DAOException;
 }

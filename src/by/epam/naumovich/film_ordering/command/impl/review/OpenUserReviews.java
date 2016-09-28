@@ -2,8 +2,6 @@ package by.epam.naumovich.film_ordering.command.impl.review;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -59,10 +57,6 @@ public class OpenUserReviews implements Command {
 			
 			try {
 				Set<Review> reviews = reviewService.getReviewsByUserId(userID);
-				
-				List<Review> reviewList = new ArrayList<Review>(reviews);
-				Collections.reverse(reviewList);
-				reviews = new LinkedHashSet<Review>(reviewList);
 				
 				List<String> reviewFilmNames = new ArrayList<String>();
 				for (Review r : reviews) {

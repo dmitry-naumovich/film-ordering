@@ -76,4 +76,21 @@ public interface IReviewService {
 	 * @throws ServiceException
 	 */
 	Review getReviewByUserAndFilmId(int userID, int filmID)  throws ServiceException;
+	
+	/**
+	 * Receives a particular set of all reviews from the DAO layer depending on the current page
+	 * and passes it back to the Controller layer or throws an exception if it is empty
+	 * 
+	 * @return a set of reviews
+	 * @throws ServiceException
+	 */
+	Set<Review> getAllReviewsPart(int pageNum) throws ServiceException;
+	
+	/**
+	 * Counts the number of pages needed to locate all reviews within the pagination.
+	 * 
+	 * @return number of pages
+	 * @throws ServiceException
+	 */
+	int getNumberOfAllReviewsPages() throws ServiceException;
 }

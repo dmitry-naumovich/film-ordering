@@ -94,4 +94,15 @@ public class ReviewServiceImplTest {
 		service.getReviewByUserAndFilmId(0, -1);
 	}
 	
+	/**
+	 * Tries to get reviews from the DAO layer by the invalid page number.
+	 * 
+	 * @throws ServiceException
+	 */
+	@Test(expected=GetReviewServiceException.class)
+	public void getAllReviewsPart() throws ServiceException {
+		IReviewService service = ServiceFactory.getInstance().getReviewService();
+		service.getAllReviewsPart(0);
+	}
+	
 }

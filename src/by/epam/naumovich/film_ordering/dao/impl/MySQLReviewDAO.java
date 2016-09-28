@@ -24,9 +24,11 @@ public class MySQLReviewDAO implements IReviewDAO {
 
 	public static final String INSERT_NEW_REVIEW = "INSERT INTO Reviews (r_author, r_film, r_date, r_time, r_type, r_mark, r_text) VALUES (?, ?, ?, ?, ?, ?, ?)";
 	public static final String DELETE_REVIEW = "DELETE FROM Reviews WHERE r_author = ? and r_film = ?";
-	public static final String SELECT_ALL_REVIEWS = "SELECT * FROM Reviews";
-	public static final String SELECT_REVIEWS_BY_USER_ID = "SELECT * FROM Reviews WHERE r_author = ?";
-	public static final String SELECT_REVIEWS_BY_FILM_ID = "SELECT * FROM Reviews WHERE r_film = ?";
+	public static final String SELECT_ALL_REVIEWS = "SELECT * FROM Reviews ORDER BY r_date DESC, r_time DESC";
+	public static final String SELECT_ALL_REVIEWS_PART = "SELECT * FROM Reviews ORDER BY r_date DESC, r_time DESC LIMIT ?, ?";
+	public static final String SELECT_ALL_REVIEWS_COUNT = "SELECT COUNT(*) FROM Reviews";
+	public static final String SELECT_REVIEWS_BY_USER_ID = "SELECT * FROM Reviews WHERE r_author = ? ORDER BY r_date DESC, r_time DESC";
+	public static final String SELECT_REVIEWS_BY_FILM_ID = "SELECT * FROM Reviews WHERE r_film = ? ORDER BY r_date DESC, r_time DESC";
 	public static final String SELECT_REVIEW_BY_FILM_AND_USER_ID = "SELECT * FROM Reviews WHERE r_author = ? AND r_film = ?";
 	public static final String UPDATE_FILM_RATING = "UPDATE Films SET f_rating = (SELECT AVG(r_mark) FROM Reviews WHERE r_film = ?) WHERE Films.f_id = ?";
 	
@@ -289,5 +291,82 @@ public class MySQLReviewDAO implements IReviewDAO {
 		}
 		return review;
 	}
-	
+
+	@Override
+	public Set<Review> getAllReviewsPart(int start, int amount) throws DAOException {
+		Set<Review> reviewSet = new LinkedHashSet<Review>();
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(SELECT_ALL_REVIEWS_PART);
+			st.setInt(1, start);
+			st.setInt(2, amount);
+			rs = st.executeQuery();
+			
+			while (rs.next()) {
+				Review review = new Review();
+				review.setAuthor(rs.getInt(1));
+				review.setFilmId(rs.getInt(2));
+				review.setDate(rs.getDate(3));
+				review.setTime(rs.getTime(4));
+				review.setType(rs.getString(5));
+				review.setMark(rs.getInt(6));
+				review.setText(rs.getString(7));
+				
+				reviewSet.add(review);
+			}
+			
+		} catch (SQLException e) {
+			throw new DAOException(ExceptionMessages.SQL_SELECT_FAILURE, e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
+		} finally {
+			try {
+				if (rs != null) { rs.close(); }
+				if (st != null) { st.close(); }
+			} catch (SQLException e) {
+				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED);
+			} finally {
+				if (con != null) { pool.closeConnection(con); }
+			}
+		}
+		return reviewSet;
+	}
+
+	@Override
+	public int getNumberOfReviews() throws DAOException {
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(SELECT_ALL_REVIEWS_COUNT);
+			rs = st.executeQuery();
+			
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			throw new DAOException(ExceptionMessages.SQL_SELECT_FAILURE, e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
+		} finally {
+			try {
+				if (rs != null) { rs.close(); }
+				if (st != null) { st.close(); }
+			} catch (SQLException e) {
+				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED);
+			} finally {
+				if (con != null) { pool.closeConnection(con); }
+			}
+		}
+		return 0;
+	}
 }

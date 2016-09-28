@@ -2,8 +2,6 @@ package by.epam.naumovich.film_ordering.command.impl.review;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -45,16 +43,14 @@ public class OpenAllReviews implements Command {
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
+		int pageNum = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.PAGE_NUM));
+		
 		try {
 			IReviewService reviewService = ServiceFactory.getInstance().getReviewService();
 			IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 			IUserService userService = ServiceFactory.getInstance().getUserService();
 			
-			Set<Review> reviews = reviewService.getAllReviews();
-			
-			List<Review> reviewList = new ArrayList<Review>(reviews);
-			Collections.reverse(reviewList);
-			reviews = new LinkedHashSet<Review>(reviewList);
+			Set<Review> reviews = reviewService.getAllReviewsPart(pageNum);
 			
 			List<String> reviewLogins = new ArrayList<String>();
 			List<String> reviewFilmNames = new ArrayList<String>();
@@ -62,6 +58,10 @@ public class OpenAllReviews implements Command {
 				reviewLogins.add(userService.getLoginByID(r.getAuthor()));
 				reviewFilmNames.add(filmService.getFilmByID(r.getFilmId(), lang).getName());
 			}
+			
+			int totalPageAmount = userService.getNumberOfAllUsersPages();
+			request.setAttribute(RequestAndSessionAttributes.NUMBER_OF_PAGES, totalPageAmount);
+			request.setAttribute(RequestAndSessionAttributes.CURRENT_PAGE, pageNum);
 			
 			request.setAttribute(RequestAndSessionAttributes.REVIEWS, reviews);
 			request.setAttribute(RequestAndSessionAttributes.LOGINS, reviewLogins);

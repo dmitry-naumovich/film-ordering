@@ -35,7 +35,7 @@
       <div class="col-md-2 col-sm-4 col-xs-4 col-lg-2 col-md-offset-3 col-xs-0 col-sm-offset-0 col-lg-offset-3" margin-right: 0">
         <ul>
           <li><a href="index.jsp">${main}</a></li>
-          <li><a href="<c:url value="/Controller?command=open_all_news"/>" > ${news} </a></li>
+          <li><a href="<c:url value="/Controller?command=open_all_news&pageNum=1"/>" > ${news} </a></li>
           <li><a href="<c:url value="/Controller?command=open_all_films&pageNum=1"/>" >${films}</a></li>
           <li><a href="<c:url value="/Controller?command=open_widened_search_page"/>"> ${widenedSearch} </a></li>
         </ul>
@@ -45,7 +45,7 @@
       		<c:choose> 
       			<c:when test="${sessionScope.isAdmin}">
       				 <li><a href="<c:url value="/Controller?command=open_user_profile&userID=${sessionScope.userID}"/>" >${profile}</a></li>
-      				 <li><a href="<c:url value="/Controller?command=open_all_reviews"/>">${reviews}</a></li>
+      				 <li><a href="<c:url value="/Controller?command=open_all_reviews&pageNum=1"/>">${reviews}</a></li>
       				 <li><a href="<c:url value="/Controller?command=open_all_orders&pageNum=1"/>">${orders}</a></li>
       				 <li><a href="<c:url value="/Controller?command=open_all_users&pageNum=1"/>">${userList}</a></li>
       			</c:when>

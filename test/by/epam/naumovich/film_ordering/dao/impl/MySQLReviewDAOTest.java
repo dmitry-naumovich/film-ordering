@@ -5,6 +5,8 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
@@ -159,5 +161,39 @@ public class MySQLReviewDAOTest {
 		Assert.assertEquals(expectedReview.getMark(), actualReview.getMark());
 		Assert.assertEquals(expectedReview.getType(), actualReview.getType());
 		Assert.assertEquals(expectedReview.getText(), actualReview.getText());
+	}
+	
+	/**
+	 * Gets the amount of reviews in the data source in two different ways and compares the results which must be equal.
+	 * 
+	 * @throws DAOException
+	 */
+	@Test
+	public void getNumberOfReviews() throws DAOException {
+		DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+		IReviewDAO reviewDAO = daoFactory.getReviewDAO();
+		
+		int reviewsNum1 = reviewDAO.getNumberOfReviews();
+		Set<Review> allReviews = reviewDAO.getAllReviews();
+		int reviewsNum2 = allReviews.size();
+		
+		Assert.assertEquals(reviewsNum1, reviewsNum2);
+	}
+	
+	/**
+	 * Gets the part of all reviews from the data source in two different ways and compares the results which must be equal.
+	 * 
+	 * @throws DAOException
+	 */
+	@Test
+	public void getAllReviewsPart() throws DAOException {
+		DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+		IReviewDAO reviewDAO = daoFactory.getReviewDAO();
+		
+		Set<Review> particularReviews1 = reviewDAO.getAllReviewsPart(0, 6);
+		List<Review> allReviews = new LinkedList<Review>(reviewDAO.getAllReviews());
+		Set<Review> particularReviews2 = new LinkedHashSet<Review>(allReviews.subList(0, 6));
+		
+		Assert.assertEquals(particularReviews1, particularReviews2);	
 	}
 }
