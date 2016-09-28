@@ -62,7 +62,7 @@
 	          			<c:when test="${requestScope.orderViewType eq 'all'}"> 
 	          				  <h2 class="text-left col-md-8 col-sm-8 col-lg-8 col-xs-8">${orders}</h2>
 					          <h5 class="text-right col-md-4 col-sm-4 col-lg-4 col-xs-4">
-					          	<ul class="pagination" style="margin:0px;padding:0px">
+					          	<ul class="pagination">
 								  <c:forEach begin="1" end="${requestScope.numOfPages}" step="1" var="pageNum">
 								  	<c:choose> 
 								  		<c:when test="${pageNum eq requestScope.curPage}">

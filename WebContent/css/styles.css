@@ -84,6 +84,11 @@ footer {
       padding: 15px;
 }
 
+.pagination {
+	margin:0px;
+	padding:0px;
+}
+
 #sitemap-header {
 	color:white;
 }
@@ -111,7 +116,7 @@ section a {
         display: none !important;
     }
     .navbar-collapse.collapse.in {
-        display: block !important;
+        display: blockimportant;
     }
     .navbar-header .collapse, .navbar-toggle {
         display:block !important;
