@@ -106,4 +106,15 @@ public class NewsServiceImplTest {
 		INewsService service = ServiceFactory.getInstance().getNewsService();
 		service.getNewsByMonth(13, 2012);
 	}
+	
+	/**
+	 * Tries to get news from the DAO layer by the invalid page number.
+	 * 
+	 * @throws ServiceException
+	 */
+	@Test(expected=GetNewsServiceException.class)
+	public void getAllNewsPart() throws ServiceException {
+		INewsService service = ServiceFactory.getInstance().getNewsService();
+		service.getAllNewsPart(0);
+	}
 }

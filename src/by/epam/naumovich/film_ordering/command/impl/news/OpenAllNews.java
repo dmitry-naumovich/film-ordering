@@ -1,10 +1,6 @@
 package by.epam.naumovich.film_ordering.command.impl.news;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -41,12 +37,16 @@ public class OpenAllNews implements Command {
 		request.getSession(true).setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
+		int pageNum = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.PAGE_NUM));
+		
 		try {
 			INewsService newsService = ServiceFactory.getInstance().getNewsService();
-			Set<News> news = newsService.getAllNews();
-			List<News> newsList = new ArrayList<News>(news);
-			Collections.reverse(newsList);
-			news = new LinkedHashSet<News>(newsList);
+			Set<News> news = newsService.getAllNewsPart(pageNum);
+			
+			int totalPageAmount = newsService.getNumberOfAllNewsPages();
+			request.setAttribute(RequestAndSessionAttributes.NUMBER_OF_PAGES, totalPageAmount);
+			request.setAttribute(RequestAndSessionAttributes.CURRENT_PAGE, pageNum);
+			
 			request.setAttribute(RequestAndSessionAttributes.NEWS, news);
 			request.getRequestDispatcher(JavaServerPageNames.NEWS_JSP_PAGE).forward(request, response);
 		} catch (GetNewsServiceException e) {

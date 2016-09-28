@@ -25,10 +25,12 @@ public class MySQLNewsDAO implements INewsDAO {
 	public static final String INSERT_NEW_NEWS = "INSERT INTO News (n_date, n_time, n_title, n_text) VALUES (?, ?, ?, ?)";
 	public static final String DELETE_NEWS = "DELETE FROM News WHERE n_id = ?";
 	public static final String UPDATE_NEWS = "UPDATE News SET n_title = ?, n_text = ? WHERE n_id = ?";
-	public static final String SELECT_ALL_NEWS = "SELECT * FROM News";
+	public static final String SELECT_ALL_NEWS = "SELECT * FROM News ORDER BY n_date DESC, n_time DESC";
+	public static final String SELECT_ALL_NEWS_PART = "SELECT * FROM News ORDER BY n_date DESC, n_time DESC LIMIT ?, ?";
+	public static final String SELECT_ALL_NEWS_COUNT = "SELECT COUNT(*) FROM News";
 	public static final String SELECT_NEWS_BY_ID = "SELECT * FROM News WHERE n_id = ?";
-	public static final String SELECT_NEWS_BY_YEAR = "SELECT * FROM News WHERE YEAR(n_date) = ?";
-	public static final String SELECT_NEWS_BY_MONTH_AND_YEAR = "SELECT * FROM News WHERE MONTH(n_date) = ? AND YEAR(n_date) = ?";
+	public static final String SELECT_NEWS_BY_YEAR = "SELECT * FROM News WHERE YEAR(n_date) = ? ORDER BY n_date DESC, n_time DESC";
+	public static final String SELECT_NEWS_BY_MONTH_AND_YEAR = "SELECT * FROM News WHERE MONTH(n_date) = ? AND YEAR(n_date) = ? ORDER BY n_date DESC, n_time DESC";
 	public static final String SELECT_NEW_NEWS_ID = "SELECT n_id FROM News WHERE n_title = ? AND n_text = ?";
 	
 	/**
@@ -310,5 +312,82 @@ public class MySQLNewsDAO implements INewsDAO {
 			
 		}
 		return news;
+	}
+
+	@Override
+	public Set<News> getAllNewsPart(int start, int amount) throws DAOException {
+		Set<News> newsSet = new LinkedHashSet<News>();
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(SELECT_ALL_NEWS_PART);
+			st.setInt(1, start);
+			st.setInt(2, amount);
+			rs = st.executeQuery();
+			
+			while (rs.next()) {
+				News news = new News();
+				news.setId(rs.getInt(1));
+				news.setDate(rs.getDate(2));
+				news.setTime(rs.getTime(3));
+				news.setTitle(rs.getString(4));
+				news.setText(rs.getString(5));
+				newsSet.add(news);
+			}
+			
+		} catch (SQLException e) {
+			throw new DAOException(ExceptionMessages.SQL_SELECT_FAILURE, e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
+		} finally {
+			try {
+				if (rs != null) { rs.close(); }
+				if (st != null) { st.close(); }
+			} catch (SQLException e) {
+				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED);
+			} finally {
+				if (con != null) { pool.closeConnection(con); }
+			}
+			
+		}
+		return newsSet;
+	}
+
+	@Override
+	public int getNumberOfNews() throws DAOException {
+		MySQLConnectionPool pool = null;
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			pool = MySQLConnectionPool.getInstance();
+			con = pool.getConnection();
+			st = con.prepareStatement(SELECT_ALL_NEWS_COUNT);
+			rs = st.executeQuery();
+			
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			throw new DAOException(ExceptionMessages.SQL_SELECT_FAILURE, e);
+		} catch (ConnectionPoolException e) {
+			throw new DAOException(ExceptionMessages.CONNECTION_NOT_TAKEN, e);
+		} finally {
+			try {
+				if (rs != null) { rs.close(); }
+				if (st != null) { st.close(); }
+			} catch (SQLException e) {
+				throw new DAOException(ExceptionMessages.RS_OR_STATEMENT_NOT_CLOSED);
+			} finally {
+				if (con != null) { pool.closeConnection(con); }
+			}
+			
+		}
+		return 0;
 	}
 }

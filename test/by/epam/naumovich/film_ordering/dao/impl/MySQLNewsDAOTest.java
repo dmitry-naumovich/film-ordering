@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Assert;
@@ -201,6 +203,39 @@ public class MySQLNewsDAOTest {
 		}
 		
 		Assert.assertTrue(yearNews.isEmpty());
+	}
+	
+	/**
+	 * Gets the amount of news in the data source in two different ways and compares the results which must be equal.
+	 * 
+	 * @throws DAOException
+	 */
+	@Test
+	public void getNumberOfNews() throws DAOException {
+		DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+		INewsDAO newsDAO = daoFactory.getNewsDAO();
 		
+		int newsNum1 = newsDAO.getNumberOfNews();
+		Set<News> allNews = newsDAO.getAllNews();
+		int newsNum2 = allNews.size();
+		
+		Assert.assertEquals(newsNum1, newsNum2);
+	}
+	
+	/**
+	 * Gets the part of all news from the data source in two different ways and compares the results which must be equal.
+	 * 
+	 * @throws DAOException
+	 */
+	@Test
+	public void getAllNewsPart() throws DAOException {
+		DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+		INewsDAO newsDAO = daoFactory.getNewsDAO();
+		
+		Set<News> particularNews1 = newsDAO.getAllNewsPart(0, 6);
+		List<News> allNews = new LinkedList<News>(newsDAO.getAllNews());
+		Set<News> particularNews2 = new LinkedHashSet<News>(allNews.subList(0, 6));
+		
+		Assert.assertEquals(particularNews1, particularNews2);	
 	}
 }

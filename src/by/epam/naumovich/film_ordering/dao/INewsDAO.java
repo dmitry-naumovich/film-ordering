@@ -74,5 +74,23 @@ public interface INewsDAO {
 	 * @throws DAOException
 	 */
 	Set<News> getNewsByMonthAndYear(int month, int year) throws DAOException;
+	
+	/**
+	 * Returns a necessary part of all news from the data source
+	 * 
+	 * @param start start index of necessary news part
+	 * @param amount amount of news to be returned
+	 * @return a part of the set of all news
+	 * @throws DAOException
+	 */
+	Set<News> getAllNewsPart(int start, int amount) throws DAOException;
+	
+	/**
+	 * Counts the number of all news in the data source
+	 * 
+	 * @return total news amount
+	 * @throws DAOException
+	 */
+	int getNumberOfNews() throws DAOException;
 
 }

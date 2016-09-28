@@ -91,4 +91,21 @@ public interface INewsService {
 	 * @throws ServiceException
 	 */
 	Set<News> getNewsByMonth(int month, int year) throws ServiceException;
+	
+	/**
+	 * Receives a particular set of all news from the DAO layer depending on the current page
+	 * and passes it back to the Controller layer or throws an exception if it is empty
+	 * 
+	 * @return a set of news
+	 * @throws ServiceException
+	 */
+	Set<News> getAllNewsPart(int pageNum) throws ServiceException;
+	
+	/**
+	 * Counts the number of pages needed to locate all news within the pagination.
+	 * 
+	 * @return number of pages
+	 * @throws ServiceException
+	 */
+	int getNumberOfAllNewsPages() throws ServiceException;
 }

@@ -7,7 +7,6 @@ import java.time.LocalTime;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Set;
 
 
@@ -32,6 +31,7 @@ import by.epam.naumovich.film_ordering.service.util.Validator;
 public class NewsServiceImpl implements INewsService {
 
 	private static final String MYSQL = "mysql";
+	private static final int NEWS_AMOUNT_ON_PAGE = 8;
 
 	@Override
 	public int addNews(String title, String text) throws ServiceException {
@@ -163,7 +163,6 @@ public class NewsServiceImpl implements INewsService {
 				throw new GetNewsServiceException(ExceptionMessages.NO_NEWS_IN_DB);
 			}
 			List<News> list = new ArrayList<News>(set);
-			Collections.reverse(list);
 			set = new LinkedHashSet<News>(list.subList(0, 4));
 			
 		} catch (DAOException e) {
@@ -188,5 +187,44 @@ public class NewsServiceImpl implements INewsService {
 		}
 		
 		return news;
+	}
+
+	@Override
+	public Set<News> getAllNewsPart(int pageNum) throws ServiceException {
+		if (!Validator.validateInt(pageNum)) {
+			throw new GetNewsServiceException(ExceptionMessages.CORRUPTED_PAGE_NUM);
+		}
+		int start = (pageNum - 1) * NEWS_AMOUNT_ON_PAGE;
+		
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			INewsDAO dao = daoFactory.getNewsDAO();
+			Set<News> news = dao.getAllNewsPart(start, NEWS_AMOUNT_ON_PAGE);
+			if (news == null) {
+				throw new GetNewsServiceException(ExceptionMessages.NO_NEWS_IN_DB);
+			}
+			return news;
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);	
+		}	
+	}
+
+	@Override
+	public int getNumberOfAllNewsPages() throws ServiceException {
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			INewsDAO dao = daoFactory.getNewsDAO();
+			int numOfNews = dao.getNumberOfNews();
+			if (numOfNews % NEWS_AMOUNT_ON_PAGE == 0) {
+				return numOfNews / NEWS_AMOUNT_ON_PAGE;
+			}
+			else {
+				return numOfNews / NEWS_AMOUNT_ON_PAGE + 1;
+			}
+			
+			
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
 	}
 }
