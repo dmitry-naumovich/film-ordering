@@ -93,5 +93,16 @@ public class OrderServiceImplTest {
 		IOrderService service = ServiceFactory.getInstance().getOrderService();
 		service.getOrdersByFilmId(0);
 	}
+	
+	/**
+	 * Tries to get orders from the DAO layer by the invalid page number.
+	 * 
+	 * @throws ServiceException
+	 */
+	@Test(expected=GetOrderServiceException.class)
+	public void getAllOrdersPart() throws ServiceException {
+		IOrderService service = ServiceFactory.getInstance().getOrderService();
+		service.getAllOrdersPart(0);
+	}
 
 }

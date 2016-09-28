@@ -5,6 +5,8 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Assert;
@@ -187,5 +189,39 @@ public class MySQLOrderDAOTest {
 		}
 		
 		Assert.assertEquals(filmOrders1, filmOrders2);	
+	}
+	
+	/**
+	 * Gets the amount of orders in the data source in two different ways and compares the results which must be equal.
+	 * 
+	 * @throws DAOException
+	 */
+	@Test
+	public void getNumberOfOrders() throws DAOException {
+		DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+		IOrderDAO orderDAO = daoFactory.getOrderDAO();
+		
+		int ordersNum1 = orderDAO.getNumberOfOrders();
+		Set<Order> allOrders = orderDAO.getAllOrders();
+		int ordersNum2 = allOrders.size();
+		
+		Assert.assertEquals(ordersNum1, ordersNum2);
+	}
+	
+	/**
+	 * Gets the part of all orders from the data source in two different ways and compares the results which must be equal.
+	 * 
+	 * @throws DAOException
+	 */
+	@Test
+	public void getAllOrdersPart() throws DAOException {
+		DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+		IOrderDAO orderDAO = daoFactory.getOrderDAO();
+		
+		Set<Order> particularOrders1 = orderDAO.getAllOrdersPart(0, 6);
+		List<Order> allOrders = new LinkedList<Order>(orderDAO.getAllOrders());
+		Set<Order> particularOrders2 = new LinkedHashSet<Order>(allOrders.subList(0, 6));
+		
+		Assert.assertEquals(particularOrders1, particularOrders2);	
 	}
 }
