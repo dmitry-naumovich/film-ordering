@@ -60,9 +60,9 @@
 		<jsp:include page="/WEB-INF/static/left-menu.jsp"></jsp:include>
 	
       <div class="col-md-8 col-sm-9 col-lg-8 col-xs-9 main content">
-        <div class="panel panel-primary">
-          <div class=" panel-heading" >
-          	<h2 class=" text-left">${film.name}</h2>
+        <div class="panel panel-primary container-fluid">
+          <div class="row panel-heading" >
+          	<h2 class="text-left">${film.name}</h2>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
@@ -243,6 +243,24 @@
                      </div>    
           </div>
           </div>
+          <c:if test="${requestScope.numOfPages > 1}">
+          <div class="row panel-footer" >
+	         <h5 class="text-right">
+	         	<ul class="pagination">
+			  <c:forEach begin="1" end="${requestScope.numOfPages}" step="1" var="pageNum">
+			  	<c:choose> 
+			  		<c:when test="${pageNum eq requestScope.curPage}">
+			  			 <li class="active"><a href="<c:url value="/Controller?command=open_single_film&filmID=${film.id}&pageNum=${pageNum}" />" >${pageNum}</a></li>
+			  		</c:when>
+			  		<c:otherwise>
+			  			<li><a href="<c:url value="/Controller?command=open_single_film&filmID=${film.id}&pageNum=${pageNum}" />" >${pageNum}</a></li>
+			  		</c:otherwise>
+			  	</c:choose>
+			  </c:forEach>
+			</ul>
+	         </h5>
+          </div> 
+          </c:if>
       </div>
       </div>
       <jsp:include page="/WEB-INF/static/right-sidebar.jsp"></jsp:include>

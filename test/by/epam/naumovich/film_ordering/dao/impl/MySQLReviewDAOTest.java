@@ -196,4 +196,96 @@ public class MySQLReviewDAOTest {
 		
 		Assert.assertEquals(particularReviews1, particularReviews2);	
 	}
+	
+	/**
+	 * Gets reviews part by user ID in two different ways and compares results which must be equal.
+	 * 
+	 * @throws DAOException
+	 */
+	@Test
+	public void getReviewsPartByUserId() throws DAOException {
+		DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+		IReviewDAO dao = daoFactory.getReviewDAO();
+		
+		Set<Review> userReviews1 = dao.getReviewsPartByUserId(1, 0, 3);
+		Set<Review> userReviews2 = new LinkedHashSet<Review>();
+		for (Review o : dao.getAllReviews()) {
+			if (o.getAuthor() == 1) {
+				userReviews2.add(o);
+			}
+		}
+		List<Review> list = new LinkedList<Review>(userReviews2);
+		userReviews2 = new LinkedHashSet<Review>(list.subList(0, 3));
+		
+		Assert.assertEquals(userReviews1, userReviews2);	
+	}
+	
+	/**
+	 * Gets reviews part by film ID in two different ways and compares results which must be equal.
+	 * 
+	 * @throws DAOException
+	 */
+	@Test
+	public void getReviewsPartByFilmId() throws DAOException {
+		DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+		IReviewDAO dao = daoFactory.getReviewDAO();
+		
+		Set<Review> filmReviews1 = dao.getReviewsPartByFilmId(1, 0, 3);
+		Set<Review> filmReviews2 = new LinkedHashSet<Review>();
+		for (Review o : dao.getAllReviews()) {
+			if (o.getFilmId() == 1) {
+				filmReviews2.add(o);
+			}
+		}
+		List<Review> list = new LinkedList<Review>(filmReviews2);
+		filmReviews2 = new LinkedHashSet<Review>(list.subList(0, 3));
+		
+		Assert.assertEquals(filmReviews1, filmReviews2);	
+	}
+	
+	/**
+	 * Gets the amount of user reviews in the data source in two different ways and compares the results which must be equal.
+	 * 
+	 * @throws DAOException
+	 */
+	@Test
+	public void getNumberOfUserReviews() throws DAOException {
+		DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+		IReviewDAO reviewDAO = daoFactory.getReviewDAO();
+		
+		int reviewsNum1 = reviewDAO.getNumberOfUserReviews(1);
+		Set<Review> userReviews = new LinkedHashSet<Review>();
+		for (Review o : reviewDAO.getAllReviews()) {
+			if (o.getAuthor() == 1) {
+				userReviews.add(o);
+			}
+		}
+		int reviewsNum2 = userReviews.size();
+		
+		Assert.assertEquals(reviewsNum1, reviewsNum2);
+	}
+	
+	/**
+	 * Gets the amount of film reviews in the data source in two different ways and compares the results which must be equal.
+	 * 
+	 * @throws DAOException
+	 */
+	@Test
+	public void getNumberOfFilmReviews() throws DAOException {
+		DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+		IReviewDAO reviewDAO = daoFactory.getReviewDAO();
+		
+		int reviewsNum1 = reviewDAO.getNumberOfFilmReviews(1);
+		Set<Review> filmReviews = new LinkedHashSet<Review>();
+		for (Review o : reviewDAO.getAllReviews()) {
+			if (o.getFilmId() == 1) {
+				filmReviews.add(o);
+			}
+		}
+		int reviewsNum2 = filmReviews.size();
+		
+		Assert.assertEquals(reviewsNum1, reviewsNum2);
+	}
 }
+
+

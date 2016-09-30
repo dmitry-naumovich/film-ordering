@@ -91,7 +91,7 @@
 		              <br> <br>
 		              <c:if test="${film.description != null}">
 		              	<p style="text-align:justify">${film.description.substring(0,60)}... 
-		              	<a class="btn btn-link" href="<c:url value="/Controller?command=open_single_film&filmID=${film.id}"/>" role="button"> ${readMore} &raquo;</a>
+		              	<a class="btn btn-link" href="<c:url value="/Controller?command=open_single_film&filmID=${film.id}&pageNum=1"/>" role="button"> ${readMore} &raquo;</a>
 		              	</p>
 		              </c:if>
 		              

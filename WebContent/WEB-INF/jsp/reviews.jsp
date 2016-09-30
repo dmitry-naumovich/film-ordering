@@ -45,23 +45,46 @@
       <div class="col-md-8 col-sm-9 col-lg-8 col-xs-9 main content">
         <div class="panel panel-primary container-fluid">
           <div class="row panel-heading" >
-          	<h2 class="text-left col-md-4 col-sm-4 col-lg-4 col-xs-4">${pageHeader}</h2>
-	          <h5 class="text-right col-md-8 col-sm-8 col-lg-8 col-xs-8">
-	          	<c:if test="${requestScope.numOfPages > 1}">
-		          	<ul class="pagination">
-					  <c:forEach begin="1" end="${requestScope.numOfPages}" step="1" var="pageNum">
-					  	<c:choose> 
-					  		<c:when test="${pageNum eq requestScope.curPage}">
-					  			 <li class="active"><a href="<c:url value="/Controller?command=open_all_reviews&pageNum=${pageNum}" />" >${pageNum}</a></li>
-					  		</c:when>
-					  		<c:otherwise>
-					  			<li><a href="<c:url value="/Controller?command=open_all_reviews&pageNum=${pageNum}" />" >${pageNum}</a></li>
-					  		</c:otherwise>
-					  	</c:choose>
-					  </c:forEach>
-					</ul>
-				</c:if>
-	          </h5>
+          		<c:choose>
+	          			<c:when test="${requestScope.reviewViewType eq 'all'}">
+	          				<h2 class="text-left col-md-4 col-sm-4 col-lg-4 col-xs-4">${pageHeader}</h2>
+					          <h5 class="text-right col-md-8 col-sm-8 col-lg-8 col-xs-8">
+					          	<c:if test="${requestScope.numOfPages > 1}">
+						          	<ul class="pagination">
+									  <c:forEach begin="1" end="${requestScope.numOfPages}" step="1" var="pageNum">
+									  	<c:choose> 
+									  		<c:when test="${pageNum eq requestScope.curPage}">
+									  			 <li class="active"><a href="<c:url value="/Controller?command=open_all_reviews&pageNum=${pageNum}" />" >${pageNum}</a></li>
+									  		</c:when>
+									  		<c:otherwise>
+									  			<li><a href="<c:url value="/Controller?command=open_all_reviews&pageNum=${pageNum}" />" >${pageNum}</a></li>
+									  		</c:otherwise>
+									  	</c:choose>
+									  </c:forEach>
+									</ul>
+								</c:if>
+					          </h5>
+	          			</c:when>
+	          			<c:when test="${requestScope.reviewViewType eq 'user'}">
+	          				<h2 class="text-left col-md-4 col-sm-4 col-lg-4 col-xs-4">${pageHeader}</h2>
+					          <h5 class="text-right col-md-8 col-sm-8 col-lg-8 col-xs-8">
+					          	<c:if test="${requestScope.numOfPages > 1}">
+						          	<ul class="pagination">
+									  <c:forEach begin="1" end="${requestScope.numOfPages}" step="1" var="pageNum">
+									  	<c:choose> 
+									  		<c:when test="${pageNum eq requestScope.curPage}">
+									  			 <li class="active"><a href="<c:url value="/Controller?command=open_user_reviews&userID=${requestScope.userID}&pageNum=${pageNum}" />" >${pageNum}</a></li>
+									  		</c:when>
+									  		<c:otherwise>
+									  			<li><a href="<c:url value="/Controller?command=open_user_reviews&userID=${requestScope.userID}&pageNum=${pageNum}" />" >${pageNum}</a></li>
+									  		</c:otherwise>
+									  	</c:choose>
+									  </c:forEach>
+									</ul>
+								</c:if>
+					          </h5>
+	          			</c:when>
+				</c:choose>
           </div> 
           <div class="row panel-body">
             <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">  
@@ -99,7 +122,7 @@
                         <div class="row panel-heading review-heading" style="background-color:${rColor}">
                         	<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
                         		<h4 class=" text-left"> 
-			                    	<a href="<c:url value="/Controller?command=open_single_film&filmID=${review.filmId}" />" >${filmName} </a>
+			                    	<a href="<c:url value="/Controller?command=open_single_film&filmID=${review.filmId}&pageNum=1" />" >${filmName} </a>
 			                    </h4>
                         	</div>
                         	<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
@@ -138,8 +161,10 @@
           </div>
           <c:if test="${requestScope.numOfPages > 1}">
           <div class="row panel-footer" >
-          <h5 class="text-right">
-          	<ul class="pagination">
+          <c:choose>
+	     			<c:when test="${requestScope.reviewViewType eq 'all'}">
+	         <h5 class="text-right">
+	         	<ul class="pagination">
 			  <c:forEach begin="1" end="${requestScope.numOfPages}" step="1" var="pageNum">
 			  	<c:choose> 
 			  		<c:when test="${pageNum eq requestScope.curPage}">
@@ -151,7 +176,25 @@
 			  	</c:choose>
 			  </c:forEach>
 			</ul>
-          </h5>
+	         </h5>
+	     			</c:when>
+	     			<c:when test="${requestScope.reviewViewType eq 'user'}">
+	         <h5 class="text-right">
+	         	<ul class="pagination">
+			  <c:forEach begin="1" end="${requestScope.numOfPages}" step="1" var="pageNum">
+			  	<c:choose> 
+			  		<c:when test="${pageNum eq requestScope.curPage}">
+			  			 <li class="active"><a href="<c:url value="/Controller?command=open_user_reviews&userID=${requestScope.userID}&pageNum=${pageNum}" />" >${pageNum}</a></li>
+			  		</c:when>
+			  		<c:otherwise>
+			  			<li><a href="<c:url value="/Controller?command=open_user_reviews&userID=${requestScope.userID}&pageNum=${pageNum}" />" >${pageNum}</a></li>
+			  		</c:otherwise>
+			  	</c:choose>
+			  </c:forEach>
+			</ul>
+	         </h5>
+	     			</c:when>
+				</c:choose>
           </div> 
           </c:if>
       </div>

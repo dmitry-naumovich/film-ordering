@@ -31,7 +31,7 @@ public class ReviewServiceImpl implements IReviewService {
 	public static final String NEGATIVE_REVIEW = "ng";
 	public static final String NEUTRAL_REVIEW = "nt";
 	public static final int REVIEW_MIN_LENGTH = 50;
-	private static final int REVIEWS_AMOUNT_ON_PAGE = 10;
+	private static final int REVIEWS_AMOUNT_ON_PAGE = 5;
 	
 	@Override
 	public void addReview(int userID, int filmID, String mark, String type, String text) throws ServiceException {
@@ -195,6 +195,93 @@ public class ReviewServiceImpl implements IReviewService {
 			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
 			IReviewDAO reviewDAO = daoFactory.getReviewDAO();
 			int numOfReviews = reviewDAO.getNumberOfReviews();
+			if (numOfReviews % REVIEWS_AMOUNT_ON_PAGE == 0) {
+				return numOfReviews / REVIEWS_AMOUNT_ON_PAGE;
+			}
+			else {
+				return numOfReviews / REVIEWS_AMOUNT_ON_PAGE + 1;
+			}
+			
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+	}
+
+	@Override
+	public Set<Review> getReviewsPartByUserId(int userID, int pageNum) throws ServiceException {
+		if (!Validator.validateInt(userID) || !Validator.validateInt(pageNum)) {
+			throw new GetReviewServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
+		}
+		Set<Review> set = new LinkedHashSet<Review>();
+		int start = (pageNum - 1) * REVIEWS_AMOUNT_ON_PAGE;
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IReviewDAO reviewDAO = daoFactory.getReviewDAO();
+			set = reviewDAO.getReviewsPartByUserId(userID, start, REVIEWS_AMOUNT_ON_PAGE);
+			
+			if (set.isEmpty()) {
+				throw new GetReviewServiceException(ExceptionMessages.NO_REVIEWS_IN_DB);
+			}
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+		
+		return set;
+	}
+
+	@Override
+	public Set<Review> getReviewsPartByFilmId(int filmID, int pageNum) throws ServiceException {
+		if (!Validator.validateInt(filmID) || !Validator.validateInt(pageNum)) {
+			throw new GetReviewServiceException(ExceptionMessages.CORRUPTED_INPUT_PARAMETERS);
+		}
+		
+		Set<Review> set = new LinkedHashSet<Review>();
+		int start = (pageNum - 1) * REVIEWS_AMOUNT_ON_PAGE;
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IReviewDAO reviewDAO = daoFactory.getReviewDAO();
+			set = reviewDAO.getReviewsPartByFilmId(filmID, start, REVIEWS_AMOUNT_ON_PAGE);
+			
+			if (set.isEmpty()) {
+				throw new GetReviewServiceException(ExceptionMessages.NO_REVIEWS_IN_DB);
+			}
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+		
+		return set;
+	}
+
+	@Override
+	public int getNumberOfUserReviewsPages(int userID) throws ServiceException {
+		if (!Validator.validateInt(userID)) {
+			throw new ServiceException(ExceptionMessages.CORRUPTED_USER_ID);
+		}
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IReviewDAO reviewDAO = daoFactory.getReviewDAO();
+			int numOfReviews = reviewDAO.getNumberOfUserReviews(userID);
+			if (numOfReviews % REVIEWS_AMOUNT_ON_PAGE == 0) {
+				return numOfReviews / REVIEWS_AMOUNT_ON_PAGE;
+			}
+			else {
+				return numOfReviews / REVIEWS_AMOUNT_ON_PAGE + 1;
+			}
+			
+		} catch (DAOException e) {
+			throw new ServiceException(ExceptionMessages.SOURCE_ERROR, e);
+		}
+	}
+
+	@Override
+	public int getNumberOfFilmReviewsPages(int filmID) throws ServiceException {
+		if (!Validator.validateInt(filmID)) {
+			throw new ServiceException(ExceptionMessages.CORRUPTED_FILM_ID);
+		}
+		try {
+			DAOFactory daoFactory = DAOFactory.getDAOFactory(MYSQL);
+			IReviewDAO reviewDAO = daoFactory.getReviewDAO();
+			int numOfReviews = reviewDAO.getNumberOfFilmReviews(filmID);
 			if (numOfReviews % REVIEWS_AMOUNT_ON_PAGE == 0) {
 				return numOfReviews / REVIEWS_AMOUNT_ON_PAGE;
 			}

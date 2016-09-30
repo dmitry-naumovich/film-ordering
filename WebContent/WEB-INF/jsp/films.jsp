@@ -108,7 +108,7 @@
 	              			<c:choose> 
 	              				<c:when test="${sessionScope.isAdmin}">
 	              					<td><a class="btn btn-primary" href="<c:url value="/Controller?command=open_film_edit_page&filmID=${film.id}"/>" role="button">${editFilmBtn}</a></td>
-                  					<td><a class="btn btn-success" href="<c:url value="/Controller?command=open_single_film&filmID=${film.id}"/>" role="button">${openFilmPage}</a></td>
+                  					<td><a class="btn btn-success" href="<c:url value="/Controller?command=open_single_film&filmID=${film.id}&pageNum=1"/>" role="button">${openFilmPage}</a></td>
 	              				</c:when>
 	              				<c:otherwise>
 	              					<c:choose>
@@ -119,7 +119,7 @@
 	                  						<td><a class="btn btn-primary" href="<c:url value="/Controller?command=open_new_order_page&filmID=${film.id}"/>" role="button">${buyWithOneClickBtn}</a></td>
 	                  					</c:otherwise>
                   					</c:choose>
-                  					<td><a class="btn btn-success" href="<c:url value="/Controller?command=open_single_film&filmID=${film.id}"/>" role="button">${openFilmPage}</a></td>
+                  					<td><a class="btn btn-success" href="<c:url value="/Controller?command=open_single_film&filmID=${film.id}&pageNum=1"/>" role="button">${openFilmPage}</a></td>
 	              				</c:otherwise>
 	              			</c:choose>
 	                      </tr>

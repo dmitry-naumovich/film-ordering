@@ -58,6 +58,17 @@ public interface IReviewDAO {
 	Set<Review> getReviewsByUserId(int id) throws DAOException;
 	
 	/**
+	 * Searches for the reviews in the data source by user ID and returns the necessary part of them
+	 * 
+	 * @param id user ID
+	 * @param start start index of necessary part
+	 * @param amount amount of reviews to be returned
+	 * @return a set of found reviews
+	 * @throws DAOException
+	 */
+	Set<Review> getReviewsPartByUserId(int userID, int start, int amount) throws DAOException;
+	
+	/**
 	 * Searches for reviews in the data source by film ID
 	 * 
 	 * @param id film ID
@@ -65,6 +76,17 @@ public interface IReviewDAO {
 	 * @throws DAOException
 	 */
 	Set<Review> getReviewsByFilmId(int id) throws DAOException;
+	
+	/**
+	 * Searches for the reviews in the data source by film ID
+	 * 
+	 * @param id film ID
+	 * @param start start index of necessary part
+	 * @param amount amount of reviews to be returned
+	 * @return a set of found reviews
+	 * @throws DAOException
+	 */
+	Set<Review> getReviewsPartByFilmId(int id, int start, int amount) throws DAOException;
 	
 	/**
 	 * Searches for review in the data source by user and film IDs
@@ -83,4 +105,22 @@ public interface IReviewDAO {
 	 * @throws DAOException
 	 */
 	int getNumberOfReviews() throws DAOException;
+	
+	/**
+	 * Counts the number of user reviews in the data source
+	 * 
+	 * @param userID ID of the user whose reviews are counted
+	 * @return total user reviews amount
+	 * @throws DAOException
+	 */
+	int getNumberOfUserReviews(int userID) throws DAOException;
+	
+	/**
+	 * Counts the number of film reviews in the data source
+	 * 
+	 * @param filmID ID of the film which reviews are counted
+	 * @return total film reviews amount
+	 * @throws DAOException
+	 */
+	int getNumberOfFilmReviews(int filmID) throws DAOException;
 }

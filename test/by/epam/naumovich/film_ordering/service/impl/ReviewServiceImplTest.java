@@ -105,4 +105,48 @@ public class ReviewServiceImplTest {
 		service.getAllReviewsPart(0);
 	}
 	
+	/**
+	 * Tries to get review from the DAO layer by the invalid page number and user ID.
+	 * 
+	 * @throws ServiceException
+	 */
+	@Test(expected=GetReviewServiceException.class)
+	public void getReviewsPartByUserId() throws ServiceException {
+		IReviewService service = ServiceFactory.getInstance().getReviewService();
+		service.getReviewsPartByUserId(-1, 0);
+	}
+	
+	/**
+	 * Tries to get review from the DAO layer by the invalid page number and film ID.
+	 * 
+	 * @throws ServiceException
+	 */
+	@Test(expected=GetReviewServiceException.class)
+	public void getReviewsPartByFilmId() throws ServiceException {
+		IReviewService service = ServiceFactory.getInstance().getReviewService();
+		service.getReviewsPartByFilmId(-1, 0);
+	}
+	
+	/**
+	 * Tries to get user reviews amount from the DAO layer by the invalid user ID.
+	 * 
+	 * @throws ServiceException
+	 */
+	@Test(expected=ServiceException.class)
+	public void getNumberOfUserReviewsPages() throws ServiceException {
+		IReviewService service = ServiceFactory.getInstance().getReviewService();
+		service.getNumberOfUserReviewsPages(-1);
+	}
+	
+	/**
+	 * Tries to get film reviews amount from the DAO layer by the invalid film ID.
+	 * 
+	 * @throws ServiceException
+	 */
+	@Test(expected=ServiceException.class)
+	public void getNumberOfFilmReviewsPages() throws ServiceException {
+		IReviewService service = ServiceFactory.getInstance().getReviewService();
+		service.getNumberOfFilmReviewsPages(0);
+	}
+	
 }

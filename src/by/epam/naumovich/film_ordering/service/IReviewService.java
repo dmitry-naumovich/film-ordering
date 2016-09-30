@@ -55,6 +55,16 @@ public interface IReviewService {
 	 */
 	Set<Review> getReviewsByUserId(int id) throws ServiceException;
 	
+	/**
+	 * Verifies input parameter and passes it to the DAO layer, received a particular set of found reviews back and returns it to the Controller layer
+	 * or throws an exception if it is empty
+	 * 
+	 * @param id ID of the user whose reviews are searched
+	 * @param pageNum number of page
+	 * @return a set of found reviews
+	 * @throws ServiceException
+	 */
+	Set<Review> getReviewsPartByUserId(int userID, int pageNum) throws ServiceException;
 
 	/**
 	 * Verifies input parameter and passes it to the DAO layer, received a set of found reviews back and returns it to the Controller layer
@@ -65,6 +75,17 @@ public interface IReviewService {
 	 * @throws ServiceException
 	 */
 	Set<Review> getReviewsByFilmId(int id) throws ServiceException;
+	
+	/**
+	 * Verifies input parameter and passes it to the DAO layer, received a particular set of found reviews back and returns it to the Controller layer
+	 * or throws an exception if it is empty
+	 * 
+	 * @param id ID of the film which reviews are searched
+	 * @param pageNum number of page
+	 * @return a set of found reviews
+	 * @throws ServiceException
+	 */
+	Set<Review> getReviewsPartByFilmId(int filmID, int pageNum) throws ServiceException;
 	
 	/**
 	 * Verifies the input parameters and passes them to the DAO layer, receives the review entity, returns it back to the Controller layer
@@ -93,4 +114,22 @@ public interface IReviewService {
 	 * @throws ServiceException
 	 */
 	int getNumberOfAllReviewsPages() throws ServiceException;
+	
+	/**
+	 * Counts the number of pages needed to locate all user reviews within the pagination.
+	 * 
+	 * @param userID ID of the user whose reviews are searched
+	 * @return number of pages
+	 * @throws ServiceException
+	 */
+	int getNumberOfUserReviewsPages(int userID) throws ServiceException;
+	
+	/**
+	 * Counts the number of pages needed to locate all film reviews within the pagination.
+	 * 
+	 * @param filmID ID of the film which reviews are searched
+	 * @return number of pages
+	 * @throws ServiceException
+	 */
+	int getNumberOfFilmReviewsPages(int filmID) throws ServiceException;
 }
