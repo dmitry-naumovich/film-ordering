@@ -178,7 +178,7 @@ public class AddFilm implements Command {
 				
 				logger.debug(String.format(LogMessages.FILM_ADDED, name, filmID));
 				request.setAttribute(RequestAndSessionAttributes.SUCCESS_MESSAGE, SuccessMessages.FILM_ADDED);
-				request.getRequestDispatcher("/Controller?command=open_single_film&filmID=" + filmID).forward(request, response);
+				request.getRequestDispatcher("/Controller?command=open_single_film&filmID=" + filmID + "&pageNum=1").forward(request, response);
 			} catch (AddFilmServiceException e) {
 				logger.error(String.format(LogMessages.EXCEPTION_IN_COMMAND, e.getClass().getSimpleName(), this.getClass().getSimpleName(), e.getMessage()));
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());

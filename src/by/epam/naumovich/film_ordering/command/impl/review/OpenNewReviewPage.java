@@ -41,7 +41,14 @@ public class OpenNewReviewPage implements Command {
 		String query = QueryUtil.createHttpQueryString(request);
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
-		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
+
+		String lang = null;
+		try {
+			lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
+		} catch (NullPointerException e) {
+			lang = RequestAndSessionAttributes.ENG_LANG;
+		}
+		
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.SIGN_IN_FOR_REVIEWING);
 			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);

@@ -41,7 +41,7 @@ public class AddOrder implements Command {
 		}
 		else if (Boolean.parseBoolean(session.getAttribute(RequestAndSessionAttributes.IS_ADMIN).toString())) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.ADMIN_CAN_NOT_ORDER);
-			request.getRequestDispatcher("/Controller?command=open_single_film&filmID=" + Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID)));
+			request.getRequestDispatcher("/Controller?command=open_single_film&filmID=" + Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID)) + "&pageNum=1");
 		}
 		else {
 			int filmID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));

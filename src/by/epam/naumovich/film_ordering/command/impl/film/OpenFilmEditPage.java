@@ -43,7 +43,7 @@ public class OpenFilmEditPage implements Command {
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null |
 				!Boolean.parseBoolean(session.getAttribute(RequestAndSessionAttributes.IS_ADMIN).toString())) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.EDIT_FILM_RESTRICTION);
-			request.getRequestDispatcher("/Controller?command=open_single_film&filmID=" + filmID).forward(request, response);
+			request.getRequestDispatcher("/Controller?command=open_single_film&filmID=" + filmID + "&pageNum=1").forward(request, response);
 		}
 		else {
 			try {

@@ -27,7 +27,7 @@ public class Logout implements Command {
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession(true);
 		String prev_query = (String) session.getAttribute(RequestAndSessionAttributes.PREV_QUERY);
 		
 		if (session != null) {

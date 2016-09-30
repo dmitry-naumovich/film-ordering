@@ -33,6 +33,7 @@ public final class RequestAndSessionAttributes {
 	public static final String DISCOUNT_LIST = "discountList";
 	public static final String EMAIL = "email";
 	public static final String EMPTY_STRING = "";
+	public static final String ENG_LANG = "en";
 	public static final String END_DATE = "endDate";
 	public static final String END_TIME = "endTime";
 	public static final String ERROR_MESSAGE = "errorMessage";
@@ -75,6 +76,7 @@ public final class RequestAndSessionAttributes {
 	public static final String REVIEW_MARK = "mark";
 	public static final String REVIEW_TEXT = "reviewText";
 	public static final String REVIEW_TYPE = "type";
+	public static final String REVIEW_VIEW_TYPE = "reviewViewType";
 	public static final String REVIEWS = "reviews";
 	public static final String SEARCH_TEXT = "searchText";
 	public static final String SEX = "sex";

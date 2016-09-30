@@ -39,7 +39,14 @@ public class OpenSingleReview implements Command {
 		String query = QueryUtil.createHttpQueryString(request);
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
-		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
+
+		String lang = null;
+		try {
+			lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
+		} catch (NullPointerException e) {
+			lang = RequestAndSessionAttributes.ENG_LANG;
+		}
+		
 		int userID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.USER_ID));
 		int filmID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));
 		

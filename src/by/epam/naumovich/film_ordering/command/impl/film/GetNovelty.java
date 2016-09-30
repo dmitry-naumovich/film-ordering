@@ -44,8 +44,14 @@ public class GetNovelty implements Command {
 		String query = QueryUtil.createHttpQueryString(request);
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
+
+		String lang = null;
+		try {
+			lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
+		} catch (NullPointerException e) {
+			lang = RequestAndSessionAttributes.ENG_LANG;
+		}
 		
-		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
 		try {
 			IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 			IOrderService orderService = ServiceFactory.getInstance().getOrderService();

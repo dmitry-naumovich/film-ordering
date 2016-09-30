@@ -46,7 +46,14 @@ public class OpenNewOrderPage implements Command {
 		String query = QueryUtil.createHttpQueryString(request);
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
-		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
+		
+		String lang = null;
+		try {
+			lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
+		} catch (NullPointerException e) {
+			lang = RequestAndSessionAttributes.ENG_LANG;
+		}
+		
 		int filmID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));
 		
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null) {
@@ -55,7 +62,7 @@ public class OpenNewOrderPage implements Command {
 		}
 		else if (Boolean.parseBoolean(session.getAttribute(RequestAndSessionAttributes.IS_ADMIN).toString())) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.ADMIN_CAN_NOT_ORDER);
-			request.getRequestDispatcher("/Controller?command=open_single_film&filmID=" + filmID).forward(request, response);
+			request.getRequestDispatcher("/Controller?command=open_single_film&filmID=" + filmID + "&pageNum=1").forward(request, response);
 		}
 		else {
 			ServiceFactory sFactory = ServiceFactory.getInstance();

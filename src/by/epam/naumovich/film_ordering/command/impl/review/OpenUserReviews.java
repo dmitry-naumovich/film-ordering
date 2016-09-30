@@ -44,7 +44,15 @@ public class OpenUserReviews implements Command {
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
-		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
+		String lang = null;
+		try {
+			lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
+		} catch (NullPointerException e) {
+			lang = RequestAndSessionAttributes.ENG_LANG;
+		}
+		
+		int pageNum = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.PAGE_NUM));
+		
 		if (request.getParameter(RequestAndSessionAttributes.USER_ID).equals(RequestAndSessionAttributes.EMPTY_STRING)) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.SIGN_IN_FOR_YOUR_REVIEWS);
 			request.getRequestDispatcher(JavaServerPageNames.LOGINATION_PAGE).forward(request, response);
@@ -56,13 +64,19 @@ public class OpenUserReviews implements Command {
 			IFilmService filmService = ServiceFactory.getInstance().getFilmService();
 			
 			try {
-				Set<Review> reviews = reviewService.getReviewsByUserId(userID);
+				Set<Review> reviews = reviewService.getReviewsPartByUserId(userID, pageNum);
 				
 				List<String> reviewFilmNames = new ArrayList<String>();
 				for (Review r : reviews) {
 					reviewFilmNames.add(filmService.getFilmNameByID(r.getFilmId(), lang));
 				}
 				
+				int totalPageAmount = reviewService.getNumberOfUserReviewsPages(userID);
+				request.setAttribute(RequestAndSessionAttributes.NUMBER_OF_PAGES, totalPageAmount);
+				request.setAttribute(RequestAndSessionAttributes.CURRENT_PAGE, pageNum);
+				
+				request.setAttribute(RequestAndSessionAttributes.REVIEW_VIEW_TYPE, RequestAndSessionAttributes.VIEW_TYPE_USER);
+				request.setAttribute(RequestAndSessionAttributes.USER_ID, userID);
 				request.setAttribute(RequestAndSessionAttributes.REVIEWS, reviews);
 				request.setAttribute(RequestAndSessionAttributes.FILM_NAMES, reviewFilmNames);
 				request.getRequestDispatcher(JavaServerPageNames.REVIEWS_PAGE).forward(request, response);

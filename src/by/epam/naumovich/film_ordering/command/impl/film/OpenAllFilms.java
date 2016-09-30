@@ -44,8 +44,14 @@ public class OpenAllFilms implements Command {
 		String query = QueryUtil.createHttpQueryString(request);
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
+
+		String lang = null;
+		try {
+			lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
+		} catch (NullPointerException e) {
+			lang = RequestAndSessionAttributes.ENG_LANG;
+		}
 		
-		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
 		int pageNum = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.PAGE_NUM));
 		try {
 			IFilmService filmService = ServiceFactory.getInstance().getFilmService();

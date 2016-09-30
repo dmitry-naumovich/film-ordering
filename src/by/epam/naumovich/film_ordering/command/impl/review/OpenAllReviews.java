@@ -42,7 +42,14 @@ public class OpenAllReviews implements Command {
 		String query = QueryUtil.createHttpQueryString(request);
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
-		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
+
+		String lang = null;
+		try {
+			lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
+		} catch (NullPointerException e) {
+			lang = RequestAndSessionAttributes.ENG_LANG;
+		}
+		
 		int pageNum = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.PAGE_NUM));
 		
 		try {
@@ -63,6 +70,7 @@ public class OpenAllReviews implements Command {
 			request.setAttribute(RequestAndSessionAttributes.NUMBER_OF_PAGES, totalPageAmount);
 			request.setAttribute(RequestAndSessionAttributes.CURRENT_PAGE, pageNum);
 			
+			request.setAttribute(RequestAndSessionAttributes.REVIEW_VIEW_TYPE, RequestAndSessionAttributes.VIEW_TYPE_ALL);
 			request.setAttribute(RequestAndSessionAttributes.REVIEWS, reviews);
 			request.setAttribute(RequestAndSessionAttributes.LOGINS, reviewLogins);
 			request.setAttribute(RequestAndSessionAttributes.FILM_NAMES, reviewFilmNames);

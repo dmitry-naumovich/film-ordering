@@ -47,8 +47,16 @@ public class OpenSingleFilm implements Command {
 		session.setAttribute(RequestAndSessionAttributes.PREV_QUERY, query);
 		System.out.println(query);
 		
-		String lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
+		String lang = null;
+		try {
+			lang = session.getAttribute(RequestAndSessionAttributes.LANGUAGE).toString();
+		} catch (NullPointerException e) {
+			lang = RequestAndSessionAttributes.ENG_LANG;
+		}
+		
 		int filmID = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.FILM_ID));
+		int pageNum = Integer.parseInt(request.getParameter(RequestAndSessionAttributes.PAGE_NUM));
+		
 		try {
 			ServiceFactory sFactory = ServiceFactory.getInstance();
 			IFilmService filmService = sFactory.getFilmService();
@@ -58,15 +66,6 @@ public class OpenSingleFilm implements Command {
 			
 			Film film = filmService.getFilmByID(filmID, lang);
 			request.setAttribute(RequestAndSessionAttributes.FILM, film);
-			
-			Set<Review> reviews = reviewService.getReviewsByFilmId(filmID);
-			request.setAttribute(RequestAndSessionAttributes.REVIEWS, reviews);
-			
-			List<String> reviewLogins = new ArrayList<String>();
-			for (Review r : reviews) {
-				reviewLogins.add(userService.getLoginByID(r.getAuthor()));
-			}
-			request.setAttribute(RequestAndSessionAttributes.LOGINS, reviewLogins);
 			
 			if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) != null) {
 				if (!Boolean.parseBoolean(session.getAttribute(RequestAndSessionAttributes.IS_ADMIN).toString())) {
@@ -89,6 +88,19 @@ public class OpenSingleFilm implements Command {
 				}
 			}
 			
+			Set<Review> reviews = reviewService.getReviewsPartByFilmId(filmID, pageNum);
+			request.setAttribute(RequestAndSessionAttributes.REVIEWS, reviews);
+			request.setAttribute(RequestAndSessionAttributes.REVIEW_VIEW_TYPE, RequestAndSessionAttributes.VIEW_TYPE_FILM);
+			
+			int totalPageAmount = reviewService.getNumberOfFilmReviewsPages(filmID);
+			request.setAttribute(RequestAndSessionAttributes.NUMBER_OF_PAGES, totalPageAmount);
+			request.setAttribute(RequestAndSessionAttributes.CURRENT_PAGE, pageNum);
+			
+			List<String> reviewLogins = new ArrayList<String>();
+			for (Review r : reviews) {
+				reviewLogins.add(userService.getLoginByID(r.getAuthor()));
+			}
+			request.setAttribute(RequestAndSessionAttributes.LOGINS, reviewLogins);
 			request.getRequestDispatcher(JavaServerPageNames.SINGLE_FILM_PAGE).forward(request, response);
 		
 		} catch (GetReviewServiceException e) {

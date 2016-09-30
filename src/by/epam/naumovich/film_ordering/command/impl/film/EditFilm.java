@@ -57,7 +57,7 @@ public class EditFilm implements Command {
 		if (session.getAttribute(RequestAndSessionAttributes.AUTHORIZED_USER) == null |
 				!Boolean.parseBoolean(session.getAttribute(RequestAndSessionAttributes.IS_ADMIN).toString())) {
 			request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, ErrorMessages.EDIT_FILM_RESTRICTION);
-			request.getRequestDispatcher("/Controller?command=open_single_film&filmID=" + filmID).forward(request, response);
+			request.getRequestDispatcher("/Controller?command=open_single_film&filmID=" + filmID + "&pageNum=1").forward(request, response);
 		}
 		else {
 			String name = null;
@@ -172,7 +172,7 @@ public class EditFilm implements Command {
 				
 				logger.debug(String.format(LogMessages.FILM_EDITED, name, filmID));
 				request.setAttribute(RequestAndSessionAttributes.SUCCESS_MESSAGE, SuccessMessages.FILM_EDITED);
-				request.getRequestDispatcher("/Controller?command=open_single_film&filmID=" + filmID).forward(request, response);
+				request.getRequestDispatcher("/Controller?command=open_single_film&filmID=" + filmID + "&pageNum=1").forward(request, response);
 			} catch (EditFilmServiceException e) {
 				logger.error(String.format(LogMessages.EXCEPTION_IN_COMMAND, e.getClass().getSimpleName(), this.getClass().getSimpleName(), e.getMessage()));
 				request.setAttribute(RequestAndSessionAttributes.ERROR_MESSAGE, e.getMessage());
