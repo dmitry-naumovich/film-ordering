@@ -119,7 +119,7 @@ section a {
 .panel-heading h4 > a {
 	color: white;
 }
-.review-heading h4 > a, .panel-heading h5 > a {
+.review-heading h4 > a, .panel-heading h5 > a, .news-heading h4 > a {
 	color:black;
 }
 

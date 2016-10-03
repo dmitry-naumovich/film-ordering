@@ -15,7 +15,7 @@ import by.epam.naumovich.film_ordering.dao.util.ExceptionMessages;
 
 public final class ConnectionPool {
 
-	private static final Logger logger = LogManager.getLogger(Logger.class.getName());
+private static final Logger logger = LogManager.getLogger(Logger.class.getName());
 	
 	private static ConnectionPool instance;
 	
@@ -50,7 +50,7 @@ public final class ConnectionPool {
 			this.poolSize = Integer.parseInt(manager.getValue(DBParameter.DB_POOL_SIZE));
 			Class.forName(driverName);
 		} catch (NumberFormatException e) {
-			poolSize = 10;
+			poolSize = 100;
 		} catch (ClassNotFoundException e) {
 			throw new ConnectionPoolException(ExceptionMessages.SQL_EXCEPTION_IN_POOL, e);
 		}

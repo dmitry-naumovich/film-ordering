@@ -22,23 +22,23 @@ import by.epam.naumovich.film_ordering.dao.pool.exception.ConnectionPoolExceptio
  */
 public class MySQLReviewDAO implements IReviewDAO {
 
-	public static final String INSERT_NEW_REVIEW = "INSERT INTO Reviews (r_author, r_film, r_date, r_time, r_type, r_mark, r_text) VALUES (?, ?, ?, ?, ?, ?, ?)";
-	public static final String DELETE_REVIEW = "DELETE FROM Reviews WHERE r_author = ? and r_film = ?";
+	public static final String INSERT_NEW_REVIEW = "INSERT INTO reviews (r_author, r_film, r_date, r_time, r_type, r_mark, r_text) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	public static final String DELETE_REVIEW = "DELETE FROM reviews WHERE r_author = ? and r_film = ?";
 	
-	public static final String SELECT_ALL_REVIEWS = "SELECT * FROM Reviews ORDER BY r_date DESC, r_time DESC";
-	public static final String SELECT_ALL_REVIEWS_PART = "SELECT * FROM Reviews ORDER BY r_date DESC, r_time DESC LIMIT ?, ?";
-	public static final String SELECT_ALL_REVIEWS_COUNT = "SELECT COUNT(*) FROM Reviews";
+	public static final String SELECT_ALL_REVIEWS = "SELECT * FROM reviews ORDER BY r_date DESC, r_time DESC";
+	public static final String SELECT_ALL_REVIEWS_PART = "SELECT * FROM reviews ORDER BY r_date DESC, r_time DESC LIMIT ?, ?";
+	public static final String SELECT_ALL_REVIEWS_COUNT = "SELECT COUNT(*) FROM reviews";
 	
-	public static final String SELECT_REVIEWS_BY_USER_ID = "SELECT * FROM Reviews WHERE r_author = ? ORDER BY r_date DESC, r_time DESC";
-	public static final String SELECT_REVIEWS_PART_BY_USER_ID = "SELECT * FROM Reviews WHERE r_author = ? ORDER BY r_date DESC, r_time DESC LIMIT ?, ?";
-	public static final String SELECT_USER_REVIEWS_COUNT = "SELECT COUNT(*) FROM Reviews WHERE r_author = ?";
+	public static final String SELECT_REVIEWS_BY_USER_ID = "SELECT * FROM reviews WHERE r_author = ? ORDER BY r_date DESC, r_time DESC";
+	public static final String SELECT_REVIEWS_PART_BY_USER_ID = "SELECT * FROM reviews WHERE r_author = ? ORDER BY r_date DESC, r_time DESC LIMIT ?, ?";
+	public static final String SELECT_USER_REVIEWS_COUNT = "SELECT COUNT(*) FROM reviews WHERE r_author = ?";
 	
-	public static final String SELECT_REVIEWS_BY_FILM_ID = "SELECT * FROM Reviews WHERE r_film = ? ORDER BY r_date DESC, r_time DESC";
-	public static final String SELECT_REVIEWS_PART_BY_FILM_ID = "SELECT * FROM Reviews WHERE r_film = ? ORDER BY r_date DESC, r_time DESC LIMIT ?, ?";
-	public static final String SELECT_FILM_REVIEWS_COUNT = "SELECT COUNT(*) FROM Reviews WHERE r_film = ?";
-	public static final String SELECT_REVIEW_BY_FILM_AND_USER_ID = "SELECT * FROM Reviews WHERE r_author = ? AND r_film = ?";
+	public static final String SELECT_REVIEWS_BY_FILM_ID = "SELECT * FROM reviews WHERE r_film = ? ORDER BY r_date DESC, r_time DESC";
+	public static final String SELECT_REVIEWS_PART_BY_FILM_ID = "SELECT * FROM reviews WHERE r_film = ? ORDER BY r_date DESC, r_time DESC LIMIT ?, ?";
+	public static final String SELECT_FILM_REVIEWS_COUNT = "SELECT COUNT(*) FROM reviews WHERE r_film = ?";
+	public static final String SELECT_REVIEW_BY_FILM_AND_USER_ID = "SELECT * FROM reviews WHERE r_author = ? AND r_film = ?";
 	
-	public static final String UPDATE_FILM_RATING = "UPDATE Films SET f_rating = (SELECT AVG(r_mark) FROM Reviews WHERE r_film = ?) WHERE Films.f_id = ?";
+	public static final String UPDATE_FILM_RATING = "UPDATE films SET f_rating = (SELECT AVG(r_mark) FROM reviews WHERE r_film = ?) WHERE films.f_id = ?";
 	
 	/**
 	 * Singleton MySQLReviewDAO instance

@@ -26,30 +26,30 @@ import by.epam.naumovich.film_ordering.dao.pool.exception.ConnectionPoolExceptio
  */
 public class MySQLUserDAO implements IUserDAO {
 
-	public static final String INSERT_NEW_USER = "INSERT INTO Users (u_login, u_name, u_surname, u_passw, u_sex, u_type, u_regdate, u_regtime, u_bdate, u_phone, u_email, u_about) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	public static final String SELECT_NEW_USER_ID_BY_LOGIN = "SELECT u_id FROM Users WHERE u_login = ?";
-	public static final String UPDATE_USER_BY_ID = "UPDATE Users SET u_name = ?, u_surname = ?, u_passw = ?, u_sex = ?, u_bdate = ?, u_phone = ?, u_email = ?, u_about = ? WHERE u_id = ?";	
-	public static final String DELETE_USER = "DELETE FROM Users WHERE u_id = ?";
-	public static final String SELECT_ALL_USERS = "SELECT * FROM Users ORDER BY u_regdate DESC, u_regtime DESC";
-	public static final String SELECT_ALL_USERS_PART = "SELECT * FROM Users ORDER BY u_regdate DESC, u_regtime DESC LIMIT ?, ?";
-	public static final String SELECT_ALL_USERS_COUNT = "SELECT COUNT(*) FROM Users";
-	public static final String SELECT_USER_BY_LOGIN = "SELECT * FROM Users WHERE u_login = ?";
-	public static final String SELECT_USER_BY_ID = "SELECT * FROM Users WHERE u_id = ?";
-	public static final String SELECT_USERS_IN_BAN = "SELECT Users.* FROM Users JOIN Bans ON users.u_id = bans.b_user WHERE b_active = 1 AND ((CURDATE() = b_stdate AND CURTIME() > b_sttime) OR (CURDATE() = DATE_ADD(b_stdate, INTERVAL b_length DAY) AND CURTIME() < b_sttime) OR (CURDATE() > b_stdate AND CURDATE() < DATE_ADD(b_stdate, INTERVAL b_length DAY))) ORDER BY Bans.b_stdate DESC, Bans.b_sttime DESC";
-	public static final String SELECT_USER_IN_BAN_NOW_BY_ID = "SELECT * FROM Bans WHERE bans.b_user = ? AND b_active = 1 AND ((CURDATE() = b_stdate AND CURTIME() > b_sttime) OR (CURDATE() = DATE_ADD(b_stdate, INTERVAL b_length DAY) AND CURTIME() < b_sttime) OR (CURDATE() > b_stdate AND CURDATE() < DATE_ADD(b_stdate, INTERVAL b_length DAY)))";
-	public static final String SELECT_PASSWORD_BY_LOGIN = "SELECT u_passw FROM Users WHERE u_login = ?";
-	public static final String SELECT_CURRENT_DISCOUNT_BY_USER_ID = "SELECT * FROM Discounts WHERE d_user = ? AND ((CURDATE() = d_stdate AND CURTIME() > d_sttime) OR (CURDATE() = d_endate AND CURTIME() < d_entime) OR (CURDATE() > d_stdate AND CURDATE() < d_endate))";
-	public static final String INSERT_NEW_DISCOUNT = "INSERT INTO Discounts (d_user, d_amount, d_stdate, d_sttime, d_endate, d_entime) VALUES (?, ?, ?, ?, ?, ?)";
-	public static final String UPDATE_DISCOUNT = "UPDATE Discounts SET d_amount = ?, d_endate = ?, d_entime = ? WHERE d_id = ?";
-	public static final String DELETE_DISCOUNT = "DELETE FROM Discounts WHERE d_id = ?";
-	public static final String SELECT_NEW_DISCOUNT_ID = "SELECT d_id FROM Discounts WHERE d_user = ? AND d_amount = ? AND d_stdate = ? AND d_sttime = ?";
-	public static final String SELECT_DISCOUNT_BY_ID = "SELECT * FROM Discounts WHERE d_id = ?";
+	public static final String INSERT_NEW_USER = "INSERT INTO users (u_login, u_name, u_surname, u_passw, u_sex, u_type, u_regdate, u_regtime, u_bdate, u_phone, u_email, u_about) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	public static final String SELECT_NEW_USER_ID_BY_LOGIN = "SELECT u_id FROM users WHERE u_login = ?";
+	public static final String UPDATE_USER_BY_ID = "UPDATE users SET u_name = ?, u_surname = ?, u_passw = ?, u_sex = ?, u_bdate = ?, u_phone = ?, u_email = ?, u_about = ? WHERE u_id = ?";	
+	public static final String DELETE_USER = "DELETE FROM users WHERE u_id = ?";
+	public static final String SELECT_ALL_USERS = "SELECT * FROM users ORDER BY u_regdate DESC, u_regtime DESC";
+	public static final String SELECT_ALL_USERS_PART = "SELECT * FROM users ORDER BY u_regdate DESC, u_regtime DESC LIMIT ?, ?";
+	public static final String SELECT_ALL_USERS_COUNT = "SELECT COUNT(*) FROM users";
+	public static final String SELECT_USER_BY_LOGIN = "SELECT * FROM users WHERE u_login = ?";
+	public static final String SELECT_USER_BY_ID = "SELECT * FROM users WHERE u_id = ?";
+	public static final String SELECT_USERS_IN_BAN = "SELECT users.* FROM users JOIN bans ON users.u_id = bans.b_user WHERE b_active = 1 AND ((CURDATE() = b_stdate AND CURTIME() > b_sttime) OR (CURDATE() = DATE_ADD(b_stdate, INTERVAL b_length DAY) AND CURTIME() < b_sttime) OR (CURDATE() > b_stdate AND CURDATE() < DATE_ADD(b_stdate, INTERVAL b_length DAY))) ORDER BY bans.b_stdate DESC, bans.b_sttime DESC";
+	public static final String SELECT_USER_IN_BAN_NOW_BY_ID = "SELECT * FROM bans WHERE bans.b_user = ? AND b_active = 1 AND ((CURDATE() = b_stdate AND CURTIME() > b_sttime) OR (CURDATE() = DATE_ADD(b_stdate, INTERVAL b_length DAY) AND CURTIME() < b_sttime) OR (CURDATE() > b_stdate AND CURDATE() < DATE_ADD(b_stdate, INTERVAL b_length DAY)))";
+	public static final String SELECT_PASSWORD_BY_LOGIN = "SELECT u_passw FROM users WHERE u_login = ?";
+	public static final String SELECT_CURRENT_DISCOUNT_BY_USER_ID = "SELECT * FROM discounts WHERE d_user = ? AND ((CURDATE() = d_stdate AND CURTIME() > d_sttime) OR (CURDATE() = d_endate AND CURTIME() < d_entime) OR (CURDATE() > d_stdate AND CURDATE() < d_endate))";
+	public static final String INSERT_NEW_DISCOUNT = "INSERT INTO discounts (d_user, d_amount, d_stdate, d_sttime, d_endate, d_entime) VALUES (?, ?, ?, ?, ?, ?)";
+	public static final String UPDATE_DISCOUNT = "UPDATE discounts SET d_amount = ?, d_endate = ?, d_entime = ? WHERE d_id = ?";
+	public static final String DELETE_DISCOUNT = "DELETE FROM discounts WHERE d_id = ?";
+	public static final String SELECT_NEW_DISCOUNT_ID = "SELECT d_id FROM discounts WHERE d_user = ? AND d_amount = ? AND d_stdate = ? AND d_sttime = ?";
+	public static final String SELECT_DISCOUNT_BY_ID = "SELECT * FROM discounts WHERE d_id = ?";
 	
-	public static final String INSERT_BAN_RECORD = "INSERT INTO Bans (b_user, b_stdate, b_sttime, b_length, b_reason) VALUES (?, ?, ?, ?, ?)";
-	public static final String UNBAN_USER_BY_ID = "UPDATE Bans SET b_active = 0 WHERE b_user = ?";
+	public static final String INSERT_BAN_RECORD = "INSERT INTO bans (b_user, b_stdate, b_sttime, b_length, b_reason) VALUES (?, ?, ?, ?, ?)";
+	public static final String UNBAN_USER_BY_ID = "UPDATE bans SET b_active = 0 WHERE b_user = ?";
 	
-	public static final String SELECT_CURRENT_BAN_REASON_BY_ID = "SELECT b_reason FROM Bans WHERE b_user = ? AND ((CURDATE() = b_stdate AND CURTIME() > b_sttime) OR (CURDATE() = DATE_ADD(b_stdate, INTERVAL b_length DAY) AND CURTIME() < b_sttime) OR (CURDATE() > b_stdate AND CURDATE() < DATE_ADD(b_stdate, INTERVAL b_length DAY))) AND b_active = 1";
-	public static final String SELECT_CURRENT_BAN_END_BY_ID = "SELECT DATE_ADD(b_stdate, INTERVAL b_length DAY), b_sttime FROM Bans WHERE b_user = ?  AND b_active = 1 AND ((CURDATE() = b_stdate AND CURTIME() > b_sttime) OR (CURDATE() = DATE_ADD(b_stdate, INTERVAL b_length DAY) AND CURTIME() < b_sttime) OR (CURDATE() > b_stdate AND CURDATE() < DATE_ADD(b_stdate, INTERVAL b_length DAY)))";
+	public static final String SELECT_CURRENT_BAN_REASON_BY_ID = "SELECT b_reason FROM bans WHERE b_user = ? AND ((CURDATE() = b_stdate AND CURTIME() > b_sttime) OR (CURDATE() = DATE_ADD(b_stdate, INTERVAL b_length DAY) AND CURTIME() < b_sttime) OR (CURDATE() > b_stdate AND CURDATE() < DATE_ADD(b_stdate, INTERVAL b_length DAY))) AND b_active = 1";
+	public static final String SELECT_CURRENT_BAN_END_BY_ID = "SELECT DATE_ADD(b_stdate, INTERVAL b_length DAY), b_sttime FROM bans WHERE b_user = ?  AND b_active = 1 AND ((CURDATE() = b_stdate AND CURTIME() > b_sttime) OR (CURDATE() = DATE_ADD(b_stdate, INTERVAL b_length DAY) AND CURTIME() < b_sttime) OR (CURDATE() > b_stdate AND CURDATE() < DATE_ADD(b_stdate, INTERVAL b_length DAY)))";
 	
 	/**
 	 * Singleton MySQLUserDAO instance

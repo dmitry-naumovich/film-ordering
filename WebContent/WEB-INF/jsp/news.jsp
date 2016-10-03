@@ -38,7 +38,7 @@
 
       <div class="col-md-10 col-sm-9 col-lg-10 col-xs-9 main content">
         <div class="panel panel-primary container-fluid">
-          <div class="row panel-heading" >
+          <div class="row panel-heading " >
           	 <h2 class="text-left col-md-8 col-sm-8 col-lg-8 col-xs-8">${pageHeader}</h2>
 	          <h5 class="text-right col-md-4 col-sm-4 col-lg-4 col-xs-4">
 	          	<c:if test="${requestScope.numOfPages > 1}">
@@ -72,7 +72,7 @@
 				</c:if>
                 <c:forEach var="news" items="${requestScope.news}">
                     <div class="panel panel-default container-fluid">
-                        <div class="row panel-heading" >
+                        <div class="row panel-heading news-heading" >
                         	<div class="col-md-9 col-sm-9 col-xs-9 col-lg-9">
                         		<h4 class="text-left">
                         			<a href="<c:url value="/Controller?command=open_single_news&newsID=${news.id}"/>" > ${news.title} </a>

@@ -118,7 +118,7 @@
 	    	<div class="text-center"> ${multilpleChoice}</div>
 	   </div>
 	  <div class="col-md-10 col-sm-10 col-xs-10 col-lg-10">
-		  <select multiple class="form-control" name="genre" id="sel1">
+		  <select multiple class="form-control" name="genre" id="sel1" style="height: 150px">
 		    <c:forEach items="${requestScope.availableGenres}" var="fGenre">
 		    	<option>${fGenre}</option>
 		    </c:forEach>
@@ -131,7 +131,7 @@
 	  		<div class="text-center"> ${multilpleChoice}</div>
 	  	</div>
 	  <div class="col-md-10 col-sm-10 col-xs-10 col-lg-10">
-		  <select multiple class="form-control" name="country" id="sel2">
+		  <select multiple class="form-control" name="country" id="sel2" style="height: 150px">
 		    <c:forEach items="${requestScope.availableCountries}" var="fCountry">
 		    	<option>${fCountry}</option>
 		    </c:forEach>

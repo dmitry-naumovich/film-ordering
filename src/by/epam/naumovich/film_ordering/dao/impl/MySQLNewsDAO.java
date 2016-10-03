@@ -22,16 +22,16 @@ import by.epam.naumovich.film_ordering.dao.pool.exception.ConnectionPoolExceptio
  */
 public class MySQLNewsDAO implements INewsDAO {
 
-	public static final String INSERT_NEW_NEWS = "INSERT INTO News (n_date, n_time, n_title, n_text) VALUES (?, ?, ?, ?)";
-	public static final String DELETE_NEWS = "DELETE FROM News WHERE n_id = ?";
-	public static final String UPDATE_NEWS = "UPDATE News SET n_title = ?, n_text = ? WHERE n_id = ?";
-	public static final String SELECT_ALL_NEWS = "SELECT * FROM News ORDER BY n_date DESC, n_time DESC";
-	public static final String SELECT_ALL_NEWS_PART = "SELECT * FROM News ORDER BY n_date DESC, n_time DESC LIMIT ?, ?";
-	public static final String SELECT_ALL_NEWS_COUNT = "SELECT COUNT(*) FROM News";
-	public static final String SELECT_NEWS_BY_ID = "SELECT * FROM News WHERE n_id = ?";
-	public static final String SELECT_NEWS_BY_YEAR = "SELECT * FROM News WHERE YEAR(n_date) = ? ORDER BY n_date DESC, n_time DESC";
-	public static final String SELECT_NEWS_BY_MONTH_AND_YEAR = "SELECT * FROM News WHERE MONTH(n_date) = ? AND YEAR(n_date) = ? ORDER BY n_date DESC, n_time DESC";
-	public static final String SELECT_NEW_NEWS_ID = "SELECT n_id FROM News WHERE n_title = ? AND n_text = ?";
+	public static final String INSERT_NEW_NEWS = "INSERT INTO news (n_date, n_time, n_title, n_text) VALUES (?, ?, ?, ?)";
+	public static final String DELETE_NEWS = "DELETE FROM news WHERE n_id = ?";
+	public static final String UPDATE_NEWS = "UPDATE news SET n_title = ?, n_text = ? WHERE n_id = ?";
+	public static final String SELECT_ALL_NEWS = "SELECT * FROM news ORDER BY n_date DESC, n_time DESC";
+	public static final String SELECT_ALL_NEWS_PART = "SELECT * FROM news ORDER BY n_date DESC, n_time DESC LIMIT ?, ?";
+	public static final String SELECT_ALL_NEWS_COUNT = "SELECT COUNT(*) FROM news";
+	public static final String SELECT_NEWS_BY_ID = "SELECT * FROM news WHERE n_id = ?";
+	public static final String SELECT_NEWS_BY_YEAR = "SELECT * FROM news WHERE YEAR(n_date) = ? ORDER BY n_date DESC, n_time DESC";
+	public static final String SELECT_NEWS_BY_MONTH_AND_YEAR = "SELECT * FROM news WHERE MONTH(n_date) = ? AND YEAR(n_date) = ? ORDER BY n_date DESC, n_time DESC";
+	public static final String SELECT_NEW_NEWS_ID = "SELECT n_id FROM news WHERE n_title = ? AND n_text = ?";
 	
 	/**
 	 * Singleton MySQLNewsDAO instance

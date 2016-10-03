@@ -22,24 +22,24 @@ import by.epam.naumovich.film_ordering.dao.pool.exception.ConnectionPoolExceptio
  */
 public class MySQLOrderDAO implements IOrderDAO {
 
-	public static final String INSERT_NEW_ORDER = "INSERT INTO Orders (o_user, o_film, o_date, o_time, o_fprice, o_discount, o_paym) VALUES (?, ?, ?, ?, ?, ?, ?)";
-	public static final String DELETE_ORDER = "DELETE FROM Orders WHERE o_num = ?";
+	public static final String INSERT_NEW_ORDER = "INSERT INTO orders (o_user, o_film, o_date, o_time, o_fprice, o_discount, o_paym) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	public static final String DELETE_ORDER = "DELETE FROM orders WHERE o_num = ?";
 	
-	public static final String SELECT_ALL_ORDERS = "SELECT * FROM Orders ORDER BY o_date DESC, o_time DESC";
-	public static final String SELECT_ALL_ORDERS_PART = "SELECT * FROM Orders ORDER BY o_date DESC, o_time DESC LIMIT ?, ?";
-	public static final String SELECT_ALL_ORDERS_COUNT = "SELECT COUNT(*) FROM Orders";
+	public static final String SELECT_ALL_ORDERS = "SELECT * FROM orders ORDER BY o_date DESC, o_time DESC";
+	public static final String SELECT_ALL_ORDERS_PART = "SELECT * FROM orders ORDER BY o_date DESC, o_time DESC LIMIT ?, ?";
+	public static final String SELECT_ALL_ORDERS_COUNT = "SELECT COUNT(*) FROM orders";
 	
-	public static final String SELECT_ORDER_BY_ORDER_NUM = "SELECT * FROM Orders WHERE o_num = ?";
-	public static final String SELECT_ORDER_BY_USER_AND_FILM_ID = "SELECT * FROM Orders WHERE o_user = ? AND o_film = ?";
-	public static final String SELECT_ORDER_NUM_BY_USER_AND_FILM_ID = "SELECT o_num FROM Orders WHERE o_user = ? AND o_film = ?";
+	public static final String SELECT_ORDER_BY_ORDER_NUM = "SELECT * FROM orders WHERE o_num = ?";
+	public static final String SELECT_ORDER_BY_USER_AND_FILM_ID = "SELECT * FROM orders WHERE o_user = ? AND o_film = ?";
+	public static final String SELECT_ORDER_NUM_BY_USER_AND_FILM_ID = "SELECT o_num FROM orders WHERE o_user = ? AND o_film = ?";
 	
-	public static final String SELECT_ORDERS_BY_USER_ID = "SELECT * FROM Orders WHERE o_user = ? ORDER BY o_date DESC, o_time DESC";
-	public static final String SELECT_ORDERS_PART_BY_USER_ID = "SELECT * FROM Orders WHERE o_user = ? ORDER BY o_date DESC, o_time DESC LIMIT ?, ?";
-	public static final String SELECT_ORDERS_COUNT_BY_USER_ID = "SELECT COUNT(*) FROM Orders WHERE o_user = ?";
+	public static final String SELECT_ORDERS_BY_USER_ID = "SELECT * FROM orders WHERE o_user = ? ORDER BY o_date DESC, o_time DESC";
+	public static final String SELECT_ORDERS_PART_BY_USER_ID = "SELECT * FROM orders WHERE o_user = ? ORDER BY o_date DESC, o_time DESC LIMIT ?, ?";
+	public static final String SELECT_ORDERS_COUNT_BY_USER_ID = "SELECT COUNT(*) FROM orders WHERE o_user = ?";
 	
-	public static final String SELECT_ORDERS_BY_FILM_ID = "SELECT * FROM Orders WHERE o_film = ? ORDER BY o_date DESC, o_time DESC";
-	public static final String SELECT_ORDERS_PART_BY_FILM_ID = "SELECT * FROM Orders WHERE o_film = ? ORDER BY o_date DESC, o_time DESC LIMIT ?, ?";
-	public static final String SELECT_ORDERS_COUNT_BY_FILM_ID = "SELECT COUNT(*) FROM Orders WHERE o_film = ?";
+	public static final String SELECT_ORDERS_BY_FILM_ID = "SELECT * FROM orders WHERE o_film = ? ORDER BY o_date DESC, o_time DESC";
+	public static final String SELECT_ORDERS_PART_BY_FILM_ID = "SELECT * FROM orders WHERE o_film = ? ORDER BY o_date DESC, o_time DESC LIMIT ?, ?";
+	public static final String SELECT_ORDERS_COUNT_BY_FILM_ID = "SELECT COUNT(*) FROM orders WHERE o_film = ?";
 	
 	/**
 	 * Singleton MySQLOrderDAO instance
