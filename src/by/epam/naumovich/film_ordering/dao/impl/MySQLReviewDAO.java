@@ -11,7 +11,7 @@ import by.epam.naumovich.film_ordering.bean.Review;
 import by.epam.naumovich.film_ordering.dao.IReviewDAO;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.dao.util.ExceptionMessages;
-import by.epam.naumovich.film_ordering.dao.pool.MySQLConnectionPool;
+import by.epam.naumovich.film_ordering.dao.pool.ConnectionPool;
 import by.epam.naumovich.film_ordering.dao.pool.exception.ConnectionPoolException;
 
 /**
@@ -55,12 +55,12 @@ public class MySQLReviewDAO implements IReviewDAO {
 
 	@Override
 	public void addReview(Review review) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		PreparedStatement stForRatingUpdate = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(INSERT_NEW_REVIEW);
 			st.setInt(1, review.getAuthor());
@@ -94,12 +94,12 @@ public class MySQLReviewDAO implements IReviewDAO {
 
 	@Override
 	public void deleteReview(int userID, int filmID) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		PreparedStatement stForRatingUpdate = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(DELETE_REVIEW);
 			st.setInt(1, userID);
@@ -129,12 +129,12 @@ public class MySQLReviewDAO implements IReviewDAO {
 	@Override
 	public Set<Review> getAllReviews() throws DAOException {
 		Set<Review> reviewSet = new LinkedHashSet<Review>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ALL_REVIEWS);
 			rs = st.executeQuery();
@@ -172,12 +172,12 @@ public class MySQLReviewDAO implements IReviewDAO {
 	@Override
 	public Set<Review> getReviewsByUserId(int id) throws DAOException {
 		Set<Review> reviewSet = new LinkedHashSet<Review>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_REVIEWS_BY_USER_ID);
 			st.setInt(1, id);
@@ -216,12 +216,12 @@ public class MySQLReviewDAO implements IReviewDAO {
 	@Override
 	public Set<Review> getReviewsByFilmId(int id) throws DAOException {
 		Set<Review> reviewSet = new LinkedHashSet<Review>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_REVIEWS_BY_FILM_ID);
 			st.setInt(1, id);
@@ -260,12 +260,12 @@ public class MySQLReviewDAO implements IReviewDAO {
 	@Override
 	public Review getReviewByUserAndFilmId(int userID, int filmID) throws DAOException {
 		Review review = null;;
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_REVIEW_BY_FILM_AND_USER_ID);
 			st.setInt(1, userID);
@@ -303,12 +303,12 @@ public class MySQLReviewDAO implements IReviewDAO {
 	@Override
 	public Set<Review> getAllReviewsPart(int start, int amount) throws DAOException {
 		Set<Review> reviewSet = new LinkedHashSet<Review>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ALL_REVIEWS_PART);
 			st.setInt(1, start);
@@ -347,12 +347,12 @@ public class MySQLReviewDAO implements IReviewDAO {
 
 	@Override
 	public int getNumberOfReviews() throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ALL_REVIEWS_COUNT);
 			rs = st.executeQuery();
@@ -381,12 +381,12 @@ public class MySQLReviewDAO implements IReviewDAO {
 	@Override
 	public Set<Review> getReviewsPartByUserId(int userID, int start, int amount) throws DAOException {
 		Set<Review> reviewSet = new LinkedHashSet<Review>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_REVIEWS_PART_BY_USER_ID);
 			st.setInt(1, userID);
@@ -427,12 +427,12 @@ public class MySQLReviewDAO implements IReviewDAO {
 	@Override
 	public Set<Review> getReviewsPartByFilmId(int id, int start, int amount) throws DAOException {
 		Set<Review> reviewSet = new LinkedHashSet<Review>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_REVIEWS_PART_BY_FILM_ID);
 			st.setInt(1, id);
@@ -472,12 +472,12 @@ public class MySQLReviewDAO implements IReviewDAO {
 
 	@Override
 	public int getNumberOfUserReviews(int userID) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_USER_REVIEWS_COUNT);
 			st.setInt(1, userID);
@@ -506,12 +506,12 @@ public class MySQLReviewDAO implements IReviewDAO {
 
 	@Override
 	public int getNumberOfFilmReviews(int filmID) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_FILM_REVIEWS_COUNT);
 			st.setInt(1, filmID);

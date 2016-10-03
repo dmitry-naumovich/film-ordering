@@ -10,13 +10,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.epam.naumovich.film_ordering.dao.pool.exception.ConnectionPoolException;
+import by.epam.naumovich.film_ordering.dao.util.ExceptionMessages;
 
 
-public final class MySQLConnectionPool {
+public final class ConnectionPool {
 
 	private static final Logger logger = LogManager.getLogger(Logger.class.getName());
 	
-	private static MySQLConnectionPool instance;
+	private static ConnectionPool instance;
 	
 	private Queue<Connection> freeConnections;
 	private Queue<Connection> busyConnections;
@@ -28,14 +29,14 @@ public final class MySQLConnectionPool {
 	private int poolSize;
 	
 	
-	public synchronized static MySQLConnectionPool getInstance() throws ConnectionPoolException {
+	public synchronized static ConnectionPool getInstance() throws ConnectionPoolException {
 		if (instance == null) {
-			instance = new MySQLConnectionPool();
+			instance = new ConnectionPool();
 		}
 		return instance;
 	}
 	
-	private MySQLConnectionPool() throws ConnectionPoolException {
+	private ConnectionPool() throws ConnectionPoolException {
 		freeConnections = new LinkedList<Connection>();
 		busyConnections = new LinkedList<Connection>();
 		
@@ -51,7 +52,7 @@ public final class MySQLConnectionPool {
 		} catch (NumberFormatException e) {
 			poolSize = 10;
 		} catch (ClassNotFoundException e) {
-			throw new ConnectionPoolException("SQLException happened in ConnectionPool", e);
+			throw new ConnectionPoolException(ExceptionMessages.SQL_EXCEPTION_IN_POOL, e);
 		}
 	}
 	
@@ -76,7 +77,7 @@ public final class MySQLConnectionPool {
 				
 			}
 		} catch (SQLException e) {
-			throw new ConnectionPoolException("SQLException happened in ConnectionPool", e);
+			throw new ConnectionPoolException(ExceptionMessages.SQL_EXCEPTION_IN_POOL, e);
 		}
 	}
 	
@@ -85,7 +86,7 @@ public final class MySQLConnectionPool {
 			Connection con = DriverManager.getConnection(url, user, password);
 			freeConnections.add(con);
 		} catch (SQLException e) {
-			throw new ConnectionPoolException("SQLException happened in ConnectionPool", e);
+			throw new ConnectionPoolException(ExceptionMessages.SQL_EXCEPTION_IN_POOL, e);
 		}
 		
 	}
@@ -94,23 +95,23 @@ public final class MySQLConnectionPool {
 		try {
 			freeConnection(con);
 		} catch (SQLException e) {
-			logger.error("Connection is not closed and returned to pool", e);
+			logger.error(ExceptionMessages.CONNECTION_NOT_CLOSED, e);
 		}
 	}
 	
 	private synchronized void freeConnection(Connection con) throws SQLException {
 		if (con.isClosed()) {
-			throw new SQLException("Impossible to close closed connection.");
+			throw new SQLException(ExceptionMessages.IMPOSSIBLE_TO_CLOSE);
 		}
 		if (!con.getAutoCommit()) {
 			con.commit();
 		}
 		if (!busyConnections.remove(con)) {
-			throw new SQLException("No such connection found in the connection pool");
+			throw new SQLException(ExceptionMessages.CONNECTION_NOT_FOUND);
 		}
 		
 		if (!freeConnections.offer(con)) {
-			throw new SQLException("Error allocating connection in the pool. No space currently available");
+			throw new SQLException(ExceptionMessages.CONNECTION_NOT_ALLOCATED);
 		}
 	}
 }

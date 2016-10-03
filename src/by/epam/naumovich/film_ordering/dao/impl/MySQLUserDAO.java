@@ -15,7 +15,7 @@ import by.epam.naumovich.film_ordering.bean.User;
 import by.epam.naumovich.film_ordering.dao.IUserDAO;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.dao.util.ExceptionMessages;
-import by.epam.naumovich.film_ordering.dao.pool.MySQLConnectionPool;
+import by.epam.naumovich.film_ordering.dao.pool.ConnectionPool;
 import by.epam.naumovich.film_ordering.dao.pool.exception.ConnectionPoolException;
 
 /**
@@ -66,12 +66,12 @@ public class MySQLUserDAO implements IUserDAO {
 	
 	@Override
 	public int addUser(User user) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		PreparedStatement st2 = null;		
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(INSERT_NEW_USER);
 			st.setString(1, user.getLogin());
@@ -131,11 +131,11 @@ public class MySQLUserDAO implements IUserDAO {
 
 	@Override
 	public void updateUser(int id, User updatedUser) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(UPDATE_USER_BY_ID);
 			st.setString(1, updatedUser.getName());
@@ -186,11 +186,11 @@ public class MySQLUserDAO implements IUserDAO {
 	
 	@Override
 	public void deleteUser(int id) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(DELETE_USER);
 			st.setInt(1, id);
@@ -214,12 +214,12 @@ public class MySQLUserDAO implements IUserDAO {
 	@Override
 	public Set<User> getAllUsers() throws DAOException {
 		Set<User> userSet = new LinkedHashSet<User>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ALL_USERS);
 			rs = st.executeQuery();
@@ -262,13 +262,13 @@ public class MySQLUserDAO implements IUserDAO {
 	@Override
 	public User getUserByLogin(String login) throws DAOException {
 		User user = null;
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_USER_BY_LOGIN);
 			st.setString(1, login);
@@ -310,12 +310,12 @@ public class MySQLUserDAO implements IUserDAO {
 	@Override
 	public Set<User> getUsersInBan() throws DAOException {
 		Set<User> userSet = new LinkedHashSet<User>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_USERS_IN_BAN);
 			rs = st.executeQuery();
@@ -357,12 +357,12 @@ public class MySQLUserDAO implements IUserDAO {
 
 	@Override
 	public boolean userIsInBan(int id) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_USER_IN_BAN_NOW_BY_ID);
 			st.setInt(1, id);
@@ -390,12 +390,12 @@ public class MySQLUserDAO implements IUserDAO {
 
 	@Override
 	public String getPasswordByLogin(String login) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_PASSWORD_BY_LOGIN);
 			st.setString(1, login);
@@ -424,13 +424,13 @@ public class MySQLUserDAO implements IUserDAO {
 	@Override
 	public User getUserByID(int id) throws DAOException {
 		User user = null;
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_USER_BY_ID);
 			
@@ -472,12 +472,12 @@ public class MySQLUserDAO implements IUserDAO {
 
 	@Override
 	public Discount getCurrentUserDiscountByID(int id) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_CURRENT_DISCOUNT_BY_USER_ID);
 			st.setInt(1, id);
@@ -513,11 +513,11 @@ public class MySQLUserDAO implements IUserDAO {
 
 	@Override
 	public void banUser(int userID, Date startDate, Time startTime, int length, String reason) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;	
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(INSERT_BAN_RECORD);
 			st.setInt(1, userID);
@@ -544,11 +544,11 @@ public class MySQLUserDAO implements IUserDAO {
 
 	@Override
 	public void unbanUser(int userID) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;	
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(UNBAN_USER_BY_ID);
 			st.setInt(1, userID);
@@ -571,12 +571,12 @@ public class MySQLUserDAO implements IUserDAO {
 
 	@Override
 	public String getCurrentBanEnd(int userID) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_CURRENT_BAN_END_BY_ID);
 			st.setInt(1, userID);
@@ -604,12 +604,12 @@ public class MySQLUserDAO implements IUserDAO {
 
 	@Override
 	public String getCurrentBanReason(int userID) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_CURRENT_BAN_REASON_BY_ID);
 			st.setInt(1, userID);
@@ -637,13 +637,13 @@ public class MySQLUserDAO implements IUserDAO {
 
 	@Override
 	public int addDiscount(Discount discount) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		PreparedStatement st2 = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(INSERT_NEW_DISCOUNT);
 			st.setInt(1, discount.getUserID());
@@ -683,11 +683,11 @@ public class MySQLUserDAO implements IUserDAO {
 
 	@Override
 	public void editDiscount(Discount editedDisc) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;	
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(UPDATE_DISCOUNT);
 			st.setInt(1, editedDisc.getAmount());
@@ -713,11 +713,11 @@ public class MySQLUserDAO implements IUserDAO {
 
 	@Override
 	public void deleteDiscount(int discountID) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;	
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(DELETE_DISCOUNT);
 			st.setInt(1, discountID);
@@ -740,13 +740,13 @@ public class MySQLUserDAO implements IUserDAO {
 
 	@Override
 	public Discount getDiscountByID(int discountID) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_DISCOUNT_BY_ID);
 			
@@ -784,12 +784,12 @@ public class MySQLUserDAO implements IUserDAO {
 	@Override
 	public Set<User> getAllUsersPart(int start, int amount) throws DAOException {
 		Set<User> userSet = new LinkedHashSet<User>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ALL_USERS_PART);
 			st.setInt(1, start);
@@ -833,12 +833,12 @@ public class MySQLUserDAO implements IUserDAO {
 
 	@Override
 	public int getNumberOfUsers() throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ALL_USERS_COUNT);
 			

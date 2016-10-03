@@ -11,7 +11,7 @@ import by.epam.naumovich.film_ordering.bean.News;
 import by.epam.naumovich.film_ordering.dao.INewsDAO;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.dao.util.ExceptionMessages;
-import by.epam.naumovich.film_ordering.dao.pool.MySQLConnectionPool;
+import by.epam.naumovich.film_ordering.dao.pool.ConnectionPool;
 import by.epam.naumovich.film_ordering.dao.pool.exception.ConnectionPoolException;
 
 /**
@@ -48,13 +48,13 @@ public class MySQLNewsDAO implements INewsDAO {
 	
 	@Override
 	public int addNews(News news) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		PreparedStatement st2 = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(INSERT_NEW_NEWS);
 			st.setDate(1, news.getDate());
@@ -92,11 +92,11 @@ public class MySQLNewsDAO implements INewsDAO {
 
 	@Override
 	public void deleteNews(int id) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(DELETE_NEWS);
 			st.setInt(1, id);
@@ -119,11 +119,11 @@ public class MySQLNewsDAO implements INewsDAO {
 	
 	@Override
 	public void editNews(int id, News news) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(UPDATE_NEWS);
 			st.setString(1, news.getTitle());
@@ -148,12 +148,12 @@ public class MySQLNewsDAO implements INewsDAO {
 	@Override
 	public Set<News> getAllNews() throws DAOException {
 		Set<News> newsSet = new LinkedHashSet<News>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ALL_NEWS);
 			rs = st.executeQuery();
@@ -189,12 +189,12 @@ public class MySQLNewsDAO implements INewsDAO {
 	@Override
 	public Set<News> getNewsByYear(int year) throws DAOException {
 		Set<News> newsSet = new LinkedHashSet<News>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_NEWS_BY_YEAR);
 			st.setInt(1, year);
@@ -232,12 +232,12 @@ public class MySQLNewsDAO implements INewsDAO {
 	@Override
 	public Set<News> getNewsByMonthAndYear(int month, int year) throws DAOException {
 		Set<News> newsSet = new LinkedHashSet<News>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_NEWS_BY_MONTH_AND_YEAR);
 			st.setInt(1, month);
@@ -276,12 +276,12 @@ public class MySQLNewsDAO implements INewsDAO {
 	@Override
 	public News getNewsById(int id) throws DAOException {
 		News news = null;
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_NEWS_BY_ID);
 			st.setInt(1, id);
@@ -317,12 +317,12 @@ public class MySQLNewsDAO implements INewsDAO {
 	@Override
 	public Set<News> getAllNewsPart(int start, int amount) throws DAOException {
 		Set<News> newsSet = new LinkedHashSet<News>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ALL_NEWS_PART);
 			st.setInt(1, start);
@@ -359,12 +359,12 @@ public class MySQLNewsDAO implements INewsDAO {
 
 	@Override
 	public int getNumberOfNews() throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ALL_NEWS_COUNT);
 			rs = st.executeQuery();

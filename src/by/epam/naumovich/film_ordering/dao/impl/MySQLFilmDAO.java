@@ -11,7 +11,7 @@ import java.util.Set;
 import by.epam.naumovich.film_ordering.bean.Film;
 import by.epam.naumovich.film_ordering.dao.IFilmDAO;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
-import by.epam.naumovich.film_ordering.dao.pool.MySQLConnectionPool;
+import by.epam.naumovich.film_ordering.dao.pool.ConnectionPool;
 import by.epam.naumovich.film_ordering.dao.pool.exception.ConnectionPoolException;
 import by.epam.naumovich.film_ordering.dao.util.ExceptionMessages;
 
@@ -64,14 +64,14 @@ public class MySQLFilmDAO implements IFilmDAO {
 
 	@Override
 	public int addFilm(Film film) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		PreparedStatement st2 = null;
 		ResultSet rs = null;
 		
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(INSERT_NEW_FILM);
 			st.setString(1, film.getName());
@@ -147,11 +147,11 @@ public class MySQLFilmDAO implements IFilmDAO {
 
 	@Override
 	public void deleteFilm(int id) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(DELETE_FILM);
 			st.setInt(1, id);
@@ -174,11 +174,11 @@ public class MySQLFilmDAO implements IFilmDAO {
 
 	@Override
 	public void editFilm(int id, Film editedFilm) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(UPDATE_FILM_BY_ID);
 			st.setString(1, editedFilm.getName());
@@ -243,12 +243,12 @@ public class MySQLFilmDAO implements IFilmDAO {
 	@Override
 	public Set<Film> getAllFilms(String lang) throws DAOException {
 		Set<Film> filmSet = new LinkedHashSet<Film>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ALL_FILMS_ORDERED_BY_RATING);
 			st.setString(1, lang);
@@ -291,12 +291,12 @@ public class MySQLFilmDAO implements IFilmDAO {
 	
 	@Override
 	public Film getFilmByID(int id, String lang) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_FILM_BY_ID);
 			st.setString(1, lang);
@@ -340,12 +340,12 @@ public class MySQLFilmDAO implements IFilmDAO {
 	
 	@Override
 	public String getFilmNameByID(int id, String lang) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_FILM_NAME_BY_ID);
 			st.setString(1, lang);
@@ -376,12 +376,12 @@ public class MySQLFilmDAO implements IFilmDAO {
 	@Override
 	public Set<Film> getFilmsByName(String name, String lang) throws DAOException {
 		Set<Film> filmSet = new LinkedHashSet<Film>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_FILMS_BY_NAME);
 			st.setString(1, lang);
@@ -428,12 +428,12 @@ public class MySQLFilmDAO implements IFilmDAO {
 	@Override
 	public Set<Film> getFilmsByYear(int year, String lang) throws DAOException {
 		Set<Film> filmSet = new LinkedHashSet<Film>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_FILMS_BY_YEAR);
 			st.setString(1, lang);
@@ -478,12 +478,12 @@ public class MySQLFilmDAO implements IFilmDAO {
 	@Override
 	public Set<Film> getFilmsByGenre(String genre, String lang) throws DAOException {
 		Set<Film> filmSet = new LinkedHashSet<Film>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_FILMS_BY_GENRE);
 			st.setString(1, lang);
@@ -529,12 +529,12 @@ public class MySQLFilmDAO implements IFilmDAO {
 	@Override
 	public Set<Film> getFilmsByCountry(String country, String lang) throws DAOException {
 		Set<Film> filmSet = new LinkedHashSet<Film>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_FILMS_BY_COUNTRY);
 			st.setString(1, lang);
@@ -580,12 +580,12 @@ public class MySQLFilmDAO implements IFilmDAO {
 	@Override
 	public Set<Film> getTwelveLastAddedFilms(String lang) throws DAOException {
 		Set<Film> filmSet = new LinkedHashSet<Film>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_TWELVE_LAST_ADDED_FILMS);
 			st.setString(1, lang);
@@ -629,12 +629,12 @@ public class MySQLFilmDAO implements IFilmDAO {
 	@Override
 	public Set<Film> getFilmsBetweenYears(int yearFrom, int yearTo, String lang) throws DAOException {
 		Set<Film> filmSet = new LinkedHashSet<Film>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_FILMS_BETWEEN_YEARS);
 			st.setString(1, lang);
@@ -679,12 +679,12 @@ public class MySQLFilmDAO implements IFilmDAO {
 
 	@Override
 	public String[] getAvailableGenres(String lang) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			switch (lang) {
 				case "ru":
@@ -721,12 +721,12 @@ public class MySQLFilmDAO implements IFilmDAO {
 
 	@Override
 	public String[] getAvailableCountries(String lang) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			switch (lang) {
 			case "ru":
@@ -762,12 +762,12 @@ public class MySQLFilmDAO implements IFilmDAO {
 	@Override
 	public Set<Film> getAllFilmsPart(int start, int amount, String lang) throws DAOException {
 		Set<Film> filmSet = new LinkedHashSet<Film>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ALL_FILMS_PART_ORDERED_BY_RATING);
 			st.setString(1, lang);
@@ -812,12 +812,12 @@ public class MySQLFilmDAO implements IFilmDAO {
 
 	@Override
 	public int getNumberOfFilms() throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ALL_FILMS_COUNT);
 			rs = st.executeQuery();

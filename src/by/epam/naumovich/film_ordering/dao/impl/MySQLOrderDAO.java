@@ -11,7 +11,7 @@ import by.epam.naumovich.film_ordering.bean.Order;
 import by.epam.naumovich.film_ordering.dao.IOrderDAO;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.dao.util.ExceptionMessages;
-import by.epam.naumovich.film_ordering.dao.pool.MySQLConnectionPool;
+import by.epam.naumovich.film_ordering.dao.pool.ConnectionPool;
 import by.epam.naumovich.film_ordering.dao.pool.exception.ConnectionPoolException;
 
 /**
@@ -56,13 +56,13 @@ public class MySQLOrderDAO implements IOrderDAO {
 
 	@Override
 	public int addOrder(Order order) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		PreparedStatement st2 = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(INSERT_NEW_ORDER);
 			st.setInt(1, order.getUserId());
@@ -101,11 +101,11 @@ public class MySQLOrderDAO implements IOrderDAO {
 	
 	@Override
 	public void deleteOrder(int orderNum) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(DELETE_ORDER);
 			st.setInt(1, orderNum);
@@ -129,12 +129,12 @@ public class MySQLOrderDAO implements IOrderDAO {
 	@Override
 	public Order getOrderByOrderNum(int orderNum) throws DAOException {
 		
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ORDER_BY_ORDER_NUM);
 			st.setInt(1, orderNum);
@@ -173,12 +173,12 @@ public class MySQLOrderDAO implements IOrderDAO {
 	
 	@Override
 	public Order getOrderByUserAndFilmId(int userID, int filmID) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ORDER_BY_USER_AND_FILM_ID);
 			st.setInt(1, userID);
@@ -218,12 +218,12 @@ public class MySQLOrderDAO implements IOrderDAO {
 	@Override
 	public Set<Order> getOrdersByUserId(int id) throws DAOException {
 		Set<Order> orderSet = new LinkedHashSet<Order>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ORDERS_BY_USER_ID);
 			st.setString(1, String.valueOf(id));
@@ -263,12 +263,12 @@ public class MySQLOrderDAO implements IOrderDAO {
 	@Override
 	public Set<Order> getOrdersByFilmId(int id) throws DAOException {
 		Set<Order> orderSet = new LinkedHashSet<Order>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ORDERS_BY_FILM_ID);
 			st.setString(1, String.valueOf(id));
@@ -308,12 +308,12 @@ public class MySQLOrderDAO implements IOrderDAO {
 	@Override
 	public Set<Order> getAllOrders() throws DAOException {
 		Set<Order> orderSet = new LinkedHashSet<Order>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ALL_ORDERS);
 			rs = st.executeQuery();
@@ -352,12 +352,12 @@ public class MySQLOrderDAO implements IOrderDAO {
 	@Override
 	public Set<Order> getAllOrdersPart(int start, int amount) throws DAOException {
 		Set<Order> orderSet = new LinkedHashSet<Order>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ALL_ORDERS_PART);
 			st.setInt(1, start);
@@ -397,12 +397,12 @@ public class MySQLOrderDAO implements IOrderDAO {
 
 	@Override
 	public int getNumberOfOrders() throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ALL_ORDERS_COUNT);
 			rs = st.executeQuery();
@@ -431,12 +431,12 @@ public class MySQLOrderDAO implements IOrderDAO {
 	@Override
 	public Set<Order> getOrdersPartByUserId(int id, int start, int amount) throws DAOException {
 		Set<Order> orderSet = new LinkedHashSet<Order>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ORDERS_PART_BY_USER_ID);
 			st.setInt(1, id);
@@ -478,12 +478,12 @@ public class MySQLOrderDAO implements IOrderDAO {
 	@Override
 	public Set<Order> getOrdersPartByFilmId(int id, int start, int amount) throws DAOException {
 		Set<Order> orderSet = new LinkedHashSet<Order>();
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ORDERS_PART_BY_FILM_ID);
 			st.setInt(1, id);
@@ -524,12 +524,12 @@ public class MySQLOrderDAO implements IOrderDAO {
 
 	@Override
 	public int getNumberOfUserOrders(int userID) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ORDERS_COUNT_BY_USER_ID);
 			st.setInt(1, userID);
@@ -558,12 +558,12 @@ public class MySQLOrderDAO implements IOrderDAO {
 
 	@Override
 	public int getNumberOfFilmOrders(int filmID) throws DAOException {
-		MySQLConnectionPool pool = null;
+		ConnectionPool pool = null;
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			pool = MySQLConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
 			st = con.prepareStatement(SELECT_ORDERS_COUNT_BY_FILM_ID);
 			st.setInt(1, filmID);
