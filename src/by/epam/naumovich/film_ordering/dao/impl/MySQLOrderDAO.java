@@ -11,8 +11,8 @@ import by.epam.naumovich.film_ordering.bean.Order;
 import by.epam.naumovich.film_ordering.dao.IOrderDAO;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.dao.util.ExceptionMessages;
-import by.epam.naumovich.task82.dao.pool.MySQLConnectionPool;
-import by.epam.naumovich.task82.dao.pool.exception.ConnectionPoolException;
+import by.epam.naumovich.film_ordering.dao.pool.MySQLConnectionPool;
+import by.epam.naumovich.film_ordering.dao.pool.exception.ConnectionPoolException;
 
 /**
  * IOrderDAO interface implementation that works with MySQL database

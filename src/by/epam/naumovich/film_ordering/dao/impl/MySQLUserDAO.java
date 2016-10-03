@@ -15,8 +15,8 @@ import by.epam.naumovich.film_ordering.bean.User;
 import by.epam.naumovich.film_ordering.dao.IUserDAO;
 import by.epam.naumovich.film_ordering.dao.exception.DAOException;
 import by.epam.naumovich.film_ordering.dao.util.ExceptionMessages;
-import by.epam.naumovich.task82.dao.pool.MySQLConnectionPool;
-import by.epam.naumovich.task82.dao.pool.exception.ConnectionPoolException;
+import by.epam.naumovich.film_ordering.dao.pool.MySQLConnectionPool;
+import by.epam.naumovich.film_ordering.dao.pool.exception.ConnectionPoolException;
 
 /**
  * IUserDAO interface implementation that works with MySQL database
