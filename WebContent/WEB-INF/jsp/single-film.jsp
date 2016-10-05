@@ -193,6 +193,8 @@
 	                </table>
 				</div>
 				</div>
+				<br>
+				<br>
 				<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                 <div class="panel-group">
 						<c:forEach items="${requestScope.reviews}" var="review" varStatus="status">

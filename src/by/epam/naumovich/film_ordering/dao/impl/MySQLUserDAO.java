@@ -582,7 +582,7 @@ public class MySQLUserDAO implements IUserDAO {
 			st.setInt(1, userID);
 			rs = st.executeQuery();
 			if (rs.next()) {
-				return rs.getString(1) + rs.getString(2);
+				return rs.getString(1) + " " + rs.getString(2);
 			}
 			
 		} catch (SQLException e) {

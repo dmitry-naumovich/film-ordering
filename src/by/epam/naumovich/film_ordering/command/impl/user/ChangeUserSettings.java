@@ -41,7 +41,7 @@ public class ChangeUserSettings implements Command {
 	private static final Logger logger = LogManager.getLogger(Logger.class.getName());
 	private static final int MAX_MEMORY_SIZE = 1024 * 1024 * 2;
     private static final int MAX_REQUEST_SIZE = 1024 * 1024;
-	private static final String UPLOAD_FOLDER = "D:/java-work/film-ordering/WebContent/img/avatars/";
+    private static final String UPLOAD_FOLDER = "D:/java-work/film-ordering/WebContent/img/avatars/";
 	private static final String UTF_8 = "UTF-8";
 	private static final String REPOSITORY = "java.io.tmpdir";
 	private static final String FILE_NAME_TEMPLATE = "avatars";

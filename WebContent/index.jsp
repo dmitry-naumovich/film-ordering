@@ -27,7 +27,7 @@
   <c:set var="url">${pageContext.request.requestURL}</c:set>
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
 
-  <link rel="icon"  type="image/x-icon" href="img/tab-logo.png">
+  <link rel="icon" type="image/x-icon" href="img/tab-logo.png">
   <link rel="stylesheet" href="css/bootstrap.min.css" >
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/scripts.js"></script>
@@ -66,7 +66,7 @@
 				<jsp:param name="command" value="get_novelty"/>
 			</jsp:include>
 				<c:forEach items="${requestScope.noveltyList}" var="film">
-		            <div class="col-sm-6 col-md-4 col-xs-12 col-lg-4 grid-item" style="display:inline-block; padding:10px; margin:0px;">
+		            <div class="col-sm-6 col-md-4 col-xs-12 col-lg-4 grid-item" style="display:inline-block; padding:10px; margin:0px; min-height:200px;">
 		              <h2 style="text-align:center">${film.name} (${film.year}) </h2>
 		              <p><b>${director}:</b> ${film.director} </p>
 		              <c:choose>

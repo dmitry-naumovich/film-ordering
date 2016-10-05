@@ -42,7 +42,7 @@ public class EditNews implements Command {
 	private static final Logger logger = LogManager.getLogger(Logger.class.getName());
 	private static final int MAX_MEMORY_SIZE = 1024 * 1024 * 2;
     private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 6;
-	private static final String UPLOAD_FOLDER = "D:/java-work/film-ordering/WebContent/img/news/";
+    private static final String UPLOAD_FOLDER = "D:/java-work/film-ordering/WebContent/img/news/";
 	private static final String UTF_8 = "UTF-8";
 	private static final String REPOSITORY = "java.io.tmpdir";
 	private static final String NEWS_IMG_FILE_NAME = "01.jpg";

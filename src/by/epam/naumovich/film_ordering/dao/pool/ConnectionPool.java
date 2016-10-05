@@ -12,7 +12,6 @@ import org.apache.logging.log4j.Logger;
 import by.epam.naumovich.film_ordering.dao.pool.exception.ConnectionPoolException;
 import by.epam.naumovich.film_ordering.dao.util.ExceptionMessages;
 
-
 public final class ConnectionPool {
 
 private static final Logger logger = LogManager.getLogger(Logger.class.getName());
@@ -50,10 +49,22 @@ private static final Logger logger = LogManager.getLogger(Logger.class.getName()
 			this.poolSize = Integer.parseInt(manager.getValue(DBParameter.DB_POOL_SIZE));
 			Class.forName(driverName);
 		} catch (NumberFormatException e) {
+			logger.error(ExceptionMessages.INVALID_INITIALIZATION_PARAMETER, e);
 			poolSize = 100;
 		} catch (ClassNotFoundException e) {
+			logger.error(ExceptionMessages.INVALID_INITIALIZATION_PARAMETER, e);
 			throw new ConnectionPoolException(ExceptionMessages.SQL_EXCEPTION_IN_POOL, e);
 		}
+		
+ 		Connection connection = null;
+		try {
+			connection = DriverManager.getConnection(url, user, password);
+			freeConnections.add(connection); 
+		} catch (SQLException e) {
+			logger.error(ExceptionMessages.CONNECTION_NOT_ADDED, e);
+			throw new ConnectionPoolException(ExceptionMessages.CONNECTION_NOT_ADDED);
+		} 
+ 	 		
 	}
 	
 	public synchronized Connection getConnection() throws ConnectionPoolException {
@@ -77,6 +88,7 @@ private static final Logger logger = LogManager.getLogger(Logger.class.getName()
 				
 			}
 		} catch (SQLException e) {
+			logger.error(ExceptionMessages.SQL_EXCEPTION_IN_POOL, e);
 			throw new ConnectionPoolException(ExceptionMessages.SQL_EXCEPTION_IN_POOL, e);
 		}
 	}
@@ -86,6 +98,7 @@ private static final Logger logger = LogManager.getLogger(Logger.class.getName()
 			Connection con = DriverManager.getConnection(url, user, password);
 			freeConnections.add(con);
 		} catch (SQLException e) {
+			logger.error(ExceptionMessages.SQL_EXCEPTION_IN_POOL, e);
 			throw new ConnectionPoolException(ExceptionMessages.SQL_EXCEPTION_IN_POOL, e);
 		}
 		
