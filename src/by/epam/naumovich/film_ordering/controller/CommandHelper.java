@@ -91,6 +91,11 @@ public class CommandHelper {
 		return command;
 	}
 	
+	/**
+	 * Returns the singleton instance of CommandHelper class
+	 * 
+	 * @return CommandHelper class instance
+	 */
 	public static CommandHelper getInstance() {
 		return instance;
 	}

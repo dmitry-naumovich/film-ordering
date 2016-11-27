@@ -89,11 +89,13 @@
 		              
 		              <img src="img/films/${film.id}/01.jpg" alt="No frame" class="img-rounded" style="width: 100%; height: auto;" onError="this.onerror=null;this.src='/img/no-img.jpg';"/>
 		              <br> <br>
-		              <c:if test="${film.description != null}">
-		              	<p style="text-align:justify">${film.description.substring(0,60)}... 
+		              	<p style="text-align:justify">
+		              	 <c:if test="${film.description != null}">
+		              			${film.description.substring(0,60)}... 
+		              	</c:if>
 		              	<a class="btn btn-link" href="<c:url value="/Controller?command=open_single_film&filmID=${film.id}&pageNum=1"/>" role="button"> ${readMore} &raquo;</a>
 		              	</p>
-		              </c:if>
+		              
 		              
 		              <p>
 		              	<c:choose> 
