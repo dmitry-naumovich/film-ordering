@@ -11,7 +11,6 @@ The project is a small movie database which contains short information about fil
 * [JavaScript](https://www.javascript.com/) - high-level, dynamic, untyped, and interpreted programming language
 * [Eclipse Neon](https://eclipse.org/) - Integrated Development Enviroment (IDE)
 * [MySQLServer 5.7 & MySQL Workbench 6.3](https://www.mysql.com/) - Database management system
-* [Maven](https://maven.apache.org/) - Dependency Management System
 
 ## Authors
 
